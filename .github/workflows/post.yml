@@ -1,4 +1,4 @@
-﻿name: post
+name: post
 on:
   schedule:
     - cron: "23 4 * * *"    # ~09:53 IST  reel
@@ -12,7 +12,8 @@ jobs:
   post:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env: { META_TOKEN: ${{ secrets.META_TOKEN }} }
+    env:
+      META_TOKEN: ${{ secrets.META_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Post

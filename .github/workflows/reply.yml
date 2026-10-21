@@ -1,4 +1,4 @@
-﻿name: reply
+name: reply
 on:
   schedule:
     - cron: "17 * * * *"    # hourly
@@ -11,7 +11,8 @@ jobs:
   reply:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env: { META_TOKEN: ${{ secrets.META_TOKEN }} }
+    env:
+      META_TOKEN: ${{ secrets.META_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Reply to comments
