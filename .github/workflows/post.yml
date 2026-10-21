@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       type: { description: "reel / image", required: true, default: "image" }
+      dryrun: { description: "true = upload test, no publish", required: true, default: "false" }
 concurrency: { group: state, cancel-in-progress: false }
 permissions: { contents: write }
 jobs:
@@ -21,7 +22,7 @@ jobs:
         run: |
           $type = '${{ github.event.inputs.type }}'
           if (-not $type) { $type = if ('${{ github.event.schedule }}' -eq '23 4 * * *') { 'reel' } else { 'image' } }
-          ./social/daily-post.ps1 -Type $type
+          if ('${{ github.event.inputs.dryrun }}' -eq 'true') { ./social/daily-post.ps1 -Type $type -DryRun } else { ./social/daily-post.ps1 -Type $type }
       - name: Save state
         if: always()
         run: |

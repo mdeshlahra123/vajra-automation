@@ -1,4 +1,4 @@
-﻿param([ValidateSet("any","reel","image")][string]$Type = "any")
+﻿param([ValidateSet("any","reel","image")][string]$Type = "any", [switch]$DryRun)
 # VAJRA daily poster: Instagram + Facebook together, from social\queue.json.
 # -Type reel  = next unposted reel (morning task), -Type image = next unposted post (night task).
 # Picks the first post with empty "posted", publishes to both, verifies IG caption,
@@ -46,6 +46,7 @@ try {
     $c = PostUtf8 "$v/$ig/media" @{ image_url=$item.image; caption=$cap; access_token=$t }
     Start-Sleep 5
   }
+  if ($DryRun) { Log "  DRYRUN: IG upload OK (container $($c.id)), not published. Next: $($item.id)"; exit 0 }
   $p = PostUtf8 "$v/$ig/media_publish" @{ creation_id=$c.id; access_token=$t }
   $igId = $p.id
   $live = GetUtf8 "$v/$igId`?fields=caption,permalink&access_token=$t"
