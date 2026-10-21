@@ -5,7 +5,7 @@
 # marks it posted, logs to social\post-log.txt. Safe to run once a day.
 $ErrorActionPreference = "Stop"
 $base = $PSScriptRoot
-$log  = "$base\post-log.txt"
+$log  = "$base/post-log.txt"
 function Log($m){ $line = (Get-Date -Format "yyyy-MM-dd HH:mm") + "  " + $m; Add-Content $log $line; Write-Output $line }
 
 $t = $env:META_TOKEN
@@ -19,14 +19,14 @@ function E($e){ $r=$e.Exception.Response; if($r){ (New-Object IO.StreamReader($r
 function PostUtf8($url,$fields){ $pairs=foreach($k in $fields.Keys){[uri]::EscapeDataString($k)+"="+[uri]::EscapeDataString([string]$fields[$k])}; $b=[Text.Encoding]::UTF8.GetBytes(($pairs -join "&")); $wc=New-Object Net.WebClient; $wc.Headers["Content-Type"]="application/x-www-form-urlencoded; charset=utf-8"; [Text.Encoding]::UTF8.GetString($wc.UploadData($url,"POST",$b))|ConvertFrom-Json }
 function GetUtf8($url){ $wc=New-Object Net.WebClient; $wc.Encoding=[Text.Encoding]::UTF8; $wc.DownloadString($url)|ConvertFrom-Json }
 
-$q = Get-Content "$base\queue.json" -Raw | ConvertFrom-Json
+$q = Get-Content "$base/queue.json" -Raw | ConvertFrom-Json
 $pending = $q.posts | Where-Object { -not $_.posted }
 if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video } }
 if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
 $item = $pending | Select-Object -First 1
 if (-not $item) { Log "QUEUE EMPTY ($Type) - nothing to post. Add more items to queue.json."; exit 0 }
 
-$cap = [IO.File]::ReadAllText("$base\$($item.caption)", [Text.Encoding]::UTF8).Replace("`r`n","`n").Trim()
+$cap = [IO.File]::ReadAllText("$base/$($item.caption)", [Text.Encoding]::UTF8).Replace("`r`n","`n").Trim()
 Log "POSTING $($item.id)"
 
 # ---- Instagram ----
@@ -68,7 +68,7 @@ try {
 # ---- mark posted (only if IG succeeded; FB-only failure still marks, IG is primary) ----
 if ($igOk) {
   $item.posted = (Get-Date -Format "yyyy-MM-dd")
-  ($q | ConvertTo-Json -Depth 6) | Set-Content "$base\queue.json" -Encoding UTF8
+  ($q | ConvertTo-Json -Depth 6) | Set-Content "$base/queue.json" -Encoding UTF8
   $left = ($q.posts | Where-Object { -not $_.posted }).Count
   Log "  DONE. $left posts left in queue."
   if ($left -le 2) { Log "  LOW QUEUE WARNING: add more posts soon." }

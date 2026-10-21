@@ -4,8 +4,8 @@
 # Run:  powershell -NoProfile -ExecutionPolicy Bypass -File social\auto-reply.ps1 [-DryRun]
 $ErrorActionPreference = "Stop"
 $base   = $PSScriptRoot
-$log    = "$base\reply-log.txt"
-$state  = "$base\replied.json"
+$log    = "$base/reply-log.txt"
+$state  = "$base/replied.json"
 $maxPerRun = 30
 $maxAgeDays = 7
 
@@ -55,7 +55,7 @@ function ShouldSkip($text){
 }
 function IsLead($text){ return ($text -match '(?<!\d)[6-9]\d{9}(?!\d)') }
 $leadReply = "Dhanyavaad ji 🙏 Number mil gaya, hamari team jaldi call karegi. 📞 83050 70160"
-$leadsFile = "$base\comment-leads.txt"
+$leadsFile = "$base/comment-leads.txt"
 
 # ---- collect Instagram media: recent organic posts + ad copies ----
 $igMedia = @{}
