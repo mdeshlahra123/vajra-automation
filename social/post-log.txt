@@ -20,3 +20,7 @@
 2026-10-22 00:52    DONE. 26 posts left in queue.
 2026-10-21 19:42  POSTING reel-h1-hisaab
 2026-10-21 19:43    DRYRUN: IG upload OK (container 18126656608826022), not published. Next: reel-h1-hisaab
+2026-10-21 19:49  POSTING reel-h1-hisaab
+2026-10-21 19:50    IG OK https://www.instagram.com/reel/DexMoy_Edij/
+2026-10-21 19:50    FB OK video 2158111618129086
+2026-10-21 19:50    DONE. 25 posts left in queue.
