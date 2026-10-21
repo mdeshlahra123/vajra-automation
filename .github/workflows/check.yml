@@ -1,0 +1,26 @@
+name: check
+on:
+  schedule:
+    - cron: "41 2 * * *"   # ~08:11 IST daily
+  workflow_dispatch:
+    inputs:
+      test: { description: "true = send a test alert", required: true, default: "false" }
+permissions: { contents: read, issues: write }
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      META_TOKEN: ${{ secrets.META_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Health check
+        shell: pwsh
+        run: |
+          $lines = @(./social/check.ps1)
+          if ('${{ github.event.inputs.test }}' -eq 'true') { $lines += 'TEST alert: if you got this email, alerts work. Close this issue.' }
+          if (-not $lines) { 'All good.'; exit 0 }
+          $title = 'ALERT: VAJRA automation needs attention ' + (Get-Date -Format 'yyyy-MM-dd')
+          $body = ($lines | ForEach-Object { "- $_" }) -join "`n"
+          gh issue create --title $title --body $body

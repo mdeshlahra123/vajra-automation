@@ -8,7 +8,7 @@ on:
       type: { description: "reel / image", required: true, default: "image" }
       dryrun: { description: "true = upload test, no publish", required: true, default: "false" }
 concurrency: { group: state, cancel-in-progress: false }
-permissions: { contents: write }
+permissions: { contents: write, issues: write }
 jobs:
   post:
     runs-on: ubuntu-latest
@@ -32,3 +32,14 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m "bot: ${{ github.workflow }} $(date -u +%F' '%H:%M)"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
+      - name: Alert on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="ALERT: ${{ github.workflow }} job failed"
+          if gh issue list --state open --search "in:title \"$title\"" --json number --jq 'length' | grep -qv '^0$'; then
+            gh issue comment $(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number') --body "Failed again: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            gh issue create --title "$title" --body "The **${{ github.workflow }}** job failed at $(date -u '+%F %H:%M') UTC. Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}. Close this issue once fixed."
+          fi
