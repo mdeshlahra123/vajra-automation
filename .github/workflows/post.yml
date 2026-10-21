@@ -1,0 +1,32 @@
+﻿name: post
+on:
+  schedule:
+    - cron: "23 4 * * *"    # ~09:53 IST  reel
+    - cron: "23 14 * * *"   # ~19:53 IST  image
+  workflow_dispatch:
+    inputs:
+      type: { description: "reel / image", required: true, default: "image" }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env: { META_TOKEN: ${{ secrets.META_TOKEN }} }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Post
+        shell: pwsh
+        run: |
+          $type = '${{ github.event.inputs.type }}'
+          if (-not $type) { $type = if ('${{ github.event.schedule }}' -eq '23 4 * * *') { 'reel' } else { 'image' } }
+          ./social/daily-post.ps1 -Type $type
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name "vajra-bot"
+          git config user.email "vajra-bot@users.noreply.github.com"
+          git add social
+          git diff --cached --quiet && exit 0
+          git commit -m "bot: ${{ github.workflow }} $(date -u +%F' '%H:%M)"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1

@@ -1,0 +1,29 @@
+﻿name: reply
+on:
+  schedule:
+    - cron: "17 * * * *"    # hourly
+  workflow_dispatch:
+    inputs:
+      dryrun: { description: "true = preview only", required: true, default: "true" }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  reply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env: { META_TOKEN: ${{ secrets.META_TOKEN }} }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reply to comments
+        shell: pwsh
+        run: |
+          if ('${{ github.event.inputs.dryrun }}' -eq 'true') { ./social/auto-reply.ps1 -DryRun } else { ./social/auto-reply.ps1 }
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name "vajra-bot"
+          git config user.email "vajra-bot@users.noreply.github.com"
+          git add social
+          git diff --cached --quiet && exit 0
+          git commit -m "bot: ${{ github.workflow }} $(date -u +%F' '%H:%M)"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
