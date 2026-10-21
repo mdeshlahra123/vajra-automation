@@ -24,3 +24,4 @@
 2026-10-21 19:50    IG OK https://www.instagram.com/reel/DexMoy_Edij/
 2026-10-21 19:50    FB OK video 2158111618129086
 2026-10-21 19:50    DONE. 25 posts left in queue.
+2026-10-22 01:21  TEST: reel-h1-hisaab posted from cloud and deleted (IG+FB); re-queued.
