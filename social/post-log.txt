@@ -47,3 +47,4 @@
 2026-10-22 18:36    IG OK https://www.instagram.com/p/DezpAuUjtmd/
 2026-10-22 18:36    FB OK post 1296793536861294_122107929117509427
 2026-10-22 18:36    DONE. 26 posts left in queue.
+2026-10-22 18:39  MANUAL: deleted duplicate IG post DezpAuUjtmd (v-stock, already posted Oct 18); v-stock removed from queue; GitHub schedule removed

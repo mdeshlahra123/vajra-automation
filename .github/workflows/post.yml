@@ -1,8 +1,6 @@
 name: post
 on:
-  schedule:
-    - cron: "23 4 * * *"    # ~09:53 IST  reel
-    - cron: "23 14 * * *"   # ~19:53 IST  image
+  # Started by cron-job.org at 09:30 (reel) and 19:30 (image) IST. GitHub's own schedule was removed: it ran hours late and crossed midnight.
   workflow_dispatch:
     inputs:
       type: { description: "reel / image", required: true, default: "image" }
