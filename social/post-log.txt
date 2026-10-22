@@ -25,3 +25,7 @@
 2026-10-21 19:50    FB OK video 2158111618129086
 2026-10-21 19:50    DONE. 25 posts left in queue.
 2026-10-22 01:21  TEST: reel-h1-hisaab posted from cloud and deleted (IG+FB); re-queued.
+2026-10-22 05:01  POSTING reel-h1-hisaab
+2026-10-22 05:02    IG OK https://www.instagram.com/reel/DeyLyc1kmKE/
+2026-10-22 05:02    FB OK video 28937184245918005
+2026-10-22 05:02    DONE. 26 posts left in queue.
