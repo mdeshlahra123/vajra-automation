@@ -38,12 +38,6 @@
                       "posted":  "2026-10-22"
                   },
                   {
-                      "id":  "v-ask",
-                      "image":  "https://vajraformwork.vercel.app/social/v-ask.jpg",
-                      "caption":  "captions/ask.txt",
-                      "posted":  ""
-                  },
-                  {
                       "id":  "reel-x2-throw",
                       "video":  "https://vajraformwork.vercel.app/social/x5-throw.mp4",
                       "caption":  "captions/x2-throw.txt",
