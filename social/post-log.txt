@@ -43,3 +43,7 @@
 2026-10-22 15:55    FB OK post 1296793536861294_122107873107509427
 2026-10-22 15:55    NOT marked posted (IG failed). Will retry next run.
 2026-10-22 15:57  MANUAL IG OK https://www.instagram.com/p/DezWvnZCkqp/ (v-p-used; FB posted by run)
+2026-10-22 18:36  POSTING v-stock
+2026-10-22 18:36    IG OK https://www.instagram.com/p/DezpAuUjtmd/
+2026-10-22 18:36    FB OK post 1296793536861294_122107929117509427
+2026-10-22 18:36    DONE. 26 posts left in queue.
