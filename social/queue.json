@@ -56,6 +56,12 @@
                       "posted":  ""
                   },
                   {
+                      "id":  "reel-x7-hisaab",
+                      "video":  "https://vajraformwork.vercel.app/social/x7-hisaab.mp4",
+                      "caption":  "captions/x7-hisaab.txt",
+                      "posted":  ""
+                  },
+                  {
                       "id":  "v-stock",
                       "image":  "https://vajraformwork.vercel.app/social/v-stock.jpg",
                       "caption":  "captions/stock.txt",
@@ -92,6 +98,12 @@
                       "posted":  ""
                   },
                   {
+                      "id":  "reel-x9-halka",
+                      "video":  "https://vajraformwork.vercel.app/social/x9-halka.mp4",
+                      "caption":  "captions/x9-halka.txt",
+                      "posted":  ""
+                  },
+                  {
                       "id":  "v-n3-core",
                       "image":  "https://vajraformwork.vercel.app/social/v-n3-core.jpg",
                       "caption":  "captions/n3-core.txt",
@@ -125,6 +137,12 @@
                       "id":  "reel-m1-story",
                       "video":  "https://vajraformwork.vercel.app/social/m1-story-cta.mp4",
                       "caption":  "captions/m1-story.txt",
+                      "posted":  ""
+                  },
+                  {
+                      "id":  "reel-x8-column",
+                      "video":  "https://vajraformwork.vercel.app/social/x8-column.mp4",
+                      "caption":  "captions/x8-column.txt",
                       "posted":  ""
                   },
                   {
