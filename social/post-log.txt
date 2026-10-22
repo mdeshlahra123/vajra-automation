@@ -34,3 +34,4 @@
 2026-10-22 06:37    IG OK https://www.instagram.com/reel/DeyWthuDMXn/
 2026-10-22 06:37    FB OK video 1099287599549223
 2026-10-22 06:37    DONE. 26 posts left in queue.
+2026-10-22 09:28  SKIP: reel already posted today (2026-10-22 IST): reel-x4-khokla
