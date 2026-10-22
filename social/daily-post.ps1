@@ -1,4 +1,4 @@
-﻿param([ValidateSet("any","reel","image")][string]$Type = "any", [switch]$DryRun)
+param([ValidateSet("any","reel","image")][string]$Type = "any", [switch]$DryRun)
 # VAJRA daily poster: Instagram + Facebook together, from social\queue.json.
 # -Type reel  = next unposted reel (morning task), -Type image = next unposted post (night task).
 # Picks the first post with empty "posted", publishes to both, verifies IG caption,
@@ -24,6 +24,12 @@ $pending = $q.posts | Where-Object { -not $_.posted }
 if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video } }
 if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
 $item = $pending | Select-Object -First 1
+# Guard: max one reel and one image per IST day (GitHub cron can run late or after a manual post)
+if ($Type -ne "any" -and -not $DryRun -and $item) {
+  $today = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
+  $done = $q.posts | Where-Object { $_.posted -and ([bool]$_.video -eq ($Type -eq "reel")) -and ([string]$_.posted -eq $today) }
+  if ($done) { Log "SKIP: $Type already posted today ($today IST): $($done[0].id)"; exit 0 }
+}
 if (-not $item) { Log "QUEUE EMPTY ($Type) - nothing to post. Add more items to queue.json."; exit 0 }
 
 $cap = [IO.File]::ReadAllText("$base/$($item.caption)", [Text.Encoding]::UTF8).Replace("`r`n","`n").Trim()
@@ -67,7 +73,7 @@ try {
 
 # ---- mark posted (only if IG succeeded; FB-only failure still marks, IG is primary) ----
 if ($igOk) {
-  $item.posted = (Get-Date -Format "yyyy-MM-dd")
+  $item.posted = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
   ($q | ConvertTo-Json -Depth 6) | Set-Content "$base/queue.json" -Encoding UTF8
   $left = ($q.posts | Where-Object { -not $_.posted }).Count
   Log "  DONE. $left posts left in queue."
