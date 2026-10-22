@@ -2,6 +2,12 @@
     "_comment":  "Daily post queue. \u0027posted\u0027 is set automatically after a successful post. image = public URL (photo) or video = public URL (Reel), caption = path to a UTF-8 .txt file. Make images with social/studio (render.ps1), reels with make-reels.ps1.",
     "posts":  [
                   {
+                      "id":  "v-p-used",
+                      "image":  "https://vajraformwork.vercel.app/social/v-p-used.jpg",
+                      "caption":  "captions/p-used.txt",
+                      "posted":  ""
+                  },
+                  {
                       "id":  "reel-x4-khokla",
                       "video":  "https://vajraformwork.vercel.app/social/x4-khokla.mp4",
                       "caption":  "captions/x4-khokla.txt",
@@ -167,12 +173,6 @@
                       "id":  "reel-r4-wash",
                       "video":  "https://vajraformwork.vercel.app/social/r4-wash-cta.mp4",
                       "caption":  "captions/r4-wash.txt",
-                      "posted":  ""
-                  },
-                  {
-                      "id":  "v-p-used",
-                      "image":  "https://vajraformwork.vercel.app/social/v-p-used.jpg",
-                      "caption":  "captions/p-used.txt",
                       "posted":  ""
                   },
                   {
