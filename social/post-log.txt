@@ -29,3 +29,4 @@
 2026-10-22 05:02    IG OK https://www.instagram.com/reel/DeyLyc1kmKE/
 2026-10-22 05:02    FB OK video 28937184245918005
 2026-10-22 05:02    DONE. 26 posts left in queue.
+2026-10-22 05:04  SKIP: reel already posted today (2026-10-22 IST): reel-h1-hisaab
