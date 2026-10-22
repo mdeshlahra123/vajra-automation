@@ -38,3 +38,7 @@
 2026-10-22 15:34  POSTING v-ask
 2026-10-22 15:34    DRYRUN: IG upload OK (container 18126843265826022), not published. Next: v-ask
 2026-10-22 15:42  SKIP: image already posted today (2026-10-22 IST): v-compare
+2026-10-22 15:55  POSTING v-p-used
+2026-10-22 15:55    IG CAPTION MISMATCH - deleted, skipped
+2026-10-22 15:55    FB OK post 1296793536861294_122107873107509427
+2026-10-22 15:55    NOT marked posted (IG failed). Will retry next run.
