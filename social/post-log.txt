@@ -37,3 +37,4 @@
 2026-10-22 09:28  SKIP: reel already posted today (2026-10-22 IST): reel-x4-khokla
 2026-10-22 15:34  POSTING v-ask
 2026-10-22 15:34    DRYRUN: IG upload OK (container 18126843265826022), not published. Next: v-ask
+2026-10-22 15:42  SKIP: image already posted today (2026-10-22 IST): v-compare
