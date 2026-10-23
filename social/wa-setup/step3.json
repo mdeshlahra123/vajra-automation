@@ -1,0 +1,23 @@
+[
+  {"text": "📱 STEP 3: Quick replies\nSettings → Business tools → Quick replies → + (Add)\nHar ek ke liye: 'Shortcut' mein naam likho (jaise sample), 'Message' mein neeche wala text paste karo. Jahan photo likha hai, wo photo bhi attach karo (photos neeche hain).\nChat mein / likhte hi ye sab aa jayenge."},
+  {"text": "Shortcut: sample\n(Photo attach: sample poster B)"},
+  {"text": "Ye rahe 2 options. \"1\" ya \"2\" likh ke bhejiye, saath mein naam, poora address aur pincode. Phir UPI ID bhejenge."},
+  {"text": "Shortcut: upi"},
+  {"text": "Payment is UPI pe kar dijiye: [UPI ID] (naam: [account name]). Payment ka screenshot yahin bhej dijiye."},
+  {"text": "Shortcut: paid"},
+  {"text": "Payment mil gaya, dhanyavaad 🙏 24 ghante mein dispatch karenge. Tracking ID yahin bhejenge."},
+  {"text": "Shortcut: track"},
+  {"text": "Aapka parcel nikal gaya ✅ Courier: [courier] · Tracking: ____ · 3–7 din mein pahunch jayega."},
+  {"text": "Shortcut: rate\n(Photo attach: rate card)"},
+  {"text": "Rate ₹3,500 + GST per sheet (8×4 ft, 12 mm). Har dhalai sirf ~₹88, ply ka ~₹416. Kitna area, kaunsa kaam (slab/column) aur kaunsa sheher? Hisaab bana ke bhejta hoon."},
+  {"text": "Shortcut: photos"},
+  {"text": "Asli site ke photos aur video: https://vajraformwork.vercel.app/photos"},
+  {"text": "Shortcut: mehnga"},
+  {"text": "Sheet ka rate nahi, har dhalai ka kharcha dekhiye. Ply 4–6 baar chalti hai, VAJRA 40–50 baar. Aapka area bataiye, saal ka hisaab bana deta hoon."},
+  {"text": "Shortcut: video"},
+  {"text": "Godown se video call pe stock dikha sakte hain. Kab free hain?"},
+  {"text": "Shortcut: dealer"},
+  {"text": "Dealer ke liye alag rate hai. Aapki shop kis sheher mein hai, aur mahine ka kitna kaam hota hai?"},
+  {"file": "social/wa-setup/sample-poster-B.jpg", "caption": "Photo for 'sample' quick reply"},
+  {"file": "social/wa-setup/rate-card.jpg", "caption": "Photo for 'rate' quick reply"}
+]
