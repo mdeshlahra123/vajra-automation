@@ -20,9 +20,11 @@
       "caption": "captions/reel-ai-1023-0927.txt",
       "position": "end",
       "ai": true,
-      "status": "sent",
+      "status": "rejected",
       "msg_id": 6,
-      "sent_at": "2026-10-23 09:29"
+      "sent_at": "2026-10-23 09:29",
+      "by": "MrBeast",
+      "at": "2026-10-23 10:23"
     },
     {
       "id": "reel-ai-1023-1001",
