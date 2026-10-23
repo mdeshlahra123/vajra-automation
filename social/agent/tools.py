@@ -2,6 +2,9 @@
 Env: META_ADS_TOKEN, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, GH_TOKEN (GitHub token for workflow dispatch)."""
 import json, os, subprocess, sys, urllib.parse, urllib.request
 
+if os.path.exists("/tmp/vajra-secrets.json"):
+    for _k, _v in json.load(open("/tmp/vajra-secrets.json")).items():
+        os.environ.setdefault(_k, _v)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 V = "https://graph.facebook.com/v24.0/"
 ACCOUNT, PAGE = "act_1417609487254050", "1296793536861294"
