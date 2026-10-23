@@ -49,6 +49,17 @@ def status():
         out["ad_balance"] = g(ACCOUNT, fields="funding_source_details").get("funding_source_details", {}).get("display_string")
     except Exception as e:
         out["ads_error"] = str(e)[:200]
+    try:
+        import datetime
+        tk = os.environ["META_ADS_TOKEN"]
+        d = g("debug_token", input_token=tk)["data"]
+        exp = d.get("data_access_expires_at") or 0
+        days = (datetime.datetime.utcfromtimestamp(exp) - datetime.datetime.utcnow()).days if exp else None
+        out["meta_token"] = {"valid": d.get("is_valid"), "data_access_days_left": days,
+                             "ACTION": "WARN OWNERS: Mehul must log in again to Meta (Business Suite / the app) before data access ends, or posting and ads tools stop"
+                             if (days is not None and days < 21) or not d.get("is_valid") else None}
+    except Exception as e:
+        out["meta_token_error"] = str(e)[:150]
     q = json.load(open(os.path.join(ROOT, "social", "queue.json"), encoding="utf-8"))
     pend = [p for p in q["posts"] if not p.get("posted")]
     out["queue"] = {"pending_reels": [p["id"] for p in pend if p.get("video")], "pending_images": [p["id"] for p in pend if not p.get("video")],

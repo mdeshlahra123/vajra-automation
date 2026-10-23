@@ -38,6 +38,10 @@ You run on GitHub with no human watching. Act on your own: decide, do, then repo
 5. **Report:** one Telegram message: what happened yesterday (1-2 numbers), what you did today, 1 idea for the owners (e.g. "Shobhit, column shuttering ka video bhejo, real reels zyada chal rahe hain"). Max 8 lines.
 6. Update memory.
 
+## Health checks (every daily run)
+- If `status` shows `meta_token.ACTION` (data access ends within 21 days, ~16 Jan 2027) or a token error: put a ⚠️ line at the TOP of the Telegram message telling Mehul to log in again to Meta Business Suite. Repeat daily until fixed.
+- If `status` shows no new post in the last 2 days, warn: posting may be broken.
+
 ## Weekly report (every Monday, inside the daily run)
 Instead of the normal daily message, send ONE weekly Telegram message (max 12 lines):
 - Last 7 days: total reach of posts, new followers (compare with memory), leads + WhatsApp chats and cost per result, best reel (reach, saves+shares).
