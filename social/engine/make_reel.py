@@ -22,8 +22,10 @@ PHOTOS = {
     "r-slab": "underside of a full RCC slab shuttered with VAJRA sheets on a real site",
     "r-workers": "workers fixing VAJRA sheets around a column on site",
     "v1-core": "hand holding a sheet showing the hollow core edge",
-    "v1-hold": "one hand lifting a VAJRA sheet easily",
-    "v1-lean": "a VAJRA sheet leaning on the ground on site",
+    "v1-hold": "close-up of a hand gripping the thin edge of a sheet (shows it is thin, NOT a lifting shot)",
+    "sheet-held": "a worker holding up a full 8x4 VAJRA sheet alone at the godown (best ONE-MAN-LIFT proof)",
+    "sheet-thin": "a full sheet standing upright on its edge outdoors, seen from above (shows it is thin and straight)",
+    "v1-lean": "a VAJRA sheet lying flat on a site floor, close view",
     "v4-point": "person pointing at a VAJRA sheet",
     "v5-cage": "column steel cage ready, VAJRA panels being placed",
     "v6-close": "column fully closed with VAJRA panels and wooden battens",
@@ -70,11 +72,13 @@ The first scene is the hook: a problem or question that grabs a contractor in 1 
 Each scene: one voiceover line in Hinglish, max 12 words, natural spoken style; and on-screen text in 2 short lines
 (each max 20 characters, plain ASCII letters/numbers/basic punctuation only, no emoji, no Devanagari).
 For "ai" scenes write a detailed English video prompt: single continuous shot, vertical, Indian construction site or godown,
-real people, handheld phone look, natural light, no text anywhere, no dialogue, and describe the sheet exactly as: {SHEET}
+real people, handheld phone look, natural light, no text anywhere, no dialogue.
+IMPORTANT: a PROBLEM scene (heavy ply, broken ply, waste, cost) must show OLD BROWN WOODEN PLYWOOD only, with shows_vajra=false; never show the grey VAJRA sheet as the problem.
+A SOLUTION scene shows the VAJRA sheet (shows_vajra=true); describe it as: {SHEET}
 
 Return JSON only:
 {{"hook": "...", "title": "short internal title",
-  "scenes": [{{"type": "ai" or "photo", "photo": "key if photo", "video_prompt": "if ai", "vo": "...", "text1": "...", "text2": "..."}}],
+  "scenes": [{{"type": "ai" or "photo", "photo": "key if photo", "video_prompt": "if ai", "shows_vajra": true or false, "vo": "...", "text1": "...", "text2": "..."}}],
   "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
   "caption": "Hinglish caption, 3-5 short lines, ends with the comment-PP line, Follow kijiye @vajraformwork, phone, hashtags from the rules"}}"""
     p = gem.text(TEXT_MODEL, prompt, json_mode=True)
@@ -107,7 +111,7 @@ def ai_clip(prompt, path, res):
     gem.save_first(r, "video", path)
 
 
-def check_clip(path, work):
+def check_clip(path, work, vajra=True):
     """Gemini looks at 4 frames; returns (ok, reason)."""
     frames = []
     d = dur(path)
@@ -115,7 +119,9 @@ def check_clip(path, work):
         f = os.path.join(work, f"chk{i}.jpg"); sh("ffmpeg", "-v", "error", "-y", "-ss", f"{t:.2f}", "-i", path, "-frames:v", "1", "-vf", "scale=-2:640", f); frames.append(f)
     q = ("These are 4 frames from an AI video ad for a plain light-grey plastic construction sheet. Answer JSON only: "
          '{"ok": true/false, "reason": "..."}. ok=false if ANY of: readable text, letters, logos or printing on the sheet or anywhere '
-         "prominent; deformed hands, faces or bodies; the sheet looks like wood, metal or a different product; obviously fake or glitchy frames.")
+         "prominent; deformed hands, faces or bodies; obviously fake or glitchy frames."
+         + (" Also ok=false if the sheet looks like wood, metal or a different product." if vajra
+            else " These boards must be brown wooden plywood: ok=false if they look like grey or white plastic sheets."))
     r = gem.interact(TEXT_MODEL, [{"type": "text", "text": q}] + [gem.img_part(f) for f in frames], response_format={"type": "text", "mime_type": "application/json"})
     j = json.loads("".join(v for k, _, v in gem.outputs(r) if k == "text"))
     return bool(j.get("ok")), j.get("reason", "")
@@ -156,8 +162,8 @@ def build(p, rid, res):
         if s["type"] == "ai":
             clip = os.path.join(work, f"ai{i}.mp4")
             for attempt in range(2):
-                ai_clip(s["video_prompt"], clip, res)
-                ok, why = check_clip(clip, work); log.append(f"scene {i} ai attempt {attempt+1}: ok={ok} {why}")
+                ai_clip(s["video_prompt"], clip, res, s.get("shows_vajra", True))
+                ok, why = check_clip(clip, work, s.get("shows_vajra", True)); log.append(f"scene {i} ai attempt {attempt+1}: ok={ok} {why}")
                 if ok: break
             else:
                 log.append(f"scene {i}: AI clip failed check twice, using photo instead")
@@ -165,7 +171,7 @@ def build(p, rid, res):
         src = clip if s["type"] == "ai" else A("assets", "photos", s["photo"] + ".jpg")
         out = os.path.join(work, f"s{i}.mp4"); scene_video(s, src, seconds, out, work, i)
         parts.append(out); starts.append(t); t += seconds
-    card = A("assets", "brand", "cta-card.mp4"); card_len = max(3.5, vo_lens[-1] + 0.6)
+    card = A("assets", "brand", "cta-card.mp4"); card_len = max(3.0, vo_lens[-1] + 0.3)
     starts.append(t + 0.2); total = t + card_len
     # end card stretched to fit end voiceover
     card_out = os.path.join(work, "card.mp4")
