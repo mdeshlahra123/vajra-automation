@@ -28,6 +28,12 @@ function pollTelegram() {
       if (u.callback_query) handleTap_(u.callback_query, P);
       else if (u.message) handleMessage_(u.message, P);
     });
+    // no /reel? make the reel automatically 20 minutes after the last clip
+    var clips = JSON.parse(P.getProperty('CLIPS') || '[]');
+    if (clips.length && Date.now() - clips[clips.length - 1].t > 20 * 60 * 1000) {
+      var note = clips.map(function (c) { return c.note || ''; }).filter(String).join('. ');
+      startReel_(clips, note, clips[0].who, P, P.getProperty('CHAT_ID'));
+    }
   } finally { lock.releaseLock(); }
 }
 
@@ -68,16 +74,20 @@ function handleMessage_(m, P) {
         text: '⚠️ Ye clip ' + Math.round(vid.file_size / 1048576) + ' MB hai. Bot sirf 20 MB tak le sakta hai. Chhota clip bhejo (30-40 sec), ya "as file" ki jagah normal video bhejo.' });
       return;
     }
-    clips.push({ id: vid.file_id, who: who, t: Date.now() });
+    clips.push({ id: vid.file_id, who: who, t: Date.now(), note: (m.caption || '').replace(/^\/reel(@\w+)?/i, '').trim() });
     P.setProperty('CLIPS', JSON.stringify(clips));
     tg_('sendMessage', { chat_id: chat, reply_to_message_id: m.message_id,
-      text: '📥 Clip ' + clips.length + ' mila. Saare clips bhejne ke baad likho: /reel aur ek line ki note (kya dikh raha hai, kaunsi site).' });
+      text: '📥 Clip ' + clips.length + ' mila. Aur clips ho to bhejo. 20 min tak naya clip nahi aaya to reel apne aap banegi. Jaldi chahiye to likho: /reel aur ek line ki note.' });
     return;
   }
-  var text = (m.text || m.caption || '').trim();
+  var text = (m.text || '').trim();
   if (!/^\/reel(@\w+)?\b/i.test(text)) return;
   if (!clips.length) { tg_('sendMessage', { chat_id: chat, text: 'Pehle clips bhejo, phir /reel likho.' }); return; }
-  var note = text.replace(/^\/reel(@\w+)?/i, '').trim();
+  var note = [text.replace(/^\/reel(@\w+)?/i, '').trim()].concat(clips.map(function (c) { return c.note || ''; })).filter(String).join('. ');
+  startReel_(clips, note, who, P, chat);
+}
+
+function startReel_(clips, note, who, P, chat) {
   var r = UrlFetchApp.fetch('https://api.github.com/repos/mdeshlahra123/vajra-automation/actions/workflows/make-real.yml/dispatches', {
     method: 'post', contentType: 'application/json', muteHttpExceptions: true,
     headers: { Authorization: 'Bearer ' + P.getProperty('GH_TOKEN'), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
@@ -87,7 +97,10 @@ function handleMessage_(m, P) {
     P.setProperty('CLIPS', '[]');
     tg_('sendMessage', { chat_id: chat, text: '🎬 ' + clips.length + ' clips se reel ban rahi hai. ~10 min mein yahin approval ke liye aayegi.' });
   } else {
-    tg_('sendMessage', { chat_id: chat, text: '⚠️ Reel start nahi hui (GitHub ' + r.getResponseCode() + '). Thodi der baad /reel dobara likho.' });
+    // keep the clips; push the auto-start 20 minutes later instead of retrying every minute
+    clips.forEach(function (c) { c.t = Date.now(); });
+    P.setProperty('CLIPS', JSON.stringify(clips));
+    tg_('sendMessage', { chat_id: chat, text: '⚠️ Reel start nahi hui (GitHub ' + r.getResponseCode() + '). 20 min baad apne aap dobara try hoga, ya /reel likho.' });
   }
 }
 
