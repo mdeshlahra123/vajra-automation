@@ -15,6 +15,11 @@ jobs:
       META_TOKEN: ${{ secrets.META_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      - name: Daily website update (approved reels in, old reels out)
+        if: github.event.inputs.type == 'reel' && github.event.inputs.dryrun != 'true'
+        env:
+          WEBSITE_TOKEN: ${{ secrets.WEBSITE_TOKEN }}
+        run: python3 social/publish_site.py
       - name: Post
         shell: pwsh
         run: |
