@@ -1,0 +1,33 @@
+[
+    {
+        "text":  "📲 WhatsApp Status kit: 7 din, roz ek. Photo save karo → WhatsApp Business → Status → photo lagao. Tuesday ko throw wala reel video bhi laga sakte ho."
+    },
+    {
+        "file":  "social/wa-setup/status/1-mon.jpg",
+        "caption":  "Somvaar ka Status"
+    },
+    {
+        "file":  "social/wa-setup/status/2-tue.jpg",
+        "caption":  "Mangalvaar ka Status"
+    },
+    {
+        "file":  "social/wa-setup/status/3-wed.jpg",
+        "caption":  "Budhvaar ka Status"
+    },
+    {
+        "file":  "social/wa-setup/status/4-thu.jpg",
+        "caption":  "Guruvaar ka Status"
+    },
+    {
+        "file":  "social/wa-setup/status/5-fri.jpg",
+        "caption":  "Shukravaar ka Status"
+    },
+    {
+        "file":  "social/wa-setup/status/6-sat.jpg",
+        "caption":  "Shanivaar ka Status"
+    },
+    {
+        "file":  "social/wa-setup/status/7-sun.jpg",
+        "caption":  "Ravivaar ka Status"
+    }
+]
