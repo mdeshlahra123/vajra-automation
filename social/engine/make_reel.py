@@ -104,9 +104,12 @@ def tts(line, path):
     return dur(path)
 
 
-def ai_clip(prompt, path, res):
-    refs = [gem.img_part(A("assets", "refs", f)) for f in REFS]
-    inp = [{"type": "text", "text": prompt + " " + SHEET + " 6 seconds."}] + refs
+def ai_clip(prompt, path, res, vajra=True):
+    if vajra:
+        inp = [{"type": "text", "text": prompt + " " + SHEET + " 6 seconds."}] + [gem.img_part(A("assets", "refs", f)) for f in REFS]
+    else:
+        inp = [{"type": "text", "text": prompt + " The boards are old brown wooden plywood: dirty, swollen, chipped edges. "
+                "No grey or white plastic sheets anywhere. No text, no logos. 6 seconds."}]
     r = gem.interact(VIDEO_MODEL, inp, response_format={"type": "video", "aspect_ratio": "9:16", "resolution": res})
     gem.save_first(r, "video", path)
 
