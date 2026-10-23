@@ -1,46 +1,65 @@
 name: gemini-test
-# Manual test: one Gemini API call (image) using GEMINI_API_KEY. Output saved as a run artifact.
+# Manual test: one Gemini API call (image or video) using GEMINI_API_KEY, with optional reference photos from assets/refs/. Output saved as a run artifact.
 on:
   workflow_dispatch:
     inputs:
       model: { description: "model id", required: true, default: "gemini-nano-banana-2.1" }
-      prompt: { description: "prompt", required: true, default: "Photo of a stack of plain light-grey polypropylene hollow construction sheets, 8x4 ft, 12 mm thick, honeycomb hollow core visible on the edge, on wooden pallets in a clean Indian warehouse, natural light. No text, no logos, no printing on the sheets." }
+      refs: { description: "reference photos in assets/refs (comma list, blank = none)", required: false, default: "core-edge-grey.jpg,core-closeup.jpg,sheet-held.jpg" }
+      aspect: { description: "aspect ratio (blank = model default)", required: false, default: "4:5" }
+      prompt: { description: "prompt", required: true, default: "Using the reference photos as the exact product: a stack of these VAJRA PP hollow shuttering sheets on wooden pallets in a clean Indian warehouse, natural light. Match the references exactly: plain light-grey faces, 12 mm thick, edge with SMALL round holes in two staggered rows and a grey core. No text, no logos, no printing anywhere." }
 permissions: { contents: read }
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
+      - uses: actions/checkout@v4
       - name: Call Gemini
         env:
           KEY: ${{ secrets.GEMINI_API_KEY }}
           MODEL: ${{ github.event.inputs.model }}
           PROMPT: ${{ github.event.inputs.prompt }}
+          REFS: ${{ github.event.inputs.refs }}
+          ASPECT: ${{ github.event.inputs.aspect }}
         run: |
           python3 - <<'PY'
           import os, json, base64, urllib.request, urllib.error
-          body = json.dumps({"model": os.environ["MODEL"], "input": os.environ["PROMPT"]}).encode()
+          refs = [r.strip() for r in os.environ.get("REFS", "").split(",") if r.strip()]
+          if refs:
+              inp = [{"type": "text", "text": os.environ["PROMPT"]}]
+              for r in refs:
+                  inp.append({"type": "image", "mime_type": "image/jpeg", "data": base64.b64encode(open(f"assets/refs/{r}", "rb").read()).decode()})
+          else:
+              inp = os.environ["PROMPT"]
+          body = {"model": os.environ["MODEL"], "input": inp}
+          if os.environ.get("ASPECT"):
+              kind = "video" if "omni" in os.environ["MODEL"] else "image"
+              body["response_format"] = {"type": kind, "aspect_ratio": os.environ["ASPECT"]}
           req = urllib.request.Request(
               "https://generativelanguage.googleapis.com/v1beta/interactions",
-              data=body, headers={"Content-Type": "application/json", "x-goog-api-key": os.environ["KEY"]})
+              data=json.dumps(body).encode(), headers={"Content-Type": "application/json", "x-goog-api-key": os.environ["KEY"]})
           try:
-              r = json.load(urllib.request.urlopen(req, timeout=300))
+              r = json.load(urllib.request.urlopen(req, timeout=600))
           except urllib.error.HTTPError as e:
               print("HTTP", e.code, e.read().decode()[:2000]); raise SystemExit(1)
           os.makedirs("out", exist_ok=True); n = 0
-          def walk(o):
+          def walk(o, top=True):
               global n
               if isinstance(o, dict):
-                  if o.get("data") and str(o.get("mime_type", o.get("type", ""))).startswith(("image", "video")):
-                      ext = "mp4" if "video" in str(o.get("mime_type", o.get("type"))) else "png"
-                      n += 1; open(f"out/result{n}.{ext}", "wb").write(base64.b64decode(o["data"]))
+                  t = str(o.get("mime_type", o.get("type", "")))
+                  if o.get("data") and t.startswith(("image", "video")) and not (top is None):
+                      n += 1; ext = "mp4" if "video" in t else "png"
+                      open(f"out/result{n}.{ext}", "wb").write(base64.b64decode(o["data"]))
                       o["data"] = f"<{len(o['data'])} chars saved>"
                   for v in o.values(): walk(v)
               elif isinstance(o, list):
                   for v in o: walk(v)
+          # don't re-save our own reference images if the API echoes the input
+          for s in r.get("steps", []):
+              if s.get("type") == "user_input": s.clear()
           walk(r)
-          print("status:", r.get("status"), "| model:", r.get("model"), "| files saved:", n)
-          print("usage:", json.dumps(r.get("usage", r.get("usage_metadata", {})))[:600])
+          print("status:", r.get("status"), "| model:", r.get("model"), "| refs:", len(refs), "| files saved:", n)
+          print("usage:", json.dumps(r.get("usage", {}))[:600])
           if n == 0: print(json.dumps(r)[:3000]); raise SystemExit(1)
           PY
       - uses: actions/upload-artifact@v4
