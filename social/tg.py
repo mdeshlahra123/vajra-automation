@@ -152,5 +152,11 @@ if __name__ == "__main__":
         send(sys.argv[2])
     elif cmd == "poll":
         poll()
+    elif cmd == "debug":
+        print("me:", call("getMe").get("result", {}).get("username"))
+        print("webhook:", json.dumps(call("getWebhookInfo").get("result", {})))
+        print("chat:", json.dumps(call("getChat", chat_id=CHAT).get("result", call("getChat", chat_id=CHAT)))[:400])
+        r = call("getUpdates", timeout=0, allowed_updates=["callback_query", "message", "my_chat_member", "chat_member"])
+        print("raw updates (no offset):", len(r.get("result", [])), json.dumps(r)[:1500])
     else:
         sys.exit(__doc__)

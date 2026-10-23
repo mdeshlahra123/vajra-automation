@@ -19,7 +19,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run
         run: |
-          if [ "${{ github.event.inputs.mode }}" = "send" ]; then python3 social/tg.py send "${{ github.event.inputs.id }}"; else python3 social/tg.py poll; fi
+          case "${{ github.event.inputs.mode }}" in
+            send) python3 social/tg.py send "${{ github.event.inputs.id }}" ;;
+            debug) python3 social/tg.py debug ;;
+            *) python3 social/tg.py poll ;;
+          esac
       - name: Publish approved media to website
         env:
           WEBSITE_TOKEN: ${{ secrets.WEBSITE_TOKEN }}
