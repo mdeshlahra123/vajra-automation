@@ -1,0 +1,41 @@
+name: agent
+# VAJRA brain: Gemini CLI agent. Daily via cron-job.org (07:00 IST, task=daily), or from Telegram "/ask ..." (Apps Script).
+on:
+  workflow_dispatch:
+    inputs:
+      task: { description: "daily, or a request from the owners", required: true, default: "daily" }
+      who: { description: "who asked", required: false, default: "" }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write, actions: write }
+jobs:
+  brain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GH_TOKEN: ${{ github.token }}
+      TASK: ${{ github.event.inputs.task }}
+      WHO: ${{ github.event.inputs.who }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Brain
+        uses: google-github-actions/run-gemini-cli@v0
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_FREE_KEY || secrets.GEMINI_API_KEY }}
+          gemini_model: gemini-3.8-flash
+          settings: '{"general":{"maxSessionTurns":40},"tools":{"autoAccept":true}}'
+          prompt: |
+            Read GEMINI.md and follow it exactly. Today's task (from ${{ github.event.inputs.who || 'schedule' }}): ${{ github.event.inputs.task }}
+            If the task is "daily", do the daily routine. Otherwise handle the owners' request and reply on Telegram.
+      - name: Tell the group if the brain failed
+        if: failure()
+        run: python3 social/agent/tools.py tg "Brain run fail ho gaya. Mehul check karega. ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      - name: Save memory and queue
+        if: always()
+        run: |
+          git config user.name "vajra-brain"; git config user.email "vajra-bot@users.noreply.github.com"
+          git add agent social/queue.json 2>/dev/null; git diff --cached --quiet && exit 0
+          git commit -m "brain: ${TASK:0:60}"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
