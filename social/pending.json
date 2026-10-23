@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "id": "test-approval-1",
+      "title": "TEST: approval system (won't be posted)",
+      "video": "https://vajraformwork.vercel.app/social/x9-halka.mp4",
+      "caption": "captions/x9-halka.txt",
+      "position": "end",
+      "test": true,
+      "status": "draft"
+    }
+  ]
+}

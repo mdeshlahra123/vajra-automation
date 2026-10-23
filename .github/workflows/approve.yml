@@ -1,0 +1,31 @@
+name: approve
+# Telegram approvals. Started by cron-job.org every 30 min (07:00-23:00 IST) with mode=poll,
+# or by other workflows / manually with mode=send and an item id from social/pending.json.
+on:
+  workflow_dispatch:
+    inputs:
+      mode: { description: "poll / send", required: true, default: "poll" }
+      id: { description: "pending item id (send only)", required: false, default: "" }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run
+        run: |
+          if [ "${{ github.event.inputs.mode }}" = "send" ]; then python3 social/tg.py send "${{ github.event.inputs.id }}"; else python3 social/tg.py poll; fi
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name "vajra-bot"
+          git config user.email "vajra-bot@users.noreply.github.com"
+          git add social
+          git diff --cached --quiet && exit 0
+          git commit -m "bot: approve ${{ github.event.inputs.mode }} $(date -u +%F' '%H:%M)"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
