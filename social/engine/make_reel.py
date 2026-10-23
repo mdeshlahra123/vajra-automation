@@ -185,10 +185,10 @@ def build(p, rid, res):
     ins, fc, labels = [], [], []
     for i, f in enumerate(vo_files):
         ins += ["-i", f]; ms = int(starts[i] * 1000 + 150)
-        fc.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=stereo,adelay={ms}|{ms}[v{i}]"); labels.append(f"[v{i}]")
+        fc.append(f"[{i+1}:a]aresample=48000,aformat=channel_layouts=stereo,adelay={ms}|{ms}[v{i}]"); labels.append(f"[v{i}]")
     fc.append(f"{''.join(labels)}amix=inputs={len(labels)}:normalize=0,apad,atrim=0:{total:.2f}[vo]")
     if has_music:
-        n = len(vo_files); ins += ["-i", music]
+        n = len(vo_files) + 1; ins += ["-i", music]
         fc.append(f"[{n}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{total:.2f},volume=0.32,afade=t=in:d=0.5,afade=t=out:st={total-1.5:.2f}:d=1.5[mu]")
         fc.append("[vo]asplit[vo1][vo2];[mu][vo1]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=300[duck];[duck][vo2]amix=inputs=2:normalize=0,alimiter=limit=0.95[a]")
     else:
