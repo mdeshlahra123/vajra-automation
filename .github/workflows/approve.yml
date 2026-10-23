@@ -22,6 +22,7 @@ jobs:
           case "${{ github.event.inputs.mode }}" in
             send) python3 social/tg.py send "${{ github.event.inputs.id }}" ;;
             debug) python3 social/tg.py debug ;;
+            tap) python3 social/tg.py tap "${{ github.event.inputs.id }}" ;;
             *) python3 social/tg.py poll ;;
           esac
       - name: Publish approved media to website

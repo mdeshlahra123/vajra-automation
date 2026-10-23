@@ -101,7 +101,7 @@ def poll():
     offset = int(open(OFFSET).read().strip()) if os.path.exists(OFFSET) else 0
     wh = call("getWebhookInfo").get("result", {})
     if wh.get("url"):
-        print("webhook was set, removing it:", wh["url"]); call("deleteWebhook")
+        print("webhook is set (instant mode via Apps Script); polling not needed"); return
     r = call("getUpdates", offset=offset, timeout=0, allowed_updates=["callback_query", "message", "my_chat_member"])
     if not r.get("ok"):
         print("getUpdates failed:", r)
@@ -146,10 +146,34 @@ def poll():
     print("poll done, changes:", changed)
 
 
+def tap(arg):
+    """Instant mode: Apps Script already answered the tap and passes 'ok:<id>|<name>|<message_id>'."""
+    data, who, msg_id = (arg.split("|") + ["", "", ""])[:3]
+    action, _, item_id = data.partition(":")
+    pend = load(PENDING, {"items": []})
+    it = next((i for i in pend["items"] if i["id"] == item_id), None)
+    def button(label):
+        call("editMessageReplyMarkup", chat_id=CHAT, message_id=int(msg_id),
+             reply_markup={"inline_keyboard": [[{"text": label, "callback_data": "done"}]]})
+    if not it:
+        print("unknown item", item_id); button("⚠️ Unknown item"); return
+    if it["status"] in ("approved", "rejected"):
+        print("already", it["status"]); button(f"{'✅' if it['status'] == 'approved' else '❌'} Already {it['status']} by {it.get('by')}"); return
+    ok = action == "ok"
+    it.update(status="approved" if ok else "rejected", by=who or "someone", at=now())
+    if ok and not it.get("test"):
+        add_to_queue(it)
+    save(PENDING, pend)
+    label = f"✅ Approved by {it['by']}, added to queue" if ok else f"❌ Rejected by {it['by']}"
+    button(label); print(label, item_id)
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     if cmd == "send":
         send(sys.argv[2])
+    elif cmd == "tap":
+        tap(sys.argv[2])
     elif cmd == "poll":
         poll()
     elif cmd == "debug":
