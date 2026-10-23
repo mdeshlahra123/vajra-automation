@@ -60,9 +60,11 @@
       "caption": "captions/x9-halka.txt",
       "position": "end",
       "test": true,
-      "status": "sent",
+      "status": "approved",
       "msg_id": 10,
-      "sent_at": "2026-10-23 10:53"
+      "sent_at": "2026-10-23 10:53",
+      "by": "MrBeast",
+      "at": "2026-10-23 10:55"
     }
   ]
 }
