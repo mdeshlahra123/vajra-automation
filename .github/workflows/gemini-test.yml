@@ -6,6 +6,7 @@ on:
       model: { description: "model id", required: true, default: "gemini-nano-banana-2.1" }
       refs: { description: "reference photos in assets/refs (comma list, blank = none)", required: false, default: "core-edge-grey.jpg,core-closeup.jpg,sheet-held.jpg" }
       aspect: { description: "aspect ratio (blank = model default)", required: false, default: "4:5" }
+      resolution: { description: "video only: 360p / 720p", required: false, default: "360p" }
       prompt: { description: "prompt", required: true, default: "Using the reference photos as the exact product: a stack of these VAJRA PP hollow shuttering sheets on wooden pallets in a clean Indian warehouse, natural light. Match the references exactly: plain light-grey faces, 12 mm thick, edge with SMALL round holes in two staggered rows and a grey core. No text, no logos, no printing anywhere." }
 permissions: { contents: read }
 jobs:
@@ -21,6 +22,7 @@ jobs:
           PROMPT: ${{ github.event.inputs.prompt }}
           REFS: ${{ github.event.inputs.refs }}
           ASPECT: ${{ github.event.inputs.aspect }}
+          RES: ${{ github.event.inputs.resolution }}
         run: |
           python3 - <<'PY'
           import os, json, base64, urllib.request, urllib.error
@@ -35,6 +37,7 @@ jobs:
           if os.environ.get("ASPECT"):
               kind = "video" if "omni" in os.environ["MODEL"] else "image"
               body["response_format"] = {"type": kind, "aspect_ratio": os.environ["ASPECT"]}
+              if kind == "video": body["response_format"]["resolution"] = os.environ.get("RES") or "360p"
           req = urllib.request.Request(
               "https://generativelanguage.googleapis.com/v1beta/interactions",
               data=json.dumps(body).encode(), headers={"Content-Type": "application/json", "x-goog-api-key": os.environ["KEY"]})
