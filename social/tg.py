@@ -176,6 +176,8 @@ if __name__ == "__main__":
         tap(sys.argv[2])
     elif cmd == "poll":
         poll()
+    elif cmd == "unhook":
+        print("deleteWebhook:", call("deleteWebhook", drop_pending_updates=False))
     elif cmd == "debug":
         print("me:", call("getMe").get("result", {}).get("username"))
         print("webhook:", json.dumps(call("getWebhookInfo").get("result", {})))
