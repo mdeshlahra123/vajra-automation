@@ -1,0 +1,32 @@
+name: telegram-test
+# Manual: finds the Telegram group the bot was added to and sends a test message with Approve/Reject buttons.
+on: workflow_dispatch
+permissions: { contents: read }
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Find group and send test
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import os, json, urllib.request
+          api = f"https://api.telegram.org/bot{os.environ['TOKEN']}/"
+          def call(m, **p):
+              req = urllib.request.Request(api + m, data=json.dumps(p).encode(), headers={"Content-Type": "application/json"})
+              return json.load(urllib.request.urlopen(req, timeout=30))
+          me = call("getMe")["result"]; print("bot:", me["username"])
+          chats = {}
+          for u in call("getUpdates", allowed_updates=["message", "my_chat_member", "callback_query"])["result"]:
+              for k in ("message", "my_chat_member"):
+                  c = (u.get(k) or {}).get("chat")
+                  if c and c["type"] in ("group", "supergroup"): chats[c["id"]] = c.get("title")
+          print("groups seen:", chats)
+          if not chats: raise SystemExit("No group found yet. Remove the bot from the group and add it again, then rerun.")
+          for cid, title in chats.items():
+              r = call("sendMessage", chat_id=cid, text="✅ VAJRA bot connected. Approval messages will come here.\n(Test — tap a button, nothing happens yet.)",
+                       reply_markup={"inline_keyboard": [[{"text": "✅ Approve", "callback_data": "test:ok"}, {"text": "❌ Reject", "callback_data": "test:no"}]]})
+              print("sent to", title, cid, r.get("ok"))
+          PY
