@@ -79,7 +79,14 @@ def add_to_queue(it):
     if any(p["id"] == it["id"] for p in q["posts"]):
         return
     entry = {"id": it["id"], "caption": it["caption"], "posted": ""}
-    entry["video" if it.get("video") else "image"] = it.get("video") or it.get("image")
+    if it.get("file"):
+        # made by the engine: approve.yml copies the file to the website repo; Instagram fetches it from there
+        entry["video"] = "https://vajraformwork.vercel.app/social/" + os.path.basename(it["file"])
+        if it.get("ai"):
+            entry["ai"] = True
+        it["publish"] = "todo"
+    else:
+        entry["video" if it.get("video") else "image"] = it.get("video") or it.get("image")
     posts = q["posts"]
     if it.get("position") == "next":
         kind = bool(it.get("video"))

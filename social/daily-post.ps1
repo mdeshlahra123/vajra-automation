@@ -40,7 +40,9 @@ $igOk=$false; $igId=""
 try {
   if ($item.video) {
     # Reel: upload by URL, then wait until Instagram finishes processing
-    $c = PostUtf8 "$v/$ig/media" @{ media_type="REELS"; video_url=$item.video; caption=$cap; share_to_feed="true"; access_token=$t }
+    $prm = @{ media_type="REELS"; video_url=$item.video; caption=$cap; share_to_feed="true"; access_token=$t }
+    if ($item.ai) { $prm.is_ai_generated = "true" }   # Instagram "AI info" label for AI-made reels
+    $c = PostUtf8 "$v/$ig/media" $prm
     $st = ""
     for ($i=0; $i -lt 40 -and $st -ne "FINISHED"; $i++) {
       Start-Sleep 15
