@@ -1,0 +1,27 @@
+name: ads
+# Daily ads check (cron-job.org 08:30 IST). Only pauses/resumes existing ads; never touches budgets or money.
+on:
+  workflow_dispatch:
+    inputs:
+      dry: { description: "true = report only", required: false, default: "false" }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  ads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      DRY_RUN: ${{ github.event.inputs.dry }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 social/ads_manager.py
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name "vajra-bot"; git config user.email "vajra-bot@users.noreply.github.com"
+          git add social/ads-state.json 2>/dev/null; git diff --cached --quiet && exit 0
+          git commit -m "bot: ads $(date -u +%F)"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
