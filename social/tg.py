@@ -99,13 +99,26 @@ def add_to_queue(it):
 
 def poll():
     offset = int(open(OFFSET).read().strip()) if os.path.exists(OFFSET) else 0
+    wh = call("getWebhookInfo").get("result", {})
+    if wh.get("url"):
+        print("webhook was set, removing it:", wh["url"]); call("deleteWebhook")
     r = call("getUpdates", offset=offset, timeout=0, allowed_updates=["callback_query", "message", "my_chat_member"])
+    if not r.get("ok"):
+        print("getUpdates failed:", r)
+    print("updates received:", len(r.get("result", [])), "offset", offset)
     pend = load(PENDING, {"items": []})
     changed = 0
     for u in r.get("result", []):
         offset = u["update_id"] + 1
         cq = u.get("callback_query")
-        if not cq or str(cq["message"]["chat"]["id"]) != str(CHAT):
+        if not cq:
+            print("update (not a tap):", list(u.keys())[1:], json.dumps(u)[:200])
+            continue
+        chat_id = str(cq.get("message", {}).get("chat", {}).get("id"))
+        print("tap:", cq.get("data"), "from", cq["from"].get("first_name"), "chat", chat_id)
+        if chat_id != str(CHAT):
+            call("answerCallbackQuery", callback_query_id=cq["id"], text="Unknown chat")
+            print("  skipped: chat id differs from TELEGRAM_CHAT_ID", CHAT)
             continue
         who = cq["from"].get("first_name", "someone")
         action, _, item_id = cq.get("data", "").partition(":")
