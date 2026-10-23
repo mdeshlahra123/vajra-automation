@@ -81,6 +81,18 @@ function handleMessage_(m, P) {
     return;
   }
   var text = (m.text || '').trim();
+  if (/^\/ask(@\w+)?\b/i.test(text)) {
+    var q = text.replace(/^\/ask(@\w+)?/i, '').trim();
+    if (!q) { tg_('sendMessage', { chat_id: chat, text: 'Likho: /ask aur apna kaam, jaise: /ask aaj ke ads kaise chale?' }); return; }
+    var a = UrlFetchApp.fetch('https://api.github.com/repos/mdeshlahra123/vajra-automation/actions/workflows/agent.yml/dispatches', {
+      method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+      headers: { Authorization: 'Bearer ' + P.getProperty('GH_TOKEN'), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+      payload: JSON.stringify({ ref: 'main', inputs: { task: q.slice(0, 900), who: who } })
+    });
+    tg_('sendMessage', { chat_id: chat, reply_to_message_id: m.message_id,
+      text: a.getResponseCode() === 204 ? '🧠 Samajh gaya, kaam shuru. 2-5 min mein yahin jawab aayega.' : '⚠️ Brain start nahi hua (' + a.getResponseCode() + ').' });
+    return;
+  }
   if (!/^\/reel(@\w+)?\b/i.test(text)) return;
   if (!clips.length) { tg_('sendMessage', { chat_id: chat, text: 'Pehle clips bhejo, phir /reel likho.' }); return; }
   var note = [text.replace(/^\/reel(@\w+)?/i, '').trim()].concat(clips.map(function (c) { return c.note || ''; })).filter(String).join('. ');
