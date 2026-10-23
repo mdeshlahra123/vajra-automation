@@ -44,7 +44,8 @@ Watch the clips. Plan a 12-25 second reel from the best parts:
 - Segment 1 is the hook: the most striking moment, with a voiceover line that makes a contractor stop scrolling.
 - Each segment: one Hinglish voiceover line (max 12 words) describing what is really shown; on-screen text in 2 short lines
   (each max 20 characters, plain ASCII letters/numbers/basic punctuation, no emoji, no Devanagari).
-- Only claim what the footage actually shows plus the allowed claims. Never mention the sheet price.
+- Each voiceover line must describe ONLY what is visible in that segment (e.g. do not say "smooth finish" unless finished concrete is shown). General allowed claims (light, reusable 40-50 pours, waterproof) may go in at most one line. Never mention the sheet price.
+- On-screen text in normal sentence case (e.g. "Column ready", not "COLUMN READY").
 - Flag problems in "issues": a visible price, a competitor brand or logo, printed text on the sheet, unsafe work,
   faces of people who seem unaware of the camera, or footage too poor to use. ok=false if the reel should not be posted.
 
@@ -71,6 +72,7 @@ Return JSON only:
         en = max(st + 1.5, min(float(s.get("end", st + 4)), d))
         for k in ("text1", "text2"):
             s[k] = re.sub(r"[^A-Za-z0-9 .,!?'+:/%-]", "", s.get(k, ""))[:22]
+            if s[k].isupper(): s[k] = s[k].capitalize()
         s.update(clip=c, start=round(st, 2), end=round(en, 2)); segs.append(s)
     if not segs:
         segs = [{"clip": i, "start": 0.0, "end": min(5.0, d), "vo": "", "text1": "VAJRA PP", "text2": "Asli site"} for i, (_, d) in enumerate(clips[:3])]

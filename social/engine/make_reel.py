@@ -70,7 +70,7 @@ Idea / brief: {brief or "Pick a strong idea that makes a contractor stop scrolli
 Make exactly 3 scenes. At most 2 scenes may be type "ai" (generated video); the rest are type "photo".
 The first scene is the hook: a problem or question that grabs a contractor in 1 second.
 Each scene: one voiceover line in Hinglish, max 12 words, natural spoken style; and on-screen text in 2 short lines
-(each max 20 characters, plain ASCII letters/numbers/basic punctuation only, no emoji, no Devanagari).
+(normal sentence case, not all capitals; each max 20 characters, plain ASCII letters/numbers/basic punctuation only, no emoji, no Devanagari).
 For "ai" scenes write a detailed English video prompt: single continuous shot, vertical, Indian construction site or godown,
 real people, handheld phone look, natural light, no text anywhere, no dialogue.
 IMPORTANT: a PROBLEM scene (heavy ply, broken ply, waste, cost) must show OLD BROWN WOODEN PLYWOOD only, with shows_vajra=false; never show the grey VAJRA sheet as the problem.
