@@ -139,7 +139,10 @@ def scene_video(s, src, seconds, out, work, idx):
     fr = int(seconds * FPS)
     if s["type"] == "photo":
         z = "1.02+0.08*on/%d" % fr if idx % 2 == 0 else "1.10-0.08*on/%d" % fr
-        vf = (f"scale=1242:2208:force_original_aspect_ratio=increase:flags=lanczos,crop=1242:2208,setsar=1,"
+        # fit the whole photo over a blurred copy of itself, so nothing (like the worker) gets cropped out
+        vf = (f"split[pa][pb];[pa]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=40:4,eq=brightness=-0.08[pbg];"
+              f"[pb]scale={W}:{H}:force_original_aspect_ratio=decrease:flags=lanczos[pfg];[pbg][pfg]overlay=(W-w)/2:(H-h)/2,"
+              f"scale=1242:2208:flags=lanczos,setsar=1,"
               f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={fr}:s={W}x{H}:fps={FPS},{txt}")
         inputs = ["-i", src]
     else:
