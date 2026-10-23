@@ -1,53 +1,55 @@
 {
-    "items":  [
-                  {
-                      "id":  "test-approval-1",
-                      "title":  "TEST: approval system (won\u0027t be posted)",
-                      "video":  "https://vajraformwork.vercel.app/social/x9-halka.mp4",
-                      "caption":  "captions/x9-halka.txt",
-                      "position":  "end",
-                      "test":  true,
-                      "status":  "approved",
-                      "msg_id":  5,
-                      "sent_at":  "2026-10-23 09:05",
-                      "by":  "MrBeast",
-                      "at":  "2026-10-23 09:06"
-                  },
-                  {
-                      "id":  "reel-ai-1023-0927",
-                      "title":  "AI reel: Lightweight VAJRA vs Heavy Ply (16s)",
-                      "file":  "social/media/reel-ai-1023-0927.mp4",
-                      "caption":  "captions/reel-ai-1023-0927.txt",
-                      "position":  "end",
-                      "ai":  true,
-                      "status":  "rejected",
-                      "msg_id":  6,
-                      "sent_at":  "2026-10-23 09:29",
-                      "by":  "MrBeast",
-                      "at":  "2026-10-23 10:23"
-                  },
-                  {
-                      "id":  "reel-ai-1023-1001",
-                      "title":  "AI reel: Ek Aadmi vs Do Aadmi (16s)",
-                      "file":  "social/media/reel-ai-1023-1001.mp4",
-                      "caption":  "captions/reel-ai-1023-1001.txt",
-                      "position":  "end",
-                      "ai":  true,
-                      "status":  "approved",
-                      "msg_id":  7,
-                      "sent_at":  "2026-10-23 10:04",
-                      "by":  "MrBeast",
-                      "at":  "2026-10-23 10:25",
-                      "publish":  "done"
-                  },
-                  {
-                      "id":  "test-approval-2",
-                      "title":  "TEST: instant approval (won\u0027t be posted)",
-                      "video":  "https://vajraformwork.vercel.app/social/x9-halka.mp4",
-                      "caption":  "captions/x9-halka.txt",
-                      "position":  "end",
-                      "test":  true,
-                      "status":  "draft"
-                  }
-              ]
+  "items": [
+    {
+      "id": "test-approval-1",
+      "title": "TEST: approval system (won't be posted)",
+      "video": "https://vajraformwork.vercel.app/social/x9-halka.mp4",
+      "caption": "captions/x9-halka.txt",
+      "position": "end",
+      "test": true,
+      "status": "approved",
+      "msg_id": 5,
+      "sent_at": "2026-10-23 09:05",
+      "by": "MrBeast",
+      "at": "2026-10-23 09:06"
+    },
+    {
+      "id": "reel-ai-1023-0927",
+      "title": "AI reel: Lightweight VAJRA vs Heavy Ply (16s)",
+      "file": "social/media/reel-ai-1023-0927.mp4",
+      "caption": "captions/reel-ai-1023-0927.txt",
+      "position": "end",
+      "ai": true,
+      "status": "rejected",
+      "msg_id": 6,
+      "sent_at": "2026-10-23 09:29",
+      "by": "MrBeast",
+      "at": "2026-10-23 10:23"
+    },
+    {
+      "id": "reel-ai-1023-1001",
+      "title": "AI reel: Ek Aadmi vs Do Aadmi (16s)",
+      "file": "social/media/reel-ai-1023-1001.mp4",
+      "caption": "captions/reel-ai-1023-1001.txt",
+      "position": "end",
+      "ai": true,
+      "status": "approved",
+      "msg_id": 7,
+      "sent_at": "2026-10-23 10:04",
+      "by": "MrBeast",
+      "at": "2026-10-23 10:25",
+      "publish": "done"
+    },
+    {
+      "id": "test-approval-2",
+      "title": "TEST: instant approval (won't be posted)",
+      "video": "https://vajraformwork.vercel.app/social/x9-halka.mp4",
+      "caption": "captions/x9-halka.txt",
+      "position": "end",
+      "test": true,
+      "status": "sent",
+      "msg_id": 8,
+      "sent_at": "2026-10-23 10:40"
+    }
+  ]
 }
