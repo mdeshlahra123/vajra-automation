@@ -18,6 +18,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       TASK: ${{ github.event.inputs.task }}
       WHO: ${{ github.event.inputs.who }}
+      GEMINI_CLI_TRUST_WORKSPACE: "true"
     steps:
       - uses: actions/checkout@v4
       - name: Brain
