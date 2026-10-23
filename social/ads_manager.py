@@ -32,7 +32,7 @@ def post(path, **p):
 
 
 def leads(row):
-    return sum(float(a["value"]) for a in row.get("actions", []) if a["action_type"] == "lead")
+    return sum(float(a["value"]) for a in row.get("actions", []) if a["action_type"] in ("lead", "onsite_conversion.messaging_conversation_started_7d"))
 
 
 def insights(preset):

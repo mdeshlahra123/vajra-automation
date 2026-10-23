@@ -26,3 +26,6 @@
 
 ## 24 Oct (research + ads)
 - Promoted organic reels to ads (same ad set, same budget): L5 Throw (ad 120251540931460600), L6 Khokla 'Har 5 dhalai' (ad 120251540931990600). Active now: Kharcha, G5, L5, L6. Judge L5/L6 after ~Oct 28 (Rs150 spend each).
+
+## 24 Oct: WhatsApp test (owner chose)
+- Lead form ad set 120251450839500600 PAUSED. New WhatsApp ad set 120251541042080600 (Rs100/day, same targeting) with ad L7 WhatsApp - Kharcha. Results = WhatsApp chats started. Compare cost per chat vs ~Rs16/lead after ~3-4 days (~Rs300 spend), then report to owners; don't resume lead form without telling them. Balance Rs747 on 24 Oct.
