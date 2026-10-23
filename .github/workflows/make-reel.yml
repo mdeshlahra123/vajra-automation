@@ -18,9 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - name: Self-test (no API)
+        run: ffmpeg -version | head -1 && python3 social/engine/make_reel.py --selftest
       - id: make
+        if: github.event.inputs.brief != 'selftest'
         run: python3 social/engine/make_reel.py --brief "${{ github.event.inputs.brief }}" --res "${{ github.event.inputs.res }}"
-      - run: python3 social/tg.py send "${{ steps.make.outputs.id }}"
+      - if: github.event.inputs.brief != 'selftest'
+        run: python3 social/tg.py send "${{ steps.make.outputs.id }}"
       - uses: actions/upload-artifact@v4
         if: always()
         with: { name: reel-work, path: "work/**/*.mp4", if-no-files-found: ignore, retention-days: 7 }

@@ -181,27 +181,46 @@ def build(p, rid, res):
         gem.save_first(r, "audio", music); has_music = True
     except Exception as e:
         log.append(f"music failed: {str(e)[:200]}"); has_music = False
-    # mix: voice lines at their scene starts, music ducked under voice, fade out
+    final = A("social", "media", f"{rid}.mp4"); os.makedirs(os.path.dirname(final), exist_ok=True)
+    mix(video, vo_files, starts, total, music if has_music else None, final)
+    return final, total, log
+
+
+def mix(video, vo_files, starts, total, music, final):
+    """voice lines at their scene starts, music ducked under voice, fade out"""
     ins, fc, labels = [], [], []
     for i, f in enumerate(vo_files):
         ins += ["-i", f]; ms = int(starts[i] * 1000 + 150)
         fc.append(f"[{i+1}:a]aresample=48000,aformat=channel_layouts=stereo,adelay={ms}|{ms}[v{i}]"); labels.append(f"[v{i}]")
     fc.append(f"{''.join(labels)}amix=inputs={len(labels)}:normalize=0,apad,atrim=0:{total:.2f}[vo]")
-    if has_music:
+    if music:
         n = len(vo_files) + 1; ins += ["-i", music]
         fc.append(f"[{n}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{total:.2f},volume=0.32,afade=t=in:d=0.5,afade=t=out:st={total-1.5:.2f}:d=1.5[mu]")
         fc.append("[vo]asplit[vo1][vo2];[mu][vo1]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=300[duck];[duck][vo2]amix=inputs=2:normalize=0,alimiter=limit=0.95[a]")
     else:
         fc.append("[vo]anull[a]")
-    final = A("social", "media", f"{rid}.mp4"); os.makedirs(os.path.dirname(final), exist_ok=True)
-    sh("ffmpeg", "-v", "error", "-y", "-i", video, *ins, "-filter_complex", ";".join(fc), "-map", "0:v", "-map", "[a]",
+    sh("ffmpeg", "-v", "warning", "-y", "-i", video, *ins, "-filter_complex", ";".join(fc), "-map", "0:v", "-map", "[a]",
        "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-t", f"{total:.2f}", "-movflags", "+faststart", final)
-    return final, total, log
+
+
+def selftest():
+    """mix() with synthetic inputs, no API calls."""
+    w = A("work", "selftest"); os.makedirs(w, exist_ok=True)
+    v = os.path.join(w, "v.mp4"); sh("ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"color=c=black:s=320x568:r={FPS}:d=12", "-c:v", "libx264", v)
+    vos = []
+    for i, (f, d) in enumerate(((440, 2.5), (550, 3.0), (660, 2.0), (330, 3.0))):
+        p = os.path.join(w, f"vo{i}.wav"); sh("ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"sine=f={f}:d={d}", "-ar", "24000", "-ac", "1", p); vos.append(p)
+    m = os.path.join(w, "m.mp3"); sh("ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "sine=f=220:d=30", "-ac", "2", m)
+    out = os.path.join(w, "out.mp4"); mix(v, vos, [0, 3, 6.5, 9], 12.0, m, out)
+    print("SELFTEST OK", dur(out))
 
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--brief", default=""); ap.add_argument("--id", default=""); ap.add_argument("--res", default="720p")
+    ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
+    if a.selftest:
+        return selftest()
     rid = a.id or "reel-ai-" + (datetime.datetime.utcnow() + datetime.timedelta(hours=5.5)).strftime("%m%d-%H%M")
     p = plan(a.brief, rid)
     final, total, log = build(p, rid, a.res)
