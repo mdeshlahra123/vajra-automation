@@ -1,1 +1,6 @@
 *.tmp
+
+__pycache__/
+*.pyc
+work/
+out/
