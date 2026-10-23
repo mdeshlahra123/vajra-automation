@@ -1,0 +1,30 @@
+name: tg-say
+# Manual: sends the messages in a JSON file (list of {"text"} or {"file"}) to the Telegram group, one per message, so they're easy to copy on the phone.
+on:
+  workflow_dispatch:
+    inputs:
+      path: { description: "JSON file in repo", required: true }
+permissions: { contents: read }
+jobs:
+  say:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+      FILE: ${{ github.event.inputs.path }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+          api = f"https://api.telegram.org/bot{os.environ['TOKEN']}/"
+          for m in json.load(open(os.environ["FILE"], encoding="utf-8")):
+              if "file" in m:
+                  r = subprocess.run(["curl", "-s", "-F", f"chat_id={os.environ['CHAT']}", "-F", f"document=@{m['file']}",
+                                      "-F", f"caption={m.get('caption', '')}", api + "sendDocument"], capture_output=True, text=True).stdout
+              else:
+                  r = subprocess.run(["curl", "-s", "-X", "POST", api + "sendMessage", "-H", "Content-Type: application/json",
+                                      "-d", json.dumps({"chat_id": os.environ["CHAT"], "text": m["text"]})], capture_output=True, text=True).stdout
+              print(json.loads(r).get("ok"), (m.get("text") or m.get("file"))[:40])
+          PY
