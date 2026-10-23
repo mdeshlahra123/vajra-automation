@@ -7,7 +7,12 @@
 - Ads (lead form, Raipur/Durg +40 km): "Kharcha - Har 5 slab pe naya ply" ~₹10/lead is best; Reel B paused 24 Oct (CPL rising ~₹27). Budget ₹100/day, prepaid balance low (~₹248 on 24 Oct) — owners decide top-ups.
 - Owners: Mehul (shows as "MrBeast" on Telegram), Shobhit (does site work, sends clips).
 
-## Test run (24 Oct 2026)
-- Setup test run executed. Queue status: 17 pending reels, 9 pending images, 0 waiting approval. Last posted: reel-x2-throw & v-n2-oneman (23 Oct).
-- Best reel confirmed: "Har 5 slab pe naya ply? Saal ka kharcha..." (reel-a1-kharcha, 21 Oct) with ~103k reach, 900 saves, 1.2k shares.
-- Diagnostics: GitHub Actions composite action `run-gemini-cli@v0` does not inherit job-level `env:`, causing `META_ADS_TOKEN`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and `GH_TOKEN` to be unset in the agent runtime. Recommendation for Mehul: In `.github/workflows/agent.yml`, export secrets to `$GITHUB_ENV` in a step before `Brain`.
+## Test run 1 (24 Oct 2026)
+- Setup test run executed. Queue status: 17 pending reels, 9 pending images, 0 waiting approval.
+
+## Test run 2 (24 Oct 2026)
+- Status checked: 17 pending reels, 9 pending images in queue, 0 waiting approval. Last posted: reel-x2-throw & v-n2-oneman (23 Oct).
+- Best recent reel: reel-a1-kharcha ("Har 5 slab pe naya ply? Saal ka kharcha...", 21 Oct, ~103k reach, 900 saves, 1.2k shares).
+- Ads and queue untouched as instructed (no reels started, no ads paused/resumed).
+- Telegram message attempted. Failed due to missing `TELEGRAM_BOT_TOKEN` in runtime environment.
+- Fix for Mehul: GitHub Actions does not expand `${{ secrets.* }}` inside `jobs.<job>.env`. In `.github/workflows/agent.yml`, move the `env:` block with `${{ secrets.* }}` directly onto the step `Pass secrets to the brain's tools` so the tokens are populated in `$GITHUB_ENV`.
