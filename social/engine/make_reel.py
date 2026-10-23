@@ -198,17 +198,27 @@ def build(p, rid, res):
     return final, total, log
 
 
-def mix(video, vo_files, starts, total, music, final):
-    """voice lines at their scene starts, music ducked under voice, fade out"""
+def mix(video, vo_files, starts, total, music, final, bed=False):
+    """voice lines at their scene starts, music ducked under voice, fade out.
+    bed=True keeps the video's own sound (real site audio) quietly under everything."""
     ins, fc, labels = [], [], []
     for i, f in enumerate(vo_files):
         ins += ["-i", f]; ms = int(starts[i] * 1000 + 150)
         fc.append(f"[{i+1}:a]aresample=48000,aformat=channel_layouts=stereo,adelay={ms}|{ms}[v{i}]"); labels.append(f"[v{i}]")
     fc.append(f"{''.join(labels)}amix=inputs={len(labels)}:normalize=0,apad,atrim=0:{total:.2f}[vo]")
+    under = None
     if music:
         n = len(vo_files) + 1; ins += ["-i", music]
         fc.append(f"[{n}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{total:.2f},volume=0.32,afade=t=in:d=0.5,afade=t=out:st={total-1.5:.2f}:d=1.5[mu]")
-        fc.append("[vo]asplit[vo1][vo2];[mu][vo1]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=300[duck];[duck][vo2]amix=inputs=2:normalize=0,alimiter=limit=0.95[a]")
+        under = "[mu]"
+    if bed:
+        fc.append(f"[0:a]aresample=48000,aformat=channel_layouts=stereo,volume=0.22,apad,atrim=0:{total:.2f}[bed]")
+        if under:
+            fc.append("[mu][bed]amix=inputs=2:normalize=0[mb]"); under = "[mb]"
+        else:
+            under = "[bed]"
+    if under:
+        fc.append(f"[vo]asplit[vo1][vo2];{under}[vo1]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=300[duck];[duck][vo2]amix=inputs=2:normalize=0,alimiter=limit=0.95[a]")
     else:
         fc.append("[vo]anull[a]")
     sh("ffmpeg", "-v", "warning", "-y", "-i", video, *ins, "-filter_complex", ";".join(fc), "-map", "0:v", "-map", "[a]",

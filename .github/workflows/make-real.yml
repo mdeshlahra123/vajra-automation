@@ -1,0 +1,41 @@
+name: make-real
+# Started by the Apps Script when someone sends clips + "/reel note" in the Telegram group.
+on:
+  workflow_dispatch:
+    inputs:
+      clips: { description: "Telegram file_ids, comma separated", required: true }
+      note: { description: "note from the sender", required: false, default: "" }
+      who: { description: "sender name", required: false, default: "Shobhit" }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  reel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      CLIPS: ${{ github.event.inputs.clips }}
+      NOTE: ${{ github.event.inputs.note }}
+      WHO: ${{ github.event.inputs.who }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - id: make
+        run: python3 social/engine/make_real.py --clips "$CLIPS" --note "$NOTE" --who "$WHO"
+      - run: python3 social/tg.py send "${{ steps.make.outputs.id }}"
+      - name: Tell the group if it failed
+        if: failure()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" -d chat_id="$TELEGRAM_CHAT_ID" \
+            --data-urlencode text="⚠️ Reel from $WHO could not be made. Mehul will check. (${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >/dev/null
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name "vajra-bot"
+          git config user.email "vajra-bot@users.noreply.github.com"
+          git add social
+          git diff --cached --quiet && exit 0
+          git commit -m "bot: real reel ${{ steps.make.outputs.id }}"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1

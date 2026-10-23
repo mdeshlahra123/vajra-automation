@@ -88,7 +88,16 @@ def add_to_queue(it):
     else:
         entry["video" if it.get("video") else "image"] = it.get("video") or it.get("image")
     posts = q["posts"]
-    if it.get("position") == "next":
+    if it.get("real"):
+        entry["real"] = True
+    if it.get("position") == "alternate":
+        # real-footage reels alternate with the other reels: after the last pending real reel, skip one other reel
+        pend = [n for n, p in enumerate(posts) if not p.get("posted") and p.get("video")]
+        reals = [n for n in pend if posts[n].get("real")]
+        after = [n for n in pend if n > (reals[-1] if reals else -1) and not posts[n].get("real")]
+        idx = after[0] + 1 if after else len(posts)
+        posts.insert(idx, entry)
+    elif it.get("position") == "next":
         kind = bool(it.get("video"))
         idx = next((n for n, p in enumerate(posts) if not p.get("posted") and bool(p.get("video")) == kind), len(posts))
         posts.insert(idx, entry)
