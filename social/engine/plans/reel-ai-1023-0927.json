@@ -1,0 +1,34 @@
+{
+  "hook": "Ek sheet uthane ke liye do labour lag rahe hain?",
+  "title": "Lightweight VAJRA vs Heavy Ply",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Single continuous shot, vertical format, realistic handheld phone video look. On an active Indian RCC residential construction site with rebar columns, two Indian construction workers in dusty clothes struggle heavily to carry a single dark, weathered wooden plywood sheet together, visibly straining under the weight. Natural harsh daylight, genuine raw site atmosphere, no text anywhere, no dialogue.",
+      "vo": "Ek sheet uthane ke liye do labour lag rahe hain?",
+      "text1": "Ply bahut bhaari?",
+      "text2": "Do aadmi chahiye?"
+    },
+    {
+      "type": "photo",
+      "photo": "v1-hold",
+      "vo": "VAJRA sheet ek aadmi akele aaram se utha leta hai.",
+      "text1": "VAJRA hai halka",
+      "text2": "Ek aadmi utha le"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Single continuous shot, vertical format, realistic handheld phone video look. On an Indian RCC building roof slab under bright daylight, one Indian construction worker effortlessly carries a full sheet upright with one hand, walking swiftly across the deck and placing it smoothly against a column cage. No text anywhere, no dialogue. These must look exactly like the reference photos: VAJRA PP hollow shuttering sheet, a large flat 8 x 4 ft board (taller than a man when standing), 12 mm thick, plain light-grey faces, edge with SMALL round holes in two staggered rows. No text, no logos, no printing on anything.",
+      "vo": "Kaam hoga double fast aur labour kharcha bhi bachega.",
+      "text1": "Kaam hoga double tez",
+      "text2": "Labour kharcha kam"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Bhaari ply uthane mein labour aur time dono barbaad hota hai.\nVAJRA PP shuttering sheet itni halki hai ki ek aadmi akele sambhal le.\nSite par shuttering ka kaam tez karo aur labour kharcha bachao.\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "build_log": [
+    "scene 0 ai attempt 1: ok=True The frames depict real or coherent footage of a plastic construction panel without noticeable defects, readable text, or deformities.",
+    "scene 2 ai attempt 1: ok=True Consistent presentation of a plain light-grey sheet with natural anatomy and no visible artifacts or text."
+  ],
+  "seconds": 15.6
+}
