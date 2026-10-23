@@ -16,3 +16,10 @@
 - Ads and queue untouched as instructed (no reels started, no ads paused/resumed).
 - Telegram message attempted. Failed due to missing `TELEGRAM_BOT_TOKEN` in runtime environment.
 - Fix for Mehul: GitHub Actions does not expand `${{ secrets.* }}` inside `jobs.<job>.env`. In `.github/workflows/agent.yml`, move the `env:` block with `${{ secrets.* }}` directly onto the step `Pass secrets to the brain's tools` so the tokens are populated in `$GITHUB_ENV`.
+
+## Test run 3 (24 Oct 2026)
+- Status checked: 719 followers, 17 pending reels, 9 pending images in queue.
+- Best recent reel: reel-a1-kharcha ("Har 5 slab pe naya ply? Saal ka 2.6 lakh", 21 Oct, 107.4k reach, 979 saves, 1,295 shares).
+- Telegram test successful: connection confirmation message delivered via Telegram API.
+- No reels started, no ads changed as instructed.
+
