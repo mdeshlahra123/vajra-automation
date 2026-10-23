@@ -36,6 +36,8 @@ def status():
                 pass
             posts.append(row)
         out["recent_posts"] = posts
+        for p, m in zip(posts, g(f"{ig}/media", fields="id", limit=12)["data"]):
+            p["media_id"] = m["id"]
     except Exception as e:
         out["instagram_error"] = str(e)[:200]
     try:
@@ -63,6 +65,21 @@ def ad(action, ad_id):
     req = urllib.request.Request(V + ad_id, data=urllib.parse.urlencode(
         {"status": "PAUSED" if action == "pause" else "ACTIVE", "access_token": os.environ["META_ADS_TOKEN"]}).encode())
     print(json.load(urllib.request.urlopen(req, timeout=60)))
+
+
+def promote(media_id, name):
+    """Turn an organic Instagram reel into a lead ad in the existing ad set (same budget, no extra spend). Max 6 active ads."""
+    ads = g(f"{ACCOUNT}/ads", fields="effective_status", limit=100)["data"]
+    if sum(a["effective_status"] == "ACTIVE" for a in ads) >= 6:
+        sys.exit("already 6 active ads; pause a weak one first")
+    def post(path, d):
+        d["access_token"] = os.environ["META_ADS_TOKEN"]
+        return json.load(urllib.request.urlopen(urllib.request.Request(V + path, data=urllib.parse.urlencode(d).encode()), timeout=60))
+    c = post(f"{ACCOUNT}/adcreatives", {"name": name, "source_instagram_media_id": media_id, "instagram_user_id": "17841424780649708",
+             "object_id": PAGE, "call_to_action": json.dumps({"type": "SIGN_UP", "value": {"lead_gen_form_id": "4528850134099610",
+             "link": "https://vajraformwork.vercel.app/"}})})
+    a = post(f"{ACCOUNT}/ads", {"name": name, "adset_id": "120251450839500600", "creative": json.dumps({"creative_id": c["id"]}), "status": "ACTIVE"})
+    print("new ad", a)
 
 
 def dispatch(workflow, inputs):
@@ -103,4 +120,5 @@ def tg(text):
 if __name__ == "__main__":
     a = sys.argv[1:]
     {"status": lambda: status(), "ad": lambda: ad(a[1], a[2]), "reel": lambda: reel(" ".join(a[1:])),
-     "move": lambda: move(a[1], a[2]), "tg": lambda: tg(" ".join(a[1:]))}.get(a[0] if a else "", lambda: sys.exit(__doc__))()
+     "move": lambda: move(a[1], a[2]), "promote": lambda: promote(a[1], " ".join(a[2:])),
+     "leads": lambda: subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "leads_report.py")]), "tg": lambda: tg(" ".join(a[1:]))}.get(a[0] if a else "", lambda: sys.exit(__doc__))()

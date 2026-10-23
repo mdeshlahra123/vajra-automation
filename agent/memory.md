@@ -23,3 +23,6 @@
 - Telegram test successful: connection confirmation message delivered via Telegram API.
 - No reels started, no ads changed as instructed.
 
+
+## 24 Oct (research + ads)
+- Promoted organic reels to ads (same ad set, same budget): L5 Throw (ad 120251540931460600), L6 Khokla 'Har 5 dhalai' (ad 120251540931990600). Active now: Kharcha, G5, L5, L6. Judge L5/L6 after ~Oct 28 (Rs150 spend each).
