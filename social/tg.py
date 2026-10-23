@@ -23,6 +23,21 @@ def call(method, **p):
         return {"ok": False, "error": e.read().decode()[:500]}
 
 
+def upload(method, field, path, **fields):
+    """multipart/form-data upload of one file (Telegram bots: up to 50 MB)."""
+    b = "----vajra" + os.urandom(8).hex()
+    body = b""
+    for k, v in fields.items():
+        body += f'--{b}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'.encode()
+    body += (f'--{b}\r\nContent-Disposition: form-data; name="{field}"; filename="{os.path.basename(path)}"\r\n'
+             f"Content-Type: video/mp4\r\n\r\n").encode() + open(path, "rb").read() + f"\r\n--{b}--\r\n".encode()
+    req = urllib.request.Request(API + method, data=body, headers={"Content-Type": f"multipart/form-data; boundary={b}"})
+    try:
+        return json.load(urllib.request.urlopen(req, timeout=300))
+    except urllib.error.HTTPError as e:
+        return {"ok": False, "error": e.read().decode()[:500]}
+
+
 def load(path, default):
     return json.load(open(path, encoding="utf-8")) if os.path.exists(path) else default
 
@@ -45,7 +60,10 @@ def send(item_id):
     text = f"🆕 {it.get('title', it['id'])}\n\nCaption:\n{cap}"[:1000]
     kb = {"inline_keyboard": [[{"text": "✅ Approve", "callback_data": f"ok:{it['id']}"},
                                {"text": "❌ Reject", "callback_data": f"no:{it['id']}"}]]}
-    if it.get("video"):
+    if it.get("file"):
+        r = upload("sendVideo", "video", os.path.join(BASE, "..", it["file"]), chat_id=CHAT, caption=text,
+                   reply_markup=json.dumps(kb), supports_streaming="true")
+    elif it.get("video"):
         r = call("sendVideo", chat_id=CHAT, video=it["video"], caption=text, reply_markup=kb, supports_streaming=True)
     else:
         r = call("sendPhoto", chat_id=CHAT, photo=it["image"], caption=text, reply_markup=kb)

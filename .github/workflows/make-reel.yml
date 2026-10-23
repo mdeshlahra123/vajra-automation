@@ -1,0 +1,35 @@
+name: make-reel
+# Makes one AI reel (plan -> Gemini clips + voice + music -> edit -> check) and sends it to Telegram for approval.
+on:
+  workflow_dispatch:
+    inputs:
+      brief: { description: "idea (blank = engine picks)", required: false, default: "" }
+      res: { description: "AI video resolution: 360p (draft) / 720p", required: false, default: "720p" }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  reel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - id: make
+        run: python3 social/engine/make_reel.py --brief "${{ github.event.inputs.brief }}" --res "${{ github.event.inputs.res }}"
+      - run: python3 social/tg.py send "${{ steps.make.outputs.id }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: reel-work, path: "work/**/*.mp4", if-no-files-found: ignore, retention-days: 7 }
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name "vajra-bot"
+          git config user.email "vajra-bot@users.noreply.github.com"
+          git add social
+          git diff --cached --quiet && exit 0
+          git commit -m "bot: new reel ${{ steps.make.outputs.id }}"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
