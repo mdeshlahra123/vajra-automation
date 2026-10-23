@@ -23,6 +23,17 @@
       "status": "sent",
       "msg_id": 6,
       "sent_at": "2026-10-23 09:29"
+    },
+    {
+      "id": "reel-ai-1023-1001",
+      "title": "AI reel: Ek Aadmi vs Do Aadmi (16s)",
+      "file": "social/media/reel-ai-1023-1001.mp4",
+      "caption": "captions/reel-ai-1023-1001.txt",
+      "position": "end",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 7,
+      "sent_at": "2026-10-23 10:04"
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "hook": "Bhaari ply uthane me do aadmi waste ho rahe hain?",
+  "title": "Ek Aadmi vs Do Aadmi",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Vertical smartphone video, handheld camera, natural sunlight on an Indian construction site. Two Indian male laborers struggle with visible effort to lift and carry a single heavy, waterlogged, dark-brown wooden plywood shuttering board across a dusty concrete floor. Candid documentary framing, realistic motion, authentic site background, no text, no logos, no dialogue.",
+      "shows_vajra": false,
+      "vo": "Ek ply uthane me do-do aadmi lagte hain?",
+      "text1": "Ply itni bhaari?",
+      "text2": "Do aadmi lagte hain"
+    },
+    {
+      "type": "photo",
+      "photo": "sheet-held",
+      "shows_vajra": true,
+      "vo": "VAJRA sheet ek akela banda aaram se utha leta hai.",
+      "text1": "VAJRA hai halki",
+      "text2": "Ek aadmi kaafi hai"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld mobile shot on an Indian RCC slab under construction. A single Indian worker swiftly and effortlessly walks carrying one VAJRA PP hollow shuttering sheet under his arm. The sheet is a large flat 8 x 4 ft board, 12 mm thick, plain light-grey faces, edge with small round holes in two staggered rows. No text, no logos, no printing on anything. Realistic daylight, fast smooth workflow, authentic jobsite.",
+      "shows_vajra": true,
+      "vo": "Labor bachegi aur shuttering ka kaam dugna fast hoga.",
+      "text1": "Labor ki bachat",
+      "text2": "Kaam do guna tez"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Bhaari ply uthane me labor aur time dono barbad hota hai.\nVAJRA lightweight PP sheet ek banda aaram se utha leta hai.\nSite pe kaam tez hoga aur labor cost bachegi!\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "build_log": [
+    "scene 0 ai attempt 1: ok=True Natural footage showing brown wooden plywood boards without prominent text or visible deformities.",
+    "scene 2 ai attempt 1: ok=False Visible text and markings printed on the sheet surface.",
+    "scene 2 ai attempt 2: ok=True The frames depict a realistic light-grey plastic construction sheet with natural anatomy and no visible glitches or unwanted text."
+  ],
+  "seconds": 15.8
+}
