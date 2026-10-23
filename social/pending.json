@@ -7,7 +7,9 @@
       "caption": "captions/x9-halka.txt",
       "position": "end",
       "test": true,
-      "status": "draft"
+      "status": "sent",
+      "msg_id": 5,
+      "sent_at": "2026-10-23 09:05"
     }
   ]
 }
