@@ -198,6 +198,13 @@
       "image": "https://vajraformwork.vercel.app/social/v-p-workers.jpg",
       "caption": "captions/p-workers.txt",
       "posted": ""
+    },
+    {
+      "id": "reel-ai-1023-1001",
+      "caption": "captions/reel-ai-1023-1001.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-ai-1023-1001.mp4",
+      "ai": true
     }
   ]
 }
