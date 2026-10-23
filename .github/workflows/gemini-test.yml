@@ -1,0 +1,47 @@
+name: gemini-test
+# Manual test: one Gemini API call (image) using GEMINI_API_KEY. Output saved as a run artifact.
+on:
+  workflow_dispatch:
+    inputs:
+      model: { description: "model id", required: true, default: "gemini-nano-banana-2.1" }
+      prompt: { description: "prompt", required: true, default: "Photo of a stack of plain light-grey polypropylene hollow construction sheets, 8x4 ft, 12 mm thick, honeycomb hollow core visible on the edge, on wooden pallets in a clean Indian warehouse, natural light. No text, no logos, no printing on the sheets." }
+permissions: { contents: read }
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Call Gemini
+        env:
+          KEY: ${{ secrets.GEMINI_API_KEY }}
+          MODEL: ${{ github.event.inputs.model }}
+          PROMPT: ${{ github.event.inputs.prompt }}
+        run: |
+          python3 - <<'PY'
+          import os, json, base64, urllib.request, urllib.error
+          body = json.dumps({"model": os.environ["MODEL"], "input": os.environ["PROMPT"]}).encode()
+          req = urllib.request.Request(
+              "https://generativelanguage.googleapis.com/v1beta/interactions",
+              data=body, headers={"Content-Type": "application/json", "x-goog-api-key": os.environ["KEY"]})
+          try:
+              r = json.load(urllib.request.urlopen(req, timeout=300))
+          except urllib.error.HTTPError as e:
+              print("HTTP", e.code, e.read().decode()[:2000]); raise SystemExit(1)
+          os.makedirs("out", exist_ok=True); n = 0
+          def walk(o):
+              global n
+              if isinstance(o, dict):
+                  if o.get("data") and str(o.get("mime_type", o.get("type", ""))).startswith(("image", "video")):
+                      ext = "mp4" if "video" in str(o.get("mime_type", o.get("type"))) else "png"
+                      n += 1; open(f"out/result{n}.{ext}", "wb").write(base64.b64decode(o["data"]))
+                      o["data"] = f"<{len(o['data'])} chars saved>"
+                  for v in o.values(): walk(v)
+              elif isinstance(o, list):
+                  for v in o: walk(v)
+          walk(r)
+          print("status:", r.get("status"), "| model:", r.get("model"), "| files saved:", n)
+          print("usage:", json.dumps(r.get("usage", r.get("usage_metadata", {})))[:600])
+          if n == 0: print(json.dumps(r)[:3000]); raise SystemExit(1)
+          PY
+      - uses: actions/upload-artifact@v4
+        with: { name: gemini-output, path: out/ }
