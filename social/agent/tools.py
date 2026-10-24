@@ -62,7 +62,8 @@ def status():
         out["meta_token_error"] = str(e)[:150]
     q = json.load(open(os.path.join(ROOT, "social", "queue.json"), encoding="utf-8"))
     pend = [p for p in q["posts"] if not p.get("posted")]
-    out["queue"] = {"pending_reels": [p["id"] for p in pend if p.get("video")], "pending_images": [p["id"] for p in pend if not p.get("video")],
+    out["queue"] = {"pending_reels_in_order_next_first_9:30": [(p["id"], p["video"]) for p in pend if p.get("video")],
+                    "pending_images_in_order_next_first_19:30": [(p["id"], p.get("image")) for p in pend if not p.get("video")],
                     "last_posted": [(p["id"], p["posted"]) for p in q["posts"] if p.get("posted")][-5:]}
     pf = os.path.join(ROOT, "social", "pending.json")
     if os.path.exists(pf):
@@ -128,8 +129,19 @@ def tg(text):
     print(json.load(urllib.request.urlopen(req, timeout=30)).get("ok"))
 
 
+def media(url, caption):
+    """Send the actual video/photo to Telegram by URL; falls back to a text link."""
+    m, f = ("sendVideo", "video") if url.lower().endswith(".mp4") else ("sendPhoto", "photo")
+    try:
+        req = urllib.request.Request(f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/{m}",
+                                     data=json.dumps({"chat_id": os.environ["TELEGRAM_CHAT_ID"], f: url, "caption": "🧠 " + caption[:1000]}).encode(),
+                                     headers={"Content-Type": "application/json"})
+        print(json.load(urllib.request.urlopen(req, timeout=60)).get("ok"))
+    except Exception as e:
+        print("media failed, sending link:", str(e)[:100]); tg(caption + "\n" + url)
 if __name__ == "__main__":
     a = sys.argv[1:]
     {"status": lambda: status(), "ad": lambda: ad(a[1], a[2]), "reel": lambda: reel(" ".join(a[1:])),
      "move": lambda: move(a[1], a[2]), "promote": lambda: promote(a[1], " ".join(a[2:])),
-     "leads": lambda: subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "leads_report.py")]), "tg": lambda: tg(" ".join(a[1:]))}.get(a[0] if a else "", lambda: sys.exit(__doc__))()
+     "leads": lambda: subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "leads_report.py")]), "tg": lambda: tg(" ".join(a[1:])),
+     "media": lambda: media(a[1], " ".join(a[2:]))}.get(a[0] if a else "", lambda: sys.exit(__doc__))()

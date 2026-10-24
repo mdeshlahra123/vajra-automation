@@ -62,6 +62,30 @@ function handleTap_(cq, P) {
 }
 
 // Clips: videos sent to the group are collected; "/reel <note>" turns them into a reel (GitHub make-real.yml).
+// Instant answer for "aaj/kal/next konsi reel/post" from the public next.json (no brain run needed).
+function fastNext_(q, chat, replyTo) {
+  var s = q.toLowerCase();
+  if (!/(reel|post|video|photo|image|dalne|daalne|aane|upload)/.test(s) || !/(aaj|aj\b|kal|next|agla|agli|konsi|kaunsi|kon si|kaun si|kab|today|tomorrow|upcoming|aane wali)/.test(s)) return false;
+  var r = UrlFetchApp.fetch('https://vajraformwork.vercel.app/social/next.json?t=' + Date.now(), { muteHttpExceptions: true });
+  if (r.getResponseCode() !== 200) return false;
+  var d = JSON.parse(r.getContentText());
+  var now = new Date(Date.now() + 5.5 * 3600 * 1000);
+  var today = now.toISOString().slice(0, 10), hm = now.toISOString().slice(11, 16);
+  var tom = new Date(now.getTime() + 86400000).toISOString().slice(0, 10);
+  var wantImg = /(photo|image|post\b|shaam|evening)/.test(s) && !/reel|video/.test(s);
+  var list = (wantImg ? d.images : d.reels).filter(function (x) { return x.date > today || (x.date === today && x.time > hm); });
+  if (!list.length) return false;
+  var wantKal = /(kal|tomorrow)/.test(s) && !/aaj|today/.test(s);
+  var item = wantKal ? (list.filter(function (x) { return x.date === tom; })[0] || list[1] || list[0]) : list[0];
+  var when = (item.date === today ? 'Aaj' : item.date === tom ? 'Kal' : item.date) + ' ' + item.time;
+  var cap = (wantImg ? '🖼 ' : '🎬 ') + when + ' ko ye jayegi:\n' + (item.hook || item.id);
+  if (list[1] && item === list[0]) cap += '\n\nUske baad: ' + (list[1].hook || list[1].id).slice(0, 80);
+  var res = tg_(wantImg ? 'sendPhoto' : 'sendVideo', wantImg ? { chat_id: chat, photo: item.url, caption: cap, reply_to_message_id: replyTo }
+    : { chat_id: chat, video: item.url, caption: cap, reply_to_message_id: replyTo, supports_streaming: true });
+  if (res.getResponseCode() !== 200) tg_('sendMessage', { chat_id: chat, text: cap + '\n' + item.url, reply_to_message_id: replyTo });
+  return true;
+}
+
 function handleMessage_(m, P) {
   var chat = String(m.chat.id);
   if (chat !== P.getProperty('CHAT_ID')) return;
@@ -84,6 +108,7 @@ function handleMessage_(m, P) {
   if (/^\/ask(@\w+)?\b/i.test(text)) {
     var q = text.replace(/^\/ask(@\w+)?/i, '').trim();
     if (!q) { tg_('sendMessage', { chat_id: chat, text: 'Likho: /ask aur apna kaam, jaise: /ask aaj ke ads kaise chale?' }); return; }
+    if (fastNext_(q, chat, m.message_id)) return;
     var a = UrlFetchApp.fetch('https://api.github.com/repos/mdeshlahra123/vajra-automation/actions/workflows/agent.yml/dispatches', {
       method: 'post', contentType: 'application/json', muteHttpExceptions: true,
       headers: { Authorization: 'Bearer ' + P.getProperty('GH_TOKEN'), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },

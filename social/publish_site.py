@@ -20,7 +20,25 @@ removed = [f for f in os.listdir(sdir) if f.endswith(".mp4") and f not in keep a
 for f in removed:
     os.remove(os.path.join(sdir, f))
 print("add:", [i["id"] for i in todo], "| remove:", removed)
-if not todo and not removed:
+# public next.json: upcoming posts with dates, read by the Telegram bot for instant "aaj/kal konsi reel" answers
+import datetime
+today = (datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)).date()
+def hook(p):
+    try:
+        return open(os.path.join(BASE, p["caption"]), encoding="utf-8").read().strip().split("\n")[0][:120]
+    except Exception:
+        return ""
+pend_posts = [p for p in queue["posts"] if not p.get("posted")]
+nxt = {"made": str(today), "reels": [], "images": []}
+for kind, key, t in (("reels", "video", "09:30"), ("images", "image", "19:30")):
+    for n, p in enumerate([p for p in pend_posts if p.get(key)][:7]):
+        nxt[kind].append({"date": str(today + datetime.timedelta(days=n)), "time": t, "id": p["id"], "url": p[key], "hook": hook(p)})
+npath = os.path.join(sdir, "next.json")
+old = open(npath, encoding="utf-8").read() if os.path.exists(npath) else ""
+new = json.dumps(nxt, ensure_ascii=False, indent=1)
+if new != old:
+    open(npath, "w", encoding="utf-8").write(new)
+if not todo and not removed and new == old:
     sys.exit(0)
 g = lambda *a: subprocess.run(["git", "-C", "site", *a], check=True)
 g("config", "user.name", "vajra-bot"); g("config", "user.email", "vajra-bot@users.noreply.github.com")
