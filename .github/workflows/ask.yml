@@ -1,0 +1,26 @@
+name: ask
+# Quick brain for Telegram "/ask ..." (Apps Script dispatches it). One Gemini call, ~30 s. Hands big jobs to agent.yml.
+# No concurrency group: it only reads files, so it never waits behind posting runs.
+on:
+  workflow_dispatch:
+    inputs:
+      task: { description: "request from the owners", required: true }
+      who: { description: "who asked", required: false, default: "" }
+permissions: { contents: read, actions: write }
+jobs:
+  ask:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GH_TOKEN: ${{ github.token }}
+      TASK: ${{ github.event.inputs.task }}
+      WHO: ${{ github.event.inputs.who }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 social/agent/quick.py
+      - if: failure()
+        run: python3 -c "import os,sys;sys.path.insert(0,'social/agent');import tools;tools.tg('Jawab mein error aaya. Bada brain chala raha hun.');tools.dispatch('agent.yml',{'task':os.environ['TASK'][:900],'who':os.environ['WHO']})"
