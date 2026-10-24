@@ -1,6 +1,6 @@
 /**
  * VAJRA Telegram approvals (Google Apps Script, free, runs on Google's servers).
- * Every minute pollTelegram() reads button taps from Telegram, answers them, and starts GitHub approve.yml (mode=tap).
+ * Instant: Telegram webhook -> Vercel relay (website/api/tg.js) -> doPost(). Fallback: every minute pollTelegram() reads button taps from Telegram, answers them, and starts GitHub approve.yml (mode=tap).
  * (A Telegram webhook doesn't work with Apps Script: it replies with a 302 redirect, which Telegram treats as a failure.)
  *
  * Script properties: BOT_TOKEN, GH_TOKEN, CHAT_ID (-5041048930). KEY / WEB_APP_URL are no longer needed.
@@ -14,20 +14,59 @@ function installTrigger() {
   pollTelegram();
 }
 
+// Instant mode: Telegram -> https://vajraformwork.vercel.app/api/tg (relay) -> doPost here. Needs this script deployed as a Web app.
+function doPost(e) {
+  var P = PropertiesService.getScriptProperties();
+  if (!e || !e.parameter || e.parameter.s !== P.getProperty('HOOK_SECRET')) return ContentService.createTextOutput('no');
+  var u = JSON.parse(e.postData.contents);
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var seen = JSON.parse(P.getProperty('SEEN') || '[]');
+    if (seen.indexOf(u.update_id) >= 0) return ContentService.createTextOutput('dup');
+    seen.push(u.update_id); P.setProperty('SEEN', JSON.stringify(seen.slice(-50)));
+    if (u.callback_query) handleTap_(u.callback_query, P);
+    else if (u.message) handleMessage_(u.message, P);
+  } finally { lock.releaseLock(); }
+  return ContentService.createTextOutput('ok');
+}
+// Turn the webhook on when the web app exists; turn it off (back to polling) if Telegram reports errors.
+function webhook_(P) {
+  var url = ScriptApp.getService().getUrl();
+  if (!url || !/\/exec$/.test(url)) return false;
+  if (P.getProperty('HOOK') === url) {
+    if (Date.now() - Number(P.getProperty('HOOK_CHECK') || 0) < 10 * 60 * 1000) return true;
+    P.setProperty('HOOK_CHECK', String(Date.now()));
+    var info = JSON.parse(tg_('getWebhookInfo', {}).getContentText()).result || {};
+    if (info.url && (!info.last_error_date || Date.now() / 1000 - info.last_error_date > 600 || info.pending_update_count < 3)) return true;
+    Logger.log('webhook broken, back to polling: ' + JSON.stringify(info));
+    tg_('deleteWebhook', {}); P.setProperty('HOOK', 'off:' + Date.now()); return false;
+  }
+  if (/^off:/.test(P.getProperty('HOOK') || '') && Date.now() - Number(P.getProperty('HOOK').slice(4)) < 3600 * 1000) return false;
+  var secret = P.getProperty('HOOK_SECRET') || Utilities.getUuid().replace(/-/g, '');
+  P.setProperty('HOOK_SECRET', secret);
+  var r = JSON.parse(tg_('setWebhook', { url: 'https://vajraformwork.vercel.app/api/tg?to=' + encodeURIComponent(url),
+    secret_token: secret, allowed_updates: ['callback_query', 'message'] }).getContentText());
+  Logger.log('setWebhook: ' + JSON.stringify(r));
+  if (r.ok) { P.setProperty('HOOK', url); P.setProperty('HOOK_CHECK', String(Date.now())); }
+  return !!r.ok;
+}
 function pollTelegram() {
   var lock = LockService.getScriptLock();
   if (!lock.tryLock(1000)) return;  // previous run still busy
   try {
     var P = PropertiesService.getScriptProperties();
-    var offset = Number(P.getProperty('OFFSET') || 0);
-    var res = JSON.parse(tg_('getUpdates', { offset: offset, timeout: 0, allowed_updates: ['callback_query', 'message'] }).getContentText());
-    if (!res.ok) { Logger.log('getUpdates failed: ' + JSON.stringify(res)); return; }
-    res.result.forEach(function (u) {
-      offset = u.update_id + 1;
-      P.setProperty('OFFSET', String(offset));  // save first, so nothing is handled twice
-      if (u.callback_query) handleTap_(u.callback_query, P);
-      else if (u.message) handleMessage_(u.message, P);
-    });
+    if (!webhook_(P)) {
+      var offset = Number(P.getProperty('OFFSET') || 0);
+      var res = JSON.parse(tg_('getUpdates', { offset: offset, timeout: 0, allowed_updates: ['callback_query', 'message'] }).getContentText());
+      if (!res.ok) { Logger.log('getUpdates failed: ' + JSON.stringify(res)); return; }
+      res.result.forEach(function (u) {
+        offset = u.update_id + 1;
+        P.setProperty('OFFSET', String(offset));  // save first, so nothing is handled twice
+        if (u.callback_query) handleTap_(u.callback_query, P);
+        else if (u.message) handleMessage_(u.message, P);
+      });
+    }
     // no /reel? make the reel automatically 20 minutes after the last clip
     var clips = JSON.parse(P.getProperty('CLIPS') || '[]');
     if (clips.length && Date.now() - clips[clips.length - 1].t > 20 * 60 * 1000) {
@@ -109,13 +148,13 @@ function handleMessage_(m, P) {
     var q = text.replace(/^\/ask(@\w+)?/i, '').trim();
     if (!q) { tg_('sendMessage', { chat_id: chat, text: 'Likho: /ask aur apna kaam, jaise: /ask aaj ke ads kaise chale?' }); return; }
     if (fastNext_(q, chat, m.message_id)) return;
-    var a = UrlFetchApp.fetch('https://api.github.com/repos/mdeshlahra123/vajra-automation/actions/workflows/agent.yml/dispatches', {
+    var a = UrlFetchApp.fetch('https://api.github.com/repos/mdeshlahra123/vajra-automation/actions/workflows/ask.yml/dispatches', {
       method: 'post', contentType: 'application/json', muteHttpExceptions: true,
       headers: { Authorization: 'Bearer ' + P.getProperty('GH_TOKEN'), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
       payload: JSON.stringify({ ref: 'main', inputs: { task: q.slice(0, 900), who: who } })
     });
     tg_('sendMessage', { chat_id: chat, reply_to_message_id: m.message_id,
-      text: a.getResponseCode() === 204 ? '🧠 Samajh gaya, kaam shuru. 2-5 min mein yahin jawab aayega.' : '⚠️ Brain start nahi hua (' + a.getResponseCode() + ').' });
+      text: a.getResponseCode() === 204 ? '🧠 Dekh raha hun... ~30 sec mein jawab.' : '⚠️ Brain start nahi hua (' + a.getResponseCode() + ').' });
     return;
   }
   if (!/^\/reel(@\w+)?\b/i.test(text)) return;
