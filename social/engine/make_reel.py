@@ -91,6 +91,14 @@ Return JSON only:
             s["photo"] = random.choice(list(PHOTOS))
         for k in ("text1", "text2"):
             s[k] = re.sub(r"[^A-Za-z0-9 .,!?'+:/%-]", "", s.get(k, ""))[:22]
+    import claims  # never promise a use count
+    for s in p["scenes"]:
+        for k in list(s):
+            if isinstance(s[k], str) and k not in ("type", "photo"):
+                s[k] = claims.fix_line(s[k], short=k.startswith("text"))
+    for k in ("caption", "vo", "voice"):
+        if isinstance(p.get(k), str):
+            p[k] = claims.fix_caption(p[k])
     if re.search(r"3[, ]?500|per sheet", json.dumps(p), re.I):
         raise RuntimeError("plan mentions the price - refusing")
     return p

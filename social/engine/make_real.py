@@ -44,7 +44,7 @@ Watch the clips. Plan a 12-25 second reel from the best parts:
 - Segment 1 is the hook: the most striking moment, with a voiceover line that makes a contractor stop scrolling.
 - Each segment: one Hinglish voiceover line (max 12 words) describing what is really shown; on-screen text in 2 short lines
   (each max 20 characters, plain ASCII letters/numbers/basic punctuation, no emoji, no Devanagari).
-- Each voiceover line must describe ONLY what is visible in that segment (e.g. do not say "smooth finish" unless finished concrete is shown). General allowed claims (light, reusable 40-50 pours, waterproof) may go in at most one line. Never mention the sheet price.
+- Each voiceover line must describe ONLY what is visible in that segment (e.g. do not say "smooth finish" unless finished concrete is shown). General allowed claims (light, "sahi handling ke saath ply se 2-3 guna zyada chalti hai", waterproof; NEVER an exact number of uses/pours, never per-pour or yearly rupee maths) may go in at most one line. Never mention the sheet price.
 - On-screen text in normal sentence case (e.g. "Column ready", not "COLUMN READY").
 - Flag problems in "issues": a visible price, a competitor brand or logo, printed text on the sheet, unsafe work,
   faces of people who seem unaware of the camera, or footage too poor to use. ok=false if the reel should not be posted.
@@ -77,6 +77,12 @@ Return JSON only:
     if not segs:
         segs = [{"clip": i, "start": 0.0, "end": min(5.0, d), "vo": "", "text1": "VAJRA PP", "text2": "Asli site"} for i, (_, d) in enumerate(clips[:3])]
     p["segments"] = segs
+    import claims  # never promise a use count
+    for s in segs:
+        s["vo"] = claims.fix_line(s.get("vo", ""))
+        for k in ("text1", "text2"):
+            s[k] = claims.fix_line(s.get(k, ""), short=True)
+    p["caption"] = claims.fix_caption(p.get("caption", ""))
     if re.search(r"3[, ]?500|per sheet", p.get("caption", "") + " ".join(s["vo"] for s in segs), re.I):
         p["ok"] = False; p.setdefault("issues", []).append("plan mentioned the price")
     return p

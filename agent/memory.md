@@ -35,3 +35,6 @@
 - Reel `reel-h1-hisaab` (22 Oct) also performed well: 5.7k reach, 123 comments, 66 saves+shares.
 - Queue healthy with 17 pending reels (no new AI reel needed, > 6). Next up: `reel-h2-ekhaath`.
 - WhatsApp test (L7 Kharcha) running, ₹747 balance. Monitoring chat costs over next 3 days.
+
+## 2026-10-24 USE-COUNT RULE (owners)
+- Never say a number of uses (40/40+/40-50 etc.), no '5 slab' ply hook, no Rs 88 / Rs 416 per dhalai, no 2.6 vs 1.1 lakh. Only: 'Sahi handling ke saath ply se 2-3 guna zyada chalti hai.' Shobhit: ply actually lasts 8-10 uses. Older entries above that quote those numbers are history, not copy to reuse.

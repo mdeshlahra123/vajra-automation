@@ -3,7 +3,7 @@
 Product: VAJRA PP hollow shuttering sheet (plastic formwork) for RCC slabs, columns, beams.
 - 8 x 4 ft, 12 mm thick. Plain light-grey faces, NO printing or logos on the sheet.
 - Edge: SMALL round holes in two staggered rows, grey core.
-- Light: one man can lift a full sheet. Waterproof, does not swell. Nails hold. 40-50 pours with good handling.
+- Light: one man can lift a full sheet. Waterproof, does not swell. Nails hold. Lasts 2-3 times longer than ply with good handling (sahi handling ke saath).
 - Sold by VAJRA Formwork, Raipur / Durg / Bhilai (Chhattisgarh). Pan-India dispatch.
 - Contact: 83050 70160 (Call / WhatsApp). Instagram @vajraformwork.
 
@@ -11,8 +11,8 @@ Audience: contractors, builders, mistri, site engineers, house owners building R
 Language: Hinglish (Hindi in Roman letters + simple English words), how a contractor talks on site. Short, direct, friendly.
 
 Allowed claims: lighter than ply, one man can lift, waterproof / doesn't swell, nails hold, washable and reusable,
-40-50 pours with good handling, saves money per pour vs ply (ply ~4-6 pours), smooth concrete finish, pan-India dispatch.
-Cost comparison allowed: "Ply: Rs 2.6 lakh / saal vs VAJRA: Rs 1.1 lakh / saal" (yearly, for a busy contractor).
+"Ply se 2-3 guna zyada chalti hai, sahi handling ke saath" (always with the handling part), har dhalai ka kharcha ply se kam (no rupee figure), smooth concrete finish, pan-India dispatch.
+USE-COUNT RULE (24 Oct 2026): NEVER say an exact number of uses/pours/dhalai (no 40, 40+, 40-50, 30, 50...), never "Har 5 slab pe naya ply", never per-dhalai rupees (Rs 88 / Rs 416), never yearly lakh maths (2.6 vs 1.1 lakh), never "kharcha aadha" or "1 VAJRA = 8 ply". Rough site use can cut life short and customers would fight us. Ply hook without a number: "Har kuch slab pe naya ply?" / "Ply har baar naya?".
 
 Never:
 - Never say the sheet price (no "3,500", no "Rs per sheet") in video, voiceover or caption.
