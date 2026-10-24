@@ -29,3 +29,9 @@
 
 ## 24 Oct: WhatsApp test (owner chose)
 - Lead form ad set 120251450839500600 PAUSED. New WhatsApp ad set 120251541042080600 (Rs100/day, same targeting) with ad L7 WhatsApp - Kharcha. Results = WhatsApp chats started. Compare cost per chat vs ~Rs16/lead after ~3-4 days (~Rs300 spend), then report to owners; don't resume lead form without telling them. Balance Rs747 on 24 Oct.
+
+## 24 Oct (daily run)
+- Reel `reel-x2-throw` (23 Oct) confirmed strong toughness appeal: 6.8k reach, 7.5k views, 37 comments, 30 saves+shares in first 24h.
+- Reel `reel-h1-hisaab` (22 Oct) also performed well: 5.7k reach, 123 comments, 66 saves+shares.
+- Queue healthy with 17 pending reels (no new AI reel needed, > 6). Next up: `reel-h2-ekhaath`.
+- WhatsApp test (L7 Kharcha) running, ₹747 balance. Monitoring chat costs over next 3 days.
