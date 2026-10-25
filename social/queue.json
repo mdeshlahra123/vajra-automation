@@ -83,6 +83,13 @@
       "posted": "2026-10-23"
     },
     {
+      "id": "reel-qa-rate",
+      "video": "https://vajraformwork.vercel.app/social/qa-rate.mp4",
+      "caption": "captions/qa-rate.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/qa-rate-cover.jpg"
+    },
+    {
       "id": "reel-x3-bend",
       "video": "https://vajraformwork.vercel.app/social/x6-bend.mp4",
       "caption": "captions/x3-bend.txt",
@@ -101,6 +108,13 @@
       "caption": "captions/m2-quick.txt",
       "posted": "",
       "cover": "https://vajraformwork.vercel.app/social/m2-quick-cta-cover.jpg"
+    },
+    {
+      "id": "reel-qa-kahan",
+      "video": "https://vajraformwork.vercel.app/social/qa-kahan.mp4",
+      "caption": "captions/qa-kahan.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/qa-kahan-cover.jpg"
     },
     {
       "id": "reel-x9-halka",
@@ -131,6 +145,13 @@
       "reel": "https://vajraformwork.vercel.app/social/v-n4-cage-pr.mp4"
     },
     {
+      "id": "reel-qa-size",
+      "video": "https://vajraformwork.vercel.app/social/qa-size.mp4",
+      "caption": "captions/qa-size.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/qa-size-cover.jpg"
+    },
+    {
       "id": "reel-a2-dekhlo",
       "video": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta.mp4",
       "caption": "captions/a2-dekhlo.txt",
@@ -159,6 +180,13 @@
       "reel": "https://vajraformwork.vercel.app/social/v-n6-wash-pr.mp4"
     },
     {
+      "id": "reel-qa-toot",
+      "video": "https://vajraformwork.vercel.app/social/qa-toot.mp4",
+      "caption": "captions/qa-toot.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/qa-toot-cover.jpg"
+    },
+    {
       "id": "reel-r1-oneman",
       "video": "https://vajraformwork.vercel.app/social/r1-oneman-cta.mp4",
       "caption": "captions/r1-oneman.txt",
@@ -185,6 +213,13 @@
       "caption": "captions/p-throw.txt",
       "posted": "",
       "reel": "https://vajraformwork.vercel.app/social/v-p-throw-pr.mp4"
+    },
+    {
+      "id": "reel-qa-mehnga",
+      "video": "https://vajraformwork.vercel.app/social/qa-mehnga.mp4",
+      "caption": "captions/qa-mehnga.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg"
     },
     {
       "id": "reel-r3-column",
