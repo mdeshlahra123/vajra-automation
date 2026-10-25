@@ -72,3 +72,7 @@
 2026-10-25 05:38    DRYRUN: IG upload OK (container 18127489744826022), not published. Next: v-n3-core
 2026-10-25 10:23  POSTING reel-x7-hisaab
 2026-10-25 10:24    DRYRUN: IG upload OK (container 18127542886826022), not published. Next: reel-x7-hisaab
+2026-10-25 14:00  POSTING v-n3-core
+2026-10-25 14:01    IG OK https://www.instagram.com/reel/De633AxiYN0/
+2026-10-25 14:01    FB OK post 1296793536861294_122109318453509427
+2026-10-25 14:01    DONE. 21 posts left in queue.
