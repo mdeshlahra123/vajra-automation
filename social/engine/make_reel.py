@@ -18,7 +18,7 @@ W, H, FPS = 1080, 1920, 30
 
 PHOTOS = {
     "r-throw": "VAJRA sheet lying on the ground after being thrown from a roof, unbroken",
-    "r-slab": "underside of a full RCC slab shuttered with VAJRA sheets on a real site",
+    "ply-pile": "pile of old broken brown plywood on a site (ONLY for ply-problem scenes)",
     "r-workers": "workers fixing VAJRA sheets around a column on site",
     "v1-core": "hand holding a sheet showing the hollow core edge",
     "v1-hold": "close-up of a hand gripping the thin edge of a sheet (shows it is thin, NOT a lifting shot)",
@@ -86,10 +86,20 @@ Return JSON only:
     for s in ai[2:]:
         s.update(type="photo", photo="godown")
     for s in p["scenes"]:
-        if s["type"] == "photo" and s.get("photo") not in PHOTOS:
+        if s["type"] == "photo" and (s.get("photo") not in PHOTOS or s.get("photo") in ("r-used", "r-slab", "v2-used")):
             s["photo"] = random.choice(list(PHOTOS))
         for k in ("text1", "text2"):
             s[k] = re.sub(r"[^A-Za-z0-9 .,!?'+:/%-]", "", s.get(k, ""))[:22]
+    # picture must match the words: a ply problem shows brown ply, a VAJRA line never shows the ply pile
+    for s in p["scenes"]:
+        if s.get("type") != "photo":
+            continue
+        words = " ".join(str(s.get(k, "")) for k in ("text1", "text2", "vo")).lower()
+        about_ply = bool(re.search(r"\bply\b", words)) and not re.search(r"vajra|pp\b|panel|2-3 guna", words)
+        if about_ply:
+            s["photo"] = "ply-pile"
+        elif s.get("photo") == "ply-pile":
+            s["photo"] = "godown"
     import claims  # never promise a use count
     for s in p["scenes"]:
         for k in list(s):

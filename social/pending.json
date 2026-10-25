@@ -113,9 +113,10 @@
       "caption": "captions/reel-ai-1025-2014.txt",
       "position": "end",
       "ai": true,
-      "status": "sent",
+      "status": "rejected",
       "msg_id": 229,
-      "sent_at": "2026-10-25 20:17"
+      "sent_at": "2026-10-25 20:17",
+      "note": "problem scene showed VAJRA sheets, ceiling photo"
     },
     {
       "id": "reel-ai-1025-2021",

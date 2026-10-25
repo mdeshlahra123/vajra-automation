@@ -70,13 +70,6 @@
       "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg"
     },
     {
-      "id": "reel-x1-slab",
-      "video": "https://vajraformwork.vercel.app/social/x1-slab-cta.mp4",
-      "caption": "captions/x1-slab.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/x1-slab-cta-cover.jpg"
-    },
-    {
       "id": "v-n2-oneman",
       "image": "https://vajraformwork.vercel.app/social/v-n2-oneman.jpg",
       "caption": "captions/n2-oneman.txt",

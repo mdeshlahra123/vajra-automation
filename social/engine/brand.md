@@ -27,3 +27,4 @@ Caption ends with the comment-PP line, "Follow kijiye @vajraformwork", phone, an
 #PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai
 
 - NEVER use the used/dirty PP sheet edge photo (r-used, v2-used) in any reel, post, cover or ad. Owners: it looks bad.
+- NEVER use the slab-ceiling photo/footage (r-slab, x1-slab): low quality. Ply-problem lines must show brown ply (ply-pile), never the grey VAJRA sheet.
