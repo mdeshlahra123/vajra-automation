@@ -129,6 +129,17 @@
       "msg_id": 231,
       "sent_at": "2026-10-25 20:24",
       "note": "old photos"
+    },
+    {
+      "id": "reel-ai-1025-2041",
+      "title": "AI reel: Contractor profit and ply waste (22s)",
+      "file": "social/media/reel-ai-1025-2041.mp4",
+      "caption": "captions/reel-ai-1025-2041.txt",
+      "position": "end",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 237,
+      "sent_at": "2026-10-25 20:52"
     }
   ]
 }
