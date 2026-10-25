@@ -17,7 +17,6 @@ FONT = A("assets", "brand", "Archivo.ttf")
 W, H, FPS = 1080, 1920, 30
 
 PHOTOS = {
-    "r-used": "close-up of a used VAJRA sheet edge next to broken old ply, after many pours",
     "r-throw": "VAJRA sheet lying on the ground after being thrown from a roof, unbroken",
     "r-slab": "underside of a full RCC slab shuttered with VAJRA sheets on a real site",
     "r-workers": "workers fixing VAJRA sheets around a column on site",

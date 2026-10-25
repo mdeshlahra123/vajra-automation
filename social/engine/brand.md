@@ -25,3 +25,5 @@ Never:
 Every reel ends with: "Comment mein PP likhiye, follow kijiye, rate aapke DM mein."
 Caption ends with the comment-PP line, "Follow kijiye @vajraformwork", phone, and these hashtags:
 #PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai
+
+- NEVER use the used/dirty PP sheet edge photo (r-used, v2-used) in any reel, post, cover or ad. Owners: it looks bad.
