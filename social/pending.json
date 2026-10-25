@@ -98,9 +98,11 @@
       "caption": "captions/reel-ai-1025-2003.txt",
       "position": "end",
       "ai": true,
-      "status": "sent",
+      "status": "rejected",
       "msg_id": 217,
-      "sent_at": "2026-10-25 20:07"
+      "sent_at": "2026-10-25 20:07",
+      "by": "Rahul",
+      "at": "2026-10-25 20:07"
     }
   ]
 }
