@@ -1,0 +1,37 @@
+{
+  "hook": "Ply har baar naya khareed kar munafa khatam?",
+  "title": "Contractor Profit vs Shuttering Ply",
+  "scenes": [
+    {
+      "type": "ai",
+      "shows_vajra": false,
+      "video_prompt": "Single continuous shot, vertical, Indian construction site. A tired Indian contractor in casual site clothes looking down with frustration at a pile of broken, swollen, split brown wooden plywood sheets scattered on the ground. Handheld phone camera feel, realistic daylight, authentic dusty site, no text, no dialogue.",
+      "vo": "Ply har baar naya? Sara munafa shuttering mein chala gaya.",
+      "text1": "Ply har baar naya?",
+      "text2": "Kaha gaya munafa?"
+    },
+    {
+      "type": "photo",
+      "photo": "r-used",
+      "shows_vajra": true,
+      "vo": "VAJRA ply se do teen guna zyada chalti hai, sahi handling ke saath.",
+      "text1": "2-3 guna lambi life",
+      "text2": "Sahi handling par"
+    },
+    {
+      "type": "ai",
+      "shows_vajra": true,
+      "video_prompt": "Single continuous shot, vertical, Indian construction site. A relieved, smiling Indian contractor standing with calm confidence beside a clean stack of VAJRA PP hollow shuttering sheets. The sheets are large flat 8 x 4 ft boards, 12 mm thick, plain light-grey faces, edges showing small round holes in two staggered rows, no text, no logos, no printing on anything. Handheld phone look, warm natural sunlight, no text anywhere, no dialogue.",
+      "vo": "Har dhalai ka kharcha kam aur munafa seedha aapki jeb mein.",
+      "text1": "Dhalai kharcha kam",
+      "text2": "Bada munafa apka"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har project pe naya ply khareedna band kijiye.\nVAJRA PP shuttering sheet ply se 2-3 guna zyada chalti hai, sahi handling ke saath.\nHar dhalai ka kharcha ply se kam, munafa seedha aapka.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "build_log": [
+    "scene 0 ai attempt 1: ok=True The frames show natural human anatomy, photorealistic details, and realistic brown wooden plywood without defects or prominent text.",
+    "scene 2 ai attempt 1: ok=True Frames depict the light-grey plastic sheet correctly with natural human anatomy and no visible text or glitches."
+  ],
+  "seconds": 19.0
+}

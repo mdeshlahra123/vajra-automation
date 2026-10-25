@@ -90,6 +90,17 @@
       "status": "sent",
       "msg_id": 203,
       "sent_at": "2026-10-25 19:59"
+    },
+    {
+      "id": "reel-ai-1025-2003",
+      "title": "AI reel: Contractor Profit vs Shuttering Ply (19s)",
+      "file": "social/media/reel-ai-1025-2003.mp4",
+      "caption": "captions/reel-ai-1025-2003.txt",
+      "position": "end",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 217,
+      "sent_at": "2026-10-25 20:07"
     }
   ]
 }
