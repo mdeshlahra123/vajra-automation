@@ -22,7 +22,7 @@ for f in removed:
 print("add:", [i["id"] for i in todo], "| remove:", removed)
 # brand-style grid covers for queued reels that don't have one yet (needs ffmpeg)
 import re, shutil as _sh
-if False and _sh.which("ffmpeg"):  # paused 25 Oct: auto frames looked random; covers picked by hand
+if _sh.which("ffmpeg") and os.environ.get("GEMINI_API_KEY"):  # Gemini picks the frame (cover.smart)
     sys.path.insert(0, os.path.join(BASE, "engine")); import cover
     for p in queue["posts"]:
         if p.get("posted") or not p.get("video") or p.get("cover"):
@@ -31,11 +31,15 @@ if False and _sh.which("ffmpeg"):  # paused 25 Oct: auto frames looked random; c
         if not os.path.exists(f):
             continue
         try:
-            t = re.sub(r"[^\w\s?.,!'+\-/×]", "", open(os.path.join(BASE, p["caption"]), encoding="utf-8").read().split("\n")[0]).strip()
-            t = re.split(r"(?<=[?.!])\s", t)[0][:30].strip(); w = t.split(); h = (len(w) + 1) // 2
             name = os.path.basename(f).replace(".mp4", "-cover.jpg")
-            cover.make(f, " ".join(w[:h]) + "|" + " ".join(w[h:]), os.path.join(sdir, name))
+            note = cover.smart(f, open(os.path.join(BASE, p["caption"]), encoding="utf-8").read(), os.path.join(sdir, name))
             p["cover"] = "https://vajraformwork.vercel.app/social/" + name; removed.append("cover:" + name)
+            try:  # show the owners the cover that will be used
+                subprocess.run(["curl", "-s", "-F", "chat_id=" + os.environ["TELEGRAM_CHAT_ID"], "-F", "photo=@" + os.path.join(sdir, name),
+                                "-F", f"caption=🖼 Grid cover for {p['id']} (auto): {note[:200]}",
+                                f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/sendPhoto"], capture_output=True, timeout=60)
+            except Exception:
+                pass
         except Exception as e:
             print("cover failed", p["id"], e)
     json.dump(queue, open(queue_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
