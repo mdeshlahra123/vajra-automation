@@ -68,3 +68,5 @@
 2026-10-25 04:02    IG OK https://www.instagram.com/reel/De5zSSSFXOy/
 2026-10-25 04:02    FB OK video 1657318712613035
 2026-10-25 04:02    DONE. 22 posts left in queue.
+2026-10-25 05:38  POSTING v-n3-core
+2026-10-25 05:38    DRYRUN: IG upload OK (container 18127489744826022), not published. Next: v-n3-core
