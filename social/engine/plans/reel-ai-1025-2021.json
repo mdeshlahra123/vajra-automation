@@ -1,0 +1,40 @@
+{
+  "hook": "Har kuch slab pe naya ply khareedne se profit khatam hota hai",
+  "title": "Contractor Profit vs Plywood",
+  "scenes": [
+    {
+      "type": "photo",
+      "video_prompt": "Handheld vertical phone camera shot on an Indian construction site in natural daylight. A tired Indian contractor in a safety vest stands looking down at a stack of broken, swollen, splintered brown wooden shuttering plywood. He gestures in disappointment at the damaged wood. Rough concrete slab in background, no text or logos anywhere.",
+      "shows_vajra": false,
+      "vo": "Har kuch slab pe naya ply? Saara munafa wahin gaya.",
+      "text1": "Har bar naya ply?",
+      "text2": "Munafa kahan gaya?",
+      "photo": "godown"
+    },
+    {
+      "type": "photo",
+      "photo": "sheet-held",
+      "shows_vajra": true,
+      "vo": "Switch to VAJRA PP sheet. Yeh baar-baar kaam aati hai.",
+      "text1": "VAJRA PP sheet",
+      "text2": "Baar-baar chalegi"
+    },
+    {
+      "type": "photo",
+      "photo": "r-slab",
+      "shows_vajra": true,
+      "vo": "Har dhalai ka kharcha ply se kam, sahi handling ke saath.",
+      "text1": "Kharcha ply se kam",
+      "text2": "Har dhalai mein"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Bar-bar naya ply khareedne mein saara munafa nikal jaata hai.\nVAJRA PP shuttering sheet apnao aur slab ka kharcha bachao.\nWaterproof, lightweight aur ply se do se teen guna zyada chalti hai, sahi handling ke saath.\nRaipur godown se pan-India dispatch uplabdh hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\n\nFollow kijiye @vajraformwork\n83050 70160 (Call / WhatsApp)\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "build_log": [
+    "scene 0 ai attempt 1: ok=False visible ink stamping/printing on the plywood sheet",
+    "scene 0 ai attempt 2: ok=False Prominent printed letters and manufacturer stamps are visible across the plywood boards.",
+    "scene 0: AI clip failed check twice, using photo instead",
+    "music failed: HTTP 403: [{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Spend cap breached for project: projects/12510489544 for service: generativelanguage.googleapis.com. Correlation id: 4770775865748797149\",\n  "
+  ],
+  "seconds": 16.2
+}

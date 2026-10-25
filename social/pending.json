@@ -116,6 +116,17 @@
       "status": "sent",
       "msg_id": 229,
       "sent_at": "2026-10-25 20:17"
+    },
+    {
+      "id": "reel-ai-1025-2021",
+      "title": "AI reel: Contractor Profit vs Plywood (16s)",
+      "file": "social/media/reel-ai-1025-2021.mp4",
+      "caption": "captions/reel-ai-1025-2021.txt",
+      "position": "end",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 231,
+      "sent_at": "2026-10-25 20:24"
     }
   ]
 }
