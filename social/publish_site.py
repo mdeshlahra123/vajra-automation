@@ -8,7 +8,7 @@ pend_path, queue_path = os.path.join(BASE, "pending.json"), os.path.join(BASE, "
 pend = json.load(open(pend_path, encoding="utf-8")) if os.path.exists(pend_path) else {"items": []}
 queue = json.load(open(queue_path, encoding="utf-8"))
 todo = [i for i in pend["items"] if i.get("publish") == "todo"]
-keep = {os.path.basename(p["video"]) for p in queue["posts"] if not p.get("posted") and p.get("video")}
+keep = {os.path.basename(p.get("video") or p["reel"]) for p in queue["posts"] if not p.get("posted") and (p.get("video") or p.get("reel"))}
 
 url = f"https://x-access-token:{os.environ['WEBSITE_TOKEN']}@github.com/mdeshlahra123/vajraformwork.git"
 subprocess.run(["git", "clone", "-q", "--depth", "1", url, "site"], check=True)
