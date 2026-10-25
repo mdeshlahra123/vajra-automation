@@ -1,0 +1,37 @@
+{
+  "hook": "Har kuch slab pe naya ply khareed ke thak gaye?",
+  "title": "Contractor profit and ply waste",
+  "scenes": [
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": false,
+      "vo": "Har kuch slab pe naya ply? Sara munafa yahin phas gaya.",
+      "text1": "Har bar naya ply?",
+      "text2": "Munafa ruk gaya?"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Handheld vertical phone footage on an Indian RCC construction site in bright natural daylight. A lean Indian construction worker effortlessly lifts and carries a large light-grey plastic sheet across the slab. The sheet is 8 by 4 feet, 12 mm thick, completely plain light grey on both faces with no logos, stickers, or text. The hollow edge shows small round holes in two staggered rows. Raw realistic documentary look, no text overlays.",
+      "shows_vajra": true,
+      "vo": "VAJRA PP sheet waterproof hai, bar-bar dhalai mein kaam aati hai.",
+      "text1": "VAJRA hollow sheet",
+      "text2": "Paani se beasar"
+    },
+    {
+      "type": "photo",
+      "photo": "r-workers",
+      "shows_vajra": true,
+      "vo": "Sahi handling ke saath, ply se do-teen guna zyada chalti hai.",
+      "text1": "2-3 guna lambi life",
+      "text2": "Sahi handling par"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har kuch slab ke baad naya ply lene ka kharcha band kijiye.\nVAJRA PP shuttering sheet waterproof hai aur har dhalai ka kharcha kam karti hai.\nSahi handling ke saath ply se 2-3 guna zyada chalti hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Contractor ka profit ply mein jaata hai. Har kuch slab pe naya ply (show broken brown ply). Phir VAJRA PP panel baar-baar kaam aata hai, sahi handling ke saath ply se 2-3 guna zyada chalta hai. No numbers, no price.",
+  "build_log": [
+    "scene 1 ai attempt 1: ok=True The frames consistently show a plain light-grey plastic sheet with natural anatomy and no prominent text or rendering artifacts."
+  ],
+  "seconds": 17.6
+}
