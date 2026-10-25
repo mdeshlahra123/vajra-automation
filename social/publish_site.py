@@ -22,7 +22,7 @@ for f in removed:
 print("add:", [i["id"] for i in todo], "| remove:", removed)
 # brand-style grid covers for queued reels that don't have one yet (needs ffmpeg)
 import re, shutil as _sh
-if _sh.which("ffmpeg"):
+if False and _sh.which("ffmpeg"):  # paused 25 Oct: auto frames looked random; covers picked by hand
     sys.path.insert(0, os.path.join(BASE, "engine")); import cover
     for p in queue["posts"]:
         if p.get("posted") or not p.get("video") or p.get("cover"):
