@@ -256,6 +256,13 @@
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1023-1001.mp4",
       "ai": true,
       "cover": "https://vajraformwork.vercel.app/social/reel-ai-1023-1001-cover.jpg"
+    },
+    {
+      "id": "reel-ai-1025-2041-v2",
+      "caption": "captions/reel-ai-1025-2041-v2.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2.mp4",
+      "ai": true
     }
   ]
 }
