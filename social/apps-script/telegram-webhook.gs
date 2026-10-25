@@ -14,6 +14,7 @@ function installTrigger() {
   pollTelegram();
 }
 
+var WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzJVrl3o3KhBbl4m-JmCG1KrFyzM6KwMS6ewMefhrSxEgajLr4dsge30QUtKzJRg-vE/exec';
 // Instant mode: Telegram -> https://vajraformwork.vercel.app/api/tg (relay) -> doPost here. Needs this script deployed as a Web app.
 function doPost(e) {
   var P = PropertiesService.getScriptProperties();
@@ -32,13 +33,15 @@ function doPost(e) {
 }
 // Turn the webhook on when the web app exists; turn it off (back to polling) if Telegram reports errors.
 function webhook_(P) {
-  var url = ScriptApp.getService().getUrl();
-  if (!url || !/\/exec$/.test(url)) return false;
+  // getService().getUrl() can return an address that 404s for Telegram, so use the fixed Web app URL
+  var url = (P.getProperty('WEB_APP_URL') || WEB_APP_URL).trim();
+  if (!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(url)) return false;
   if (P.getProperty('HOOK') === url) {
     if (Date.now() - Number(P.getProperty('HOOK_CHECK') || 0) < 10 * 60 * 1000) return true;
     P.setProperty('HOOK_CHECK', String(Date.now()));
     var info = JSON.parse(tg_('getWebhookInfo', {}).getContentText()).result || {};
-    if (info.url && (!info.last_error_date || Date.now() / 1000 - info.last_error_date > 600 || info.pending_update_count < 3)) return true;
+    if (info.url && info.url.indexOf(encodeURIComponent(url)) >= 0 &&
+        !(info.last_error_date && Date.now() / 1000 - info.last_error_date < 600 && info.pending_update_count > 0)) return true;
     Logger.log('webhook broken, back to polling: ' + JSON.stringify(info));
     tg_('deleteWebhook', {}); P.setProperty('HOOK', 'off:' + Date.now()); return false;
   }
