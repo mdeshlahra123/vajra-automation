@@ -1,56 +1,40 @@
 [
-    {
-        "text":  "🎨 Instagram grid sundar banane ke liye: purani reels ke naye cover (same beige style). Har reel ke liye: Instagram app → reel kholo → ... → Edit → Edit cover → Add from camera roll → neeche wali photo chuno → Done. Photo ke caption mein date likhi hai ki kaunsi reel."
-    },
-    {
-        "file":  "social/wa-setup/covers/2026-10-25-9414.jpg",
-        "caption":  "2026-10-25 wali reel: \"Column shuttering ke liye sabse solid aur light sh\""
-    },
-    {
-        "file":  "social/wa-setup/covers/2026-10-24-7807.jpg",
-        "caption":  "2026-10-24 wali reel: \"Ply uthane ko 2 aadmi? VAJRA PP panel ek haath se.\""
-    },
-    {
-        "file":  "social/wa-setup/covers/2026-10-23-4814.jpg",
-        "caption":  "2026-10-23 wali reel: \"Chhat se neeche phenka. Toota nahi. 💪\""
-    },
-    {
-        "file":  "social/wa-setup/covers/2026-10-22-3305.jpg",
-        "caption":  "2026-10-22 wali reel: \"Har 5 dhalai pe nayi ply? Ab nahi. 🙏\""
-    },
-    {
-        "file":  "social/wa-setup/covers/2026-10-21-2379.jpg",
-        "caption":  "2026-10-21 wali reel: \"Har 5 slab pe naya ply? Saal ka 2.6 lakh.\""
-    },
-    {
-        "file":  "social/wa-setup/covers/2026-10-20-4681.jpg",
-        "caption":  "2026-10-20 wali reel: \"Har kuch slab ke baad naya ply? Ab nahi.\""
-    },
-    {
-        "file":  "social/wa-setup/covers/2026-10-13-6443.jpg",
-        "caption":  "2026-10-13 wali reel: \"🚧 Ply ki jagah PP Hollow Shuttering\""
-    },
-    {
-        "file":  "social/wa-setup/covers/2026-10-13-7890.jpg",
-        "caption":  "2026-10-13 wali reel: \"🚧 Upgrade Your Shuttering with PP Hollow Formwork\""
-    },
-    {
-        "file":  "social/wa-setup/covers/2026-10-09-1403.jpg",
-        "caption":  "2026-10-09 wali reel: \"🚧 Upgrade Your Shuttering with PP Hollow Formwork\""
-    },
-    {
-        "text":  "📌 PIN karo (profile pe sabse upar 3 dikhengi): 21 Oct (viral), 23 Oct (Chhat se phenka), 22 Oct (Khokhla). Reel kholo → ... → Pin to your profile."
-    },
-    {
-        "text":  "🗃 ARCHIVE karo (delete nahi): \u0027Har slab pe nayi ply? Ab bas.\u0027 wali photo post (19 Oct) — usme purana number 96300 12636 hai. Post kholo → ... → Archive."
-    },
-    {
-        "text":  "✏️ BIO badlo: Profile → Edit profile → Bio → ye paste karo:"
-    },
-    {
-        "text":  "PP Hollow Shuttering · 8×4 ft, 12 mm\n🪵 Ply se 2-3 guna zyada chale\n🎁 Free 1×1 sample (sirf delivery)\n📞 83050 70160 · Pan-India"
-    },
-    {
-        "text":  "✅ Aage se har nayi reel apne aap isi beige cover ke saath post hogi, grid ek jaisa dikhega."
-    }
+ {
+  "text": "🎨 Ab purani reels ke covers taiyaar hain (har reel ka sabse achha frame chun ke). Shobhit: Instagram app → reel kholo → ... → Edit → Edit cover → Add from camera roll → photo chuno → Done. Har photo ke neeche likha hai kaunsi reel."
+ },
+ {
+  "file": "social/wa-setup/covers/1-2026-10-25-9414.jpg",
+  "caption": "1/8 cover: 25 Oct (Column shuttering)"
+ },
+ {
+  "file": "social/wa-setup/covers/2-2026-10-24-7807.jpg",
+  "caption": "2/8 cover: 24 Oct (Ply uthane ko 2 aadmi)"
+ },
+ {
+  "file": "social/wa-setup/covers/3-2026-10-23-4814.jpg",
+  "caption": "3/8 cover: 23 Oct (Chhat se phenka)"
+ },
+ {
+  "file": "social/wa-setup/covers/4-2026-10-22-3305.jpg",
+  "caption": "4/8 cover: 22 Oct (Khokhla)"
+ },
+ {
+  "file": "social/wa-setup/covers/5-2026-10-21-2379.jpg",
+  "caption": "5/8 cover: 21 Oct (viral Kharcha)"
+ },
+ {
+  "file": "social/wa-setup/covers/6-2026-10-20-4681.jpg",
+  "caption": "6/8 cover: 20 Oct (Ply har baar naya)"
+ },
+ {
+  "file": "social/wa-setup/covers/7-2026-10-13-6443.jpg",
+  "caption": "7/8 cover: 13 Oct (Ply ki jagah)"
+ },
+ {
+  "file": "social/wa-setup/covers/8-2026-10-13-7890.jpg",
+  "caption": "8/8 cover: 13 Oct (Upgrade, green t-shirt)"
+ },
+ {
+  "text": "🗃 9 Oct wali pehli reel ('Upgrade Your Shuttering', godown) ARCHIVE kar do: usme purana number 96300 12636 aur '80-100 baar' wala chart hai. Reel kholo → ... → Archive."
+ }
 ]
