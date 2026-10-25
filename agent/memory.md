@@ -39,3 +39,10 @@
 ## 2026-10-24 USE-COUNT RULE (owners)
 - Never say a number of uses (40/40+/40-50 etc.), no '5 slab' ply hook, no Rs 88 / Rs 416 per dhalai, no 2.6 vs 1.1 lakh. Only: 'Sahi handling ke saath ply se 2-3 guna zyada chalti hai.' Shobhit: ply actually lasts 8-10 uses. Older entries above that quote those numbers are history, not copy to reuse.
 - TODO after WhatsApp test (~27-28 Oct): L7 ad text still says '40+ baar / 1.1 lakh' -> owners/Kiro will replace with a new creative using the 2-3 guna line. Don't promote old reels whose video shows 40+/lakh numbers (a1-kharcha, m1-story).
+
+## 25 Oct (daily run)
+- Followers grew to 755 (+36). Reel `reel-h2-ekhaath` (lightweight hook) reached 1.9k / 2.2k views in first 24h.
+- Toughness proof `reel-x2-throw` keeps performing well: 7.5k reach, 8.4k views, 40 comments, 35 saves+shares.
+- WhatsApp test (L7 Kharcha) performing exceptionally: 30 chats started at ₹89.49 spend (~₹2.98/chat vs ₹16/lead form previously). Balance ₹632.92. Test ongoing (~₹300 threshold before formal report).
+- Queue has 15 pending reels (healthy, >6). Next reel: `reel-real-1023-1128` (real footage column shuttering).
+- Daily report sent to owners via Telegram with video idea for Shobhit (tyre-over-sheet toughness test).
