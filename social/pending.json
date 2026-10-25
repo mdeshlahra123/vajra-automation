@@ -137,9 +137,10 @@
       "caption": "captions/reel-ai-1025-2041.txt",
       "position": "end",
       "ai": true,
-      "status": "sent",
+      "status": "rejected",
       "msg_id": 237,
-      "sent_at": "2026-10-25 20:52"
+      "sent_at": "2026-10-25 20:52",
+      "note": "photo zoom shake; remade as -v2"
     }
   ]
 }
