@@ -1,0 +1,24 @@
+name: cover-test
+# Manual: Gemini picks a reel cover; result sent to Telegram for a look.
+on:
+  workflow_dispatch:
+    inputs:
+      url: { description: "reel mp4 URL", required: true }
+      caption: { description: "caption file in social/", required: true }
+permissions: { contents: read }
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: |
+          curl -sL "${{ github.event.inputs.url }}" -o r.mp4
+          note=$(python3 -c "import sys;sys.path.insert(0,'social/engine');import cover;print(cover.smart('r.mp4',open('social/${{ github.event.inputs.caption }}',encoding='utf-8').read(),'c.jpg'))")
+          echo "$note"
+          curl -s -F chat_id=$CHAT -F photo=@c.jpg -F "caption=🔧 Auto cover test: $note" "https://api.telegram.org/bot$TOKEN/sendPhoto" | head -c 80
