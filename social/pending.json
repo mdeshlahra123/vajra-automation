@@ -105,6 +105,17 @@
       "by": "Rahul",
       "at": "2026-10-25 20:07",
       "note": "uses banned used-sheet photo"
+    },
+    {
+      "id": "reel-ai-1025-2014",
+      "title": "AI reel: Ply Bar-Bar Lena Band (17s)",
+      "file": "social/media/reel-ai-1025-2014.mp4",
+      "caption": "captions/reel-ai-1025-2014.txt",
+      "position": "end",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 229,
+      "sent_at": "2026-10-25 20:17"
     }
   ]
 }
