@@ -87,9 +87,10 @@
       "caption": "captions/reel-ai-1025-1956.txt",
       "position": "end",
       "ai": true,
-      "status": "sent",
+      "status": "rejected",
       "msg_id": 203,
-      "sent_at": "2026-10-25 19:59"
+      "sent_at": "2026-10-25 19:59",
+      "note": "uses banned used-sheet photo"
     },
     {
       "id": "reel-ai-1025-2003",
@@ -102,7 +103,8 @@
       "msg_id": 217,
       "sent_at": "2026-10-25 20:07",
       "by": "Rahul",
-      "at": "2026-10-25 20:07"
+      "at": "2026-10-25 20:07",
+      "note": "uses banned used-sheet photo"
     }
   ]
 }
