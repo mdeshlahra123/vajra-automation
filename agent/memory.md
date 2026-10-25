@@ -46,3 +46,4 @@
 - WhatsApp test (L7 Kharcha) performing exceptionally: 30 chats started at ₹89.49 spend (~₹2.98/chat vs ₹16/lead form previously). Balance ₹632.92. Test ongoing (~₹300 threshold before formal report).
 - Queue has 15 pending reels (healthy, >6). Next reel: `reel-real-1023-1128` (real footage column shuttering).
 - Daily report sent to owners via Telegram with video idea for Shobhit (tyre-over-sheet toughness test).
+- 25 Oct: owners approved ("do whatever you want"): keep all ad money (₹100/day) on WhatsApp ad set 120251541042080600; lead form set stays paused. Never raise total budget. Swap L7 to a clean 2-3 guna creative after the test.
