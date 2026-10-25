@@ -125,9 +125,10 @@
       "caption": "captions/reel-ai-1025-2021.txt",
       "position": "end",
       "ai": true,
-      "status": "sent",
+      "status": "rejected",
       "msg_id": 231,
-      "sent_at": "2026-10-25 20:24"
+      "sent_at": "2026-10-25 20:24",
+      "note": "old photos"
     }
   ]
 }
