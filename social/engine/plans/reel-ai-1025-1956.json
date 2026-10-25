@@ -1,0 +1,38 @@
+{
+  "hook": "Har kuch slab pe naya ply khareedna band kijiye!",
+  "title": "Stop buying ply repeatedly",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "A vertical handheld smartphone shot on an active Indian RCC construction site. An Indian contractor wearing a collared work shirt stands looking down in frustration at a pile of swollen, splintered, water-damaged brown wooden plywood sheets. Handheld camera movement, realistic natural outdoor daylight, authentic dusty site background, no text or logos anywhere, no dialogue.",
+      "shows_vajra": false,
+      "vo": "Har kuch slab pe naya ply khareedna band kijiye!",
+      "text1": "Har baar naya ply?",
+      "text2": "Kab tak kharcha?"
+    },
+    {
+      "type": "photo",
+      "photo": "r-used",
+      "shows_vajra": true,
+      "vo": "Ply se do teen guna zyada chalti hai, sahi handling ke saath.",
+      "text1": "2-3 guna zyada life",
+      "text2": "Sahi handling par"
+    },
+    {
+      "type": "photo",
+      "photo": "r-slab",
+      "shows_vajra": true,
+      "vo": "Har dhalai ka kharcha kam aur concrete finish bilkul smooth.",
+      "text1": "Har dhalai pe bachat",
+      "text2": "Smooth slab finish"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har kuch slab pe naya ply khareedna band kijiye.\nVAJRA PP hollow sheet waterproof hai aur har dhalai ka kharcha kam karti hai.\nSahi handling ke saath ply se 2-3 guna zyada chalti hai.\nPan-India dispatch uplabdh hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "build_log": [
+    "scene 0 ai attempt 1: ok=False Visible printing and manufacturer markings on the boards.",
+    "scene 0 ai attempt 2: ok=True Boards are brown plywood and the subject appears natural with no major visual defects.",
+    "music failed: HTTP 400: {\"error\":{\"message\":\"Input blocked: The prompt could not be submitted. The prompt contains sensitive words that violate Google's [Generative AI Prohibited Use policy](https://policies.google"
+  ],
+  "seconds": 16.5
+}
