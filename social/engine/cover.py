@@ -10,7 +10,7 @@ FF = os.environ.get("FFMPEG", "ffmpeg")
 INK, PAPER, GOLD = "0x221D18", "0xE7E2D8", "0xA87A3F"
 
 
-def make(video, hook, out, at=None):
+def make(video, hook, out, at=None, y0=0.30, y1=0.92):
     d = tempfile.mkdtemp()
     lines = [l.strip() for l in hook.replace("\n", "|").split("|") if l.strip()][:3]
     files = []
@@ -21,14 +21,15 @@ def make(video, hook, out, at=None):
                    for i, f in enumerate(files))
     top = 300 + len(lines) * int(size * 1.02) + 40          # photo starts under the text
     ph = 1500 - top                                         # photo ends at 1500, footer 1520-1660
-    if at is None:
+    img = video.lower().endswith((".jpg", ".png"))
+    if at is None and not img:
         dur = float(subprocess.run([FF, "-i", video], capture_output=True, text=True).stderr.split("Duration: ")[1].split(",")[0].split(":")[-1])
         at = min(2.5, dur / 3)
-    fc = (f"color=c={PAPER}:s=1080x1920[bg];[0:v]crop=iw:ih*0.62:0:ih*0.30,scale=936:{ph}:force_original_aspect_ratio=increase,crop=936:{ph}[ph];"
+    fc = (f"color=c={PAPER}:s=1080x1920:d=1[bg];[0:v]setpts=PTS-STARTPTS,{"" if img else f"crop=iw:ih*{y1 - y0}:0:ih*{y0},"}scale=936:{ph}:force_original_aspect_ratio=increase,crop=936:{ph}[ph];"
           f"[1:v]scale=300:-1[lg];[bg][ph]overlay=72:{top}[a];[a]{txt},drawbox=x=72:y=1525:w=936:h=4:color={GOLD}:t=fill[b];"
           f"[b][lg]overlay=72:1560,drawtext=fontfile='{FONT}':text='83050 70160':fontsize=56:fontcolor={INK}:x=1008-text_w:y=1565,"
           f"drawtext=fontfile='{FONT}':text='Call / WhatsApp':fontsize=30:fontcolor={GOLD}:x=1008-text_w:y=1630[v]")
-    subprocess.run([FF, "-v", "error", "-y", "-ss", str(at), "-i", video, "-i", LOGO, "-filter_complex", fc,
+    subprocess.run([FF, "-v", "error", "-y"] + ([] if img else ["-ss", str(at)]) + ["-i", video, "-i", LOGO] + ["-filter_complex", fc,
                     "-map", "[v]", "-frames:v", "1", "-q:v", "2", out], check=True)
     return out
 

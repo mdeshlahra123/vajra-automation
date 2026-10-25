@@ -66,13 +66,15 @@
       "id": "reel-x7-hisaab",
       "video": "https://vajraformwork.vercel.app/social/x7-hisaab.mp4",
       "caption": "captions/x7-hisaab.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg"
     },
     {
       "id": "reel-x1-slab",
       "video": "https://vajraformwork.vercel.app/social/x1-slab-cta.mp4",
       "caption": "captions/x1-slab.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/x1-slab-cta-cover.jpg"
     },
     {
       "id": "v-n2-oneman",
@@ -84,7 +86,8 @@
       "id": "reel-x3-bend",
       "video": "https://vajraformwork.vercel.app/social/x6-bend.mp4",
       "caption": "captions/x3-bend.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/x6-bend-cover.jpg"
     },
     {
       "id": "v-n1-column",
@@ -96,13 +99,15 @@
       "id": "reel-m2-quick",
       "video": "https://vajraformwork.vercel.app/social/m2-quick-cta.mp4",
       "caption": "captions/m2-quick.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/m2-quick-cta-cover.jpg"
     },
     {
       "id": "reel-x9-halka",
       "video": "https://vajraformwork.vercel.app/social/x9-halka.mp4",
       "caption": "captions/x9-halka.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/x9-halka-cover.jpg"
     },
     {
       "id": "v-n3-core",
@@ -115,7 +120,8 @@
       "id": "reel-a3-mistri",
       "video": "https://vajraformwork.vercel.app/social/a3-mistri-cta.mp4",
       "caption": "captions/a3-mistri.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg"
     },
     {
       "id": "v-n4-cage",
@@ -128,7 +134,8 @@
       "id": "reel-a2-dekhlo",
       "video": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta.mp4",
       "caption": "captions/a2-dekhlo.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta-cover.jpg"
     },
     {
       "id": "v-n7-inout",
@@ -141,7 +148,8 @@
       "id": "reel-x8-column",
       "video": "https://vajraformwork.vercel.app/social/x8-column.mp4",
       "caption": "captions/x8-column.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg"
     },
     {
       "id": "v-n6-wash",
@@ -154,7 +162,8 @@
       "id": "reel-r1-oneman",
       "video": "https://vajraformwork.vercel.app/social/r1-oneman-cta.mp4",
       "caption": "captions/r1-oneman.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/r1-oneman-cta-cover.jpg"
     },
     {
       "id": "v-p-slab",
@@ -167,7 +176,8 @@
       "id": "reel-r2-core",
       "video": "https://vajraformwork.vercel.app/social/r2-core-cta.mp4",
       "caption": "captions/r2-core.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/r2-core-cta-cover.jpg"
     },
     {
       "id": "v-p-throw",
@@ -180,7 +190,8 @@
       "id": "reel-r3-column",
       "video": "https://vajraformwork.vercel.app/social/r3-column-cta.mp4",
       "caption": "captions/r3-column.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/r3-column-cta-cover.jpg"
     },
     {
       "id": "v-p-bend",
@@ -193,13 +204,15 @@
       "id": "reel-r4-wash",
       "video": "https://vajraformwork.vercel.app/social/r4-wash-cta.mp4",
       "caption": "captions/r4-wash.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/r4-wash-cta-cover.jpg"
     },
     {
       "id": "reel-vajra-40s",
       "video": "https://vajraformwork.vercel.app/social/vajra-40s-cta.mp4",
       "caption": "captions/vajra-40s.txt",
-      "posted": ""
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/vajra-40s-cta-cover.jpg"
     },
     {
       "id": "v-p-workers",
@@ -213,7 +226,8 @@
       "caption": "captions/reel-ai-1023-1001.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1023-1001.mp4",
-      "ai": true
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1023-1001-cover.jpg"
     }
   ]
 }
