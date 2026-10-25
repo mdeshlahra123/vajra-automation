@@ -20,6 +20,25 @@ removed = [f for f in os.listdir(sdir) if f.endswith(".mp4") and f not in keep a
 for f in removed:
     os.remove(os.path.join(sdir, f))
 print("add:", [i["id"] for i in todo], "| remove:", removed)
+# brand-style grid covers for queued reels that don't have one yet (needs ffmpeg)
+import re, shutil as _sh
+if _sh.which("ffmpeg"):
+    sys.path.insert(0, os.path.join(BASE, "engine")); import cover
+    for p in queue["posts"]:
+        if p.get("posted") or not p.get("video") or p.get("cover"):
+            continue
+        f = os.path.join(sdir, os.path.basename(p["video"]))
+        if not os.path.exists(f):
+            continue
+        try:
+            t = re.sub(r"[^\w\s?.,!'+\-/×]", "", open(os.path.join(BASE, p["caption"]), encoding="utf-8").read().split("\n")[0]).strip()
+            t = re.split(r"(?<=[?.!])\s", t)[0][:30].strip(); w = t.split(); h = (len(w) + 1) // 2
+            name = os.path.basename(f).replace(".mp4", "-cover.jpg")
+            cover.make(f, " ".join(w[:h]) + "|" + " ".join(w[h:]), os.path.join(sdir, name))
+            p["cover"] = "https://vajraformwork.vercel.app/social/" + name; removed.append("cover:" + name)
+        except Exception as e:
+            print("cover failed", p["id"], e)
+    json.dump(queue, open(queue_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 # public next.json: upcoming posts with dates, read by the Telegram bot for instant "aaj/kal konsi reel" answers
 import datetime
 today = (datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)).date()
