@@ -26,12 +26,17 @@ Reels post 09:30 IST and images 19:30 IST, one per day each, in queue order (fir
 
 Request from {who or 'owner'} on Telegram: {task}
 
+First understand what they actually asked. If it is a question, a complaint or a problem ("audio nahi aa raha", "kyu", "kaise"),
+ANSWER IT directly using the System facts and live data. Do NOT just send a reel again. If it's a follow-up, the bracket at the start shows the bot message they replied to.
+
 Answer as JSON only:
-{{"reply": "1-6 short Hinglish lines, real numbers from the data, no file names/IDs unless asked",
- "media": [{{"url": "reel .mp4 or image URL from the data, only if the answer is about specific reels/posts (max 3)", "caption": "short: kab post hoga / kya hai"}}],
+{{"reply": "1-6 short Hinglish lines that directly answer the question; real numbers from the data; no file names/IDs unless asked",
+ "media": [{{"url": "reel .mp4 / image URL from the data", "caption": "short"}}],
  "actions": [["pause" or "resume", "<ad_id>"]],
  "deep": false}}
-Set "deep": true ONLY if the request needs a new reel, moving the queue, promoting a reel, or multi-step work; then "reply" says what will happen.
+"media": ONLY when they ask to SEE a reel/post (e.g. "konsi reel jayegi", "dikhao"). For questions/complaints leave it [].
+Set "deep": true ONLY if the request needs a new reel, moving the queue, promoting a reel, or multi-step work, or a problem
+you cannot explain from the facts (the bigger brain can read code and logs); then "reply" says what will happen.
 Never break the hard rules (no spending, no budget changes)."""
 try:
     out = gem.text("gemini-3.8-flash", prompt, json_mode=True)

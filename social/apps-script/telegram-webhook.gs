@@ -104,7 +104,11 @@ function handleTap_(cq, P) {
 // Instant answer for "aaj/kal/next konsi reel/post" from the public next.json (no brain run needed).
 function fastNext_(q, chat, replyTo) {
   var s = q.toLowerCase();
-  if (!/(reel|post|video|photo|image|dalne|daalne|aane|upload)/.test(s) || !/(aaj|aj\b|kal|next|agla|agli|konsi|kaunsi|kon si|kaun si|kab|today|tomorrow|upcoming|aane wali)/.test(s)) return false;
+  // Only a plain "which reel/post goes next" question. Anything else (problems, why/how, audio, changes) goes to the brain.
+  if (s.length > 70) return false;
+  if (/(nahi|nhi|kyu|kyon|why|how|kaise|audio|awaaz|aawaz|sound|problem|issue|error|galat|wrong|change|badlo|hatao|mat|not|dikkat|kharab|\?.*\?)/.test(s)) return false;
+  if (!/(konsi|kaunsi|kon si|kaun si|kya|which|what|batao|dikhao|show)/.test(s)) return false;
+  if (!/(reel|post|video|photo|image)/.test(s) || !/(aaj|aj\b|kal|next|agla|agli|today|tomorrow|upcoming|aane wali|jayegi|jaegi|dalne|daalne)/.test(s)) return false;
   var r = UrlFetchApp.fetch('https://vajraformwork.vercel.app/social/next.json?t=' + Date.now(), { muteHttpExceptions: true });
   if (r.getResponseCode() !== 200) return false;
   var d = JSON.parse(r.getContentText());
@@ -120,7 +124,7 @@ function fastNext_(q, chat, replyTo) {
   var cap = (wantImg ? '🖼 ' : '🎬 ') + when + ' ko ye jayegi:\n' + (item.hook || item.id);
   if (list[1] && item === list[0]) cap += '\n\nUske baad: ' + (list[1].hook || list[1].id).slice(0, 80);
   var res = tg_(wantImg ? 'sendPhoto' : 'sendVideo', wantImg ? { chat_id: chat, photo: item.url, caption: cap, reply_to_message_id: replyTo }
-    : { chat_id: chat, video: item.url, caption: cap, reply_to_message_id: replyTo, supports_streaming: true });
+    : { chat_id: chat, video: item.url + '?v=' + d.made, caption: cap + '\n🔊 Awaaz ke liye video kholo / tap karo', reply_to_message_id: replyTo, supports_streaming: true });
   if (res.getResponseCode() !== 200) tg_('sendMessage', { chat_id: chat, text: cap + '\n' + item.url, reply_to_message_id: replyTo });
   return true;
 }
@@ -151,7 +155,7 @@ function handleMessage_(m, P) {
     var a = UrlFetchApp.fetch('https://api.github.com/repos/mdeshlahra123/vajra-automation/actions/workflows/ask.yml/dispatches', {
       method: 'post', contentType: 'application/json', muteHttpExceptions: true,
       headers: { Authorization: 'Bearer ' + P.getProperty('GH_TOKEN'), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
-      payload: JSON.stringify({ ref: 'main', inputs: { task: q.slice(0, 900), who: who } })
+      payload: JSON.stringify({ ref: 'main', inputs: { task: (m.reply_to_message ? '[Replying to this bot message: ' + String(m.reply_to_message.text || m.reply_to_message.caption || '(media)').slice(0, 300) + '] ' : '') + q.slice(0, 600), who: who } })
     });
     tg_('sendMessage', { chat_id: chat, reply_to_message_id: m.message_id,
       text: a.getResponseCode() === 204 ? '🧠 Dekh raha hun... ~30 sec mein jawab.' : '⚠️ Brain start nahi hua (' + a.getResponseCode() + ').' });

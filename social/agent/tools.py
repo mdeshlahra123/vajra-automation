@@ -131,7 +131,11 @@ def tg(text):
 
 def media(url, caption):
     """Send the actual video/photo to Telegram by URL; falls back to a text link."""
-    m, f = ("sendVideo", "video") if url.lower().endswith(".mp4") else ("sendPhoto", "photo")
+    m, f = ("sendVideo", "video") if url.lower().split("?")[0].endswith(".mp4") else ("sendPhoto", "photo")
+    import time  # Telegram caches files per exact URL; a daily tag makes it fetch the current version
+    url += ("&" if "?" in url else "?") + "v=" + time.strftime("%Y%m%d")
+    if m == "sendVideo":
+        caption += "\n🔊 Awaaz ke liye video kholo / tap karo"
     try:
         req = urllib.request.Request(f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/{m}",
                                      data=json.dumps({"chat_id": os.environ["TELEGRAM_CHAT_ID"], f: url, "caption": "🧠 " + caption[:1000]}).encode(),
