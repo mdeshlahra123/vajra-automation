@@ -254,14 +254,62 @@ def selftest():
     print("SELFTEST OK", dur(out))
 
 
+def tg(method, files=None, **p):
+    """Small Telegram call (multipart when a file is attached)."""
+    import urllib.request, uuid
+    url = f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/{method}"
+    p.setdefault("chat_id", os.environ["TELEGRAM_CHAT_ID"])
+    if not files:
+        req = urllib.request.Request(url, data=json.dumps(p).encode(), headers={"Content-Type": "application/json"})
+    else:
+        b = uuid.uuid4().hex; body = b""
+        for k, v in p.items():
+            body += f"--{b}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v if isinstance(v, str) else json.dumps(v)}\r\n".encode()
+        for k, path in files.items():
+            body += f"--{b}\r\nContent-Disposition: form-data; name=\"{k}\"; filename=\"{os.path.basename(path)}\"\r\nContent-Type: image/jpeg\r\n\r\n".encode() + open(path, "rb").read() + b"\r\n"
+        body += f"--{b}--\r\n".encode()
+        req = urllib.request.Request(url, data=body, headers={"Content-Type": f"multipart/form-data; boundary={b}"})
+    return json.load(urllib.request.urlopen(req, timeout=60))
+
+
+def storyboard(p, rid):
+    """Send the script + the photo/idea of every scene to Telegram. Nothing is made until an owner taps Banao."""
+    tg("sendMessage", text=f"📝 Naya AI reel ka plan (abhi bana nahi). ID {rid}\nHook: {p['hook']}\nNeeche har scene ki photo/idea hai. Check karo.")
+    for i, s in enumerate(p["scenes"], 1):
+        cap = f"Scene {i}/{len(p['scenes'])}\nScreen: {s.get('text1', '')} / {s.get('text2', '')}\nAwaaz: {s.get('vo', '')}"
+        if s["type"] == "photo":
+            tg("sendPhoto", files={"photo": A("assets", "photos", s["photo"] + ".jpg")}, caption=cap)
+        else:
+            tg("sendMessage", text=cap + "\n🎬 AI video banega: " + s.get("video_prompt", "")[:600] +
+               ("\n(VAJRA sheet dikhegi)" if s.get("shows_vajra") else "\n(sirf bhoora ply dikhega)"))
+    tg("sendMessage", text=f"Caption:\n{p['caption'][:900]}\n\nAant: {p.get('end_vo', '')}\n\n"
+       f"✅ Theek hai to 'Banao' dabao.\n✏️ Badlav chahiye to ISI message ka reply karo (jaise: 'pehle scene mein toota ply dikhao'). SB:{rid}",
+       reply_markup={"inline_keyboard": [[{"text": "▶️ Banao", "callback_data": f"mk:{rid}"}, {"text": "❌ Chhodo", "callback_data": f"sb-no:{rid}"}]]})
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--brief", default=""); ap.add_argument("--id", default=""); ap.add_argument("--res", default="720p")
-    ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--selftest", action="store_true"); ap.add_argument("--mode", default="plan")  # plan | build | revise
+    ap.add_argument("--feedback", default="")
     a = ap.parse_args()
     if a.selftest:
         return selftest()
-    rid = a.id or "reel-ai-" + (datetime.datetime.utcnow() + datetime.timedelta(hours=5.5)).strftime("%m%d-%H%M")
-    p = plan(a.brief, rid)
+    sbdir = A("social", "engine", "storyboards"); os.makedirs(sbdir, exist_ok=True)
+    if a.mode in ("plan", "revise"):
+        if a.mode == "revise":
+            old = json.load(open(os.path.join(sbdir, a.id + ".json"), encoding="utf-8"))
+            brief = (old.get("brief", "") + "\n\nPREVIOUS PLAN (keep what is good):\n" + json.dumps({k: old[k] for k in ("hook", "scenes", "caption")}, ensure_ascii=False)
+                     + "\n\nOWNER WANTS THESE CHANGES (must follow exactly):\n" + a.feedback)
+            rid = a.id.split("-v")[0] + f"-v{int(a.id.split('-v')[1]) + 1 if '-v' in a.id else 2}"
+        else:
+            brief = a.brief
+            rid = a.id or "reel-ai-" + (datetime.datetime.utcnow() + datetime.timedelta(hours=5.5)).strftime("%m%d-%H%M")
+        p = plan(brief, rid); p["brief"] = brief[:1500] if a.mode == "plan" else old.get("brief", "")
+        json.dump(p, open(os.path.join(sbdir, rid + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+        storyboard(p, rid); print("STORYBOARD", rid)
+        return
+    rid = a.id
+    p = json.load(open(os.path.join(sbdir, rid + ".json"), encoding="utf-8"))
     final, total, log = build(p, rid, a.res)
     os.makedirs(A("social", "engine", "plans"), exist_ok=True)
     p["build_log"] = log; p["seconds"] = round(total, 1)

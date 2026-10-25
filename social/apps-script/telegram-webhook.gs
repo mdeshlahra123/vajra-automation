@@ -86,6 +86,15 @@ function handleTap_(cq, P) {
   var data = cq.data || '';
   if (data === 'done' || data.indexOf('test:') === 0) { tg_('answerCallbackQuery', { callback_query_id: cq.id, text: 'Already handled.' }); return; }
   var who = cq.from.first_name || 'someone';
+  // storyboard buttons: Banao = make the reel from the reviewed plan, Chhodo = drop it
+  if (data.indexOf('mk:') === 0 || data.indexOf('sb-no:') === 0) {
+    var make = data.indexOf('mk:') === 0, sid = data.split(':')[1];
+    tg_('answerCallbackQuery', { callback_query_id: cq.id, text: make ? '▶️ Ban raha hai…' : 'Chhod diya' });
+    tg_('editMessageReplyMarkup', { chat_id: chat, message_id: cq.message.message_id,
+      reply_markup: { inline_keyboard: [[{ text: make ? '▶️ Ban raha hai (' + who + '), 10-15 min' : '❌ Chhod diya (' + who + ')', callback_data: 'done' }]] } });
+    if (make) ghRun_('make-reel.yml', { mode: 'build', id: sid }, P, chat);
+    return;
+  }
   var approve = data.indexOf('ok:') === 0;
   tg_('answerCallbackQuery', { callback_query_id: cq.id, text: (approve ? '✅ Approve' : '❌ Reject') + ' received, processing…' });
   tg_('editMessageReplyMarkup', { chat_id: chat, message_id: cq.message.message_id,
@@ -151,6 +160,15 @@ function handleMessage_(m, P) {
     return;
   }
   var text = (m.text || '').trim();
+  // reply to a storyboard = changes for that reel plan
+  var rt = m.reply_to_message && (m.reply_to_message.text || m.reply_to_message.caption || '');
+  var sb = rt && rt.match(/SB:(reel-ai-[\w-]+)/);
+  if (text && text.charAt(0) !== '/' && sb) {
+    tg_('sendMessage', { chat_id: chat, reply_to_message_id: m.message_id, text: '✏️ Samajh gaya, naya plan bana raha hun (2-3 min).' });
+    ghRun_('make-reel.yml', { mode: 'revise', id: sb[1], feedback: text.slice(0, 900) }, P, chat);
+    return;
+  }
+  if (text && text.charAt(0) !== '/' && m.reply_to_message && m.reply_to_message.from && m.reply_to_message.from.is_bot) text = '/ask ' + text;
   if (/^\/ask(@\w+)?\b/i.test(text)) {
     var q = text.replace(/^\/ask(@\w+)?/i, '').trim();
     if (!q) { tg_('sendMessage', { chat_id: chat, text: 'Likho: /ask aur apna kaam, jaise: /ask aaj ke ads kaise chale?' }); return; }
@@ -185,6 +203,15 @@ function startReel_(clips, note, who, P, chat) {
     P.setProperty('CLIPS', JSON.stringify(clips));
     tg_('sendMessage', { chat_id: chat, text: '⚠️ Reel start nahi hui (GitHub ' + r.getResponseCode() + '). 20 min baad apne aap dobara try hoga, ya /reel likho.' });
   }
+}
+
+function ghRun_(wf, inputs, P, chat) {
+  var r = UrlFetchApp.fetch('https://api.github.com/repos/mdeshlahra123/vajra-automation/actions/workflows/' + wf + '/dispatches', {
+    method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+    headers: { Authorization: 'Bearer ' + P.getProperty('GH_TOKEN'), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+    payload: JSON.stringify({ ref: 'main', inputs: inputs })
+  });
+  if (r.getResponseCode() !== 204) tg_('sendMessage', { chat_id: chat, text: '⚠️ GitHub start nahi hua (' + r.getResponseCode() + '). Thodi der baad dobara try karo.' });
 }
 
 function tg_(method, params) {
