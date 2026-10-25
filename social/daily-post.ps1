@@ -50,6 +50,16 @@ try {
       if ($st -eq "ERROR") { throw "Reel processing failed" }
     }
     if ($st -ne "FINISHED") { throw "Reel still processing after 10 min" }
+  } elseif ($item.reel) {
+    # Photo reel (reels reach far more people), with the designed photo as the grid cover so the profile looks the same
+    $c = PostUtf8 "$v/$ig/media" @{ media_type="REELS"; video_url=$item.reel; cover_url=$item.image; caption=$cap; share_to_feed="true"; access_token=$t }
+    $st = ""
+    for ($i=0; $i -lt 40 -and $st -ne "FINISHED"; $i++) {
+      Start-Sleep 15
+      $st = (GetUtf8 "$v/$($c.id)?fields=status_code&access_token=$t").status_code
+      if ($st -eq "ERROR") { throw "Photo reel processing failed" }
+    }
+    if ($st -ne "FINISHED") { throw "Photo reel still processing after 10 min" }
   } else {
     $c = PostUtf8 "$v/$ig/media" @{ image_url=$item.image; caption=$cap; access_token=$t }
     Start-Sleep 5
