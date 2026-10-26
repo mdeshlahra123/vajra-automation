@@ -19,6 +19,8 @@ TOK = os.environ["META_ADS_TOKEN"]
 MIN_SPEND, WORSE, MIN_ACTIVE, COOLDOWN, LOW_BAL = 150.0, 1.6, 2, 7, 200.0
 STATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ads-state.json")
 DRY = os.environ.get("DRY_RUN") == "true"
+# ads whose text breaks the use-count rule (40+ / lakh maths) or use banned footage: never resume
+NEVER = {"120251541042410600", "120251501523230600", "120251451378980600", "120251451052520600", "120251501107770600"}
 
 
 def get(path, **p):
@@ -68,11 +70,18 @@ def main():
         if why:
             actions.append(("pause", i, why)); active.remove(i)
     if len(active) < MIN_ACTIVE:
-        cands = [i for i, a in ads.items() if a["status"] == "PAUSED" and i not in active and cpl(life.get(i))
+        cands = [i for i, a in ads.items() if a["status"] == "PAUSED" and i not in active and cpl(life.get(i)) and i not in NEVER
                  and (today - datetime.date.fromisoformat(state["paused_by_bot"].get(i, "2000-01-01"))).days >= COOLDOWN]
         for i in sorted(cands, key=lambda i: cpl(life[i]))[: MIN_ACTIVE - len(active)]:
             actions.append(("resume", i, f"best paused ad, lifetime ₹{cpl(life[i]):.0f}/lead")); active.append(i)
 
+    # planned swap (owners OK'd 25 Oct): WhatsApp test L7 has old "40+ / 1.1 lakh" text -> L8 Throw reel with the 2-3 guna line,
+    # once the test has its ~Rs 300 or on 28 Oct, whichever comes first. Same ad set, same budget.
+    L7, L8 = "120251541042410600", "120251567184010600"
+    if not state.get("l8_swap") and L7 in ads and L8 in ads and (life.get(L7, {}).get("spend", 0) >= 300 or today >= datetime.date(2026, 10, 28)):
+        d7 = life.get(L7, {})
+        actions += [("resume", L8, "naya WhatsApp ad, 2-3 guna text"), ("pause", L7, f"test poora: ₹{d7.get('spend', 0):.0f}, {d7.get('leads', 0):.0f} chats, purana 40+ text")]
+        active = [x for x in active if x != L7] + [L8]; state["l8_swap"] = today.isoformat()
     for act, i, why in actions:
         if not DRY:
             post(i, status="PAUSED" if act == "pause" else "ACTIVE")
