@@ -117,23 +117,11 @@
       "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg"
     },
     {
-      "id": "v-n4-cage",
-      "image": "https://vajraformwork.vercel.app/social/v-n4-cage.jpg",
-      "caption": "captions/n4-cage.txt",
-      "posted": ""
-    },
-    {
       "id": "reel-a2-dekhlo",
       "video": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta.mp4",
       "caption": "captions/a2-dekhlo.txt",
       "posted": "",
       "cover": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta-cover.jpg"
-    },
-    {
-      "id": "v-finish-column",
-      "image": "https://vajraformwork.vercel.app/social/v-finish-column.jpg",
-      "caption": "captions/finish-column.txt",
-      "posted": ""
     },
     {
       "id": "car-plyvspp",
@@ -154,6 +142,12 @@
       "id": "v-n7-inout",
       "image": "https://vajraformwork.vercel.app/social/v-n7-inout.jpg",
       "caption": "captions/n7-inout.txt",
+      "posted": ""
+    },
+    {
+      "id": "v-finish-column",
+      "image": "https://vajraformwork.vercel.app/social/v-finish-column.jpg",
+      "caption": "captions/finish-column.txt",
       "posted": ""
     },
     {
@@ -219,6 +213,12 @@
       "id": "v-p-workers",
       "image": "https://vajraformwork.vercel.app/social/v-p-workers.jpg",
       "caption": "captions/p-workers.txt",
+      "posted": ""
+    },
+    {
+      "id": "v-n4-cage",
+      "image": "https://vajraformwork.vercel.app/social/v-n4-cage.jpg",
+      "caption": "captions/n4-cage.txt",
       "posted": ""
     },
     {
