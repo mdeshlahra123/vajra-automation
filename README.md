@@ -39,4 +39,9 @@ Runs VAJRA Formwork's Instagram, Facebook, ads and Telegram bot on GitHub, free,
 
 No money spent beyond the ₹100/day ad budget · no sheet price in reels · never a number of uses (only "sahi handling ke saath ply se 2-3 guna zyada chalti hai") · never a reel without sound · problem scenes show brown ply, never the grey sheet · no dirty/used sheet or slab-ceiling photos.
 
+## Laptop folders
+
+- `Desktop\vajra-automation` — this repo (the live system).
+- `Desktop\Vajra` — workspace: brand files, research, outreach, ads notes, local reel tools (`social\studio`), and the website repo (`Desktop\Vajra\website`, deploys on `git push`). Renamed from `Desktop\New` on 26 Oct.
+
 Videos and images are served from the website repo (`vajraformwork.vercel.app/social/`), which is cleaned daily.
