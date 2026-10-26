@@ -6,7 +6,6 @@ on:
       file_id: { description: "Telegram file_id", required: true }
       who: { description: "sender", required: false, default: "" }
       note: { description: "caption", required: false, default: "" }
-concurrency: { group: inbox, cancel-in-progress: false }
 permissions: { contents: write }
 jobs:
   save:
