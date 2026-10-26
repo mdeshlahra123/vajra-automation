@@ -242,10 +242,13 @@
       "file": "social/media/qa-mehnga-v.mp4",
       "caption": "captions/qa-mehnga.txt",
       "position": "end",
-      "status": "sent",
+      "status": "approved",
       "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg",
       "msg_id": 281,
-      "sent_at": "2026-10-26 09:57"
+      "sent_at": "2026-10-26 09:57",
+      "by": "MrBeast",
+      "at": "2026-10-26 10:02",
+      "publish": "todo"
     }
   ]
 }

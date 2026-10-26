@@ -236,6 +236,13 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/x7-hisaab-v.mp4",
       "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg"
+    },
+    {
+      "id": "reel-qa-mehnga-v",
+      "caption": "captions/qa-mehnga.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/qa-mehnga-v.mp4",
+      "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg"
     }
   ],
   "hold": []
