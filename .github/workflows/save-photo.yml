@@ -26,8 +26,7 @@ jobs:
           os.makedirs("social/inbox", exist_ok=True)
           name = time.strftime("%Y%m%d-%H%M%S", time.gmtime(time.time() + 19800)) + "-" + (os.environ["WHO"] or "x").replace(" ", "")[:12] + os.path.splitext(path)[1]
           urllib.request.urlretrieve(f"https://api.telegram.org/file/bot{os.environ['TOKEN']}/{path}", "social/inbox/" + name)
-          log = "social/inbox/inbox.json"; d = json.load(open(log)) if os.path.exists(log) else []
-          d.append({"file": name, "who": os.environ["WHO"], "note": os.environ["NOTE"], "used": False}); json.dump(d, open(log, "w"), ensure_ascii=False, indent=1)
+          open("social/inbox/" + name + ".txt", "w").write((os.environ["WHO"] + ": " + os.environ["NOTE"]).strip())
           print("saved", name)
           PY
       - run: |
