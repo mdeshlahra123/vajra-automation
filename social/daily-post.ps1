@@ -24,6 +24,20 @@ $pending = $q.posts | Where-Object { -not $_.posted }
 if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video } }
 if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
 $item = $pending | Select-Object -First 1
+# Scheduled stand-alone Stories (queue.json "stories": [{id, image|video, date, posted}]) go out with the morning run
+if ($Type -eq "reel" -and -not $DryRun -and $q.stories) {
+  $todayS = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
+  foreach ($s in @($q.stories | Where-Object { -not $_.posted -and $_.date -le $todayS })) {
+    try {
+      $sp = if ($s.video) { @{ media_type="STORIES"; video_url=$s.video; access_token=$t } } else { @{ media_type="STORIES"; image_url=$s.image; access_token=$t } }
+      $sc = PostUtf8 "$v/$ig/media" $sp
+      for ($i=0; $i -lt 20; $i++) { Start-Sleep 10; $ss=(GetUtf8 "$v/$($sc.id)?fields=status_code&access_token=$t").status_code; if ($ss -eq "FINISHED" -or $ss -eq "ERROR") { break } }
+      $null = PostUtf8 "$v/$ig/media_publish" @{ creation_id=$sc.id; access_token=$t }
+      $s.posted = $todayS; Log "  STORY (scheduled) OK $($s.id)"
+    } catch { Log ("  STORY (scheduled) ERR $($s.id) " + (E $_)) }
+  }
+  ($q | ConvertTo-Json -Depth 6) | Set-Content "$base/queue.json" -Encoding UTF8
+}
 # Guard: max one reel and one image per IST day (GitHub cron can run late or after a manual post)
 if ($Type -ne "any" -and -not $DryRun -and $item) {
   $today = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")

@@ -245,5 +245,13 @@
       "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg"
     }
   ],
-  "hold": []
+  "hold": [],
+  "stories": [
+    {
+      "id": "story-samples-40",
+      "image": "https://vajraformwork.vercel.app/social/story-samples.jpg",
+      "date": "2026-10-28",
+      "posted": ""
+    }
+  ]
 }
