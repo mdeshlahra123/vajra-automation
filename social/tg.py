@@ -84,6 +84,8 @@ def add_to_queue(it):
         entry["video"] = "https://vajraformwork.vercel.app/social/" + os.path.basename(it["file"])
         if it.get("ai"):
             entry["ai"] = True
+        if it.get("cover"):
+            entry["cover"] = it["cover"]
         it["publish"] = "todo"
     else:
         entry["video" if it.get("video") else "image"] = it.get("video") or it.get("image")
