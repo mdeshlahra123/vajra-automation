@@ -8,7 +8,17 @@ pend_path, queue_path = os.path.join(BASE, "pending.json"), os.path.join(BASE, "
 pend = json.load(open(pend_path, encoding="utf-8")) if os.path.exists(pend_path) else {"items": []}
 queue = json.load(open(queue_path, encoding="utf-8"))
 todo = [i for i in pend["items"] if i.get("publish") == "todo"]
-keep = {os.path.basename(p.get("video") or p["reel"]) for p in queue["posts"] if not p.get("posted") and (p.get("video") or p.get("reel"))}
+keep = set()  # every file a not-yet-posted item still needs (video, image, cover, slides), incl. held reels and scheduled stories
+for p in queue["posts"] + queue.get("hold", []) + queue.get("stories", []):
+    if p.get("posted"):
+        continue
+    for k in ("video", "image", "cover", "reel"):
+        if p.get(k):
+            keep.add(os.path.basename(p[k]))
+    keep.update(os.path.basename(s) for s in p.get("slides", []))
+for i in pend["items"]:  # reels waiting for approval keep their covers
+    if i.get("status") in ("sent", "draft") and i.get("cover"):
+        keep.add(os.path.basename(i["cover"]))
 
 url = f"https://x-access-token:{os.environ['WEBSITE_TOKEN']}@github.com/mdeshlahra123/vajraformwork.git"
 subprocess.run(["git", "clone", "-q", "--depth", "1", url, "site"], check=True)
@@ -16,7 +26,7 @@ sdir = os.path.join("site", "social")
 for i in todo:
     shutil.copy(os.path.join(BASE, "..", i["file"]), os.path.join(sdir, os.path.basename(i["file"])))
     i["publish"] = "done"
-removed = [f for f in os.listdir(sdir) if f.endswith(".mp4") and f not in keep and not any(os.path.basename(i["file"]) == f for i in todo)]
+removed = [f for f in os.listdir(sdir) if f.endswith((".mp4", ".jpg")) and f not in keep and not any(os.path.basename(i["file"]) == f for i in todo)]
 for f in removed:
     os.remove(os.path.join(sdir, f))
 print("add:", [i["id"] for i in todo], "| remove:", removed)
