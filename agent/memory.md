@@ -57,3 +57,4 @@
 - Planned 3 upcoming reel concepts: Contractor profit margin, Single-man carrying ease, Free sample till 30 Nov. Requested tyre/water test clip from Shobhit.
 
 - 26 Oct: tested evening photo-as-reel (silent 7s zoom): reach 160, same as photo posts (76-230). Switched back to photo posts. Reach comes from real motion/people/sound, not the reel format.
+- 26 Oct: every post now also goes to Story (daily-post.ps1). Evening slot can be carousels (queue item 'slides'). First: car-plyvspp (Ply vs PP, 7 slides) 28 Oct. Asked Shobhit to set profile name 'VAJRA | PP Shuttering Sheet'. Captions: 5 hashtags + 'PP shuttering sheet' search words.
