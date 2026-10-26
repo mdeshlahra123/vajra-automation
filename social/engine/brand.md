@@ -36,3 +36,4 @@ Reel craft (from instagram-agent-skill, ig-reel):
 - Change the picture every 3-4 seconds. One idea per reel. One ask at the end.
 - Last spoken line repeats one word from the hook (loop = replays).
 - Caption line 1 (first 125 characters, shown before '... more') must work on its own.
+- NEVER post a reel without sound (owners, 27 Oct). Every reel needs a voiceover and/or music. Silent photo reels are not allowed.
