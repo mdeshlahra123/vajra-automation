@@ -61,11 +61,10 @@ old = open(npath, encoding="utf-8").read() if os.path.exists(npath) else ""
 new = json.dumps(nxt, ensure_ascii=False, indent=1)
 if new != old:
     open(npath, "w", encoding="utf-8").write(new)
-if not todo and not removed and new == old:
-    sys.exit(0)
-g = lambda *a: subprocess.run(["git", "-C", "site", *a], check=True)
-g("config", "user.name", "vajra-bot"); g("config", "user.email", "vajra-bot@users.noreply.github.com")
-g("add", "-A", "social"); g("commit", "-q", "-m", f"bot: daily reels +{len(todo)} -{len(removed)}"); g("push", "-q")
+if todo or removed or new != old:
+    g = lambda *a: subprocess.run(["git", "-C", "site", *a], check=True)
+    g("config", "user.name", "vajra-bot"); g("config", "user.email", "vajra-bot@users.noreply.github.com")
+    g("add", "-A", "social"); g("commit", "-q", "-m", f"bot: daily reels +{len(todo)} -{len(removed)}"); g("push", "-q")
 json.dump(pend, open(pend_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 # wait until the newest added reel is live, so today's post can fetch it
 for i in todo[-1:]:
@@ -75,3 +74,24 @@ for i in todo[-1:]:
             urllib.request.urlopen(urllib.request.Request(u, method="HEAD"), timeout=20); print("live:", u); break
         except Exception:
             time.sleep(10)
+
+# Guard (owners, 27 Oct): never post a reel without sound. Any silent pending reel is moved to queue "hold".
+if _sh.which("ffmpeg"):
+    q = json.load(open(queue_path, encoding="utf-8")); moved = []
+    for p in [p for p in q["posts"] if not p.get("posted") and p.get("video")][:3]:
+        try:
+            r = subprocess.run(["ffmpeg", "-hide_banner", "-i", p["video"], "-vn", "-af", "volumedetect", "-f", "null", "-"],
+                               capture_output=True, text=True, timeout=180).stderr
+            mx = float(r.split("max_volume:")[1].split("dB")[0]) if "max_volume:" in r else -99
+        except Exception:
+            continue
+        if mx < -60:
+            q["posts"].remove(p); q.setdefault("hold", []).append(p); moved.append(p["id"])
+    if moved:
+        json.dump(q, open(queue_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+        try:
+            subprocess.run(["curl", "-s", "-X", "POST", f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/sendMessage",
+                            "-d", f"chat_id={os.environ['TELEGRAM_CHAT_ID']}", "--data-urlencode",
+                            "text=🔇 In reels mein awaaz nahi thi, post nahi kiya (hold pe daal diya): " + ", ".join(moved)], timeout=30)
+        except Exception:
+            pass
