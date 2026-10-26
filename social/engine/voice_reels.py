@@ -16,6 +16,7 @@ R = {
                [(0.1, "Sariya cage taiyaar."), (2.1, "PP panel lagao."), (4.1, "Seedha aur majboot."), (6.1, "Column ready, saaf finish.")], 8.2),
  "x9-halka": ("x9-halka.mp4", "captions/x9-halka.txt",
               [(0.1, "Shuttering itni bhaari kyun?"), (2.1, "Ek haath se utha lo."), (4.1, "Andar se hollow, isliye halki."), (6.1, "Phir bhi tooti nahi.")], 8.2),
+ "samples-40": ("samples-40.mp4", "captions/samples-40.txt", [(0.1, "Aaj chaalis se zyada free samples pack hue."), (3.6, "Ek feet ka VAJRA piece, pack karke courier ke liye ready."), (8.0, "Poore India mein jaa rahe hain."), (10.2, "Aapka bhi chahiye?")], 12.6),
  "qa-rate": ("qa-rate.mp4", "captions/qa-rate.txt", [(0.3, "Aapne poocha, rate kya hai?"), (2.8, "Sheet ka rate mat dekho. Har dhalai ka hisaab dekho.")], 7.9),
  "qa-kahan": ("qa-kahan.mp4", "captions/qa-kahan.txt", [(0.3, "Surat, Noida mein milega?"), (2.8, "Haan. Poore India mein dispatch hota hai.")], 7.9),
  "qa-size": ("qa-size.mp4", "captions/qa-size.txt", [(0.3, "Size kya hai?"), (2.8, "Aath bai chaar feet, baarah mm. Andar se hollow.")], 7.9),
