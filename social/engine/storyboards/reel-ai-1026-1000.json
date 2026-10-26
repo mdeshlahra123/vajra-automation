@@ -1,0 +1,33 @@
+{
+  "hook": "Paani padte hi shuttering ply phool kar toot jaati hai?",
+  "title": "Waterproof Shuttering Sheet",
+  "scenes": [
+    {
+      "type": "ai",
+      "shows_vajra": false,
+      "video_prompt": "Single continuous handheld vertical shot on an Indian construction site during damp weather. An Indian contractor inspects a damaged, swollen, cracked brown wooden shuttering plywood sheet with visible water stains and chipped edges. Natural daylight, raw site background, no text, no logos.",
+      "vo": "Paani padte hi shuttering ply phool kar toot jaati hai?",
+      "text1": "Ply phool gayi?",
+      "text2": "Nuksan band kijiye"
+    },
+    {
+      "type": "photo",
+      "photo": "v1-core",
+      "shows_vajra": true,
+      "vo": "Switch kijiye VAJRA par, yeh waterproof plastic sheet bilkul nahi phoolti.",
+      "text1": "100% waterproof",
+      "text2": "Nahi phoolti kabhi"
+    },
+    {
+      "type": "photo",
+      "photo": "finish-column",
+      "shows_vajra": true,
+      "vo": "Sahi handling ke saath, ply se do teen guna zyada chalegi.",
+      "text1": "2-3 guna life",
+      "text2": "Sahi handling par"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Paani se shuttering ply kharab hone se pareshan hain? VAJRA PP shuttering sheet hai 100% waterproof.\nSahi handling ke saath yeh ply se 2-3 guna zyada chalti hai aur dhalai ka kharcha kam karti hai.\nRaipur, Durg, Bhilai se pan-India dispatch uplabdh hai.\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork | Call / WhatsApp: 83050 70160\n#PPShuttering #PlasticShuttering #Formwork #Contractors #Chhattisgarh",
+  "brief": ""
+}
