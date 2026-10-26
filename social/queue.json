@@ -164,12 +164,6 @@
       "cover": "https://vajraformwork.vercel.app/social/r1-oneman-cta-cover.jpg"
     },
     {
-      "id": "v-p-slab",
-      "image": "https://vajraformwork.vercel.app/social/v-p-slab.jpg",
-      "caption": "captions/p-slab.txt",
-      "posted": ""
-    },
-    {
       "id": "reel-r2-core",
       "video": "https://vajraformwork.vercel.app/social/r2-core-cta.mp4",
       "caption": "captions/r2-core.txt",
