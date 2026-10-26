@@ -231,55 +231,5 @@
       "cover": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2-cover.jpg"
     }
   ],
-  "hold": [
-    {
-      "id": "reel-qa-rate",
-      "video": "https://vajraformwork.vercel.app/social/qa-rate.mp4",
-      "caption": "captions/qa-rate.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/qa-rate-cover.jpg"
-    },
-    {
-      "id": "reel-qa-kahan",
-      "video": "https://vajraformwork.vercel.app/social/qa-kahan.mp4",
-      "caption": "captions/qa-kahan.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/qa-kahan-cover.jpg"
-    },
-    {
-      "id": "reel-x9-halka",
-      "video": "https://vajraformwork.vercel.app/social/x9-halka.mp4",
-      "caption": "captions/x9-halka.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/x9-halka-cover.jpg"
-    },
-    {
-      "id": "reel-qa-size",
-      "video": "https://vajraformwork.vercel.app/social/qa-size.mp4",
-      "caption": "captions/qa-size.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/qa-size-cover.jpg"
-    },
-    {
-      "id": "reel-x8-column",
-      "video": "https://vajraformwork.vercel.app/social/x8-column.mp4",
-      "caption": "captions/x8-column.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg"
-    },
-    {
-      "id": "reel-qa-toot",
-      "video": "https://vajraformwork.vercel.app/social/qa-toot.mp4",
-      "caption": "captions/qa-toot.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/qa-toot-cover.jpg"
-    },
-    {
-      "id": "reel-qa-mehnga",
-      "video": "https://vajraformwork.vercel.app/social/qa-mehnga.mp4",
-      "caption": "captions/qa-mehnga.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg"
-    }
-  ]
+  "hold": []
 }
