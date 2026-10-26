@@ -89,6 +89,13 @@
       "posted": "2026-10-24"
     },
     {
+      "id": "reel-samples-40-v",
+      "caption": "captions/samples-40.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/samples-40-v.mp4",
+      "cover": "https://vajraformwork.vercel.app/social/samples-40-cover.jpg"
+    },
+    {
       "id": "reel-m2-quick",
       "video": "https://vajraformwork.vercel.app/social/m2-quick-cta.mp4",
       "caption": "captions/m2-quick.txt",
@@ -243,13 +250,6 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/qa-mehnga-v.mp4",
       "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg"
-    },
-    {
-      "id": "reel-samples-40-v",
-      "caption": "captions/samples-40.txt",
-      "posted": "",
-      "video": "https://vajraformwork.vercel.app/social/samples-40-v.mp4",
-      "cover": "https://vajraformwork.vercel.app/social/samples-40-cover.jpg"
     }
   ],
   "hold": [],
