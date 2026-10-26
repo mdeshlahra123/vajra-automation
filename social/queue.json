@@ -157,6 +157,21 @@
       "posted": ""
     },
     {
+      "id": "car-plyvspp",
+      "image": "https://vajraformwork.vercel.app/social/car-plyvspp-1.jpg",
+      "slides": [
+        "https://vajraformwork.vercel.app/social/car-plyvspp-1.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-2.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-3.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-4.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-5.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-6.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-7.jpg"
+      ],
+      "caption": "captions/car-plyvspp.txt",
+      "posted": ""
+    },
+    {
       "id": "v-n7-inout",
       "image": "https://vajraformwork.vercel.app/social/v-n7-inout.jpg",
       "caption": "captions/n7-inout.txt",

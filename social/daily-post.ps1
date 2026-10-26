@@ -51,6 +51,12 @@ try {
       if ($st -eq "ERROR") { throw "Reel processing failed" }
     }
     if ($st -ne "FINISHED") { throw "Reel still processing after 10 min" }
+  } elseif ($item.slides) {
+    # Carousel: one container per slide, then the carousel container
+    $kids = foreach ($s in $item.slides) { (PostUtf8 "$v/$ig/media" @{ image_url=$s; is_carousel_item="true"; access_token=$t }).id }
+    Start-Sleep 5
+    $c = PostUtf8 "$v/$ig/media" @{ media_type="CAROUSEL"; children=($kids -join ","); caption=$cap; access_token=$t }
+    for ($i=0; $i -lt 20; $i++) { Start-Sleep 6; if ((GetUtf8 "$v/$($c.id)?fields=status_code&access_token=$t").status_code -eq "FINISHED") { break } }
   } elseif ($item.reel) {
     # Photo reel (reels reach far more people), with the designed photo as the grid cover so the profile looks the same
     $c = PostUtf8 "$v/$ig/media" @{ media_type="REELS"; video_url=$item.reel; cover_url=$item.image; caption=$cap; share_to_feed="true"; access_token=$t }
@@ -69,7 +75,17 @@ try {
   $p = PostUtf8 "$v/$ig/media_publish" @{ creation_id=$c.id; access_token=$t }
   $igId = $p.id
   $live = GetUtf8 "$v/$igId`?fields=caption,permalink&access_token=$t"
-  if ((([string]$live.caption).Replace("`r`n","`n").Trim()) -ceq $cap) { $igOk=$true; Log "  IG OK $($live.permalink)" }
+  if ((([string]$live.caption).Replace("`r`n","`n").Trim()) -ceq $cap) {
+    $igOk=$true; Log "  IG OK $($live.permalink)"
+    # also put it on the Story (followers see it at the top of their app); failure here never blocks the post
+    try {
+      $sp = if ($item.video) { @{ media_type="STORIES"; video_url=$item.video; access_token=$t } }
+            else { @{ media_type="STORIES"; image_url=$(if ($item.slides) { $item.slides[0] } else { $item.image }); access_token=$t } }
+      $sc = PostUtf8 "$v/$ig/media" $sp
+      for ($i=0; $i -lt 20; $i++) { Start-Sleep 10; $ss=(GetUtf8 "$v/$($sc.id)?fields=status_code&access_token=$t").status_code; if ($ss -eq "FINISHED" -or $ss -eq "ERROR") { break } }
+      $sx = PostUtf8 "$v/$ig/media_publish" @{ creation_id=$sc.id; access_token=$t }; Log "  STORY OK $($sx.id)"
+    } catch { Log ("  STORY ERR " + (E $_)) }
+  }
   else { Invoke-RestMethod -Method Delete "$v/$igId`?access_token=$t" | Out-Null; Log "  IG CAPTION MISMATCH - deleted, skipped" }
 } catch { Log ("  IG ERR " + (E $_)) }
 
