@@ -47,3 +47,12 @@
 - Queue has 15 pending reels (healthy, >6). Next reel: `reel-real-1023-1128` (real footage column shuttering).
 - Daily report sent to owners via Telegram with video idea for Shobhit (tyre-over-sheet toughness test).
 - 25 Oct: owners approved ("do whatever you want"): keep all ad money (₹100/day) on WhatsApp ad set 120251541042080600; lead form set stays paused. Never raise total budget. Swap L7 to a clean 2-3 guna creative after the test.
+
+## 26 Oct (Monday weekly review & daily run)
+- Followers: 785 (+66 since 24 Oct baseline). Total 7-day post reach: 133,143 across posts.
+- Best reels: `reel-a1-kharcha` (111k reach, 1,029 saves, 1,349 shares), `reel-x2-throw` (7.7k reach, 19 saves, 16 shares, 40 comments). Toughness + cost comparison are clear winning angles.
+- WhatsApp vs Form Ads: L7 WhatsApp delivered 56 chats @ ₹3.31/chat (spend ₹185.32, balance ₹518.96). Lead form paused (64 total leads @ ~₹16/lead). WhatsApp is ~5x cheaper and gives direct conversations.
+- Lead Quality (from 64 lifetime form leads): 81% contractors/builders (45 contractors, 7 builders), 48% needing 2,000+ sq ft (31/64). Raipur 20 leads (31%), rest MP/CG districts.
+- Queue: 19 pending reels, 7 pending images. Today: `reel-x7-hisaab` (09:30 IST) & `v-n4-cage` (19:30 IST). No new AI reel needed (queue > 6).
+- Planned 3 upcoming reel concepts: Contractor profit margin, Single-man carrying ease, Free sample till 30 Nov. Requested tyre/water test clip from Shobhit.
+
