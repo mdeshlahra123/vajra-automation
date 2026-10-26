@@ -32,10 +32,12 @@ ANSWER IT directly using the System facts and live data. Do NOT just send a reel
 Answer as JSON only:
 {{"reply": "1-6 short Hinglish lines that directly answer the question; real numbers from the data; no file names/IDs unless asked",
  "media": [{{"url": "reel .mp4 / image URL from the data", "caption": "short"}}],
- "actions": [["pause" or "resume", "<ad_id>"]],
+ "actions": [["pause" or "resume", "<ad_id>"] or ["move", "<queue_id>", <new position, 0 = next>] or ["remember", "<owner preference to keep forever>"]],
  "deep": false}}
 "media": ONLY when they ask to SEE a reel/post (e.g. "konsi reel jayegi", "dikhao"). For questions/complaints leave it [].
-Set "deep": true ONLY if the request needs a new reel, moving the queue, promoting a reel, or multi-step work, or a problem
+To change what posts next/tonight: use "move" (e.g. move tonight's image to a later position, which brings the next one forward). Always add "remember" when the owner states a preference or rule.
+NEVER say something is done unless you put the action for it in "actions". If you cannot do it yourself, say "main check karke batata hoon" and set deep.
+Set "deep": true ONLY if the request needs a new reel, promoting a reel, or multi-step work, or a problem
 you cannot explain from the facts (the bigger brain can read code and logs); then "reply" says what will happen.
 Never break the hard rules (no spending, no budget changes)."""
 try:
@@ -49,12 +51,27 @@ if out.get("reply"):
 for m in (out.get("media") or [])[:3]:
     if m.get("url", "").startswith("https://"):
         tools.media(m["url"], m.get("caption", ""))
+done = []
 for act in out.get("actions") or []:
-    if len(act) == 2 and act[0] in ("pause", "resume"):
+    if len(act) == 3 and act[0] == "move":
+        try:
+            tools.move(act[1], int(act[2])); done.append("queue")
+        except BaseException as e:
+            tools.tg(f"Queue badal nahi paya ({act[1]}): {str(e)[:80]}")
+    elif len(act) == 2 and act[0] == "remember":
+        open(os.path.join(ROOT, "agent", "memory.md"), "a", encoding="utf-8").write(f"\n- {time.strftime('%d %b')} ({who}): {act[1][:300]}"); done.append("memory")
+    elif len(act) == 2 and act[0] in ("pause", "resume"):
         try:
             tools.ad(act[0], act[1]); tools.tg(f"Ad {act[0]} kar diya: {act[1]}")
         except Exception as e:
             tools.tg(f"Ad {act[0]} nahi hua: {str(e)[:80]}")
+if "queue" in done:  # show the owner the real new order, so nothing is claimed that did not happen
+    q = json.load(open(os.path.join(ROOT, "social", "queue.json"), encoding="utf-8"))
+    pend = [p for p in q["posts"] if not p.get("posted")]
+    nr = next((p for p in pend if p.get("video")), {}); ni = next((p for p in pend if not p.get("video")), {})
+    tools.tg(f"✅ Queue badal di. Agli reel (09:30): {nr.get('id', '-')}\nAgli post (19:30): {ni.get('id', '-')}")
+    if ni.get("image"):
+        tools.media(ni["image"], "Ab ye jayegi 19:30 ko")
 if out.get("deep"):
     tools.dispatch("agent.yml", {"task": task[:900], "who": who})
 print("total", round(time.time() - t0), "s")
