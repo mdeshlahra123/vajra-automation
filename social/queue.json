@@ -151,6 +151,12 @@
       "cover": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta-cover.jpg"
     },
     {
+      "id": "v-finish-column",
+      "image": "https://vajraformwork.vercel.app/social/v-finish-column.jpg",
+      "caption": "captions/finish-column.txt",
+      "posted": ""
+    },
+    {
       "id": "v-n7-inout",
       "image": "https://vajraformwork.vercel.app/social/v-n7-inout.jpg",
       "caption": "captions/n7-inout.txt",

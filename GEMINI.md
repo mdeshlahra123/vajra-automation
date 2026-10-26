@@ -56,6 +56,7 @@ Instead of the normal daily message, send ONE weekly Telegram message (max 12 li
 - Lead quality from `leads`: % contractors/builders, % needing 2,000+ sq ft.
 - Next week: 3 reel ideas you will make (from the idea bank) + 1 shoot request for Shobhit.
 Save the weekly numbers in memory so next Monday can compare.
+- Judge posts by **outlier multiple** = reach / median reach of our last 12 posts of the same type (reel vs photo). Above 3x = a winner worth repeating; below 1.5x = a normal day, learn nothing from it. Also **shares per 1,000 reach** (sends are Instagram's strongest signal). Name the 1-2 winners and what their hook had in common.
 
 ## Reel idea bank (pick from here; mark used ones in memory)
 Money (best): "Ply baar-baar khareedna band" · "Ply se 2-3 guna zyada chale (sahi handling ke saath)" · "Contractor ka profit ply mein jaata hai" · "Har kuch slab pe naya ply? Ab nahi".

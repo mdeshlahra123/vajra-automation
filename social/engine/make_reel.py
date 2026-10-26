@@ -18,6 +18,7 @@ W, H, FPS = 1080, 1920, 30
 
 PHOTOS = {
     "r-throw": "VAJRA sheet lying on the ground after being thrown from a roof, unbroken",
+    "finish-column": "REAL finished concrete column just after VAJRA shuttering was removed, smooth and straight, bamboo props around (proof of finish)",
     "ply-pile": "pile of old broken brown plywood on a site (ONLY for ply-problem scenes)",
     "r-workers": "workers fixing VAJRA sheets around a column on site",
     "v1-core": "hand holding a sheet showing the hollow core edge",
