@@ -243,6 +243,13 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/qa-mehnga-v.mp4",
       "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg"
+    },
+    {
+      "id": "reel-samples-40-v",
+      "caption": "captions/samples-40.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/samples-40-v.mp4",
+      "cover": "https://vajraformwork.vercel.app/social/samples-40-cover.jpg"
     }
   ],
   "hold": [],

@@ -256,10 +256,13 @@
       "file": "social/media/samples-40-v.mp4",
       "caption": "captions/samples-40.txt",
       "position": "end",
-      "status": "sent",
+      "status": "approved",
       "cover": "https://vajraformwork.vercel.app/social/samples-40-cover.jpg",
       "msg_id": 288,
-      "sent_at": "2026-10-26 15:28"
+      "sent_at": "2026-10-26 15:28",
+      "by": "MrBeast",
+      "at": "2026-10-26 15:31",
+      "publish": "todo"
     }
   ]
 }
