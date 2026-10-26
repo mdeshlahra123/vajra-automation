@@ -56,3 +56,4 @@
 - Queue: 19 pending reels, 7 pending images. Today: `reel-x7-hisaab` (09:30 IST) & `v-n4-cage` (19:30 IST). No new AI reel needed (queue > 6).
 - Planned 3 upcoming reel concepts: Contractor profit margin, Single-man carrying ease, Free sample till 30 Nov. Requested tyre/water test clip from Shobhit.
 
+- 26 Oct: tested evening photo-as-reel (silent 7s zoom): reach 160, same as photo posts (76-230). Switched back to photo posts. Reach comes from real motion/people/sound, not the reel format.
