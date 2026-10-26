@@ -91,14 +91,15 @@ try {
   $live = GetUtf8 "$v/$igId`?fields=caption,permalink&access_token=$t"
   if ((([string]$live.caption).Replace("`r`n","`n").Trim()) -ceq $cap) {
     $igOk=$true; Log "  IG OK $($live.permalink)"
-    # also put it on the Story (followers see it at the top of their app); failure here never blocks the post
-    try {
+    # Auto-reshare of the post to Story is OFF (owner, 26 Oct: same content twice, no point).
+    # Stand-alone Stories still go out from queue.json "stories".
+    if ($false) { try {
       $sp = if ($item.video) { @{ media_type="STORIES"; video_url=$item.video; access_token=$t } }
             else { @{ media_type="STORIES"; image_url=$(if ($item.slides) { $item.slides[0] } else { $item.image }); access_token=$t } }
       $sc = PostUtf8 "$v/$ig/media" $sp
       for ($i=0; $i -lt 20; $i++) { Start-Sleep 10; $ss=(GetUtf8 "$v/$($sc.id)?fields=status_code&access_token=$t").status_code; if ($ss -eq "FINISHED" -or $ss -eq "ERROR") { break } }
       $sx = PostUtf8 "$v/$ig/media_publish" @{ creation_id=$sc.id; access_token=$t }; Log "  STORY OK $($sx.id)"
-    } catch { Log ("  STORY ERR " + (E $_)) }
+    } catch { Log ("  STORY ERR " + (E $_)) } }
   }
   else { Invoke-RestMethod -Method Delete "$v/$igId`?access_token=$t" | Out-Null; Log "  IG CAPTION MISMATCH - deleted, skipped" }
 } catch { Log ("  IG ERR " + (E $_)) }
