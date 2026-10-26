@@ -159,6 +159,13 @@ function handleMessage_(m, P) {
       text: '📥 Clip ' + clips.length + ' mila. Aur clips ho to bhejo. 20 min tak naya clip nahi aaya to reel apne aap banegi. Jaldi chahiye to likho: /reel aur ek line ki note.' });
     return;
   }
+  // photos (or image files) are saved to the repo for reels / posts / covers
+  var ph = m.photo ? m.photo[m.photo.length - 1] : (m.document && /^image\//.test(m.document.mime_type || '') ? m.document : null);
+  if (ph) {
+    ghRun_('save-photo.yml', { file_id: ph.file_id, who: who, note: (m.caption || '').slice(0, 300) }, P, chat);
+    tg_('sendMessage', { chat_id: chat, reply_to_message_id: m.message_id, text: '📸 Photo save ho gayi. Reels/posts mein use hogi (Kiro check karke).' });
+    return;
+  }
   var text = (m.text || '').trim();
   // reply to a storyboard = changes for that reel plan
   var rt = m.reply_to_message && (m.reply_to_message.text || m.reply_to_message.caption || '');
