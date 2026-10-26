@@ -157,7 +157,7 @@ def main():
     os.makedirs(A("social", "engine", "plans"), exist_ok=True)
     p.update(build_log=log, seconds=round(total, 1), note=a.note, who=a.who)
     json.dump(p, open(A("social", "engine", "plans", f"{rid}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    open(A("social", "captions", f"{rid}.txt"), "w", encoding="utf-8").write(p["caption"].strip())
+    sys.path.insert(0, A("social")); import caption_fix; p["caption"] = caption_fix.fix(p["caption"]); open(A("social", "captions", f"{rid}.txt"), "w", encoding="utf-8").write(p["caption"].strip())
     warn = "" if p.get("ok", True) else " ⚠️ CHECK: " + "; ".join(p.get("issues", []))[:300]
     pend_path = A("social", "pending.json")
     pend = json.load(open(pend_path, encoding="utf-8")) if os.path.exists(pend_path) else {"items": []}

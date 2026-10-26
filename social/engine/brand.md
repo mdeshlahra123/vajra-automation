@@ -24,7 +24,15 @@ Never:
 
 Every reel ends with: "Comment mein PP likhiye, follow kijiye, rate aapke DM mein."
 Caption ends with the comment-PP line, "Follow kijiye @vajraformwork", phone, and these hashtags:
-#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai
+#PPShuttering #PlasticShuttering #Formwork #Contractors #Chhattisgarh (Instagram allows max 5 hashtags since Dec 2025). Caption must contain the words "PP shuttering sheet" (Instagram search reads caption text).
 
 - NEVER use the used/dirty PP sheet edge photo (r-used, v2-used) in any reel, post, cover or ad. Owners: it looks bad.
 - NEVER use the slab-ceiling photo/footage (r-slab, x1-slab): low quality. Ply-problem lines must show brown ply (ply-pile), never the grey VAJRA sheet.
+
+
+Reel craft (from instagram-agent-skill, ig-reel):
+- Hook is said in under 3 seconds and is on screen from frame 1. No greeting, no 'is video mein'. Open on the problem.
+- On-screen text max 6 words per card; keep text between y=230 and y=1440 and away from the right 230 px (Instagram buttons).
+- Change the picture every 3-4 seconds. One idea per reel. One ask at the end.
+- Last spoken line repeats one word from the hook (loop = replays).
+- Caption line 1 (first 125 characters, shown before '... more') must work on its own.
