@@ -162,10 +162,13 @@
       "file": "social/media/x7-hisaab-v.mp4",
       "caption": "captions/x7-hisaab.txt",
       "position": "end",
-      "status": "sent",
+      "status": "approved",
       "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg",
       "msg_id": 274,
-      "sent_at": "2026-10-26 09:57"
+      "sent_at": "2026-10-26 09:57",
+      "by": "MrBeast",
+      "at": "2026-10-26 10:02",
+      "publish": "todo"
     },
     {
       "id": "reel-x8-column-v",

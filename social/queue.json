@@ -229,6 +229,13 @@
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2.mp4",
       "ai": true,
       "cover": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2-cover.jpg"
+    },
+    {
+      "id": "reel-x7-hisaab-v",
+      "caption": "captions/x7-hisaab.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/x7-hisaab-v.mp4",
+      "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg"
     }
   ],
   "hold": []
