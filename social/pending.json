@@ -155,6 +155,94 @@
       "by": "MrBeast",
       "at": "2026-10-25 22:30",
       "publish": "done"
+    },
+    {
+      "id": "reel-x7-hisaab-v",
+      "title": "Awaaz wali: x7-hisaab",
+      "file": "social/media/x7-hisaab-v.mp4",
+      "caption": "captions/x7-hisaab.txt",
+      "position": "end",
+      "status": "sent",
+      "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg",
+      "msg_id": 274,
+      "sent_at": "2026-10-26 09:57"
+    },
+    {
+      "id": "reel-x8-column-v",
+      "title": "Awaaz wali: x8-column",
+      "file": "social/media/x8-column-v.mp4",
+      "caption": "captions/x8-column.txt",
+      "position": "end",
+      "status": "sent",
+      "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg",
+      "msg_id": 275,
+      "sent_at": "2026-10-26 09:57"
+    },
+    {
+      "id": "reel-x9-halka-v",
+      "title": "Awaaz wali: x9-halka",
+      "file": "social/media/x9-halka-v.mp4",
+      "caption": "captions/x9-halka.txt",
+      "position": "end",
+      "status": "sent",
+      "cover": "https://vajraformwork.vercel.app/social/x9-halka-cover.jpg",
+      "msg_id": 276,
+      "sent_at": "2026-10-26 09:57"
+    },
+    {
+      "id": "reel-qa-rate-v",
+      "title": "Awaaz wali: qa-rate",
+      "file": "social/media/qa-rate-v.mp4",
+      "caption": "captions/qa-rate.txt",
+      "position": "end",
+      "status": "sent",
+      "cover": "https://vajraformwork.vercel.app/social/qa-rate-cover.jpg",
+      "msg_id": 277,
+      "sent_at": "2026-10-26 09:57"
+    },
+    {
+      "id": "reel-qa-kahan-v",
+      "title": "Awaaz wali: qa-kahan",
+      "file": "social/media/qa-kahan-v.mp4",
+      "caption": "captions/qa-kahan.txt",
+      "position": "end",
+      "status": "sent",
+      "cover": "https://vajraformwork.vercel.app/social/qa-kahan-cover.jpg",
+      "msg_id": 278,
+      "sent_at": "2026-10-26 09:57"
+    },
+    {
+      "id": "reel-qa-size-v",
+      "title": "Awaaz wali: qa-size",
+      "file": "social/media/qa-size-v.mp4",
+      "caption": "captions/qa-size.txt",
+      "position": "end",
+      "status": "sent",
+      "cover": "https://vajraformwork.vercel.app/social/qa-size-cover.jpg",
+      "msg_id": 279,
+      "sent_at": "2026-10-26 09:57"
+    },
+    {
+      "id": "reel-qa-toot-v",
+      "title": "Awaaz wali: qa-toot",
+      "file": "social/media/qa-toot-v.mp4",
+      "caption": "captions/qa-toot.txt",
+      "position": "end",
+      "status": "sent",
+      "cover": "https://vajraformwork.vercel.app/social/qa-toot-cover.jpg",
+      "msg_id": 280,
+      "sent_at": "2026-10-26 09:57"
+    },
+    {
+      "id": "reel-qa-mehnga-v",
+      "title": "Awaaz wali: qa-mehnga",
+      "file": "social/media/qa-mehnga-v.mp4",
+      "caption": "captions/qa-mehnga.txt",
+      "position": "end",
+      "status": "sent",
+      "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg",
+      "msg_id": 281,
+      "sent_at": "2026-10-26 09:57"
     }
   ]
 }
