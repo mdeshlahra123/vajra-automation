@@ -20,6 +20,8 @@ MIN_SPEND, WORSE, MIN_ACTIVE, COOLDOWN, LOW_BAL = 150.0, 1.6, 2, 7, 200.0
 STATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ads-state.json")
 DRY = os.environ.get("DRY_RUN") == "true"
 # ads whose text breaks the use-count rule (40+ / lakh maths) or use banned footage: never resume
+# owner (27 Oct): permanent ads, never paused by this script until the owner says
+KEEP = {"120251584908460600"}  # L8 WA - Samples reel (existing post)
 NEVER = {"120251541042410600", "120251501523230600", "120251451378980600", "120251451052520600", "120251501107770600"}
 
 
@@ -63,7 +65,7 @@ def main():
     best = min([c for c in (cpl(w7.get(i)) for i in active) if c] or [None]) if active else None
     for i in list(active):
         d = w7.get(i)
-        if not d or d["spend"] < MIN_SPEND or len(active) <= MIN_ACTIVE:
+        if i in KEEP or not d or d["spend"] < MIN_SPEND or len(active) <= MIN_ACTIVE:
             continue
         c = cpl(d)
         why = "0 leads" if not c else (f"₹{c:.0f}/lead vs best ₹{best:.0f}" if best and c > WORSE * best else None)
@@ -78,7 +80,7 @@ def main():
     # planned swap (owners OK'd 25 Oct): WhatsApp test L7 has old "40+ / 1.1 lakh" text -> L8 Throw reel with the 2-3 guna line,
     # once the test has its ~Rs 300 or on 28 Oct, whichever comes first. Same ad set, same budget.
     L7, L8 = "120251541042410600", "120251567184010600"
-    if not state.get("l8_swap") and L7 in ads and L8 in ads and (life.get(L7, {}).get("spend", 0) >= 300 or today >= datetime.date(2026, 10, 28)):
+    if False and not state.get("l8_swap") and L7 in ads and L8 in ads and (life.get(L7, {}).get("spend", 0) >= 300 or today >= datetime.date(2026, 10, 28)):
         d7 = life.get(L7, {})
         actions += [("resume", L8, "naya WhatsApp ad, 2-3 guna text"), ("pause", L7, f"test poora: ₹{d7.get('spend', 0):.0f}, {d7.get('leads', 0):.0f} chats, purana 40+ text")]
         active = [x for x in active if x != L7] + [L8]; state["l8_swap"] = today.isoformat()
