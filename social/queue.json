@@ -129,7 +129,8 @@
       "video": "https://vajraformwork.vercel.app/social/r1-oneman-cta.mp4",
       "caption": "captions/r1-oneman.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/r1-oneman-cta-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/r1-oneman-cta-cover.jpg",
+      "evening": true
     },
     {
       "id": "car-plyvspp",
@@ -169,7 +170,8 @@
       "video": "https://vajraformwork.vercel.app/social/r4-wash-cta.mp4",
       "caption": "captions/r4-wash.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/r4-wash-cta-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/r4-wash-cta-cover.jpg",
+      "evening": true
     },
     {
       "id": "reel-x7-hisaab-v",
@@ -189,7 +191,8 @@
       "video": "https://vajraformwork.vercel.app/social/r2-core-cta.mp4",
       "caption": "captions/r2-core.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/r2-core-cta-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/r2-core-cta-cover.jpg",
+      "evening": true
     },
     {
       "id": "v-p-bend",
@@ -209,7 +212,8 @@
       "video": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta.mp4",
       "caption": "captions/a2-dekhlo.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta-cover.jpg",
+      "evening": true
     },
     {
       "id": "v-p-workers",

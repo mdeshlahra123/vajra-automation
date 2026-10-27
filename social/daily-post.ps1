@@ -21,9 +21,15 @@ function GetUtf8($url){ $wc=New-Object Net.WebClient; $wc.Encoding=[Text.Encodin
 
 $q = Get-Content "$base/queue.json" -Raw | ConvertFrom-Json
 $pending = $q.posts | Where-Object { -not $_.posted }
-if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video } }
+# Evening slot (owner, 27 Oct): Tue/Thu/Sat/Sun IST the 19:30 run posts the next reel tagged "evening": true; other days a photo/carousel.
+# Morning never takes evening-tagged reels. If no evening reel is left, the evening run falls back to a photo.
+$istDay = [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek
+$evDay = ($Type -eq "image") -and (@("Tuesday","Thursday","Saturday","Sunday") -contains $istDay)
+$all = $pending
+if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video -and -not $_.evening } }
 if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
 $item = $pending | Select-Object -First 1
+if ($evDay) { $ev = $all | Where-Object { $_.video -and $_.evening } | Select-Object -First 1; if ($ev) { $item = $ev } }
 # Scheduled stand-alone Stories (queue.json "stories": [{id, image|video, date, posted}]) go out with the morning run
 if ($Type -eq "reel" -and -not $DryRun -and $q.stories) {
   $todayS = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
@@ -41,7 +47,7 @@ if ($Type -eq "reel" -and -not $DryRun -and $q.stories) {
 # Guard: max one reel and one image per IST day (GitHub cron can run late or after a manual post)
 if ($Type -ne "any" -and -not $DryRun -and $item) {
   $today = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
-  $done = $q.posts | Where-Object { $_.posted -and ([bool]$_.video -eq ($Type -eq "reel")) -and ([string]$_.posted -eq $today) }
+  $done = $q.posts | Where-Object { $_.posted -and ([string]$_.posted -eq $today) -and $(if ($Type -eq "reel") { $_.video -and $_.slot -ne "evening" } else { (-not $_.video) -or $_.slot -eq "evening" }) }
   if ($done) { Log "SKIP: $Type already posted today ($today IST): $($done[0].id)"; exit 0 }
 }
 if (-not $item) { Log "QUEUE EMPTY ($Type) - nothing to post. Add more items to queue.json."; exit 0 }
@@ -118,6 +124,7 @@ try {
 # ---- mark posted (only if IG succeeded; FB-only failure still marks, IG is primary) ----
 if ($igOk) {
   $item.posted = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
+if ($Type -eq "image") { $item | Add-Member -NotePropertyName slot -NotePropertyValue "evening" -Force }
   ($q | ConvertTo-Json -Depth 6) | Set-Content "$base/queue.json" -Encoding UTF8
   $left = ($q.posts | Where-Object { -not $_.posted }).Count
   Log "  DONE. $left posts left in queue."
