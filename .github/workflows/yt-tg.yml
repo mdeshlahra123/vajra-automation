@@ -1,0 +1,23 @@
+name: yt-tg
+# Manual: send one reel's YouTube Short pack (video + title + description) to Telegram.
+on:
+  workflow_dispatch:
+    inputs:
+      id: { description: "queue id, e.g. reel-mazdoor", required: true }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 social/yt_tg.py "${{ github.event.inputs.id }}"
+      - run: |
+          git config user.name "vajra-bot"; git config user.email "vajra-bot@users.noreply.github.com"
+          git add social/queue.json; git diff --cached --quiet && exit 0
+          git commit -m "bot: yt-tg ${{ github.event.inputs.id }}"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
