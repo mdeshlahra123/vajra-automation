@@ -1,55 +1,77 @@
-"""Daily Google Flow brief to the Telegram group: what to make today with the free credits (~50/day).
-Rotates through a bank of safe prompts (no recurring AI character, no fake proof, brown ply in problem shots,
-no text in frame, 9:16). Results come back to the group: videos with caption "flow" -> make_real.py (AI label),
-photos -> saved for posts.
+"""Daily Google Flow brief to the Telegram group: ONE reel idea per day, with 2 shots to make in Flow
+(~40-50 of the 50 free daily credits). Each shot has a Hindi line saying what it is and why it's needed.
+The AI shots are only the PROBLEM part; the reel ends on our real VAJRA footage (added by make_real.py).
+Rules: no recurring AI character, no fake proof (throw/bend/nail/water), problem shots show brown ply only,
+no text in frame, 9:16.
   python social/flow_brief.py          send today's brief
   python social/flow_brief.py --show   print it only
 Env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID.
 """
 import datetime, json, os, sys, urllib.request
 
-END = " Vertical 9:16, realistic documentary style, natural light. No text, no logos, no watermark."
-# (kind, credits note, prompt)
-BANK = [
-    ("video", "Veo 3.1 Fast", "Close-up on an Indian construction site after rain: a stack of brown plywood shuttering sheets, swollen and peeling at the edges, water dripping, muddy ground, grey overcast light. Sound: dripping water, distant site noise. No faces."),
-    ("video", "Veo 3.1 Fast", "Two Indian labourers in dusty clothes struggle to carry one heavy wet brown plywood sheet across a site, slow steps, seen from behind, hot afternoon sun. Sound: heavy breathing, footsteps on gravel."),
-    ("video", "Omni Flash", "Slow push-in on a large pile of broken, cracked brown plywood shuttering boards thrown in the corner of a half-built Indian house, dust in sunlight. Sound: wind, distant hammering."),
-    ("video", "Omni Flash", "A contractor's hand flips through a thick bill book and stops on a page, worried sigh, cement bags and brown plywood in the background, evening light, face not shown. Sound: paper rustle, sigh."),
-    ("video", "Veo 3.1 Fast", "Brown plywood shuttering being pulled off a fresh concrete slab underside, the ply edge breaks and splinters, concrete surface rough. Sound: wood cracking. Faces not shown."),
-    ("video", "Omni Flash", "Dawn over a half-built two-storey Indian house with scaffolding and bamboo props, birds, soft orange sky, slow drone-like rise. Sound: morning birds, faint traffic."),
-    ("video", "Omni Flash", "Close-up of a rebar cage for a column being tied with wire by gloved hands, sparks of sunlight, dust. Sound: wire twisting, site ambience."),
-    ("video", "Veo 3.1 Fast", "Concrete being poured from a pipe onto a slab at an Indian site, workers spreading it with shovels, wide shot from above. Sound: concrete pump, shovels."),
-    ("video", "Omni Flash", "Monsoon rain hitting a construction site at night, brown plywood sheets lying in puddles, a tube light flickering. Sound: heavy rain."),
-    ("video", "Omni Flash", "A truck unloading a messy stack of brown plywood sheets at a site, several sheets with broken corners fall, dust rises. Sound: thud, truck engine."),
-    ("image", "Nano Banana", "Golden-hour photo of a clean Indian residential construction site with neat columns and scaffolding, empty space in the top third of the frame for text."),
-    ("image", "Nano Banana", "Photo of a big pile of old damaged brown plywood shuttering boards next to a half-built house, gloomy light, empty space in the top third for text."),
-    ("image", "Nano Banana", "Flat-lay photo of construction tools on a concrete floor: measuring tape, hammer, nails, trowel, gloves, soft shadows, empty space in the centre for text."),
-    ("image", "Nano Banana", "Photo of a modern finished Indian house exterior with smooth concrete columns, bright day, empty sky area for text."),
+END = " Vertical 9:16 video, 8 seconds, realistic, like a phone video shot on an Indian construction site. No text, no logos."
+
+# Each idea: title, what the finished reel will be (Hindi), [(what this shot is in Hindi, English prompt), ...]
+IDEAS = [
+    ("Barish ke baad ply",
+     "Reel: barish ke baad ply phool gayi, kharab ho gayi → end mein VAJRA sheet (paani se kharab nahi hoti).",
+     [("Barish mein bheegi, phooli hui ply ka dher (problem dikhana)",
+       "Close-up of a stack of brown plywood shuttering boards on a construction site after heavy rain, the edges swollen and peeling, water dripping off them, muddy ground. Sound of dripping water."),
+      ("Thekedar bheegi ply dekh ke pareshan (reaction)",
+       "An Indian contractor in a shirt looks at wet, damaged brown plywood boards and shakes his head in frustration, rainy grey sky. Sound of light rain.")]),
+    ("Bhaari ply, 2 aadmi",
+     "Reel: ek ply uthane ko 2 mazdoor lagte hain → end mein VAJRA sheet ek aadmi utha leta hai (real video).",
+     [("2 mazdoor mushkil se ek bhaari ply utha rahe hain",
+       "Two Indian labourers in dusty clothes struggle to lift and carry one heavy brown plywood shuttering board across a construction site, slow tired steps, hot sun. Sound of heavy breathing."),
+      ("Ek mazdoor thak ke baith gaya, paseena",
+       "A tired Indian construction labourer sits down next to a pile of brown plywood boards, wipes sweat from his forehead, hot afternoon. Sound of site noise.")]),
+    ("Toota ply ka kachra",
+     "Reel: har kuch slab ke baad ply toot ke kachra ban jaati hai → end mein VAJRA sheet dho ke phir use.",
+     [("Tooti hui ply ka bada dher, kone mein pada",
+       "Slow camera move toward a big pile of broken, cracked brown plywood shuttering boards thrown in the corner of a half-built Indian house, dust in the sunlight. Sound of wind."),
+      ("Slab ke neeche se ply nikalte waqt toot jaati hai",
+       "Workers pull a brown plywood board off the underside of a concrete slab and the board cracks and splinters. Sound of wood breaking.")]),
+    ("Kharcha ka hisaab",
+     "Reel: thekedar ply ke bill dekh ke pareshan → end mein VAJRA sheet (ply se 2-3 guna zyada chalti hai, sahi handling ke saath).",
+     [("Thekedar bill book dekh ke sir pakad leta hai",
+       "An Indian contractor sits at a small table at a construction site, looks at a bill book and holds his head in worry, brown plywood stacked behind him, evening light. Sound of a sigh."),
+      ("Truck se nayi ply utar rahi hai, phir se",
+       "A small truck unloads a stack of new brown plywood boards at an Indian construction site, workers carry them off. Sound of truck engine and boards dropping.")]),
+    ("Site ki subah",
+     "Reel: site ki khoobsurat shuruaat (mood) → phir humare real VAJRA column/slab clips. Evening reel ke liye.",
+     [("Subah ka adhoora ghar, scaffolding, sooraj nikal raha",
+       "Sunrise over a half-built two-storey Indian house with bamboo props and scaffolding, birds flying, soft orange light, slow rising camera. Sound of morning birds."),
+      ("Column ke liye sariya bandhte haath",
+       "Close-up of gloved hands tying steel rebar for a column with wire at an Indian construction site, morning sunlight. Sound of wire twisting.")]),
+    ("Dhalai ka din",
+     "Reel: dhalai (concrete pour) ka din → end mein VAJRA sheet par dhalai, smooth finish (real clip).",
+     [("Slab par concrete daal rahe hain, upar se",
+       "Wide shot from above of workers pouring and spreading concrete on a slab at an Indian construction site with shovels. Sound of concrete mixer and shovels."),
+      ("Mixer machine ghoom rahi, site ka shor",
+       "A concrete mixer machine turning at an Indian construction site, a worker adds cement, dust in the air. Sound of the mixer.")]),
 ]
-TIPS = ("• Flow mein: Create → 9:16 (vertical) select karo.\n"
-        "• Har video 6-8 sec. Pasand na aaye to ek baar hi dobara banao, credits bachao.\n"
-        "• Kabhi mat banana: sheet phenkna/modna/keel/paani test (ye real hi chahiye). Grey sheet problem scene mein nahi.\n"
-        "• Wapas bhejna: video(s) is group mein bhejo, PEHLE video ke caption mein likho: flow\n"
-        "  Photos bhi bhej sakte ho (caption: flow). Main reel bana ke approval ke liye bhejunga.")
+TIPS = ("Kaise karna hai:\n"
+        "1) flow.google kholo → video ke liye 9:16 (vertical) chuno\n"
+        "2) Neeche diya English prompt copy karke Flow mein paste karo → Create\n"
+        "3) Dono videos download karke is group mein bhejo, PEHLI video ke caption mein likho: flow\n"
+        "Main inko reel mein jod ke end mein humari real VAJRA video lagaunga, phir approval ke liye bhejunga.\n"
+        "⚠️ Flow se kabhi sheet phenkna/modna/keel/paani test mat banana. Wo real hi chahiye.")
 
 
 def brief(day=None):
-    d = day or (datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)).date()
-    n = d.toordinal()
-    vids = [b for b in BANK if b[0] == "video"]
-    imgs = [b for b in BANK if b[0] == "image"]
-    picks = [vids[(n * 2) % len(vids)], vids[(n * 2 + 1) % len(vids)], imgs[n % len(imgs)]]
-    msgs = [f"🎬 Aaj ka Google Flow kaam ({d.strftime('%d %b')}), ~50 free credits:\n2 videos + 1 photo. Har prompt alag message mein hai, copy-paste karo.\n\n" + TIPS]
-    for i, (kind, model, p) in enumerate(picks, 1):
-        msgs.append(f"{i}) {'Video' if kind == 'video' else 'Photo'} ({model})")
-        msgs.append(p + END)
+    d = day or (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)).date()
+    title, what, shots = IDEAS[d.toordinal() % len(IDEAS)]
+    msgs = [f"🎬 Aaj ka Flow kaam ({d.strftime('%d %b')}): \"{title}\"\n\n{what}\n\nSirf 2 video banani hain (~40 free credits).\n\n{TIPS}"]
+    for i, (hindi, prompt) in enumerate(shots, 1):
+        msgs.append(f"Video {i}: {hindi}\n👇 Ye copy karo:")
+        msgs.append(prompt + END)
     return msgs
 
 
 if __name__ == "__main__":
     out = brief()
     if "--show" in sys.argv:
-        print("\n---\n".join(out)); sys.exit()
+        sys.stdout.reconfigure(encoding="utf-8"); print("\n---\n".join(out)); sys.exit()
     api = f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/sendMessage"
     for m in out:
         req = urllib.request.Request(api, data=json.dumps({"chat_id": os.environ["TELEGRAM_CHAT_ID"], "text": m}).encode(),
