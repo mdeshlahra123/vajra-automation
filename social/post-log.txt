@@ -91,3 +91,8 @@
 2026-10-26 14:01    STORY OK 17971519242171679
 2026-10-26 14:01    FB OK post 1296793536861294_122109733557509427
 2026-10-26 14:01    DONE. 20 posts left in queue.
+2026-10-27 04:01    STORY (scheduled) OK story-samples-40
+2026-10-27 04:01  POSTING reel-samples-40-v
+2026-10-27 04:02    IG OK https://www.instagram.com/reel/De-87aPDAmr/
+2026-10-27 04:02    FB OK video 1140621138509515
+2026-10-27 04:02    DONE. 18 posts left in queue.
