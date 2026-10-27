@@ -30,10 +30,18 @@ def has_audio(path):
     return bool(out.strip())
 
 
+def is_flow(note):
+    return "flow" in (note or "").lower()
+
+
 def plan(clips, note, who):
     rules = open(A("social", "engine", "brand.md"), encoding="utf-8").read()
     lens = ", ".join(f"clip {i}: {d:.1f}s" for i, (_, d) in enumerate(clips))
-    prompt = f"""You edit an Instagram Reel for VAJRA from REAL site clips that {who} shot. Brand rules (follow strictly):
+    flow = is_flow(note)
+    src = ("AI-generated Google Flow clips (problem / site-mood shots; they show brown plywood problems or a site, NOT a real VAJRA demo). "
+           "Use them as a problem-first story: open on the pain, build curiosity, reveal VAJRA PP shuttering sheet only in the LAST segment as the answer. "
+           "NEVER describe an AI clip as a test, proof or real result (no throw/bend/nail/water proof). Do not call people in them customers") if flow else f"REAL site clips that {who} shot"
+    prompt = f"""You edit an Instagram Reel for VAJRA from {src}. Brand rules (follow strictly):
 {rules}
 
 {who}'s note about the clips: "{note or 'no note'}"
@@ -161,9 +169,9 @@ def main():
     warn = "" if p.get("ok", True) else " ⚠️ CHECK: " + "; ".join(p.get("issues", []))[:300]
     pend_path = A("social", "pending.json")
     pend = json.load(open(pend_path, encoding="utf-8")) if os.path.exists(pend_path) else {"items": []}
-    pend["items"].append({"id": rid, "title": f"Real reel from {a.who}: {p.get('title', '')} ({total:.0f}s){warn}",
+    pend["items"].append({"id": rid, "title": f"{"Flow (AI) reel" if is_flow(a.note) else "Real reel"} from {a.who}: {p.get('title', '')} ({total:.0f}s){warn}",
                           "file": f"social/media/{rid}.mp4", "caption": f"captions/{rid}.txt", "position": "alternate",
-                          "real": True, "status": "draft"})
+                          **({"ai": True} if is_flow(a.note) else {"real": True}), "status": "draft"})
     json.dump(pend, open(pend_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     print("REEL", rid, f"{total:.1f}s", final); print("\n".join(log))
     with open(os.environ.get("GITHUB_OUTPUT", os.devnull), "a") as f: f.write(f"id={rid}\n")

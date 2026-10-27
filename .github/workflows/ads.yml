@@ -18,6 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 social/ads_manager.py
+      - name: Daily Google Flow brief (what to make with free credits)
+        if: github.event.inputs.dry != 'true'
+        continue-on-error: true
+        run: python3 social/flow_brief.py
       - name: Save state
         if: always()
         run: |
