@@ -7,3 +7,6 @@ out/
 
 .gemini/
 gha-creds-*.json
+
+yt-client.json
+yt-token.json
