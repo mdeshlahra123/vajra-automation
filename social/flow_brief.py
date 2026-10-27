@@ -1,79 +1,79 @@
-"""Daily Google Flow brief to the Telegram group: ONE reel idea per day, with 2 shots to make in Flow
-(~40-50 of the 50 free daily credits). Each shot has a Hindi line saying what it is and why it's needed.
-The AI shots are only the PROBLEM part; the reel ends on our real VAJRA footage (added by make_real.py).
-Rules: no recurring AI character, no fake proof (throw/bend/nail/water), problem shots show brown ply only,
-no text in frame, 9:16.
-  python social/flow_brief.py          send today's brief
-  python social/flow_brief.py --show   print it only
-Env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID.
+"""Daily Google Flow brief to the Telegram group: prompts only, no explanations.
+Every prompt goes through a reviewer (Gemini) before sending: it checks brand rules and Flow/Veo prompt quality,
+rewrites weak prompts into clear self-contained ones, and drops any it can't fix. Nothing unreviewed is sent.
+One reel idea per day = 2 video shots (~40 of the 50 free daily credits). Results come back to the group with
+caption "flow" -> make_real.py (AI label, problem-first edit, real VAJRA footage at the end).
+  python social/flow_brief.py          review + send today's prompts
+  python social/flow_brief.py --show   review + print only
+Env: GEMINI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID.
 """
 import datetime, json, os, sys, urllib.request
 
-END = " Vertical 9:16 video, 8 seconds, realistic, like a phone video shot on an Indian construction site. No text, no logos."
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "engine"))
+import gem
 
-# Each idea: title, what the finished reel will be (Hindi), [(what this shot is in Hindi, English prompt), ...]
+MODEL = "gemini-3.8-flash"
+# one idea = shots that belong to the same reel (problem part only; the answer is our real footage)
 IDEAS = [
-    ("Barish ke baad ply",
-     "Reel: barish ke baad ply phool gayi, kharab ho gayi → end mein VAJRA sheet (paani se kharab nahi hoti).",
-     [("Barish mein bheegi, phooli hui ply ka dher (problem dikhana)",
-       "Close-up of a stack of brown plywood shuttering boards on a construction site after heavy rain, the edges swollen and peeling, water dripping off them, muddy ground. Sound of dripping water."),
-      ("Thekedar bheegi ply dekh ke pareshan (reaction)",
-       "An Indian contractor in a shirt looks at wet, damaged brown plywood boards and shakes his head in frustration, rainy grey sky. Sound of light rain.")]),
-    ("Bhaari ply, 2 aadmi",
-     "Reel: ek ply uthane ko 2 mazdoor lagte hain → end mein VAJRA sheet ek aadmi utha leta hai (real video).",
-     [("2 mazdoor mushkil se ek bhaari ply utha rahe hain",
-       "Two Indian labourers in dusty clothes struggle to lift and carry one heavy brown plywood shuttering board across a construction site, slow tired steps, hot sun. Sound of heavy breathing."),
-      ("Ek mazdoor thak ke baith gaya, paseena",
-       "A tired Indian construction labourer sits down next to a pile of brown plywood boards, wipes sweat from his forehead, hot afternoon. Sound of site noise.")]),
-    ("Toota ply ka kachra",
-     "Reel: har kuch slab ke baad ply toot ke kachra ban jaati hai → end mein VAJRA sheet dho ke phir use.",
-     [("Tooti hui ply ka bada dher, kone mein pada",
-       "Slow camera move toward a big pile of broken, cracked brown plywood shuttering boards thrown in the corner of a half-built Indian house, dust in the sunlight. Sound of wind."),
-      ("Slab ke neeche se ply nikalte waqt toot jaati hai",
-       "Workers pull a brown plywood board off the underside of a concrete slab and the board cracks and splinters. Sound of wood breaking.")]),
-    ("Kharcha ka hisaab",
-     "Reel: thekedar ply ke bill dekh ke pareshan → end mein VAJRA sheet (ply se 2-3 guna zyada chalti hai, sahi handling ke saath).",
-     [("Thekedar bill book dekh ke sir pakad leta hai",
-       "An Indian contractor sits at a small table at a construction site, looks at a bill book and holds his head in worry, brown plywood stacked behind him, evening light. Sound of a sigh."),
-      ("Truck se nayi ply utar rahi hai, phir se",
-       "A small truck unloads a stack of new brown plywood boards at an Indian construction site, workers carry them off. Sound of truck engine and boards dropping.")]),
-    ("Site ki subah",
-     "Reel: site ki khoobsurat shuruaat (mood) → phir humare real VAJRA column/slab clips. Evening reel ke liye.",
-     [("Subah ka adhoora ghar, scaffolding, sooraj nikal raha",
-       "Sunrise over a half-built two-storey Indian house with bamboo props and scaffolding, birds flying, soft orange light, slow rising camera. Sound of morning birds."),
-      ("Column ke liye sariya bandhte haath",
-       "Close-up of gloved hands tying steel rebar for a column with wire at an Indian construction site, morning sunlight. Sound of wire twisting.")]),
-    ("Dhalai ka din",
-     "Reel: dhalai (concrete pour) ka din → end mein VAJRA sheet par dhalai, smooth finish (real clip).",
-     [("Slab par concrete daal rahe hain, upar se",
-       "Wide shot from above of workers pouring and spreading concrete on a slab at an Indian construction site with shovels. Sound of concrete mixer and shovels."),
-      ("Mixer machine ghoom rahi, site ka shor",
-       "A concrete mixer machine turning at an Indian construction site, a worker adds cement, dust in the air. Sound of the mixer.")]),
+    ["Brown plywood shuttering boards swollen and peeling after rain on an Indian site, water dripping",
+     "Indian contractor shaking his head at wet damaged brown plywood boards in the rain"],
+    ["Two Indian labourers struggling to carry one heavy brown plywood board across a site",
+     "Tired Indian labourer sitting next to brown plywood boards, wiping sweat in the afternoon heat"],
+    ["Slow move toward a pile of broken cracked brown plywood boards in the corner of a half-built Indian house",
+     "Workers pulling brown plywood off a concrete slab underside, the board cracks and splinters"],
+    ["Indian contractor at a site table looking at a bill book, holding his head in worry, brown plywood behind",
+     "Small truck unloading new brown plywood boards at an Indian site"],
+    ["Sunrise over a half-built two-storey Indian house with bamboo props and scaffolding",
+     "Gloved hands tying steel rebar for a column at an Indian site in morning light"],
+    ["Workers pouring and spreading concrete on a slab at an Indian site, seen from above",
+     "Concrete mixer turning at an Indian site, worker adding cement, dust in the air"],
 ]
-TIPS = ("Kaise karna hai:\n"
-        "1) flow.google kholo → video ke liye 9:16 (vertical) chuno\n"
-        "2) Neeche diya English prompt copy karke Flow mein paste karo → Create\n"
-        "3) Dono videos download karke is group mein bhejo, PEHLI video ke caption mein likho: flow\n"
-        "Main inko reel mein jod ke end mein humari real VAJRA video lagaunga, phir approval ke liye bhejunga.\n"
-        "⚠️ Flow se kabhi sheet phenkna/modna/keel/paani test mat banana. Wo real hi chahiye.")
+
+REVIEW = """You review prompts for Google Flow (Veo 3.1 / Gemini Omni Flash video) for VAJRA, a PP shuttering sheet brand
+in Chhattisgarh, India. The clips are the PROBLEM part of an Instagram reel; our real product footage is added later.
+
+For each draft, return a final prompt that a non-technical person can paste into Flow as is. Requirements:
+- One clear shot, 8 seconds, vertical 9:16, realistic handheld phone-video look on an Indian construction site.
+- Structure: camera/shot, subject, action, setting, light, then a "Sound:" line with ambient sound only.
+- Plain simple English, 40-80 words, no jargon, no lists, nothing the model could misread.
+- Any shuttering/plywood shown must be BROWN wooden plywood. Never a grey or plastic sheet.
+- No product test or proof (no throwing, bending, nailing, water test of any sheet). No brand names, no text, signs,
+  logos, subtitles or watermarks in frame. No dialogue. People: ordinary Indian workers/contractors, no famous
+  faces, no children, nothing unsafe or degrading.
+- Must actually be makeable as a single continuous 8-second shot.
+If a draft breaks a rule and cannot be fixed, set ok=false.
+Return JSON only: {"prompts":[{"ok":true,"prompt":"...","problem":""}]} in the same order as the drafts.
+
+Drafts:
+"""
 
 
-def brief(day=None):
-    d = day or (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)).date()
-    title, what, shots = IDEAS[d.toordinal() % len(IDEAS)]
-    msgs = [f"🎬 Aaj ka Flow kaam ({d.strftime('%d %b')}): \"{title}\"\n\n{what}\n\nSirf 2 video banani hain (~40 free credits).\n\n{TIPS}"]
-    for i, (hindi, prompt) in enumerate(shots, 1):
-        msgs.append(f"Video {i}: {hindi}\n👇 Ye copy karo:")
-        msgs.append(prompt + END)
-    return msgs
+def review(drafts):
+    r = gem.text(MODEL, REVIEW + "\n".join(f"{i + 1}. {d}" for i, d in enumerate(drafts)), json_mode=True)
+    out = []
+    for x in r.get("prompts", []):
+        p = (x.get("prompt") or "").strip()
+        bad = any(w in p.lower() for w in ("grey sheet", "gray sheet", "plastic sheet", "vajra", "text", "logo"))
+        if x.get("ok") and 30 <= len(p.split()) <= 110 and not bad:
+            out.append(p)
+    return out
+
+
+def today():
+    return (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)).date()
 
 
 if __name__ == "__main__":
-    out = brief()
+    d = today()
+    prompts = review(IDEAS[d.toordinal() % len(IDEAS)])
+    msgs = ([f"🎬 Flow {d.strftime('%d %b')} – {len(prompts)} video (9:16). Bana ke yahin bhejo, caption: flow"]
+            + [f"{i}) {p}" for i, p in enumerate(prompts, 1)]) if prompts else []
     if "--show" in sys.argv:
-        sys.stdout.reconfigure(encoding="utf-8"); print("\n---\n".join(out)); sys.exit()
+        sys.stdout.reconfigure(encoding="utf-8"); print("\n---\n".join(msgs) or "nothing passed review"); sys.exit()
     api = f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/sendMessage"
-    for m in out:
+    for m in msgs:
         req = urllib.request.Request(api, data=json.dumps({"chat_id": os.environ["TELEGRAM_CHAT_ID"], "text": m}).encode(),
                                      headers={"Content-Type": "application/json"})
         print(json.load(urllib.request.urlopen(req, timeout=30)).get("ok"))
+    if not msgs:
+        print("no prompt passed review; nothing sent")
