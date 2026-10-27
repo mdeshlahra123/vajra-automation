@@ -263,6 +263,17 @@
       "by": "MrBeast",
       "at": "2026-10-26 15:31",
       "publish": "done"
+    },
+    {
+      "id": "reel-real-1027-2032",
+      "title": "Real reel from MrBeast: Column shuttering with VAJRA PP sheet (14s)",
+      "file": "social/media/reel-real-1027-2032.mp4",
+      "caption": "captions/reel-real-1027-2032.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "sent",
+      "msg_id": 318,
+      "sent_at": "2026-10-27 20:34"
     }
   ]
 }
