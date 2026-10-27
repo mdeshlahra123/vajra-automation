@@ -21,7 +21,7 @@ STATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ads-state.json
 DRY = os.environ.get("DRY_RUN") == "true"
 # ads whose text breaks the use-count rule (40+ / lakh maths) or use banned footage: never resume
 # owner (27 Oct): permanent ads, never paused by this script until the owner says
-KEEP = {"120251584908460600"}  # L8 WA - Samples reel (existing post)
+KEEP = set()  # samples ad paused 27 Oct (₹23/chat vs ₹3-5); owner gave full control
 NEVER = {"120251541042410600", "120251501523230600", "120251451378980600", "120251451052520600", "120251501107770600"}
 
 
