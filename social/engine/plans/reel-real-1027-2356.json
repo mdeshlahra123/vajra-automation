@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Ply breakage problem to Vajra PP sheet solution",
+  "segments": [
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 5.0,
+      "vo": "Shuttering ply har baar tootne se thak gaye?",
+      "text1": "Har baar naya ply?",
+      "text2": "Dhalai ka nuksan"
+    },
+    {
+      "clip": 0,
+      "start": 1.5,
+      "end": 6.5,
+      "vo": "Pani aur seelan se lakdi ki ply jaldi sadti hai.",
+      "text1": "Paani se kharab",
+      "text2": "Barbaadi band karo"
+    },
+    {
+      "clip": 1,
+      "start": 5.0,
+      "end": 7.9,
+      "vo": "Apne thekedar ko bhejo, chuno waterproof VAJRA PP shuttering sheet.",
+      "text1": "VAJRA PP sheet",
+      "text2": "Waterproof solution"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har dhalai mein ply tootne aur sadne se pareshan hain? Ab switch kijiye waterproof PP shuttering sheet par.\n\nSahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha ply se kam padta hai.\n\nApne thekedar aur mistri ke saath zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall ya WhatsApp: 83050 70160\n\n#PPShuttering #PlasticShuttering #Formwork #Contractors #Chhattisgarh",
+  "build_log": [
+    "plan ok=True issues=[]"
+  ],
+  "seconds": 19.4,
+  "note": "flow",
+  "who": "MrBeast"
+}
