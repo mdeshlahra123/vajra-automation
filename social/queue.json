@@ -104,6 +104,13 @@
       "cover": "https://vajraformwork.vercel.app/social/mazdoor-cover.jpg"
     },
     {
+      "id": "reel-real-1027-2032",
+      "caption": "captions/reel-real-1027-2032.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2032.mp4",
+      "real": true
+    },
+    {
       "id": "reel-r3-column",
       "video": "https://vajraformwork.vercel.app/social/r3-column-cta.mp4",
       "caption": "captions/r3-column.txt",
