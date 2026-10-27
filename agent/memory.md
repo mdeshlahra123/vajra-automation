@@ -60,3 +60,10 @@
 - 26 Oct: every post now also goes to Story (daily-post.ps1). Evening slot can be carousels (queue item 'slides'). First: car-plyvspp (Ply vs PP, 7 slides) 28 Oct. Asked Shobhit to set profile name 'VAJRA | PP Shuttering Sheet'. Captions: 5 hashtags + 'PP shuttering sheet' search words.
 - 27 Oct: owners: no silent reels ever. 7 silent reels (5 Aapne poocha, x8, x9) moved to queue 'hold' until they get voice + music.
 - 26 Oct (Mehul): don't post images similar to the last few posts/reels back-to-back (cage/column were repeated). Vary topics: alternate column / ply problem / sheet close-up / site / offer. Before each post, check the last 3 posts' topic.
+
+## 27 Oct (daily run)
+- Followers reached 801 (+16). Bend reel `reel-x3-bend` reached 1,382 (1.5k views) on day 1; real toughness proof continues to drive strong engagement.
+- WhatsApp test L7 hit its test milestone: 92 chats from ₹311.22 spend (~₹3.38/chat). Transitioning to L8 (2-3 guna text). Reminded team on quick WhatsApp follow-ups in the 72h window.
+- Queue has 13 pending reels (> 6 threshold, no new AI reel needed). Next posts: `reel-samples-40-v` (09:30) and `v-n7-inout` (19:30).
+- Meta token healthy (81 days left).
+
