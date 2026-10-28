@@ -1,0 +1,117 @@
+{
+  "ok": true,
+  "issues": [
+    "Workers without helmets during overhead deshutting in clip 1"
+  ],
+  "title": "Ply De-shuttering Breakage Problem",
+  "segments": [
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 4.5,
+      "vo": "Ply de-shuttering ke waqt aise toot jati hai?",
+      "text1": "Ply de-shuttering",
+      "text2": "Aise toot gayi",
+      "_len": 4.5
+    },
+    {
+      "clip": 1,
+      "start": 4.5,
+      "end": 7.9,
+      "vo": "Tukde zameen par bikhre hain aur sheet bekaar ho gayi.",
+      "text1": "Tukde zameen par",
+      "text2": "Sheet bekaar",
+      "_len": 4.02
+    },
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Kone mein padi yeh sari sheets phool kar kharab hain.",
+      "text1": "Phooli hui sheets",
+      "text2": "Side par jama",
+      "_len": 4.0
+    },
+    {
+      "clip": 0,
+      "start": 4.0,
+      "end": 7.8,
+      "vo": "Aise kharab ply ka ab kya solution hai?",
+      "text1": "Har baar nuksan",
+      "text2": "Iska solution?",
+      "_len": 3.8
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 4.66,
+      "_len": 4.66,
+      "vo": "Ye hai VAJRA PP shuttering sheet, ek aadmi aaram se utha leta hai.",
+      "text1": "Ye hai VAJRA",
+      "text2": "PP shuttering sheet",
+      "_promised": "REAL still photo of VAJRA: a worker holding up a full 8x4 VAJRA sheet alone at the godown (best ONE-MAN-LIFT proof)"
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 5.5,
+      "_len": 5.5,
+      "vo": "Paani se kharab nahi hoti, aur concrete finish ekdum smooth.",
+      "text1": "Column ready",
+      "text2": "Smooth finish",
+      "_promised": "REAL still photo of VAJRA: workers holding a finished VAJRA column shuttering"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har de-shuttering pe ply toot kar bekaar ho jati hai? Ab naya tareeka apnane ka waqt aa gaya hai.\n\nSlab aur beam casting ke liye ab use kijiye waterproof PP shuttering sheet. Sahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha ply se kam hota hai.\n\nApne thekedar / mistri ko bhejo.\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\n83050 70160\n\n#PPShuttering #PlasticShuttering #Formwork #Contractors #Chhattisgarh",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Two workers prying brown wooden plywood from the ceiling with crowbars.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Wooden plywood falling and shattering onto the floor.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Stack of damaged, weathered wooden sheets piled in a brick corner.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Close-up shot of the worn and splintered wooden sheets.",
+        "problem": ""
+      },
+      {
+        "n": 5,
+        "match": true,
+        "seen": "Single worker holding up a plain light-grey PP sheet in a warehouse setting.",
+        "problem": ""
+      },
+      {
+        "n": 6,
+        "match": true,
+        "seen": "Workers handling column formwork lined with smooth grey sheets.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=['Workers without helmets during overhead deshutting in clip 1']",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 30.5,
+  "note": "flow",
+  "who": "MrBeast"
+}
