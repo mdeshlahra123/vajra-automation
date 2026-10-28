@@ -1,0 +1,25 @@
+name: reveal-test
+on: { workflow_dispatch: {} }
+permissions: { contents: read }
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: |
+          cd social/engine && python3 - <<'PY'
+          import os, make_reel as m, make_real as r
+          w="/tmp/rv"; os.makedirs(w, exist_ok=True)
+          for g in r.REVEALS:
+              for k,(photo,t1,t2,vo) in enumerate(g):
+                  s=f"{w}/s{k}.mp4"; o=f"{w}/{photo}.mp4"
+                  m.scene_video({"type":"photo","text1":t1,"text2":t2}, m.A("assets","photos",photo+".jpg"), 3.0, s, w, 10+k)
+                  m.sh("ffmpeg","-v","error","-y","-i",s,"-f","lavfi","-i","anullsrc=r=48000:cl=stereo","-map","0:v","-map","1:a","-t","3","-c:v","copy","-c:a","aac","-ar","48000","-ac","2",o)
+                  m.sh("ffmpeg","-v","error","-y","-ss","1.5","-i",o,"-frames:v","1","-vf","scale=300:-2",f"{w}/{photo}.jpg")
+                  print("OK", photo, os.path.getsize(o))
+          PY
+          ffmpeg -v error -y -i /tmp/rv/sheet-held.jpg -i /tmp/rv/v6-done.jpg -i /tmp/rv/godown.jpg -i /tmp/rv/v1-core.jpg -i /tmp/rv/finish-column.jpg -filter_complex hstack=5 /tmp/rv/strip.jpg
+      - uses: actions/upload-artifact@v4
+        with: { name: strip, path: /tmp/rv/strip.jpg }

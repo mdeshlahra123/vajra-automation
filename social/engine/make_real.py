@@ -30,6 +30,17 @@ def has_audio(path):
     return bool(out.strip())
 
 
+# real VAJRA reveal after AI problem clips: (photo key, text1, text2, voice). Allowed claims only.
+REVEALS = [
+    [("sheet-held", "Ye hai VAJRA", "PP shuttering sheet", "Ye hai VAJRA PP shuttering sheet, ek aadmi aaram se utha leta hai."),
+     ("v6-done", "Column ready", "Smooth finish", "Paani se kharab nahi hoti, aur concrete finish ekdum smooth.")],
+    [("godown", "VAJRA PP sheet", "Ready stock", "Iska jawab: VAJRA PP shuttering sheet, ready stock mein."),
+     ("v1-core", "Andar hollow core", "Halki aur mazboot", "Andar hollow core, isliye halki. Sahi handling ke saath ply se 2-3 guna zyada chalti hai.")],
+    [("sheet-held", "VAJRA PP sheet", "Ek aadmi utha le", "VAJRA PP shuttering sheet. Ek aadmi utha leta hai, labour kam."),
+     ("finish-column", "Dho ke dobara use", "Smooth column", "Dhalai ke baad bas dho lo, aur column ekdum smooth.")],
+]
+
+
 def is_flow(note):
     return "flow" in (note or "").lower()
 
@@ -39,7 +50,8 @@ def plan(clips, note, who):
     lens = ", ".join(f"clip {i}: {d:.1f}s" for i, (_, d) in enumerate(clips))
     flow = is_flow(note)
     src = ("AI-generated Google Flow clips (problem / site-mood shots; they show brown plywood problems or a site, NOT a real VAJRA demo). "
-           "Use them as a problem-first story: open on the pain, build curiosity, reveal VAJRA PP shuttering sheet only in the LAST segment as the answer. "
+           "Use them ONLY for the problem part: open on the pain and end your last segment on the problem or a question (\"iska solution?\"). "
+           "Do NOT mention or show VAJRA in your segments: our REAL VAJRA photos are added automatically right after them as the answer. "
            "NEVER describe an AI clip as a test, proof or real result (no throw/bend/nail/water proof). Do not call people in them customers") if flow else f"REAL site clips that {who} shot"
     prompt = f"""You edit an Instagram Reel for VAJRA from {src}. Brand rules (follow strictly):
 {rules}
@@ -130,7 +142,8 @@ def main():
         clips.append((raw, dur(raw)))
     p = plan(clips, a.note, a.who)
     log.append(f"plan ok={p.get('ok')} issues={p.get('issues')}")
-    lines = [s["vo"] for s in p["segments"]] + [p.get("end_vo") or "Comment mein PP likhiye, follow kijiye, rate aapke DM mein."]
+    reveal = REVEALS[datetime.date.today().toordinal() % len(REVEALS)] if is_flow(a.note) else []
+    lines = [s["vo"] for s in p["segments"]] + [r[3] for r in reveal] + [p.get("end_vo") or "Comment mein PP likhiye, follow kijiye, rate aapke DM mein."]
     vo_files, vo_lens = [], []
     for i, line in enumerate(lines):
         f = os.path.join(work, f"vo{i}.wav")
@@ -144,6 +157,17 @@ def main():
         src = clips[s["clip"]][0]
         seconds = max(s["end"] - s["start"], vo_lens[i] + 0.5, 2.0); s["_len"] = seconds
         out = os.path.join(work, f"s{i}.mp4"); render_segment(src, s, seconds, out, work, i, has_audio(src))
+        parts.append(out); starts.append(t); t += seconds
+    # Flow reels: show what VAJRA PP sheet really is (real photos), after the AI problem clips
+    import make_reel
+    for k, (photo, t1, t2, vo) in enumerate(reveal):
+        n = len(p["segments"]); seconds = max(2.6, vo_lens[n] + 0.5)
+        silent = os.path.join(work, f"rv{k}_v.mp4"); out = os.path.join(work, f"rv{k}.mp4")
+        make_reel.scene_video({"type": "photo", "text1": t1, "text2": t2}, A("assets", "photos", photo + ".jpg"), seconds, silent, work, 10 + k)
+        sh("ffmpeg", "-v", "error", "-y", "-i", silent, "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo", "-map", "0:v", "-map", "1:a",
+           "-t", f"{seconds:.2f}", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2", out)
+        p["segments"].append({"clip": "real-photo", "start": 0, "end": seconds, "_len": seconds, "vo": vo, "text1": t1, "text2": t2,
+                              "_promised": "REAL still photo of VAJRA: " + make_reel.PHOTOS.get(photo, photo)})
         parts.append(out); starts.append(t); t += seconds
     card_len = max(3.0, vo_lens[-1] + 0.3); starts.append(t + 0.2); total = t + card_len
     card = os.path.join(work, "card.mp4")
@@ -168,7 +192,7 @@ def main():
         for s in p["segments"]:
             ln = s.get("_len", 0) or 3.0
             sc.append({"start": tt, "end": tt + ln, "vo": s.get("vo", ""), "text": f"{s.get('text1','')} / {s.get('text2','')}",
-                       "promised": ("AI Flow clip " if is_flow(a.note) else "real site clip ") + f"{s.get('clip')} {s.get('start')}-{s.get('end')}s: " + s.get("vo", "")})
+                       "promised": s.get("_promised") or ("AI Flow clip " if is_flow(a.note) else "real site clip ") + f"{s.get('clip')} {s.get('start')}-{s.get('end')}s: " + s.get("vo", "")})
             tt += ln
         rv = review_reel.review(final, sc, work)
         p["review"] = rv; p["review_line"] = review_reel.summary(rv)
