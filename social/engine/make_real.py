@@ -142,7 +142,7 @@ def main():
     parts, starts, t = [], [], 0.0
     for i, s in enumerate(p["segments"]):
         src = clips[s["clip"]][0]
-        seconds = max(s["end"] - s["start"], vo_lens[i] + 0.5, 2.0)
+        seconds = max(s["end"] - s["start"], vo_lens[i] + 0.5, 2.0); s["_len"] = seconds
         out = os.path.join(work, f"s{i}.mp4"); render_segment(src, s, seconds, out, work, i, has_audio(src))
         parts.append(out); starts.append(t); t += seconds
     card_len = max(3.0, vo_lens[-1] + 0.3); starts.append(t + 0.2); total = t + card_len
@@ -162,6 +162,19 @@ def main():
         log.append(f"music failed: {str(e)[:200]}"); music = None
     final = A("social", "media", f"{rid}.mp4"); os.makedirs(os.path.dirname(final), exist_ok=True)
     mix(video, vo_files, starts, total, music, final, bed=True)
+    try:  # delivery review: finished video vs the plan
+        import review_reel
+        sc, tt = [], 0.0
+        for s in p["segments"]:
+            ln = s.get("_len", 0) or 3.0
+            sc.append({"start": tt, "end": tt + ln, "vo": s.get("vo", ""), "text": f"{s.get('text1','')} / {s.get('text2','')}",
+                       "promised": ("AI Flow clip " if is_flow(a.note) else "real site clip ") + f"{s.get('clip')} {s.get('start')}-{s.get('end')}s: " + s.get("vo", "")})
+            tt += ln
+        rv = review_reel.review(final, sc, work)
+        p["review"] = rv; p["review_line"] = review_reel.summary(rv)
+    except Exception as e:
+        p["review_line"] = f"⚠️ Reviewer nahi chala: {str(e)[:120]}"
+    log.append("review: " + p["review_line"].replace("\n", " | "))
     os.makedirs(A("social", "engine", "plans"), exist_ok=True)
     p.update(build_log=log, seconds=round(total, 1), note=a.note, who=a.who)
     json.dump(p, open(A("social", "engine", "plans", f"{rid}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
@@ -169,7 +182,7 @@ def main():
     warn = "" if p.get("ok", True) else " ⚠️ CHECK: " + "; ".join(p.get("issues", []))[:300]
     pend_path = A("social", "pending.json")
     pend = json.load(open(pend_path, encoding="utf-8")) if os.path.exists(pend_path) else {"items": []}
-    pend["items"].append({"id": rid, "title": f"{"Flow (AI) reel" if is_flow(a.note) else "Real reel"} from {a.who}: {p.get('title', '')} ({total:.0f}s){warn}",
+    pend["items"].append({"id": rid, "title": f"{"Flow (AI) reel" if is_flow(a.note) else "Real reel"} from {a.who}: {p.get('title', '')} ({total:.0f}s){warn}\n{p.get('review_line', '')}",
                           "file": f"social/media/{rid}.mp4", "caption": f"captions/{rid}.txt", "position": "alternate",
                           **({"ai": True} if is_flow(a.note) else {"real": True}), "status": "draft"})
     json.dump(pend, open(pend_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
