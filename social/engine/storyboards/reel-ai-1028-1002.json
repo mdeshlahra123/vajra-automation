@@ -1,0 +1,33 @@
+{
+  "hook": "Column kholne ke baad plaster par extra kharcha kyu?",
+  "title": "Column Finish Plaster Cost Angle",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Handheld vertical mobile video on an Indian construction site. A construction worker forcefully strips an old, damaged dark brown wooden shuttering plywood sheet off a freshly cast concrete column. The brittle wood splinters and tears away, leaving a patchy and rough concrete surface. Dusty natural sunlight, realistic raw site footage, no text, no dialogue.",
+      "shows_vajra": false,
+      "vo": "Column kholne ke baad plaster par extra kharcha kyu?",
+      "text1": "Plaster ka kharcha?",
+      "text2": "Ply chhod dijiye"
+    },
+    {
+      "type": "photo",
+      "photo": "finish-column",
+      "shows_vajra": true,
+      "vo": "VAJRA sheet se concrete finish bilkul smooth aati hai.",
+      "text1": "Smooth finish",
+      "text2": "Clean concrete"
+    },
+    {
+      "type": "photo",
+      "photo": "r-workers",
+      "shows_vajra": true,
+      "vo": "Apne mistri ko bhejo aur har dhalai ka kharcha bachao.",
+      "text1": "Mistri ko bhejo",
+      "text2": "Kharcha bachao"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Column dhalai ke baad plaster ka kharcha bachana chahte hain?\n\nVAJRA PP shuttering sheet se concrete surface milti hai bilkul smooth aur clean. Sahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha ply se kam hota hai. Waterproof sheet, zero swelling.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPShuttering #PlasticShuttering #Formwork #Contractors #Chhattisgarh",
+  "brief": ""
+}
