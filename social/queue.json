@@ -99,17 +99,19 @@
     {
       "id": "reel-mazdoor",
       "caption": "captions/mazdoor.txt",
-      "posted": "",
+      "posted": "2026-10-28",
       "video": "https://vajraformwork.vercel.app/social/mazdoor.mp4",
       "ai": true,
-      "cover": "https://vajraformwork.vercel.app/social/mazdoor-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/mazdoor-cover.jpg",
+      "yt_tg": "2026-10-28"
     },
     {
       "id": "reel-real-1027-2032",
       "caption": "captions/reel-real-1027-2032.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2032.mp4",
-      "real": true
+      "real": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1027-2032-cover.jpg"
     },
     {
       "id": "reel-r3-column",
@@ -123,7 +125,8 @@
       "caption": "captions/reel-real-1027-2356.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2356.mp4",
-      "ai": true
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1027-2356-cover.jpg"
     },
     {
       "id": "v-n3-core",
