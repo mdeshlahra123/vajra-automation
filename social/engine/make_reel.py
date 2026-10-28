@@ -33,6 +33,10 @@ PHOTOS = {
     "godown": "stacks of new VAJRA sheets on pallets in the godown",
     "p2-column": "tall column shuttered with VAJRA panels on a rooftop site",
     "warehouse": "large ready stock of VAJRA sheets in a warehouse",
+    "slab-underside": "REAL slab underside fully shuttered with grey VAJRA sheets on a yellow steel frame (slab use)",
+    "column-smooth2": "REAL smooth finished concrete column on site (proof of finish)",
+    "beam-box": "REAL beam box: VAJRA sheets inside a red steel frame on site (beam use)",
+    "sheet-cut": "REAL hand cutting a VAJRA sheet with a normal circular cutter (cuts easily, like wood)",
 }
 REFS = ["core-edge-grey.jpg", "sheet-held.jpg", "sheet-thin.jpg"]
 SHEET = ("These must look exactly like the reference photos: VAJRA PP hollow shuttering sheet, a large flat 8 x 4 ft board "
