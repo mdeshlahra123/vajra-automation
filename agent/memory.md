@@ -67,3 +67,11 @@
 - Queue has 13 pending reels (> 6 threshold, no new AI reel needed). Next posts: `reel-samples-40-v` (09:30) and `v-n7-inout` (19:30).
 - Meta token healthy (81 days left).
 
+## 28 Oct (daily run)
+- Followers reached 820 (+19). Yesterday's `reel-samples-40-v` hit 1,552 reach, 1,816 views, 12 comments. Evening post `v-n7-inout` got 38 reach.
+- Ads: Active set on WhatsApp. L10 WA (Column reel) performing well with 3 chats from ₹16.15 spend (~₹5.38/chat, 3.3% CTR). L9 WA (Throw reel) active (₹5.78 spend, 0 chats so far). Balance ₹219.68 (~2 days at ₹100/day).
+- Queue healthy with 13 pending reels (no new AI reel needed, > 6). Today's schedule: `reel-mazdoor` (09:30) and `v-finish-column` (19:30). Tomorrow's reel will be MrBeast's approved real reel `reel-real-1027-2032`.
+- Idea shared with owners: asked Shobhit to shoot a 15s clip of a contractor/mistri giving a review in their own words on site for trust proof.
+- Meta token healthy (80 days left).
+
+
