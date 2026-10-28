@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Contractor Ply Pain to VAJRA PP Solution",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Har kuch slab pe naya ply mangwana padta hai?",
+      "text1": "Har baar naya ply?",
+      "text2": "Site tension",
+      "_len": 3.5
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 3.8,
+      "vo": "Bhari ply uthane mein do mazdoor lagte hain.",
+      "text1": "Bhari brown ply",
+      "text2": "Do aadmi chahiye",
+      "_len": 3.8
+    },
+    {
+      "clip": 1,
+      "start": 3.8,
+      "end": 7.6,
+      "vo": "Site par patakne se ply jaldi kharab hoti hai.",
+      "text1": "Patakne par nuksan",
+      "text2": "Jaldi kharab",
+      "_len": 3.8
+    },
+    {
+      "clip": 0,
+      "start": 4.0,
+      "end": 7.8,
+      "vo": "Apne thekedar ko bhejo, aur ply badal kar chuno VAJRA PP sheet.",
+      "text1": "VAJRA PP sheet",
+      "text2": "Sahi shuttering",
+      "_len": 4.74
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har kuch slab pe naya ply khareedne ka jhanjhat chhodie.\nVAJRA PP shuttering sheet hai waterproof aur sahi handling ke saath ply se 2-3 guna zyada chalti hai.\nHar dhalai ka kharcha kam kijiye aur site par kaam aasan banaiye.\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork | Call/WhatsApp: 83050 70160\n#PPShuttering #PlasticShuttering #Formwork #Contractors #Chhattisgarh",
+  "review": {
+    "ok": false,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Stressed contractor at a desk with notebook and stacked brown plywood.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Two laborers lifting a brown plywood sheet off a vehicle.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Two laborers handling and dropping brown plywood onto a ground stack.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": false,
+        "seen": "Contractor speaking and writing at a desk with brown plywood in background.",
+        "problem": "VAJRA scene fails to show the required light-grey hollow PP sheet."
+      }
+    ],
+    "issues": [
+      "Scene 4 does not feature the light-grey VAJRA PP sheet as required by brand rules."
+    ]
+  },
+  "review_line": "⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 4: VAJRA scene fails to show the required light-grey hollow PP sheet.\nScene 4 does not feature the light-grey VAJRA PP sheet as required by brand rules.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ⚠️ Reviewer: script se alag hai, dhyan se dekho. | Scene 4: VAJRA scene fails to show the required light-grey hollow PP sheet. | Scene 4 does not feature the light-grey VAJRA PP sheet as required by brand rules."
+  ],
+  "seconds": 20.1,
+  "note": "flow",
+  "who": "MrBeast"
+}

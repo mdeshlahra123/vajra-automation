@@ -304,6 +304,17 @@
       "sent_at": "2026-10-28 12:28",
       "by": "MrBeast",
       "at": "2026-10-28 12:39"
+    },
+    {
+      "id": "reel-real-1028-1352",
+      "title": "Flow (AI) reel from MrBeast: Contractor Ply Pain to VAJRA PP Solution (20s)\n⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 4: VAJRA scene fails to show the required light-grey hollow PP sheet.\nScene 4 does not feature the light-grey VAJRA PP sheet as required by brand rules.",
+      "file": "social/media/reel-real-1028-1352.mp4",
+      "caption": "captions/reel-real-1028-1352.txt",
+      "position": "alternate",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 380,
+      "sent_at": "2026-10-28 13:55"
     }
   ]
 }
