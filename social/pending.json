@@ -299,9 +299,11 @@
       "caption": "captions/reel-ai-1028-1002.txt",
       "position": "end",
       "ai": true,
-      "status": "sent",
+      "status": "rejected",
       "msg_id": 369,
-      "sent_at": "2026-10-28 12:28"
+      "sent_at": "2026-10-28 12:28",
+      "by": "MrBeast",
+      "at": "2026-10-28 12:39"
     }
   ]
 }
