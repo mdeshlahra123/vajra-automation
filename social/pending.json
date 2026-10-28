@@ -285,10 +285,10 @@
       "caption": "captions/reel-real-1027-2356.txt",
       "position": "alternate",
       "ai": true,
-      "status": "rejected",
+      "status": "approved",
       "msg_id": 353,
       "sent_at": "2026-10-27 23:59",
-      "by": "owner (wrong clips)",
+      "by": "MrBeast",
       "at": "2026-10-28 07:46",
       "publish": "done"
     },
