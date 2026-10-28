@@ -104,3 +104,7 @@
 2026-10-28 04:03    IG OK https://www.instagram.com/reel/DfBh0ASCJ_c/
 2026-10-28 04:03    FB OK video 1648195587035400
 2026-10-28 04:03    DONE. 19 posts left in queue.
+2026-10-28 14:00  POSTING v-finish-column
+2026-10-28 14:01    IG OK https://www.instagram.com/p/DfCmRYfmDik/
+2026-10-28 14:01    FB OK post 1296793536861294_122110666083509427
+2026-10-28 14:01    DONE. 18 posts left in queue.
