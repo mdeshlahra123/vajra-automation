@@ -291,6 +291,17 @@
       "by": "MrBeast",
       "at": "2026-10-28 07:46",
       "publish": "done"
+    },
+    {
+      "id": "reel-ai-1028-1002",
+      "title": "AI reel: Column Finish Plaster Cost Angle (16s)",
+      "file": "social/media/reel-ai-1028-1002.mp4",
+      "caption": "captions/reel-ai-1028-1002.txt",
+      "position": "end",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 369,
+      "sent_at": "2026-10-28 12:28"
     }
   ]
 }
