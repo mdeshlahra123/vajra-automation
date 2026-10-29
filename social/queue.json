@@ -142,9 +142,11 @@
       "id": "reel-r1-oneman",
       "video": "https://vajraformwork.vercel.app/social/r1-oneman-cta.mp4",
       "caption": "captions/r1-oneman.txt",
-      "posted": "",
+      "posted": "2026-10-29",
       "cover": "https://vajraformwork.vercel.app/social/r1-oneman-cta-cover.jpg",
-      "evening": true
+      "evening": true,
+      "slot": "evening",
+      "yt": "X7OgO_BwZGo"
     },
     {
       "id": "car-plyvspp",
