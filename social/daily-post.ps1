@@ -95,7 +95,8 @@ try {
   $p = PostUtf8 "$v/$ig/media_publish" @{ creation_id=$c.id; access_token=$t }
   $igId = $p.id
   $live = GetUtf8 "$v/$igId`?fields=caption,permalink&access_token=$t"
-  if ((([string]$live.caption).Replace("`r`n","`n").Trim()) -ceq $cap) {
+  $noTag = { param($x) (([string]$x).Replace("`r`n","`n") -replace "(?<!\S)#\w+","" -replace "\s+"," ").Trim() }
+  if ((& $noTag $live.caption) -ceq (& $noTag $cap)) {
     $igOk=$true; Log "  IG OK $($live.permalink)"
     # Auto-reshare of the post to Story is OFF (owner, 26 Oct: same content twice, no point).
     # Stand-alone Stories still go out from queue.json "stories".

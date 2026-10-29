@@ -1,11 +1,11 @@
 """Caption cleanup (ideas from github.com/Jakeschincariol/instagram-agent-skill, ig-caption + ig-human):
-- Instagram caps hashtags at 5 per post (Dec 2025) -> keep our 5 best.
+- Hashtags: our full set of 11, as before (owner, 29 Oct). daily-post.ps1 ignores hashtags when it checks the live caption, so a post is never deleted if Instagram trims them.
 - Search reads caption words -> make sure "PP shuttering sheet" + area words are in the text.
 - Strip invisible characters and em/en dashes, curly quotes.
 Usage: python caption_fix.py <file...>   or imported: fix(text)"""
 import re, sys
 
-TAGS = "#PPShuttering #PlasticShuttering #Formwork #Contractors #Chhattisgarh"
+TAGS = "#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai"
 SEARCH = "PP shuttering sheet, plastic shuttering. Raipur, Durg, Bhilai aur poore India mein delivery."
 INVIS = re.compile("[\u200b-\u200f\u2060-\u2064\ufeff\u00ad\u202a-\u202e\U000e0000-\U000e007f]")
 
