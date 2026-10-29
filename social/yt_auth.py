@@ -5,7 +5,7 @@ import os
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube.readonly"]
+SCOPES = ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.force-ssl", "https://www.googleapis.com/auth/youtube.upload"]
 flow = InstalledAppFlow.from_client_secrets_file(os.path.join(ROOT, "yt-client.json"), SCOPES)
 creds = flow.run_local_server(port=0, prompt="consent", access_type="offline",
                               authorization_prompt_message="Browser khul raha hai: mdeshlahra123@gmail.com se login karke Allow dabaiye.")

@@ -29,13 +29,12 @@ jobs:
           $type = '${{ github.event.inputs.type }}'
           if (-not $type) { $type = if ('${{ github.event.schedule }}' -eq '23 4 * * *') { 'reel' } else { 'image' } }
           if ('${{ github.event.inputs.dryrun }}' -eq 'true') { ./social/daily-post.ps1 -Type $type -DryRun } else { ./social/daily-post.ps1 -Type $type }
-      - name: YouTube Short pack to Telegram (manual upload until API audit is approved)
+      - name: YouTube Shorts upload (own channel; audit passed 28 Oct)
         if: github.event.inputs.dryrun != 'true'
         continue-on-error: true
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python3 social/yt_tg.py
+          YT_TOKEN: ${{ secrets.YT_TOKEN }}
+        run: python3 social/yt_upload.py
       - name: Save state
         if: always()
         run: |
