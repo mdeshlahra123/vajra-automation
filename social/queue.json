@@ -110,10 +110,11 @@
     {
       "id": "reel-real-1027-2032",
       "caption": "captions/reel-real-1027-2032.txt",
-      "posted": "",
+      "posted": "2026-10-29",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2032.mp4",
       "real": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-real-1027-2032-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1027-2032-cover.jpg",
+      "yt": "eZRhXnxfibE"
     },
     {
       "id": "reel-r3-column",
@@ -127,7 +128,8 @@
       "caption": "captions/reel-real-1028-1414.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1028-1414.mp4",
-      "ai": true
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1028-1414-cover.jpg"
     },
     {
       "id": "v-n3-core",
