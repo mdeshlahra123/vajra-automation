@@ -177,12 +177,6 @@
       "slot": "evening"
     },
     {
-      "id": "v-n6-wash",
-      "image": "https://vajraformwork.vercel.app/social/v-n6-wash.jpg",
-      "caption": "captions/n6-wash.txt",
-      "posted": ""
-    },
-    {
       "id": "reel-r4-wash",
       "video": "https://vajraformwork.vercel.app/social/r4-wash-cta.mp4",
       "caption": "captions/r4-wash.txt",
@@ -196,6 +190,12 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/x7-hisaab-v.mp4",
       "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg"
+    },
+    {
+      "id": "v-n6-wash",
+      "image": "https://vajraformwork.vercel.app/social/v-n6-wash.jpg",
+      "caption": "captions/n6-wash.txt",
+      "posted": ""
     },
     {
       "id": "v-p-throw",
