@@ -72,7 +72,7 @@ function pollTelegram() {
     }
     // no /reel? make the reel automatically 20 minutes after the last clip
     var clips = JSON.parse(P.getProperty('CLIPS') || '[]');
-    if (clips.length && Date.now() - clips[clips.length - 1].t > 20 * 60 * 1000) {
+    if (clips.length && Date.now() - clips[clips.length - 1].t > 2 * 60 * 1000) {
       var note = clips.map(function (c) { return c.note || ''; }).filter(String).join('. ');
       startReel_(clips, note, clips[0].who, P, P.getProperty('CHAT_ID'));
     }
@@ -156,7 +156,7 @@ function handleMessage_(m, P) {
     clips.push({ id: vid.file_id, who: who, t: Date.now(), note: (m.caption || '').replace(/^\/reel(@\w+)?/i, '').trim() });
     P.setProperty('CLIPS', JSON.stringify(clips));
     tg_('sendMessage', { chat_id: chat, reply_to_message_id: m.message_id,
-      text: '📥 Clip ' + clips.length + ' mila. Aur clips ho to bhejo. 20 min tak naya clip nahi aaya to reel apne aap banegi. Jaldi chahiye to likho: /reel aur ek line ki note.' });
+      text: '📥 Clip ' + clips.length + ' mila. Library mein save ho jayega (reel abhi nahi banegi).' });
     return;
   }
   // photos (or image files) are saved to the repo for reels / posts / covers
@@ -203,7 +203,7 @@ function startReel_(clips, note, who, P, chat) {
   });
   if (r.getResponseCode() === 204) {
     P.setProperty('CLIPS', '[]');
-    tg_('sendMessage', { chat_id: chat, text: '🎬 ' + clips.length + ' clips se reel ban rahi hai. ~10 min mein yahin approval ke liye aayegi.' });
+    tg_('sendMessage', { chat_id: chat, text: '📁 ' + clips.length + ' clip library mein save ho rahe hain.' });
   } else {
     // keep the clips; push the auto-start 20 minutes later instead of retrying every minute
     clips.forEach(function (c) { c.t = Date.now(); });
