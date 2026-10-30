@@ -1,0 +1,33 @@
+{
+  "hook": "Bhaari ply uthate uthate labour thak gayi?",
+  "title": "One-man lift vs heavy ply",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld video shot on an Indian residential construction site, natural daylight. Two tired Indian construction laborers in dusty clothes struggling together to lift and carry one heavy, water-stained, dark brown wooden shuttering plywood sheet across an uneven RCC slab floor. Camera moves slightly showing the heavy strain and effort. Realistic site atmosphere, raw phone footage style, no text anywhere, no logos, no dialogue.",
+      "shows_vajra": false,
+      "vo": "Bhaari ply uthate uthate site par labour thak gayi?",
+      "text1": "Bhaari ply bojh",
+      "text2": "Labour pareshan?"
+    },
+    {
+      "type": "photo",
+      "photo": "sheet-held",
+      "shows_vajra": true,
+      "vo": "VAJRA sheet itni halki hai, ek banda akele uthaye.",
+      "text1": "Vajra sheet halki",
+      "text2": "Ek aadmi kaafi"
+    },
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": true,
+      "vo": "Apne thekedar ko bhejo aur bhaari ply ko bye bolo.",
+      "text1": "Super smooth finish",
+      "text2": "Thekedar ko bhejo"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Bhaari ply uthana band kijiye! VAJRA PP shuttering sheet hai halki aur strong, ek aadmi aaram se utha le.\n\nWaterproof sheet, smooth finish, aur ply se 2-3 guna zyada chalti hai, sahi handling ke saath. Raipur, Durg, Bhilai se pan-India dispatch available.\n\nApne thekedar aur mistri bhai ko yeh reel zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\n\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": ""
+}
