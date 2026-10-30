@@ -32,6 +32,10 @@ def has_audio(path):
 
 # real VAJRA reveal after AI problem clips: (photo key, text1, text2, voice). Allowed claims only.
 REVEALS = [
+    [("slab-underside", "Poora slab", "VAJRA sheet par", "Ye hai VAJRA PP shuttering sheet, poora slab isi par."),
+     ("column-smooth2", "Shuttering khula", "Column smooth", "Shuttering khula, aur column ekdum smooth.")],
+    [("beam-box", "Beam bhi", "PP sheet se", "Beam box bhi VAJRA PP sheet se, seedha aur mazboot."),
+     ("sheet-cut", "Ply ki tarah", "aaram se kat-ti hai", "Normal cutter se ply ki tarah kat jaati hai.")],
     [("sheet-held", "Ye hai VAJRA", "PP shuttering sheet", "Ye hai VAJRA PP shuttering sheet, ek aadmi aaram se utha leta hai."),
      ("v6-done", "Column ready", "Smooth finish", "Paani se kharab nahi hoti, aur concrete finish ekdum smooth.")],
     [("godown", "VAJRA PP sheet", "Ready stock", "Iska jawab: VAJRA PP shuttering sheet, ready stock mein."),

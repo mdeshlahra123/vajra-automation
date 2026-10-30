@@ -208,6 +208,30 @@
       "evening": true
     },
     {
+      "id": "v-p2-slab-underside",
+      "image": "https://vajraformwork.vercel.app/social/p2-slab-underside.jpg",
+      "caption": "captions/p2-slab-underside.txt",
+      "posted": ""
+    },
+    {
+      "id": "v-p2-beam-box",
+      "image": "https://vajraformwork.vercel.app/social/p2-beam-box.jpg",
+      "caption": "captions/p2-beam-box.txt",
+      "posted": ""
+    },
+    {
+      "id": "v-p2-sheet-cut",
+      "image": "https://vajraformwork.vercel.app/social/p2-sheet-cut.jpg",
+      "caption": "captions/p2-sheet-cut.txt",
+      "posted": ""
+    },
+    {
+      "id": "v-p2-column-smooth2",
+      "image": "https://vajraformwork.vercel.app/social/p2-column-smooth2.jpg",
+      "caption": "captions/p2-column-smooth2.txt",
+      "posted": ""
+    },
+    {
       "id": "v-p-bend",
       "image": "https://vajraformwork.vercel.app/social/v-p-bend.jpg",
       "caption": "captions/p-bend.txt",
