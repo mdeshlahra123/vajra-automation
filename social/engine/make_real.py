@@ -146,7 +146,9 @@ def main():
         clips.append((raw, dur(raw)))
     p = plan(clips, a.note, a.who)
     log.append(f"plan ok={p.get('ok')} issues={p.get('issues')}")
-    reveal = REVEALS[datetime.date.today().toordinal() % len(REVEALS)] if is_flow(a.note) else []
+    import usage
+    reveal = max(REVEALS, key=lambda g: min(usage.age(x[0]) for x in g)) if is_flow(a.note) else []
+    usage.mark(*[x[0] for x in reveal])
     lines = [s["vo"] for s in p["segments"]] + [r[3] for r in reveal] + [p.get("end_vo") or "Comment mein PP likhiye, follow kijiye, rate aapke DM mein."]
     vo_files, vo_lens = [], []
     for i, line in enumerate(lines):

@@ -55,7 +55,9 @@ def dur(path):
 
 def plan(brief, rid):
     rules = open(A("social", "engine", "brand.md"), encoding="utf-8").read()
-    photos = "\n".join(f"- {k}: {v}" for k, v in PHOTOS.items())
+    import usage
+    ok = set(usage.fresh(PHOTOS)) | {"ply-pile"}
+    photos = "\n".join(f"- {k}: {v}" for k, v in PHOTOS.items() if k in ok) or "\n".join(f"- {k}: {v}" for k, v in PHOTOS.items())
     past = []
     for f in sorted(os.listdir(A("social", "engine", "plans")))[-12:] if os.path.isdir(A("social", "engine", "plans")) else []:
         try: past.append(json.load(open(A("social", "engine", "plans", f), encoding="utf-8"))["hook"])
@@ -102,6 +104,12 @@ Return JSON only:
             s["photo"] = "ply-pile"
         elif s.get("photo") == "ply-pile":
             s["photo"] = "godown"
+    import usage
+    used_now = []
+    for s in p["scenes"]:
+        if s.get("type") == "photo" and s.get("photo") != "ply-pile" and usage.age(s["photo"]) < usage.COOLDOWN:
+            s["photo"] = usage.pick([k for k in PHOTOS if k != "ply-pile"], avoid=used_now)
+        if s.get("type") == "photo": used_now.append(s["photo"])
     import claims  # never promise a use count
     for s in p["scenes"]:
         for k in list(s):
@@ -214,6 +222,7 @@ def build(p, rid, res):
         log.append(f"music failed: {str(e)[:200]}"); has_music = False
     final = A("social", "media", f"{rid}.mp4"); os.makedirs(os.path.dirname(final), exist_ok=True)
     mix(video, vo_files, starts, total, music if has_music else None, final)
+    import usage; usage.mark(*[s.get("photo") for s in p["scenes"] if s.get("type") == "photo"])
     return final, total, log
 
 

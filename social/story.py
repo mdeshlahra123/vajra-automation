@@ -123,7 +123,8 @@ def main():
     s = load()
     kinds = list(TYPES)
     kind = kinds[s["n"] % len(kinds)]
-    photo = next((p for p in random.sample(PHOTOS, len(PHOTOS)) if p not in s["photos"][-8:]), random.choice(PHOTOS))
+    import usage
+    photo = usage.pick(PHOTOS)  # not used anywhere (reels/posts/stories) in the last 21 days if possible
     line = write_line(kind, photo, s["lines"])
     if kind in ("sawal", "ya") and not line.rstrip().endswith(("?", ".", "!")):
         line = line.rstrip() + "?"
@@ -135,6 +136,7 @@ def main():
     url = upload_site(out, f"story-{stamp}.jpg")
     sid = post_story(url)
     print("STORY OK", sid, url)
+    usage.mark(photo)
     s["n"] += 1; s["photos"] = (s["photos"] + [photo])[-20:]; s["lines"] = (s["lines"] + [line])[-60:]
     json.dump(s, open(STATE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
