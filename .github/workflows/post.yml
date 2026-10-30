@@ -15,8 +15,8 @@ jobs:
       META_TOKEN: ${{ secrets.META_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - name: Daily website update (approved reels in, old reels out)
-        if: github.event.inputs.type == 'reel' && github.event.inputs.dryrun != 'true'
+      - name: Website update (approved reels in, old reels out) - every run, so evening reels are live too
+        if: github.event.inputs.dryrun != 'true'
         env:
           WEBSITE_TOKEN: ${{ secrets.WEBSITE_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -31,6 +31,17 @@ jobs:
           $type = '${{ github.event.inputs.type }}'
           if (-not $type) { $type = if ('${{ github.event.schedule }}' -eq '23 4 * * *') { 'reel' } else { 'image' } }
           if ('${{ github.event.inputs.dryrun }}' -eq 'true') { ./social/daily-post.ps1 -Type $type -DryRun } else { ./social/daily-post.ps1 -Type $type }
+      - name: Tell the group if nothing was posted
+        if: github.event.inputs.dryrun != 'true'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          last=$(tail -n 6 social/post-log.txt)
+          if echo "$last" | grep -q "NOT marked posted\|IG ERR"; then
+            curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" --data-urlencode chat_id="$TELEGRAM_CHAT_ID" \
+              --data-urlencode text="⚠️ Aaj ka ${{ github.event.inputs.type }} post Instagram pe nahi gaya. Kiro check karega. Log: $(echo "$last" | grep -m1 "ERR" | cut -c1-200)" >/dev/null
+          fi
       - name: YouTube Shorts upload (own channel; audit passed 28 Oct)
         if: github.event.inputs.dryrun != 'true'
         continue-on-error: true

@@ -29,7 +29,10 @@ $all = $pending
 if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video -and -not $_.evening } }
 if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
 $item = $pending | Select-Object -First 1
-if ($evDay) { $ev = $all | Where-Object { $_.video -and $_.evening } | Select-Object -First 1; if ($ev) { $item = $ev } }
+# only items whose media is really live on the website (an approved reel can still be waiting for upload)
+function Live($x) { $u = if ($x.video) { $x.video } else { $x.image }; try { (Invoke-WebRequest $u -Method Head -UseBasicParsing -TimeoutSec 30).StatusCode -eq 200 } catch { Log "  SKIP (file not live yet): $($x.id)"; $false } }
+$item = $pending | Where-Object { Live $_ } | Select-Object -First 1
+if ($evDay) { $ev = $all | Where-Object { $_.video -and $_.evening } | Where-Object { Live $_ } | Select-Object -First 1; if ($ev) { $item = $ev } }
 # Scheduled stand-alone Stories (queue.json "stories": [{id, image|video, date, posted}]) go out with the morning run
 if ($Type -eq "reel" -and -not $DryRun -and $q.stories) {
   $todayS = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
