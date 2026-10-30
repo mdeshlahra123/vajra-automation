@@ -1,6 +1,7 @@
 name: ask
 # Quick brain for Telegram "/ask ..." (Apps Script dispatches it). One Gemini call, ~30 s. Hands big jobs to agent.yml.
-# No concurrency group: it only reads files, so it never waits behind posting runs.
+# Runs one at a time (3 quick asks on 29 Oct overwrote each other's queue changes).
+concurrency: { group: ask, cancel-in-progress: false }
 on:
   workflow_dispatch:
     inputs:

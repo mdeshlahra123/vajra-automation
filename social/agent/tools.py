@@ -109,6 +109,41 @@ def reel(brief):
     dispatch("make-reel.yml", {"brief": brief[:400], "res": "720p"})
 
 
+EVENING_REEL_DAYS = ("Tuesday", "Thursday", "Saturday", "Sunday")
+
+
+def upcoming(q=None):
+    """What really posts next, using the same rules as daily-post.ps1 (evening reels on Tue/Thu/Sat/Sun)."""
+    import datetime
+    if q is None:
+        q = json.load(open(os.path.join(ROOT, "social", "queue.json"), encoding="utf-8"))
+    pend = [p for p in q["posts"] if not p.get("posted")]
+    morning = next((p for p in pend if p.get("video") and not p.get("evening")), None)
+    photo = next((p for p in pend if not p.get("video")), None)
+    ev = next((p for p in pend if p.get("video") and p.get("evening")), None)
+    now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)
+    def evening_for(day):
+        return ev if (day.strftime("%A") in EVENING_REEL_DAYS and ev) else photo
+    return {"morning": morning, "evening_today": evening_for(now), "evening_tomorrow": evening_for(now + datetime.timedelta(days=1)),
+            "today": now.strftime("%A %d %b"), "after_0930_today": now.hour * 60 + now.minute >= 570,
+            "after_1930_today": now.hour * 60 + now.minute >= 1170}
+
+
+def make_next(qid):
+    """Put qid first among items of its own kind (morning reel / evening reel / photo), so it is the next one of that slot."""
+    path = os.path.join(ROOT, "social", "queue.json")
+    q = json.load(open(path, encoding="utf-8"))
+    it = next((p for p in q["posts"] if p["id"] == qid and not p.get("posted")), None)
+    if not it:
+        raise SystemExit("pending item not found: " + qid)
+    kind = lambda p: ("ev" if p.get("evening") else "am") if p.get("video") else "photo"
+    q["posts"].remove(it)
+    first = next((i for i, p in enumerate(q["posts"]) if not p.get("posted") and kind(p) == kind(it)), len(q["posts"]))
+    q["posts"].insert(first, it)
+    json.dump(q, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    print("next", kind(it), qid)
+
+
 def move(qid, pos):
     path = os.path.join(ROOT, "social", "queue.json")
     q = json.load(open(path, encoding="utf-8"))
