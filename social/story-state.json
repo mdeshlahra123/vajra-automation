@@ -1,9 +1,11 @@
 {
- "n": 1,
+ "n": 2,
  "photos": [
-  "slab-underside"
+  "slab-underside",
+  "v4-point"
  ],
  "lines": [
-  "Aapki site pe har dhalai mein kitni ply kharab hoti hai?"
+  "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
+  "Log kehte hain: PP mehnga padta hai. Sach: ply se 2-3 guna zyada chalti hai, sahi handling ke saath."
  ]
 }
