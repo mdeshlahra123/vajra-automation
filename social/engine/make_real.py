@@ -36,11 +36,11 @@ REVEALS = [
      ("column-smooth2", "Shuttering khula", "Column smooth", "Shuttering khula, aur column ekdum smooth.")],
     [("beam-box", "Beam bhi", "PP sheet se", "Beam box bhi VAJRA PP sheet se, seedha aur mazboot."),
      ("sheet-cut", "Ply ki tarah", "aaram se kat-ti hai", "Normal cutter se ply ki tarah kat jaati hai.")],
-    [("sheet-held", "Ye hai VAJRA", "PP shuttering sheet", "Ye hai VAJRA PP shuttering sheet, ek aadmi aaram se utha leta hai."),
+    [("p2-column", "Ye hai VAJRA", "PP shuttering sheet", "Ye hai VAJRA PP shuttering sheet, column ke liye ready."),
      ("v6-done", "Column ready", "Smooth finish", "Paani se kharab nahi hoti, aur concrete finish ekdum smooth.")],
     [("godown", "VAJRA PP sheet", "Ready stock", "Iska jawab: VAJRA PP shuttering sheet, ready stock mein."),
-     ("v1-core", "Andar hollow core", "Halki aur mazboot", "Andar hollow core, isliye halki. Sahi handling ke saath ply se 2-3 guna zyada chalti hai.")],
-    [("sheet-held", "VAJRA PP sheet", "Ek aadmi utha le", "VAJRA PP shuttering sheet. Ek aadmi utha leta hai, labour kam."),
+     ("slab-underside", "Slab ke liye bhi", "VAJRA PP sheet", "Slab ho ya column, sahi handling ke saath ply se 2-3 guna zyada chalti hai.")],
+    [("beam-box", "VAJRA PP sheet", "Beam box ready", "VAJRA PP shuttering sheet se beam box bhi seedha aur mazboot."),
      ("finish-column", "Dho ke dobara use", "Smooth column", "Dhalai ke baad bas dho lo, aur column ekdum smooth.")],
 ]
 
