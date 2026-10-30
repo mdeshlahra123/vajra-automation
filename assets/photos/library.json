@@ -1,8 +1,8 @@
 {
  "in-20261026-082817": {
-  "desc": "REAL owner photo: column formwork with props and scaffolding | rejected: the image is heavily obstructed by wooden props and scaffolding poles, making the formwork sheets ba",
+  "desc": "REAL owner photo: finished concrete column on site with props",
   "src": "20261026-082817-MrBeast.jpg",
-  "ok": false
+  "ok": true
  },
  "in-20261026-082904": {
   "desc": "REAL owner photo: grey PP hollow shuttering sheet used for beam or slab construction | rejected: the sheet is visibly stained, dirty, and shows residue from previous concrete use",
@@ -10,9 +10,9 @@
   "ok": false
  },
  "in-20261026-082952": {
-  "desc": "REAL owner photo: Concrete surface showing imperfections | rejected: The concrete surface looks somewhat rough and stained with minor defects, making it unsuitable for s",
+  "desc": "REAL owner photo: smooth concrete column surface close-up after VAJRA shuttering",
   "src": "20261026-082952-MrBeast.jpg",
-  "ok": false
+  "ok": true
  },
  "in-20261027-201151": {
   "desc": "REAL owner photo: column formwork installation using grey PP hollow shuttering sheets",
