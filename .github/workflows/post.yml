@@ -37,6 +37,15 @@ jobs:
         env:
           YT_TOKEN: ${{ secrets.YT_TOKEN }}
         run: python3 social/yt_upload.py
+      - name: Unique daily Story (not a copy of the post)
+        if: github.event.inputs.dryrun != 'true'
+        continue-on-error: true
+        env:
+          WEBSITE_TOKEN: ${{ secrets.WEBSITE_TOKEN }}
+          GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: (which ffmpeg >/dev/null || sudo apt-get install -y -qq ffmpeg >/dev/null); python3 social/story.py
       - name: Save state
         if: always()
         run: |
