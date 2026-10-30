@@ -16,8 +16,7 @@ IG, V = "17841424780649708", "https://graph.facebook.com/v24.0"
 FONT = os.path.join(ROOT, "assets", "brand", "Archivo.ttf")
 LOGO = os.path.join(ROOT, "assets", "brand", "logo.png")
 # real photos allowed in stories (never the dirty sheet or ply pile as a VAJRA shot)
-PHOTOS = ["slab-underside", "beam-box", "sheet-cut", "column-smooth2", "finish-column", "godown", "warehouse", "sheet-held",
-          "sheet-thin", "v1-core", "v5-cage", "v6-close", "v6-done", "p2-column", "r-workers", "v4-point"]
+PHOTOS = ["slab-underside", "beam-box", "sheet-cut", "column-smooth2", "finish-column", "godown", "warehouse", "sheet-thin", "v5-cage", "v6-close", "v6-done", "p2-column", "r-workers", "v4-point"]
 TYPES = {
     "sawal": "a simple question to contractors that makes them reply (e.g. 'Aapki site pe kitni ply har mahine kharab hoti hai?')",
     "myth": "'Log kehte hain ... / Sach ...' myth vs fact about PP shuttering vs ply (only allowed claims)",

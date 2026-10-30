@@ -45,3 +45,5 @@ What our own numbers show (26 Oct review, keep doing this):
 - Shares decide reach to new people: say once near the end "Apne thekedar / mistri ko bhejo" before the comment-PP line.
 - Real site footage first, AI scenes second (Instagram ranks real, original video higher than AI).
 - Do not repeat the same angle (ply-kharcha / hisaab) two days in a row. Rotate: proof, site use (column/beam/slab), one-man lifting, washing/reuse, customer question.
+
+- NEVER use the photos of a person holding the sheet (sheet-held, v1-hold, v1-core): owner, 30 Oct, overused. Use the newer site photos (slab-underside, beam-box, sheet-cut, column-smooth2, p2-column, v5-cage, v6-close).
