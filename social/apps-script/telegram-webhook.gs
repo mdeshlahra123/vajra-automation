@@ -70,7 +70,7 @@ function pollTelegram() {
         else if (u.message) handleMessage_(u.message, P);
       });
     }
-    // no /reel? make the reel automatically 20 minutes after the last clip
+    // clips are saved to the library 2 minutes after the last one (no reel is made here)
     var clips = JSON.parse(P.getProperty('CLIPS') || '[]');
     if (clips.length && Date.now() - clips[clips.length - 1].t > 2 * 60 * 1000) {
       var note = clips.map(function (c) { return c.note || ''; }).filter(String).join('. ');
@@ -205,10 +205,10 @@ function startReel_(clips, note, who, P, chat) {
     P.setProperty('CLIPS', '[]');
     tg_('sendMessage', { chat_id: chat, text: '📁 ' + clips.length + ' clip library mein save ho rahe hain.' });
   } else {
-    // keep the clips; push the auto-start 20 minutes later instead of retrying every minute
+    // keep the clips; retry on the next poll after 2 minutes
     clips.forEach(function (c) { c.t = Date.now(); });
     P.setProperty('CLIPS', JSON.stringify(clips));
-    tg_('sendMessage', { chat_id: chat, text: '⚠️ Reel start nahi hui (GitHub ' + r.getResponseCode() + '). 20 min baad apne aap dobara try hoga, ya /reel likho.' });
+    tg_('sendMessage', { chat_id: chat, text: '⚠️ Clips save nahi hue (GitHub ' + r.getResponseCode() + '). 2 min baad apne aap dobara try hoga.' });
   }
 }
 
