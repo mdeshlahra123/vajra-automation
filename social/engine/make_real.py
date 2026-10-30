@@ -136,7 +136,7 @@ def render_segment(src, s, seconds, out, work, i, audio):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--clips", required=True); ap.add_argument("--note", default=""); ap.add_argument("--who", default="Shobhit")
+    ap.add_argument("--clips", default=""); ap.add_argument("--files", default=""); ap.add_argument("--note", default=""); ap.add_argument("--who", default="Shobhit")
     a = ap.parse_args()
     rid = "reel-real-" + (datetime.datetime.utcnow() + datetime.timedelta(hours=5.5)).strftime("%m%d-%H%M")
     work = A("work", rid); os.makedirs(work, exist_ok=True); log = []
@@ -144,6 +144,8 @@ def main():
     for i, fid in enumerate(x for x in a.clips.split(",") if x.strip()):
         raw = os.path.join(work, f"raw{i}.mp4"); download(fid.strip(), raw)
         clips.append((raw, dur(raw)))
+    for f in (x.strip() for x in a.files.split(",") if x.strip()):  # library clips (assets/clips/...)
+        clips.append((f if os.path.isabs(f) else A(*f.split("/")), dur(f if os.path.isabs(f) else A(*f.split("/")))))
     p = plan(clips, a.note, a.who)
     log.append(f"plan ok={p.get('ok')} issues={p.get('issues')}")
     import usage
