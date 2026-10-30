@@ -1,4 +1,4 @@
-﻿name: library-reel
+name: library-reel
 # Daily (GitHub schedule 06:30 UTC = 12:00 IST; late runs are harmless): if fewer than 4 reels are pending,
 # make ONE reel from the clip library (fresh clips only) and add it to the queue. Manual run: force=true.
 on:

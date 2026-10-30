@@ -1,4 +1,4 @@
-﻿name: make-real
+name: make-real
 # Started by the Apps Script when clips are sent in the Telegram group.
 # Owner rule (30 Oct): clips are only SAVED to the library here. No reel is made now;
 # library-reel.yml builds reels later from the whole library and adds them to the queue.
