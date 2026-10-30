@@ -31,5 +31,5 @@ jobs:
           PY
       - run: |
           git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
-          git add social/inbox; git commit -qm "inbox: photo from $WHO"
+          git add social/inbox assets/photos; git commit -qm "inbox: photo from $WHO"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1

@@ -35,6 +35,10 @@ PHOTOS = {
     "beam-box": "REAL beam box: VAJRA sheets inside a red steel frame on site (beam use)",
     "sheet-cut": "REAL hand cutting a VAJRA sheet with a normal circular cutter (cuts easily, like wood)",
 }
+try:  # owners' Telegram photos, checked + added by add_photo.py
+    import add_photo as _ap; PHOTOS.update(_ap.extra())
+except Exception:
+    pass
 REFS = ["core-edge-grey.jpg", "sheet-held.jpg", "sheet-thin.jpg"]
 SHEET = ("These must look exactly like the reference photos: VAJRA PP hollow shuttering sheet, a large flat 8 x 4 ft board "
          "(taller than a man when standing), 12 mm thick, plain light-grey faces, edge with SMALL round holes in two staggered rows. "
