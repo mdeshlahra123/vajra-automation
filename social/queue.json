@@ -128,10 +128,13 @@
     {
       "id": "reel-real-1030-1010",
       "caption": "captions/reel-real-1030-1010.txt",
-      "posted": "",
+      "posted": "2026-10-30",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1030-1010.mp4",
       "ai": true,
-      "evening": true
+      "evening": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1030-1010-cover.jpg",
+      "slot": "evening",
+      "yt": "0rHsLmuRsp4"
     },
     {
       "id": "reel-r3-column",

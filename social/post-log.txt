@@ -125,3 +125,7 @@
 2026-10-30 14:01    IG ERR Reel processing failed
 2026-10-30 14:01    FB ERR Exception calling "UploadData" with "3" argument(s): "The remote server returned an error: (400) Bad Request."
 2026-10-30 14:01    NOT marked posted (IG failed). Will retry next run.
+2026-10-30 14:38  POSTING reel-real-1030-1010
+2026-10-30 14:39    IG OK https://www.instagram.com/reel/DfH0LM-je19/
+2026-10-30 14:39    FB OK video 2061525194562221
+2026-10-30 14:39    DONE. 14 posts left in queue.

@@ -1,11 +1,13 @@
 {
- "n": 2,
+ "n": 3,
  "photos": [
   "slab-underside",
-  "v4-point"
+  "v4-point",
+  "warehouse"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
-  "Log kehte hain: PP mehnga padta hai. Sach: ply se 2-3 guna zyada chalti hai, sahi handling ke saath."
+  "Log kehte hain: PP mehnga padta hai. Sach: ply se 2-3 guna zyada chalti hai, sahi handling ke saath.",
+  "Sahi nailing ke liye sharp bit use kijiye taaki sheet ki life lambi chale."
  ]
 }
