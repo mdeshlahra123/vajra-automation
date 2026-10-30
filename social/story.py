@@ -35,7 +35,7 @@ BANK = {
     "ya": ["Ply ya PP? Reply karo.", "Bhaari ply ya halki PP sheet? Aap batao."],
     "offer": ["Free sample chahiye? 1x1 ft piece, sirf delivery charge. Reply karo SAMPLE."],
 }
-ASK = {"sawal": "Reply karke batao 👇", "myth": "Rate chahiye? Reply karo PP", "tip": "Aisi tips ke liye follow karo",
+ASK = {"sawal": "Reply karke batao", "myth": "Rate chahiye? Reply karo PP", "tip": "Aisi tips ke liye follow karo",
        "site": "Rate ke liye reply karo PP", "ya": "Reply karo: PLY ya PP", "offer": "Reply karo SAMPLE"}
 
 
@@ -126,6 +126,8 @@ def main():
     kind = kinds[s["n"] % len(kinds)]
     photo = next((p for p in random.sample(PHOTOS, len(PHOTOS)) if p not in s["photos"][-8:]), random.choice(PHOTOS))
     line = write_line(kind, photo, s["lines"])
+    if kind in ("sawal", "ya") and not line.rstrip().endswith(("?", ".", "!")):
+        line = line.rstrip() + "?"
     out = os.path.join(ROOT, "work", "story.jpg"); render(photo, line, ASK[kind], out)
     print("story", kind, photo, "|", line)
     if "--dry" in sys.argv:
