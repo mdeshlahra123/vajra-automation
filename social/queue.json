@@ -130,14 +130,16 @@
       "video": "https://vajraformwork.vercel.app/social/r3-column-cta.mp4",
       "caption": "captions/r3-column.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/r3-column-cta-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/r3-column-cta-cover.jpg",
+      "evening": true
     },
     {
       "id": "reel-real-1030-1010",
       "caption": "captions/reel-real-1030-1010.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1030-1010.mp4",
-      "ai": true
+      "ai": true,
+      "evening": true
     },
     {
       "id": "v-n3-core",
@@ -208,27 +210,15 @@
       "evening": true
     },
     {
-      "id": "v-p2-slab-underside",
+      "id": "car-p2-site",
       "image": "https://vajraformwork.vercel.app/social/p2-slab-underside.jpg",
-      "caption": "captions/p2-slab-underside.txt",
-      "posted": ""
-    },
-    {
-      "id": "v-p2-beam-box",
-      "image": "https://vajraformwork.vercel.app/social/p2-beam-box.jpg",
-      "caption": "captions/p2-beam-box.txt",
-      "posted": ""
-    },
-    {
-      "id": "v-p2-sheet-cut",
-      "image": "https://vajraformwork.vercel.app/social/p2-sheet-cut.jpg",
-      "caption": "captions/p2-sheet-cut.txt",
-      "posted": ""
-    },
-    {
-      "id": "v-p2-column-smooth2",
-      "image": "https://vajraformwork.vercel.app/social/p2-column-smooth2.jpg",
-      "caption": "captions/p2-column-smooth2.txt",
+      "slides": [
+        "https://vajraformwork.vercel.app/social/p2-slab-underside.jpg",
+        "https://vajraformwork.vercel.app/social/p2-beam-box.jpg",
+        "https://vajraformwork.vercel.app/social/p2-sheet-cut.jpg",
+        "https://vajraformwork.vercel.app/social/p2-column-smooth2.jpg"
+      ],
+      "caption": "captions/car-p2-site.txt",
       "posted": ""
     },
     {
@@ -242,7 +232,8 @@
       "video": "https://vajraformwork.vercel.app/social/a3-mistri-cta.mp4",
       "caption": "captions/a3-mistri.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg",
+      "evening": true
     },
     {
       "id": "reel-a2-dekhlo",

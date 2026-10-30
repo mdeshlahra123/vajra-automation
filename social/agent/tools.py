@@ -80,7 +80,7 @@ def ad(action, ad_id):
 
 
 def promote(media_id, name):
-    """Turn an organic Instagram reel into a lead ad in the existing ad set (same budget, no extra spend). Max 6 active ads."""
+    """Turn an existing Instagram reel (likes/comments stay on the post) into a WhatsApp ad in the live WhatsApp ad set (same budget, no extra spend). Max 6 active ads."""
     ads = g(f"{ACCOUNT}/ads", fields="effective_status", limit=100)["data"]
     if sum(a["effective_status"] == "ACTIVE" for a in ads) >= 6:
         sys.exit("already 6 active ads; pause a weak one first")
@@ -88,9 +88,9 @@ def promote(media_id, name):
         d["access_token"] = os.environ["META_ADS_TOKEN"]
         return json.load(urllib.request.urlopen(urllib.request.Request(V + path, data=urllib.parse.urlencode(d).encode()), timeout=60))
     c = post(f"{ACCOUNT}/adcreatives", {"name": name, "source_instagram_media_id": media_id, "instagram_user_id": "17841424780649708",
-             "object_id": PAGE, "call_to_action": json.dumps({"type": "SIGN_UP", "value": {"lead_gen_form_id": "4528850134099610",
-             "link": "https://vajraformwork.vercel.app/"}})})
-    a = post(f"{ACCOUNT}/ads", {"name": name, "adset_id": "120251450839500600", "creative": json.dumps({"creative_id": c["id"]}), "status": "ACTIVE"})
+             "object_id": PAGE, "call_to_action": json.dumps({"type": "WHATSAPP_MESSAGE", "value": {"app_destination": "WHATSAPP",
+             "link": "https://api.whatsapp.com/send"}})})
+    a = post(f"{ACCOUNT}/ads", {"name": name, "adset_id": "120251541042080600", "creative": json.dumps({"creative_id": c["id"]}), "status": "ACTIVE"})
     print("new ad", a)
 
 
@@ -109,7 +109,7 @@ def reel(brief):
     dispatch("make-reel.yml", {"brief": brief[:400], "res": "720p"})
 
 
-EVENING_REEL_DAYS = ("Tuesday", "Thursday", "Saturday", "Sunday")
+EVENING_REEL_DAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
 
 
 def upcoming(q=None):
@@ -142,6 +142,19 @@ def make_next(qid):
     q["posts"].insert(first, it)
     json.dump(q, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     print("next", kind(it), qid)
+
+
+
+def set_evening(qid, on=True):
+    """Tag a pending reel for the 19:30 slot (on) or the 09:30 slot (off)."""
+    path = os.path.join(ROOT, "social", "queue.json")
+    q = json.load(open(path, encoding="utf-8"))
+    it = next((p for p in q["posts"] if p["id"] == qid and not p.get("posted") and p.get("video")), None)
+    if not it:
+        raise SystemExit("pending reel not found: " + qid)
+    if on: it["evening"] = True
+    else: it.pop("evening", None)
+    json.dump(q, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2); print("evening" if on else "morning", qid)
 
 
 def move(qid, pos):
@@ -181,6 +194,6 @@ def media(url, caption):
 if __name__ == "__main__":
     a = sys.argv[1:]
     {"status": lambda: status(), "ad": lambda: ad(a[1], a[2]), "reel": lambda: reel(" ".join(a[1:])),
-     "move": lambda: move(a[1], a[2]), "promote": lambda: promote(a[1], " ".join(a[2:])),
+     "move": lambda: move(a[1], a[2]), "next": lambda: make_next(a[1]), "evening": lambda: set_evening(a[1], (a[2] if len(a) > 2 else "on") != "off"), "plan": lambda: print(json.dumps({k: (v.get("id") if isinstance(v, dict) else v) for k, v in upcoming().items()})), "promote": lambda: promote(a[1], " ".join(a[2:])),
      "leads": lambda: subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "leads_report.py")]), "tg": lambda: tg(" ".join(a[1:])),
      "media": lambda: media(a[1], " ".join(a[2:]))}.get(a[0] if a else "", lambda: sys.exit(__doc__))()

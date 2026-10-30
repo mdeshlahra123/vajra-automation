@@ -1,6 +1,9 @@
 name: agent
 # VAJRA brain: Gemini CLI agent. Daily via cron-job.org (07:00 IST, task=daily), or from Telegram "/ask ..." (Apps Script).
 on:
+  # Evening review 16:00 UTC = 21:30 IST (GitHub schedule; a late run is harmless here, it only reviews and retags).
+  schedule:
+    - cron: '0 16 * * *'
   workflow_dispatch:
     inputs:
       task: { description: "daily, or a request from the owners", required: true, default: "daily" }
@@ -16,7 +19,7 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       GH_TOKEN: ${{ github.token }}
-      TASK: ${{ github.event.inputs.task }}
+      TASK: ${{ github.event.inputs.task || 'evening' }}
       WHO: ${{ github.event.inputs.who }}
       GEMINI_CLI_TRUST_WORKSPACE: "true"
     steps:
@@ -33,8 +36,8 @@ jobs:
           gemini_model: gemini-3.8-flash
           settings: '{"general":{"maxSessionTurns":40},"tools":{"autoAccept":true}}'
           prompt: |
-            Read GEMINI.md and follow it exactly. Today's task (from ${{ github.event.inputs.who || 'schedule' }}): ${{ github.event.inputs.task }}
-            If the task is "daily", do the daily routine. Otherwise handle the owners' request and reply on Telegram.
+            Read GEMINI.md and follow it exactly. Today's task (from ${{ github.event.inputs.who || 'schedule' }}): ${{ github.event.inputs.task || 'evening' }}
+            If the task is "daily", do the daily routine. If it is "evening", do the evening review. Otherwise handle the owners' request and reply on Telegram.
       - name: Tell the group if the brain failed
         if: failure()
         run: python3 social/agent/tools.py tg "Brain run fail ho gaya. Mehul check karega. ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

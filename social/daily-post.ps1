@@ -21,10 +21,10 @@ function GetUtf8($url){ $wc=New-Object Net.WebClient; $wc.Encoding=[Text.Encodin
 
 $q = Get-Content "$base/queue.json" -Raw | ConvertFrom-Json
 $pending = $q.posts | Where-Object { -not $_.posted }
-# Evening slot (owner, 27 Oct): Tue/Thu/Sat/Sun IST the 19:30 run posts the next reel tagged "evening": true; other days a photo/carousel.
+# Evening slot (owner, 30 Oct): Mon-Sat IST the 19:30 run posts the next reel tagged "evening": true; Sunday a photo/carousel.
 # Morning never takes evening-tagged reels. If no evening reel is left, the evening run falls back to a photo.
 $istDay = [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek
-$evDay = ($Type -eq "image") -and (@("Tuesday","Thursday","Saturday","Sunday") -contains $istDay)
+$evDay = ($Type -eq "image") -and (@("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday") -contains $istDay)
 $all = $pending
 if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video -and -not $_.evening } }
 if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
