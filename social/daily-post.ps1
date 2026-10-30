@@ -63,7 +63,15 @@ try {
     $prm = @{ media_type="REELS"; video_url=$item.video; caption=$cap; share_to_feed="true"; access_token=$t }
     if ($item.cover) { $prm.cover_url = $item.cover }   # brand-style grid cover (social/engine/cover.py)
     if ($item.ai) { $prm.is_ai_generated = "true" }   # Instagram "AI info" label for AI-made reels
-    $c = PostUtf8 "$v/$ig/media" $prm
+    $prm.audio_name = "VAJRA PP Shuttering"            # name our original audio (shows on the reel's audio page)
+    # Trial Reel (shown to non-followers first; Instagram shares it to followers itself if it performs).
+    # Morning reels on Tue/Thu/Sat, or any item with "trial": true. "trial": false forces a normal reel.
+    $trialDay = ($Type -eq "reel") -and (@("Tuesday","Thursday","Saturday") -contains [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek)
+    if (($item.trial -eq $true) -or ($trialDay -and $item.trial -ne $false)) { $prm.trial_params = '{"graduation_strategy":"SS_PERFORMANCE"}' }
+    try { $c = PostUtf8 "$v/$ig/media" $prm }
+    catch {   # if Instagram refuses trial/audio name, post as a normal reel instead of missing the day
+      Log ("  reel extras refused, posting plain: " + (E $_)); $prm.Remove("trial_params"); $prm.Remove("audio_name"); $c = PostUtf8 "$v/$ig/media" $prm }
+    if ($prm.trial_params) { Log "  TRIAL reel (non-followers first, auto-share if it performs)" }
     $st = ""
     for ($i=0; $i -lt 40 -and $st -ne "FINISHED"; $i++) {
       Start-Sleep 15
