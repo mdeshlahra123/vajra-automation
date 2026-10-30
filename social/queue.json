@@ -198,21 +198,6 @@
       "evening": true
     },
     {
-      "id": "reel-x7-hisaab-v",
-      "caption": "captions/x7-hisaab.txt",
-      "posted": "",
-      "video": "https://vajraformwork.vercel.app/social/x7-hisaab-v.mp4",
-      "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg"
-    },
-    {
-      "id": "reel-r2-core",
-      "video": "https://vajraformwork.vercel.app/social/r2-core-cta.mp4",
-      "caption": "captions/r2-core.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/r2-core-cta-cover.jpg",
-      "evening": true
-    },
-    {
       "id": "car-p2-site",
       "image": "https://vajraformwork.vercel.app/social/p2-slab-underside.jpg",
       "slides": [
@@ -235,8 +220,7 @@
       "video": "https://vajraformwork.vercel.app/social/a3-mistri-cta.mp4",
       "caption": "captions/a3-mistri.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg",
-      "evening": true
+      "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg"
     },
     {
       "id": "reel-a2-dekhlo",
@@ -257,28 +241,6 @@
       "image": "https://vajraformwork.vercel.app/social/v-n4-cage.jpg",
       "caption": "captions/n4-cage.txt",
       "posted": ""
-    },
-    {
-      "id": "reel-m2-quick",
-      "video": "https://vajraformwork.vercel.app/social/m2-quick-cta.mp4",
-      "caption": "captions/m2-quick.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/m2-quick-cta-cover.jpg"
-    },
-    {
-      "id": "reel-ai-1025-2041-v2",
-      "caption": "captions/reel-ai-1025-2041-v2.txt",
-      "posted": "",
-      "video": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2.mp4",
-      "ai": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2-cover.jpg"
-    },
-    {
-      "id": "reel-vajra-40s",
-      "video": "https://vajraformwork.vercel.app/social/vajra-40s-cta.mp4",
-      "caption": "captions/vajra-40s.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/vajra-40s-cta-cover.jpg"
     }
   ],
   "hold": [
@@ -288,6 +250,48 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/qa-mehnga-v.mp4",
       "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg"
+    },
+    {
+      "id": "reel-x7-hisaab-v",
+      "caption": "captions/x7-hisaab.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/x7-hisaab-v.mp4",
+      "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg",
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
+    },
+    {
+      "id": "reel-r2-core",
+      "video": "https://vajraformwork.vercel.app/social/r2-core-cta.mp4",
+      "caption": "captions/r2-core.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/r2-core-cta-cover.jpg",
+      "evening": true,
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
+    },
+    {
+      "id": "reel-m2-quick",
+      "video": "https://vajraformwork.vercel.app/social/m2-quick-cta.mp4",
+      "caption": "captions/m2-quick.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/m2-quick-cta-cover.jpg",
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
+    },
+    {
+      "id": "reel-ai-1025-2041-v2",
+      "caption": "captions/reel-ai-1025-2041-v2.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2.mp4",
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2-cover.jpg",
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
+    },
+    {
+      "id": "reel-vajra-40s",
+      "video": "https://vajraformwork.vercel.app/social/vajra-40s-cta.mp4",
+      "caption": "captions/vajra-40s.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/vajra-40s-cta-cover.jpg",
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
     }
   ],
   "stories": [
