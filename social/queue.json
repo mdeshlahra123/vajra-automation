@@ -126,19 +126,19 @@
       "yt": "o9sXKgz7wdE"
     },
     {
-      "id": "reel-r3-column",
-      "video": "https://vajraformwork.vercel.app/social/r3-column-cta.mp4",
-      "caption": "captions/r3-column.txt",
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/r3-column-cta-cover.jpg",
-      "evening": true
-    },
-    {
       "id": "reel-real-1030-1010",
       "caption": "captions/reel-real-1030-1010.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1030-1010.mp4",
       "ai": true,
+      "evening": true
+    },
+    {
+      "id": "reel-r3-column",
+      "video": "https://vajraformwork.vercel.app/social/r3-column-cta.mp4",
+      "caption": "captions/r3-column.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/r3-column-cta-cover.jpg",
       "evening": true
     },
     {
