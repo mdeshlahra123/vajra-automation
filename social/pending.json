@@ -337,9 +337,12 @@
       "caption": "captions/reel-real-1030-1010.txt",
       "position": "alternate",
       "ai": true,
-      "status": "sent",
+      "status": "approved",
       "msg_id": 427,
-      "sent_at": "2026-10-30 10:12"
+      "sent_at": "2026-10-30 10:12",
+      "by": "MrBeast",
+      "at": "2026-10-30 10:21",
+      "publish": "todo"
     }
   ]
 }
