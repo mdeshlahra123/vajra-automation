@@ -89,9 +89,9 @@
 - Meta token healthy (78 days left).
 
 - 30 Oct (evening review):
-  - Today's morning reel reach: 361 (0.78x median, normal day). Evening post lined up.
-  - Ads: L10 WA active (spend ₹142.61, 13 chats, ~₹10.97/chat), L9 WA active (spend ₹31.99). Under ₹150 spend threshold, no ad paused.
-  - Queue: Prioritized newest real footage reel (`reel-real-1030-1010`) to next evening slot.
+  - Today's de-shuttering reel hit outlier success: 5,582 reach, 42 saves, 26 shares (>3x median). Promoted to WhatsApp ad (L12 WA).
+  - Tagged 4th evening reel (`reel-a3-mistri`) to maintain 4 pending evening reels.
+  - Active ads running well; no ad paused (<₹150 spend / good performance). Telegram report sent.
 
 
 

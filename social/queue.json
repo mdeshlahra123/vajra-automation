@@ -220,7 +220,8 @@
       "video": "https://vajraformwork.vercel.app/social/a3-mistri-cta.mp4",
       "caption": "captions/a3-mistri.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg",
+      "evening": true
     },
     {
       "id": "reel-a2-dekhlo",
