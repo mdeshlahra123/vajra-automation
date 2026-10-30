@@ -30,7 +30,10 @@ if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video -and -not
 if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
 $item = $pending | Select-Object -First 1
 # only items whose media is really live on the website (an approved reel can still be waiting for upload)
-function Live($x) { $u = if ($x.video) { $x.video } else { $x.image }; try { (Invoke-WebRequest $u -Method Head -UseBasicParsing -TimeoutSec 30).StatusCode -eq 200 } catch { Log "  SKIP (file not live yet): $($x.id)"; $false } }
+function Live($x) {   # waits up to ~4 min: the website (Vercel) may still be deploying a file pushed a moment ago
+  $u = if ($x.video) { $x.video } else { $x.image }
+  for ($k = 0; $k -lt 16; $k++) { try { if ((Invoke-WebRequest $u -Method Head -UseBasicParsing -TimeoutSec 30).StatusCode -eq 200) { return $true } } catch {}; Start-Sleep 15 }
+  Log "  SKIP (file not live after 4 min): $($x.id)"; $false }
 $item = $pending | Where-Object { Live $_ } | Select-Object -First 1
 if ($evDay) { $ev = $all | Where-Object { $_.video -and $_.evening } | Where-Object { Live $_ } | Select-Object -First 1; if ($ev) { $item = $ev } }
 # Scheduled stand-alone Stories (queue.json "stories": [{id, image|video, date, posted}]) go out with the morning run
