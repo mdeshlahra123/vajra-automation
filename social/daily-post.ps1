@@ -76,6 +76,9 @@ try {
     for ($i=0; $i -lt 40 -and $st -ne "FINISHED"; $i++) {
       Start-Sleep 15
       $st = (GetUtf8 "$v/$($c.id)?fields=status_code&access_token=$t").status_code
+      if ($st -eq "ERROR" -and ($prm.trial_params -or $prm.audio_name)) {   # retry once as a plain reel
+        Log "  processing error with trial/audio name, retrying plain"; $prm.Remove("trial_params"); $prm.Remove("audio_name")
+        $c = PostUtf8 "$v/$ig/media" $prm; $st = ""; continue }
       if ($st -eq "ERROR") { throw "Reel processing failed" }
     }
     if ($st -ne "FINISHED") { throw "Reel still processing after 10 min" }
