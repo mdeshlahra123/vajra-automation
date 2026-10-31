@@ -37,8 +37,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          last=$(tail -n 6 social/post-log.txt)
-          if echo "$last" | grep -q "NOT marked posted\|IG ERR"; then
+          last=$(awk -v d="$(TZ=Asia/Kolkata date +%F)" 'index($0,d)==1' social/post-log.txt | tail -n 6)
+          if echo "$last" | grep -q "NOT marked posted\|IG ERR\|QUEUE EMPTY"; then
             curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" --data-urlencode chat_id="$TELEGRAM_CHAT_ID" \
               --data-urlencode text="⚠️ Aaj ka ${{ github.event.inputs.type }} post Instagram pe nahi gaya. Kiro check karega. Log: $(echo "$last" | grep -m1 "ERR" | cut -c1-200)" >/dev/null
           fi
