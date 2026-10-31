@@ -203,9 +203,11 @@
       "id": "reel-r4-wash",
       "video": "https://vajraformwork.vercel.app/social/r4-wash-cta.mp4",
       "caption": "captions/r4-wash.txt",
-      "posted": "",
+      "posted": "2026-10-31",
       "cover": "https://vajraformwork.vercel.app/social/r4-wash-cta-cover.jpg",
-      "evening": true
+      "evening": true,
+      "slot": "evening",
+      "yt": "tHyZo5HE1f8"
     },
     {
       "id": "car-p2-site",
@@ -347,7 +349,7 @@
       "id": "reel-real-1027-2356",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2356.mp4",
       "caption": "captions/reel-real-1027-2356.txt",
-      "posted": "",
+      "posted": "2026-10-31",
       "ai": true
     }
   ]

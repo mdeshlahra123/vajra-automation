@@ -139,3 +139,12 @@
 2026-10-31 04:48    IG OK https://www.instagram.com/reel/DfJVZLPCCas/
 2026-10-31 04:48    FB OK video 1099523799727940
 2026-10-31 04:48    DONE. 11 posts left in queue.
+2026-10-31 14:01  POSTING reel-r4-wash
+2026-10-31 14:02    IG OK https://www.instagram.com/reel/DfKUtn5if0A/
+2026-10-31 14:02    FB OK video 1635497364898944
+2026-10-31 14:02    DONE. 10 posts left in queue.
+2026-10-31 14:02  POSTING reel-real-1027-2356
+2026-10-31 14:02    TRIAL reel (non-followers first, auto-share if it performs)
+2026-10-31 14:02    IG OK https://www.instagram.com/reel/DfKU0GRDX82/
+2026-10-31 14:02    FB OK video 4887148854847078
+2026-10-31 14:02    DONE. 10 posts left in queue.
