@@ -274,7 +274,8 @@
       "video": "https://vajraformwork.vercel.app/social/x8-column-v.mp4",
       "caption": "captions/x8-column.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg",
+      "evening": true
     },
     {
       "id": "reel-real-1028-1352",
@@ -282,7 +283,8 @@
       "caption": "captions/reel-real-1028-1352.txt",
       "posted": "",
       "ai": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-real-1028-1352-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1028-1352-cover.jpg",
+      "evening": true
     }
   ],
   "hold": [

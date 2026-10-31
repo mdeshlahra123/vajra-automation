@@ -99,6 +99,10 @@
 - Pending reels was 4 (< 6), so started 1 new AI money-angle reel ("Ply baar-baar khareedna band...").
 - Sent daily report to owners on Telegram and requested Shobhit for site video clips (deshuttering/water wash).
 
+- 31 Oct (evening review):
+  - Promoted Oct 30 slab kharcha reel (2.2k reach) to WhatsApp ad (L13 WA).
+  - Tagged 2 evening reels (`reel-real-1028-1352`, `reel-x8-column-v`) to maintain 4 pending evening reels. 4 active WA ads running (~₹9/chat avg).
+
 
 
 
