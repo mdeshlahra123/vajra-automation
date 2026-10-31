@@ -191,6 +191,13 @@
       "slot": "evening"
     },
     {
+      "id": "reel-baarish",
+      "video": "https://vajraformwork.vercel.app/social/baarish.mp4",
+      "caption": "captions/baarish.txt",
+      "posted": "",
+      "real": true
+    },
+    {
       "id": "reel-r4-wash",
       "video": "https://vajraformwork.vercel.app/social/r4-wash-cta.mp4",
       "caption": "captions/r4-wash.txt",
