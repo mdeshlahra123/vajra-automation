@@ -9,7 +9,7 @@ permissions: { contents: write }
 jobs:
   ads:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     env:
       META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -24,6 +24,7 @@ jobs:
       - name: Daily Google Flow brief (what to make with free credits)
         if: github.event.inputs.dry != 'true'
         continue-on-error: true
+        timeout-minutes: 6
         run: python3 social/flow_brief.py
       - name: Save state
         if: always()

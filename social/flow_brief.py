@@ -12,7 +12,7 @@ import datetime, json, os, sys, urllib.request
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "engine"))
 import gem
 
-MODEL = "gemini-3.8-flash"
+MODEL = "gemini-3.5-flash-lite"  # free tier, fast (3.8-flash daily quota ran out and the run hit the timeout, 31 Oct)
 # one idea = shots that belong to the same reel (problem part only; the answer is our real footage)
 IDEAS = [
     ["Brown plywood shuttering boards swollen and peeling after rain on an Indian site, water dripping",
