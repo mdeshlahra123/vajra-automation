@@ -1,0 +1,21 @@
+name: fetch-clips
+on:
+  workflow_dispatch:
+    inputs:
+      ids: { description: "telegram file ids, comma separated", required: true }
+permissions: { contents: read }
+jobs:
+  f:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env: { TOKEN: "${{ secrets.TELEGRAM_BOT_TOKEN }}", IDS: "${{ github.event.inputs.ids }}" }
+    steps:
+      - run: |
+          mkdir out; python3 - <<'PY'
+          import json, os, urllib.request
+          for i, f in enumerate(os.environ["IDS"].split(",")):
+              p = json.load(urllib.request.urlopen(f"https://api.telegram.org/bot{os.environ['TOKEN']}/getFile?file_id={f.strip()}"))["result"]["file_path"]
+              urllib.request.urlretrieve(f"https://api.telegram.org/file/bot{os.environ['TOKEN']}/{p}", f"out/c{i}.mp4"); print("ok", i)
+          PY
+      - uses: actions/upload-artifact@v4
+        with: { name: clips, path: out }
