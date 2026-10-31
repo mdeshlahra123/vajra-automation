@@ -129,3 +129,4 @@
 2026-10-30 14:39    IG OK https://www.instagram.com/reel/DfH0LM-je19/
 2026-10-30 14:39    FB OK video 2061525194562221
 2026-10-30 14:39    DONE. 14 posts left in queue.
+2026-10-31 04:01  QUEUE EMPTY (reel) - nothing to post. Add more items to queue.json.

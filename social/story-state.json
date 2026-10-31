@@ -1,13 +1,15 @@
 {
- "n": 3,
+ "n": 4,
  "photos": [
   "slab-underside",
   "v4-point",
-  "warehouse"
+  "warehouse",
+  "sheet-thin"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
   "Log kehte hain: PP mehnga padta hai. Sach: ply se 2-3 guna zyada chalti hai, sahi handling ke saath.",
-  "Sahi nailing ke liye sharp bit use kijiye taaki sheet ki life lambi chale."
+  "Sahi nailing ke liye sharp bit use kijiye taaki sheet ki life lambi chale.",
+  "Bina kisi jhanjhat ke asani se kat jati hai ye sheet"
  ]
 }
