@@ -1,4 +1,4 @@
-param([ValidateSet("any","reel","image")][string]$Type = "any", [switch]$DryRun)
+param([ValidateSet("any","reel","image","trial")][string]$Type = "any", [switch]$DryRun)
 # VAJRA daily poster: Instagram + Facebook together, from social\queue.json.
 # -Type reel  = next unposted reel (morning task), -Type image = next unposted post (night task).
 # Picks the first post with empty "posted", publishes to both, verifies IG caption,
@@ -25,6 +25,7 @@ $pending = $q.posts | Where-Object { -not $_.posted }
 # Morning never takes evening-tagged reels. If no evening reel is left, the evening run falls back to a photo.
 $istDay = [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek
 $evDay = ($Type -eq "image") -and (@("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday") -contains $istDay)
+if ($Type -eq "trial") { $pending = @($q.trials | Where-Object { -not $_.posted -and $_.video }) }   # extra daily Trial Reel from the trial pool (owner 31 Oct)
 $all = $pending
 if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video -and -not $_.evening } }
 if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
@@ -52,7 +53,8 @@ if ($Type -eq "reel" -and -not $DryRun -and $q.stories) {
   ($q | ConvertTo-Json -Depth 6) | Set-Content "$base/queue.json" -Encoding UTF8
 }
 # Guard: max one reel and one image per IST day (GitHub cron can run late or after a manual post)
-if ($Type -ne "any" -and -not $DryRun -and $item) {
+if ($Type -eq "trial" -and -not $DryRun -and $item) { $td = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd"); if (@($q.trials | Where-Object { [string]$_.posted -eq $td }).Count) { Log "SKIP: trial already posted today"; exit 0 } }
+if ($Type -ne "any" -and $Type -ne "trial" -and -not $DryRun -and $item) {
   $today = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
   $done = $q.posts | Where-Object { $_.posted -and ([string]$_.posted -eq $today) -and $(if ($Type -eq "reel") { $_.video -and $_.slot -ne "evening" } else { (-not $_.video) -or $_.slot -eq "evening" }) }
   if ($done) { Log "SKIP: $Type already posted today ($today IST): $($done[0].id)"; exit 0 }
@@ -73,8 +75,8 @@ try {
     $prm.audio_name = "VAJRA PP Shuttering"            # name our original audio (shows on the reel's audio page)
     # Trial Reel (shown to non-followers first; Instagram shares it to followers itself if it performs).
     # Morning reels on Tue/Thu/Sat, or any item with "trial": true. "trial": false forces a normal reel.
-    $trialDay = $false   # owner 31 Oct: trial reels hide from followers/profile; only items with "trial": true
-    if (($item.trial -eq $true) -or ($trialDay -and $item.trial -ne $false)) { $prm.trial_params = '{"graduation_strategy":"SS_PERFORMANCE"}' }
+    $trialDay = ($Type -eq "reel") -and (@("Tuesday","Thursday","Saturday") -contains [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek)
+    if (($Type -eq "trial") -or ($item.trial -eq $true) -or ($trialDay -and $item.trial -ne $false)) { $prm.trial_params = '{"graduation_strategy":"SS_PERFORMANCE"}' }
     try { $c = PostUtf8 "$v/$ig/media" $prm }
     catch {   # if Instagram refuses trial/audio name, post as a normal reel instead of missing the day
       Log ("  reel extras refused, posting plain: " + (E $_)); $prm.Remove("trial_params"); $prm.Remove("audio_name"); $c = PostUtf8 "$v/$ig/media" $prm }

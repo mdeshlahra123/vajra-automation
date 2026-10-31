@@ -243,6 +243,34 @@
       "image": "https://vajraformwork.vercel.app/social/v-n4-cage.jpg",
       "caption": "captions/n4-cage.txt",
       "posted": ""
+    },
+    {
+      "id": "reel-qa-rate-v",
+      "video": "https://vajraformwork.vercel.app/social/qa-rate-v.mp4",
+      "caption": "captions/qa-rate.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/qa-rate-cover.jpg"
+    },
+    {
+      "id": "reel-qa-toot-v",
+      "video": "https://vajraformwork.vercel.app/social/qa-toot-v.mp4",
+      "caption": "captions/qa-toot.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/qa-toot-cover.jpg"
+    },
+    {
+      "id": "reel-x8-column-v",
+      "video": "https://vajraformwork.vercel.app/social/x8-column-v.mp4",
+      "caption": "captions/x8-column.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg"
+    },
+    {
+      "id": "reel-real-1028-1352",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1028-1352.mp4",
+      "caption": "captions/reel-real-1028-1352.txt",
+      "posted": "",
+      "ai": true
     }
   ],
   "hold": [
@@ -302,6 +330,15 @@
       "image": "https://vajraformwork.vercel.app/social/story-samples.jpg",
       "date": "2026-10-27",
       "posted": "2026-10-27"
+    }
+  ],
+  "trials": [
+    {
+      "id": "reel-real-1027-2356",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2356.mp4",
+      "caption": "captions/reel-real-1027-2356.txt",
+      "posted": "",
+      "ai": true
     }
   ]
 }

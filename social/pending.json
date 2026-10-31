@@ -176,10 +176,12 @@
       "file": "social/media/x8-column-v.mp4",
       "caption": "captions/x8-column.txt",
       "position": "end",
-      "status": "sent",
+      "status": "approved",
       "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg",
       "msg_id": 275,
-      "sent_at": "2026-10-26 09:57"
+      "sent_at": "2026-10-26 09:57",
+      "publish": "todo",
+      "by": "owner (31 Oct)"
     },
     {
       "id": "reel-x9-halka-v",
@@ -198,10 +200,12 @@
       "file": "social/media/qa-rate-v.mp4",
       "caption": "captions/qa-rate.txt",
       "position": "end",
-      "status": "sent",
+      "status": "approved",
       "cover": "https://vajraformwork.vercel.app/social/qa-rate-cover.jpg",
       "msg_id": 277,
-      "sent_at": "2026-10-26 09:57"
+      "sent_at": "2026-10-26 09:57",
+      "publish": "todo",
+      "by": "owner (31 Oct)"
     },
     {
       "id": "reel-qa-kahan-v",
@@ -231,10 +235,12 @@
       "file": "social/media/qa-toot-v.mp4",
       "caption": "captions/qa-toot.txt",
       "position": "end",
-      "status": "sent",
+      "status": "approved",
       "cover": "https://vajraformwork.vercel.app/social/qa-toot-cover.jpg",
       "msg_id": 280,
-      "sent_at": "2026-10-26 09:57"
+      "sent_at": "2026-10-26 09:57",
+      "publish": "todo",
+      "by": "owner (31 Oct)"
     },
     {
       "id": "reel-qa-mehnga-v",
@@ -290,7 +296,7 @@
       "sent_at": "2026-10-27 23:59",
       "by": "MrBeast",
       "at": "2026-10-28 07:46",
-      "publish": "done"
+      "publish": "todo"
     },
     {
       "id": "reel-ai-1028-1002",
@@ -312,9 +318,11 @@
       "caption": "captions/reel-real-1028-1352.txt",
       "position": "alternate",
       "ai": true,
-      "status": "sent",
+      "status": "approved",
       "msg_id": 380,
-      "sent_at": "2026-10-28 13:55"
+      "sent_at": "2026-10-28 13:55",
+      "publish": "todo",
+      "by": "owner (31 Oct)"
     },
     {
       "id": "reel-real-1028-1414",
