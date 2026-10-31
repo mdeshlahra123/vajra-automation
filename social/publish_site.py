@@ -8,7 +8,7 @@ pend_path, queue_path = os.path.join(BASE, "pending.json"), os.path.join(BASE, "
 pend = json.load(open(pend_path, encoding="utf-8")) if os.path.exists(pend_path) else {"items": []}
 queue = json.load(open(queue_path, encoding="utf-8"))
 todo = [i for i in pend["items"] if i.get("publish") == "todo"]
-keep = {"msg-sample.jpg"}  # messenger auto-reply photo; # every file a not-yet-posted item still needs (video, image, cover, slides), incl. held reels and scheduled stories
+keep = {"msg-sample.jpg", "msg-offer.jpg"}  # messenger auto-reply photo; # every file a not-yet-posted item still needs (video, image, cover, slides), incl. held reels and scheduled stories
 for p in queue["posts"] + queue.get("hold", []) + queue.get("stories", []) + queue.get("trials", []):
     if p.get("posted"):
         continue

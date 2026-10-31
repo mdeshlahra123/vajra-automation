@@ -11,10 +11,10 @@ import datetime, json, os, sys, urllib.parse, urllib.request
 BASE = os.path.dirname(os.path.abspath(__file__))
 STATE = os.path.join(BASE, "messenger-state.json")
 PAGE, V = "1296793536861294", "https://graph.facebook.com/v24.0"
-PHOTO = "https://vajraformwork.vercel.app/social/msg-sample.jpg"
+PHOTO = "https://vajraformwork.vercel.app/social/msg-offer.jpg"  # owner offer card (A free sample / B full sheet), 31 Oct
 TEXT = ("Namaste 🙏 VAJRA Formwork se.\n"
-        "VAJRA PP shuttering sheet ka FREE sample (1x1 ft piece) milta hai, sirf delivery charge. Haath mein lo, keel thoko, paani mein daalo, khud check karo.\n\n"
-        "Sample ya rate ke liye apna naam, shehar aur pincode bhejiye, ya seedha call / WhatsApp karein:\n📞 83050 70160")
+        "Pehle try karo: \"A\" likho = 1x1 ft FREE sample (sirf delivery charge), \"B\" likho = poori sheet 8x4 ft.\n"
+        "Saath mein naam, address aur pincode bhejiye.\n\n📞 Call / WhatsApp: 83050 70160")
 
 
 def get(path, **p):
@@ -32,16 +32,22 @@ def main():
     st = json.load(open(STATE, encoding="utf-8")) if os.path.exists(STATE) else {"done": []}
     done = set(st["done"])
     convs = get(f"{PAGE}/conversations", platform="messenger", fields="updated_time,participants,messages.limit(1){id,message,from,created_time}",
-                limit=50, access_token=pt).get("data", [])
+                limit=100, access_token=pt).get("data", [])
     now = datetime.datetime.now(datetime.timezone.utc); sent = 0
     for c in convs:
         m = (c.get("messages", {}).get("data") or [None])[0]
-        if not m or m["from"]["id"] == PAGE or m["id"] in done:
+        if not m or m["id"] in done or (m["from"]["id"] == PAGE and "--all" not in sys.argv):
             continue
         t = datetime.datetime.strptime(m["created_time"], "%Y-%m-%dT%H:%M:%S%z")
         if (now - t).total_seconds() > 23 * 3600:   # outside Meta's 24 h window: can't message
             done.add(m["id"]); continue
-        psid = m["from"]["id"]
+        if m["from"]["id"] == PAGE:   # --all: find the customer in the participants
+            psid = next((p["id"] for p in c.get("participants", {}).get("data", []) if p["id"] != PAGE), None)
+            if not psid or psid in st.setdefault("offer", []):
+                continue
+            st["offer"].append(psid)
+        else:
+            psid = m["from"]["id"]
         print("reply to", m["from"].get("name"), "|", (m.get("message") or "")[:60])
         if not dry:
             try:
