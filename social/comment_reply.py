@@ -25,7 +25,11 @@ def main():
     done = set(st["done"]); todo = []
     for p in get(f"{PAGE}/posts", fields="id", limit=50, access_token=pt).get("data", []):
         try:
-            cs = get(f"{p['id']}/comments", fields="id,created_time,from{id},comments.limit(25){from{id}}", filter="toplevel", limit=100, access_token=pt).get("data", [])
+            cs, r = [], get(f"{p['id']}/comments", fields="id,created_time,from{id},comments.limit(25){from{id},message}", filter="toplevel", limit=100, access_token=pt)
+            while True:
+                cs += r.get("data", []); nxt = r.get("paging", {}).get("next")
+                if not nxt: break
+                r = json.load(urllib.request.urlopen(nxt, timeout=60))
         except Exception:
             continue
         for c in cs:
