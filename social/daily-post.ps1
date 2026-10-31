@@ -73,7 +73,7 @@ try {
     $prm.audio_name = "VAJRA PP Shuttering"            # name our original audio (shows on the reel's audio page)
     # Trial Reel (shown to non-followers first; Instagram shares it to followers itself if it performs).
     # Morning reels on Tue/Thu/Sat, or any item with "trial": true. "trial": false forces a normal reel.
-    $trialDay = ($Type -eq "reel") -and (@("Tuesday","Thursday","Saturday") -contains [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek)
+    $trialDay = $false   # owner 31 Oct: trial reels hide from followers/profile; only items with "trial": true
     if (($item.trial -eq $true) -or ($trialDay -and $item.trial -ne $false)) { $prm.trial_params = '{"graduation_strategy":"SS_PERFORMANCE"}' }
     try { $c = PostUtf8 "$v/$ig/media" $prm }
     catch {   # if Instagram refuses trial/audio name, post as a normal reel instead of missing the day
