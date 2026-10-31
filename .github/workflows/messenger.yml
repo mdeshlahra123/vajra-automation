@@ -14,7 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 social/messenger_reply.py
+      - run: python3 social/comment_reply.py
+        continue-on-error: true
       - run: |
           git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
-          git add social/messenger-state.json; git diff --cached --quiet && exit 0
+          git add social/messenger-state.json social/comment-state.json; git diff --cached --quiet && exit 0
           git commit -qm "bot: messenger"; for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 4; done; exit 1
