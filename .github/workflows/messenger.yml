@@ -1,0 +1,20 @@
+name: messenger
+# Every ~15 min (GitHub schedule): reply to new Facebook Messenger messages with the free-sample photo + number.
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}
+concurrency: { group: messenger, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  reply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env: { META_TOKEN: "${{ secrets.META_TOKEN }}" }
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 social/messenger_reply.py
+      - run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social/messenger-state.json; git diff --cached --quiet && exit 0
+          git commit -qm "bot: messenger"; for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 4; done; exit 1
