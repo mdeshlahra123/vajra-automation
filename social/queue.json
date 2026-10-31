@@ -194,8 +194,10 @@
       "id": "reel-baarish",
       "video": "https://vajraformwork.vercel.app/social/baarish.mp4",
       "caption": "captions/baarish.txt",
-      "posted": "",
-      "real": true
+      "posted": "2026-10-31",
+      "real": true,
+      "cover": "https://vajraformwork.vercel.app/social/baarish-cover.jpg",
+      "yt": "cB5baTBDFHI"
     },
     {
       "id": "reel-r4-wash",
@@ -277,7 +279,8 @@
       "video": "https://vajraformwork.vercel.app/social/reel-real-1028-1352.mp4",
       "caption": "captions/reel-real-1028-1352.txt",
       "posted": "",
-      "ai": true
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1028-1352-cover.jpg"
     }
   ],
   "hold": [

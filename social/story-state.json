@@ -1,17 +1,19 @@
 {
- "n": 5,
+ "n": 6,
  "photos": [
   "slab-underside",
   "v4-point",
   "warehouse",
   "sheet-thin",
-  "v5-cage"
+  "v5-cage",
+  "v6-close"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
   "Log kehte hain: PP mehnga padta hai. Sach: ply se 2-3 guna zyada chalti hai, sahi handling ke saath.",
   "Sahi nailing ke liye sharp bit use kijiye taaki sheet ki life lambi chale.",
   "Bina kisi jhanjhat ke asani se kat jati hai ye sheet",
-  "Har slab par purani ply badalna hai ya ek baar VAJRA lagana hai? Reply karo."
+  "Har slab par purani ply badalna hai ya ek baar VAJRA lagana hai? Reply karo.",
+  "Chhota tukda khud check karo site par, sirf delivery charge do, reply karo SAMPLE"
  ]
 }
