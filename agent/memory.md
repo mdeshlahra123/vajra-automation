@@ -111,3 +111,11 @@
 
 
 
+
+## WhatsApp API (parked 1 Nov)
+- Goal: smart auto-replies + follow-ups + hot-lead Telegram alerts + call list on VAJRA WhatsApp 83050 70160, free, keeping the number in the WhatsApp Business app (coexistence).
+- Path: Planstalk LLP (verified Meta business) = Independent Tech Provider; VAJRA connects via Embedded Signup coexistence. No GST/Udyam (Planstalk already verified). No paid BSP, no Baileys/whatsapp-web.js (ban risk), no new number.
+- Meta app "Planstalk Connect" (App ID 1826605545131587), Live, business=Planstalk. Use cases WhatsApp+Messenger+Instagram. Test number +1 555 172 6507, Phone Number ID 1424622750730437, WABA 1510641854208733.
+- App Review: whatsapp_business_messaging + public_profile done. whatsapp_business_management waiting on "1 of 1 API test call" (Meta slow to count it); Submit blocked on this only. Videos in laptop Videos\Captures. Privacy section 5 + /connect live on planstalk.com.
+- NEXT when green: submit review; on approval, Embedded Signup connects 83050 70160 (coexistence), then wire wa_bot.py to the real number.
+- Bot built ahead: social/wa_bot.py (test-number / dry only until approval). Reuses offer text, claim rules, Telegram alert, call list.
