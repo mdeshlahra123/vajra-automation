@@ -9,7 +9,7 @@ import json, os, sys, urllib.parse, urllib.request
 
 BASE = os.path.dirname(os.path.abspath(__file__)); STATE = os.path.join(BASE, "comment-state.json")
 PAGE, V = "1296793536861294", "https://graph.facebook.com/v24.0"
-PHOTO = ""  # 1 Nov: old card said FREE sample; text only until the new 199/- card is chosen
+PHOTO = "https://vajraformwork.vercel.app/social/msg-offer.jpg"  # offer card design 1: sample 199/-, sheet 3,400+GST trial (owner 1 Nov)
 TEXT = 'Namaste ji 🙏\nVAJRA PP shuttering sheet: ₹3,500 + GST (8x4 ft, 12 mm).\n\nSample (1x1 ft) bhi milta hai, 199/-\n\nSample ya rate ke liye apna naam aur shehar bheje - call/WhatsApp karein: 83050 70160\n\n👉 https://vajraformwork.vercel.app/try'
 BATCH = 20
 
