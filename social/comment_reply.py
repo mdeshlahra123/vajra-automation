@@ -38,10 +38,17 @@ def main():
             if any(r.get("from", {}).get("id") == PAGE for r in c.get("comments", {}).get("data", [])):
                 done.add(c["id"]); continue   # already answered publicly
             todo.append(c)
-    todo.sort(key=lambda c: c["created_time"], reverse=True); sent = 0   # newest first: fresh commenters are hottest leads
+    todo.sort(key=lambda c: c["created_time"], reverse=True); sent = dm = 0   # newest first: fresh commenters are hottest leads
     for c in todo[:BATCH]:
         if not dry:
             try:
+                # 1 Nov: Meta's automation opens an empty chat ("You are responding to a user comment...") but sends
+                # nothing. Use the comment's one private reply ourselves: the offer lands in the person's Messenger.
+                try:
+                    pd = urllib.parse.urlencode({"message": TEXT, "access_token": pt}).encode()
+                    urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/private_replies", data=pd), timeout=60); dm += 1
+                except urllib.error.HTTPError as e:
+                    print("dm skip", c["id"], e.read().decode()[:120])
                 d = urllib.parse.urlencode({"message": TEXT, "access_token": pt, **({"attachment_url": PHOTO} if PHOTO else {})}).encode()
                 urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/comments", data=d), timeout=60); sent += 1; time.sleep(1)
             except urllib.error.HTTPError as e:
@@ -50,7 +57,7 @@ def main():
     st["done"] = list(done)[-5000:]
     if not dry:
         json.dump(st, open(STATE, "w", encoding="utf-8"))
-    print(f"replied {sent}, left {max(0, len(todo) - BATCH)}")
+    print(f"replied {sent}, DMs {dm}, left {max(0, len(todo) - BATCH)}")
 
 
 if __name__ == "__main__":
