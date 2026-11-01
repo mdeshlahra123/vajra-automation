@@ -34,6 +34,8 @@ def main():
     now = datetime.datetime.now(datetime.timezone.utc); sent = 0
     for c in convs:
         m = (c.get("messages", {}).get("data") or [None])[0]
+        if m and (now - datetime.datetime.strptime(m["created_time"], "%Y-%m-%dT%H:%M:%S%z")).total_seconds() < 6 * 3600:
+            print("recent:", m["created_time"], "from_page" if m["from"]["id"] == PAGE else "from_customer", "done" if m["id"] in done else "new", "|", (m.get("message") or "")[:50].replace("\n", " "))
         if not m or m["id"] in done or (m["from"]["id"] == PAGE and "--all" not in sys.argv):
             continue
         t = datetime.datetime.strptime(m["created_time"], "%Y-%m-%dT%H:%M:%S%z")
