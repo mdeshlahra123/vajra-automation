@@ -5,13 +5,13 @@ Replies to every top-level comment the Page hasn't answered yet, oldest first, m
 State: social/comment-state.json. Runs from messenger.yml every ~15 min.
   python social/comment_reply.py [--dry]
 """
-import json, os, sys, urllib.parse, urllib.request
+import time, json, os, sys, urllib.parse, urllib.request
 
 BASE = os.path.dirname(os.path.abspath(__file__)); STATE = os.path.join(BASE, "comment-state.json")
 PAGE, V = "1296793536861294", "https://graph.facebook.com/v24.0"
 PHOTO = "https://vajraformwork.vercel.app/social/msg-offer.jpg"  # offer card design 1: sample 199/-, sheet 3,400+GST trial (owner 1 Nov)
 TEXT = 'Namaste ji 🙏\nVAJRA PP shuttering sheet: ₹3,500 + GST (8x4 ft, 12 mm).\n\nSample (1x1 ft) bhi milta hai, 199/-\n\nSample ya rate ke liye apna naam aur shehar bheje - call/WhatsApp karein: 83050 70160\n\n👉 https://vajraformwork.vercel.app/try'
-BATCH = 20
+BATCH = 60  # 1 Nov: 800+ comments on top FB reels; 60 per 15-min run, small gap to avoid Meta spam limits
 
 
 def get(path, **p):
@@ -38,12 +38,12 @@ def main():
             if any(r.get("from", {}).get("id") == PAGE for r in c.get("comments", {}).get("data", [])):
                 done.add(c["id"]); continue   # already answered publicly
             todo.append(c)
-    todo.sort(key=lambda c: c["created_time"]); sent = 0
+    todo.sort(key=lambda c: c["created_time"], reverse=True); sent = 0   # newest first: fresh commenters are hottest leads
     for c in todo[:BATCH]:
         if not dry:
             try:
                 d = urllib.parse.urlencode({"message": TEXT, "access_token": pt, **({"attachment_url": PHOTO} if PHOTO else {})}).encode()
-                urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/comments", data=d), timeout=60); sent += 1
+                urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/comments", data=d), timeout=60); sent += 1; time.sleep(1)
             except urllib.error.HTTPError as e:
                 print("fail", c["id"], e.read().decode()[:150])
         done.add(c["id"])
