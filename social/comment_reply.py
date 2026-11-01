@@ -62,6 +62,7 @@ def main():
     import datetime
     now = datetime.datetime.now(datetime.timezone.utc)
     dmtodo = [c for c in dmtodo if (now - datetime.datetime.strptime(c["created_time"], "%Y-%m-%dT%H:%M:%S%z")).days < 7]
+    dmtodo = list({c["id"]: c for c in dmtodo}.values())   # posts + videos lists overlap
     dmtodo.sort(key=lambda c: c["created_time"], reverse=True)
     for c in dmtodo[:DMBATCH]:
         who = c.get("from", {}).get("name", c["id"])
