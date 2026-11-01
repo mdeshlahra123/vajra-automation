@@ -25,7 +25,7 @@ def main():
     done = set(st["done"]); todo = []
     for p in get(f"{PAGE}/posts", fields="id", limit=50, access_token=pt).get("data", []):
         try:
-            cs, r = [], get(f"{p['id']}/comments", fields="id,created_time,from{id},comments.limit(25){from{id},message}", filter="toplevel", limit=100, access_token=pt)
+            cs, r = [], get(f"{p['id']}/comments", fields="id,created_time,from{id,name},comments.limit(25){from{id},message}", filter="toplevel", limit=100, access_token=pt)
             while True:
                 cs += r.get("data", []); nxt = r.get("paging", {}).get("next")
                 if not nxt: break
@@ -49,6 +49,14 @@ def main():
                     urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/private_replies", data=pd), timeout=60); dm += 1
                 except urllib.error.HTTPError as e:
                     print("dm skip", c["id"], e.read().decode()[:120])
+                # 1 Nov: Meta's automation opens an empty chat ("You are responding to a user comment...") but sends
+                # nothing. Use the comment's one private reply ourselves: the offer lands in the person's Messenger.
+                try:
+                    pd = urllib.parse.urlencode({"message": TEXT, "access_token": pt}).encode()
+                    urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/private_replies", data=pd), timeout=60); dm += 1
+                    print("dm ok", c.get("from", {}).get("name", c["id"]))
+                except urllib.error.HTTPError as e:
+                    print("dm skip", c.get("from", {}).get("name", c["id"]), e.read().decode()[:120])
                 d = urllib.parse.urlencode({"message": TEXT, "access_token": pt, **({"attachment_url": PHOTO} if PHOTO else {})}).encode()
                 urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/comments", data=d), timeout=60); sent += 1; time.sleep(1)
             except urllib.error.HTTPError as e:
