@@ -1,0 +1,33 @@
+{
+  "hook": "Har kuch slab pe naya ply?",
+  "title": "Ply Problem vs VAJRA Reveal",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Vertical smartphone video on an Indian RCC slab construction site, handheld camera, natural sunlight. An Indian construction worker pries down a swollen, water-damaged brown wooden plywood shuttering sheet from the ceiling during de-shuttering. The brown wooden ply cracks and splinters in half, revealing frayed damp wood layers. No text, no logos, authentic construction site background.",
+      "shows_vajra": false,
+      "vo": "Har kuch slab pe naya ply khareed ke thak gaye?",
+      "text1": "Har slab pe",
+      "text2": "Naya ply?"
+    },
+    {
+      "type": "photo",
+      "photo": "in-20261030-200852",
+      "shows_vajra": true,
+      "vo": "VAJRA sheet ply se do-teen guna zyada chalti hai sahi handling ke saath.",
+      "text1": "VAJRA PP sheet",
+      "text2": "Lambi life"
+    },
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": true,
+      "vo": "Smooth finish pao, apne thekedar ko bhejo aur chhoote ply.",
+      "text1": "Smooth finish",
+      "text2": "Mistri ko bhejo"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har dhalai pe naya ply khareedna band kijiye! Switch to VAJRA PP shuttering sheet jo 100% waterproof hai.\n\nSahi handling ke saath ply se do-teen guna zyada chalti hai aur har dhalai ka kharcha ply se kam padta hai.\n\nRaipur, Durg, Bhilai aur pan-India dispatch available hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\n83050 70160 (Call / WhatsApp)\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Ply problem hook (winning FB angle): open on brown plywood breaking/peeling at de-shuttering on a real site, labour throwing away bekaar ply, 'har slab pe naya ply?'. Then reveal VAJRA with REAL photos (slab underside, smooth column). 20-28 s. Hinglish."
+}
