@@ -119,3 +119,7 @@
 - App Review: whatsapp_business_messaging + public_profile done. whatsapp_business_management waiting on "1 of 1 API test call" (Meta slow to count it); Submit blocked on this only. Videos in laptop Videos\Captures. Privacy section 5 + /connect live on planstalk.com.
 - NEXT when green: submit review; on approval, Embedded Signup connects 83050 70160 (coexistence), then wire wa_bot.py to the real number.
 - Bot built ahead: social/wa_bot.py (test-number / dry only until approval). Reuses offer text, claim rules, Telegram alert, call list.
+
+- 1 Nov (evening review):
+  - Tagged `reel-qa-rate-v` (ply problem hook) to evening slot to maintain 4 pending evening reels per autonomy rules.
+  - Active ads running well; no ad exceeds ₹150 spend yet. Sent evening Telegram update.

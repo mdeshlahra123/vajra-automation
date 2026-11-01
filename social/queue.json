@@ -262,7 +262,8 @@
       "video": "https://vajraformwork.vercel.app/social/qa-rate-v.mp4",
       "caption": "captions/qa-rate.txt",
       "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/qa-rate-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/qa-rate-cover.jpg",
+      "evening": true
     },
     {
       "id": "reel-qa-toot-v",
