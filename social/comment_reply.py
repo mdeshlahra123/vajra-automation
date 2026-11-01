@@ -11,6 +11,7 @@ BASE = os.path.dirname(os.path.abspath(__file__)); STATE = os.path.join(BASE, "c
 PAGE, V = "1296793536861294", "https://graph.facebook.com/v24.0"
 PHOTO = "https://vajraformwork.vercel.app/social/msg-offer.jpg"  # offer card design 1: sample 199/-, sheet 3,400+GST trial (owner 1 Nov)
 TEXT = 'Namaste ji 🙏\nVAJRA PP shuttering sheet: ₹3,500 + GST (8x4 ft, 12 mm).\n\nSample (1x1 ft) bhi milta hai, 199/-\n\nSample ya rate ke liye apna naam aur shehar bheje - call/WhatsApp karein: 83050 70160\n\n👉 https://vajraformwork.vercel.app/try'
+DMBATCH = 60
 BATCH = 60  # 1 Nov: 800+ comments on top FB reels; 60 per 15-min run, small gap to avoid Meta spam limits
 
 
@@ -22,7 +23,7 @@ def main():
     dry = "--dry" in sys.argv
     pt = get(PAGE, fields="access_token", access_token=os.environ["META_TOKEN"])["access_token"]
     st = json.load(open(STATE, encoding="utf-8")) if os.path.exists(STATE) else {"done": []}
-    done = set(st["done"]); todo = []
+    done = set(st["done"]); todo = []; dmdone = set(st.get("dm", [])); dmtodo = []
     for p in get(f"{PAGE}/posts", fields="id", limit=50, access_token=pt).get("data", []):
         try:
             cs, r = [], get(f"{p['id']}/comments", fields="id,created_time,from{id,name},comments.limit(25){from{id},message}", filter="toplevel", limit=100, access_token=pt)
@@ -33,6 +34,8 @@ def main():
         except Exception:
             continue
         for c in cs:
+            if c.get("from", {}).get("id") != PAGE and c["id"] not in dmdone:
+                dmtodo.append(c)
             if c["id"] in done or c.get("from", {}).get("id") == PAGE:
                 continue
             if any(r.get("from", {}).get("id") == PAGE for r in c.get("comments", {}).get("data", [])):
@@ -42,26 +45,30 @@ def main():
     for c in todo[:BATCH]:
         if not dry:
             try:
-                # 1 Nov: Meta's automation opens an empty chat ("You are responding to a user comment...") but sends
-                # nothing. Use the comment's one private reply ourselves: the offer lands in the person's Messenger.
-                try:
-                    pd = urllib.parse.urlencode({"message": TEXT, "access_token": pt}).encode()
-                    urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/private_replies", data=pd), timeout=60); dm += 1
-                except urllib.error.HTTPError as e:
-                    print("dm skip", c["id"], e.read().decode()[:120])
-                # 1 Nov: Meta's automation opens an empty chat ("You are responding to a user comment...") but sends
-                # nothing. Use the comment's one private reply ourselves: the offer lands in the person's Messenger.
-                try:
-                    pd = urllib.parse.urlencode({"message": TEXT, "access_token": pt}).encode()
-                    urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/private_replies", data=pd), timeout=60); dm += 1
-                    print("dm ok", c.get("from", {}).get("name", c["id"]))
-                except urllib.error.HTTPError as e:
-                    print("dm skip", c.get("from", {}).get("name", c["id"]), e.read().decode()[:120])
                 d = urllib.parse.urlencode({"message": TEXT, "access_token": pt, **({"attachment_url": PHOTO} if PHOTO else {})}).encode()
                 urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/comments", data=d), timeout=60); sent += 1; time.sleep(1)
             except urllib.error.HTTPError as e:
                 print("fail", c["id"], e.read().decode()[:150])
         done.add(c["id"])
+    # 1 Nov: Meta's comment automation opens an empty chat but its private message stopped arriving.
+    # Send the comment's one private reply ourselves (comments < 7 days, newest first). If Meta already used it,
+    # Facebook refuses (#10900) and we skip, so nobody gets two.
+    import datetime
+    now = datetime.datetime.now(datetime.timezone.utc)
+    dmtodo = [c for c in dmtodo if (now - datetime.datetime.strptime(c["created_time"], "%Y-%m-%dT%H:%M:%S%z")).days < 7]
+    dmtodo.sort(key=lambda c: c["created_time"], reverse=True)
+    for c in dmtodo[:DMBATCH]:
+        who = c.get("from", {}).get("name", c["id"])
+        if not dry:
+            try:
+                pd = urllib.parse.urlencode({"message": TEXT, "access_token": pt}).encode()
+                urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/private_replies", data=pd), timeout=60); dm += 1
+                print("dm ok", who); time.sleep(1)
+            except urllib.error.HTTPError as e:
+                print("dm skip", who, e.read().decode()[:110])
+        dmdone.add(c["id"])
+    st["dm"] = list(dmdone)[-5000:]
+    print(f"DM pass: {dm} sent, {max(0, len(dmtodo) - DMBATCH)} left")
     st["done"] = list(done)[-5000:]
     if not dry:
         json.dump(st, open(STATE, "w", encoding="utf-8"))
