@@ -231,9 +231,11 @@
       "id": "reel-a3-mistri",
       "video": "https://vajraformwork.vercel.app/social/a3-mistri-cta.mp4",
       "caption": "captions/a3-mistri.txt",
-      "posted": "",
+      "posted": "2026-11-01",
       "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg",
-      "evening": true
+      "evening": true,
+      "slot": "evening",
+      "yt": "0HvAdL8d0zM"
     },
     {
       "id": "reel-a2-dekhlo",
