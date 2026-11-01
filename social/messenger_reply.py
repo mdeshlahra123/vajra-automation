@@ -29,26 +29,24 @@ def main():
     pt = get(PAGE, fields="access_token", access_token=os.environ["META_TOKEN"])["access_token"]
     st = json.load(open(STATE, encoding="utf-8")) if os.path.exists(STATE) else {"done": []}
     done = set(st["done"])
-    convs = get(f"{PAGE}/conversations", platform="messenger", fields="updated_time,participants,messages.limit(1){id,message,from,created_time}",
+    # 1 Nov fix: Meta's own automation (Business Suite) now answers first, so the LAST message is usually from the
+    # page and the old rule ("reply only if the last message is the customer's") sent nothing. New rule: reply to every
+    # customer whose latest own message is <23 h old and new to us, unless our offer text already came after it.
+    convs = get(f"{PAGE}/conversations", platform="messenger", fields="updated_time,participants,messages.limit(15){id,message,from,created_time}",
                 limit=100, access_token=pt).get("data", [])
     now = datetime.datetime.now(datetime.timezone.utc); sent = 0
+    ts = lambda m: datetime.datetime.strptime(m["created_time"], "%Y-%m-%dT%H:%M:%S%z")
     for c in convs:
-        m = (c.get("messages", {}).get("data") or [None])[0]
-        if m and (now - datetime.datetime.strptime(m["created_time"], "%Y-%m-%dT%H:%M:%S%z")).total_seconds() < 6 * 3600:
-            print("recent:", m["created_time"], "from_page" if m["from"]["id"] == PAGE else "from_customer", "done" if m["id"] in done else "new", "|", (m.get("message") or "")[:50].replace("\n", " "))
-        if not m or m["id"] in done or (m["from"]["id"] == PAGE and "--all" not in sys.argv):
+        msgs = c.get("messages", {}).get("data") or []   # newest first
+        cust = next((m for m in msgs if m["from"]["id"] != PAGE), None)
+        if not cust or cust["id"] in done:
             continue
-        t = datetime.datetime.strptime(m["created_time"], "%Y-%m-%dT%H:%M:%S%z")
-        if (now - t).total_seconds() > 23 * 3600:   # outside Meta's 24 h window: can't message
-            done.add(m["id"]); continue
-        if m["from"]["id"] == PAGE:   # --all: find the customer in the participants
-            psid = next((p["id"] for p in c.get("participants", {}).get("data", []) if p["id"] != PAGE), None)
-            if not psid or psid in st.setdefault("offer", []):
-                continue
-            st["offer"].append(psid)
-        else:
-            psid = m["from"]["id"]
-        print("reply to", m["from"].get("name"), "|", (m.get("message") or "")[:60])
+        if (now - ts(cust)).total_seconds() > 23 * 3600:   # outside Meta's 24 h window: can't message
+            done.add(cust["id"]); continue
+        if any(m["from"]["id"] == PAGE and "VAJRA PP shuttering sheet" in (m.get("message") or "") and ts(m) >= ts(cust) for m in msgs):
+            done.add(cust["id"]); continue   # our offer already sent after this message
+        psid = cust["from"]["id"]
+        print("reply to", cust["from"].get("name"), "|", (cust.get("message") or "")[:60].replace("\n", " "))
         if not dry:
             try:
                 if PHOTO: post(f"{PAGE}/messages", pt, {"recipient": {"id": psid}, "messaging_type": "RESPONSE",
@@ -57,7 +55,7 @@ def main():
                 sent += 1
             except urllib.error.HTTPError as e:
                 print("  failed:", e.read().decode()[:200])
-        done.add(m["id"])
+        done.add(cust["id"])
     st["done"] = list(done)[-2000:]
     if not dry:
         json.dump(st, open(STATE, "w", encoding="utf-8"))
