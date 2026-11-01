@@ -31,11 +31,6 @@ jobs:
           $type = '${{ github.event.inputs.type }}'
           if (-not $type) { $type = if ('${{ github.event.schedule }}' -eq '23 4 * * *') { 'reel' } else { 'image' } }
           if ('${{ github.event.inputs.dryrun }}' -eq 'true') { ./social/daily-post.ps1 -Type $type -DryRun } else { ./social/daily-post.ps1 -Type $type }
-      - name: Extra Trial Reel (evening run; non-followers first)
-        if: github.event.inputs.type == 'image' && github.event.inputs.dryrun != 'true'
-        continue-on-error: true
-        shell: pwsh
-        run: ./social/daily-post.ps1 -Type trial
       - name: Tell the group if nothing was posted
         if: github.event.inputs.dryrun != 'true'
         env:

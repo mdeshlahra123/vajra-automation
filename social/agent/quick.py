@@ -22,7 +22,7 @@ Memory (latest):
 Live data right now (JSON):
 {status[:14000]}
 
-Posting slots: 09:30 IST = next "morning" reel. 19:30 IST = next "evening" reel on Tue/Thu/Sat/Sun, otherwise next photo.
+Posting slots: 09:30 IST = Trial Reel (non-followers first). 19:30 IST = the one main reel of the day (next "evening" reel), every day.
 What REALLY posts next (computed exactly like the poster): {json.dumps({k: (v.get('id') + (' | ' + v.get('video', v.get('image', ''))) if isinstance(v, dict) else v) for k, v in tools.upcoming().items()}, ensure_ascii=False)}
 IST now: {time.strftime('%Y-%m-%d %H:%M %A', time.gmtime(time.time() + 19800))}.
 

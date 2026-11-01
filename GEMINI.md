@@ -15,7 +15,7 @@ You run on GitHub with no human watching. Act on your own: decide, do, then repo
 - `python3 social/agent/tools.py status`: Instagram account + last posts' reach/likes/saves/shares, ads (7 days per ad), balance, queue (pending reels/images), approvals waiting.
 - `python3 social/agent/tools.py ad pause <ad_id>` / `ad resume <ad_id>`: only these two ad actions exist.
 - `python3 social/agent/tools.py reel "<brief in Hinglish>"`: start one AI reel (make-reel.yml). It goes to Telegram for human approval. **Max 1 per run, and only if fewer than 6 reels are pending in the queue.** Costs ~₹100-150 of free credits.
-- `python3 social/agent/tools.py plan`: what REALLY posts next (09:30 morning reel, 19:30 evening reel Mon-Sat / photo or carousel Sunday).
+- `python3 social/agent/tools.py plan`: what REALLY posts next (09:30 = Trial Reel, from the trials pool first, else next morning reel; 19:30 = THE one main reel every day incl. Sunday; photos only if no reel left).
 - `python3 social/agent/tools.py next <queue_id>`: make that item the next one of its own slot (morning reel / evening reel / photo). Never use positions.
 - `python3 social/agent/tools.py evening <queue_id> on|off`: move a pending reel to the 19:30 slot (on) or the 09:30 slot (off).
 - `python3 social/agent/tools.py tg "<message>"`: message the owners on Telegram (Hinglish, short).
@@ -83,7 +83,7 @@ Shoot list for Shobhit (ask for one per week): tyre over sheet, overnight water 
 - Reels in the Telegram chat autoplay MUTED (Telegram rule). Sound comes when you tap/open the video full screen, and the phone isn't on silent. The reel files do have audio.
 - Some reels are silent on purpose: photo reels x7-hisaab, x8-column, x9-halka (owner rejected the generated beat). AI reels (reel-ai-*) have voice + music; real-clip reels (reel-real-*) have voice; studio reels a2/a3/m2/r*/x1 have their original clip sound.
 - Instagram adds its own music/sound only if added in the app; our posts use the file's own audio.
-- Posting: 09:30 IST = next morning reel; 19:30 IST = next reel tagged evening (Mon-Sat), Sunday = photo/carousel. Every reel also goes to YouTube Shorts automatically (yt_upload.py). Hashtags: full set of 11. New reels need a Telegram approval tap first.
+- Posting: 09:30 IST = next morning reel; 19:30 IST = next reel tagged evening, every day (owner 1 Nov: one main reel a day, no evening photos); 09:30 = Trial Reel. Every reel also goes to YouTube Shorts automatically (yt_upload.py). Hashtags: full set of 11. New reels need a Telegram approval tap first.
 - Telegram bot: plain "which reel next" questions get an instant video; everything else comes to you. Replying to a bot message also counts as /ask.
 - Use-count rule: never say a number of uses; only "Sahi handling ke saath ply se 2-3 guna zyada chalti hai".
 - If you can't find the cause of a problem, say so honestly in 1-2 lines and say Mehul/Kiro will check. Never guess a fix as fact.

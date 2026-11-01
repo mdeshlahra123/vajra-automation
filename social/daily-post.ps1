@@ -1,4 +1,4 @@
-param([ValidateSet("any","reel","image","trial")][string]$Type = "any", [switch]$DryRun)
+﻿param([ValidateSet("any","reel","image","trial")][string]$Type = "any", [switch]$DryRun)
 # VAJRA daily poster: Instagram + Facebook together, from social\queue.json.
 # -Type reel  = next unposted reel (morning task), -Type image = next unposted post (night task).
 # Picks the first post with empty "posted", publishes to both, verifies IG caption,
@@ -24,7 +24,9 @@ $pending = $q.posts | Where-Object { -not $_.posted }
 # Evening slot (owner, 30 Oct): Mon-Sat IST the 19:30 run posts the next reel tagged "evening": true; Sunday a photo/carousel.
 # Morning never takes evening-tagged reels. If no evening reel is left, the evening run falls back to a photo.
 $istDay = [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek
-$evDay = ($Type -eq "image") -and (@("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday") -contains $istDay)
+# 1 Nov (owner): ONE main reel a day at 19:30, every day incl. Sunday; evening photo only if no reel at all. Morning = Trial Reel (non-followers first).
+$evDay = ($Type -eq "image")
+if ($Type -eq "reel" -and @($q.trials | Where-Object { -not $_.posted -and $_.video }).Count) { $morning = $true; $Type = "trial" }   # morning: trial pool first, else a queue reel posted as trial
 if ($Type -eq "trial") { $pending = @($q.trials | Where-Object { -not $_.posted -and $_.video }) }   # extra daily Trial Reel from the trial pool (owner 31 Oct)
 $all = $pending
 if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video -and -not $_.evening } }
@@ -37,9 +39,9 @@ function Live($x) {   # waits up to ~4 min: the website (Vercel) may still be de
   Log "  SKIP (file not live after 4 min): $($x.id)"; $false }
 $item = $pending | Where-Object { Live $_ } | Select-Object -First 1
 if (-not $item -and $Type -eq "reel") { $item = $all | Where-Object { $_.video } | Where-Object { Live $_ } | Select-Object -First 1 }  # never skip a morning: use an evening-tagged reel if needed
-if ($evDay) { $ev = $all | Where-Object { $_.video -and $_.evening } | Where-Object { Live $_ } | Select-Object -First 1; if ($ev) { $item = $ev } }
+if ($evDay) { $ev = $all | Where-Object { $_.video -and $_.evening } | Where-Object { Live $_ } | Select-Object -First 1; if ($ev) { $item = $ev } elseif (-not ($item -and $item.video)) { $any = $all | Where-Object { $_.video } | Where-Object { Live $_ } | Select-Object -First 1; if ($any) { $item = $any } } }
 # Scheduled stand-alone Stories (queue.json "stories": [{id, image|video, date, posted}]) go out with the morning run
-if ($Type -eq "reel" -and -not $DryRun -and $q.stories) {
+if (($Type -eq "reel" -or $morning) -and -not $DryRun -and $q.stories) {
   $todayS = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
   foreach ($s in @($q.stories | Where-Object { -not $_.posted -and $_.date -le $todayS })) {
     try {
@@ -75,7 +77,7 @@ try {
     $prm.audio_name = "VAJRA PP Shuttering"            # name our original audio (shows on the reel's audio page)
     # Trial Reel (shown to non-followers first; Instagram shares it to followers itself if it performs).
     # Morning reels on Tue/Thu/Sat, or any item with "trial": true. "trial": false forces a normal reel.
-    $trialDay = ($Type -eq "reel") -and (@("Tuesday","Thursday","Saturday") -contains [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek)
+    $trialDay = ($Type -eq "reel")   # 1 Nov: every morning reel is a Trial Reel
     if (($Type -eq "trial") -or ($item.trial -eq $true) -or ($trialDay -and $item.trial -ne $false)) { $prm.trial_params = '{"graduation_strategy":"SS_PERFORMANCE"}' }
     try { $c = PostUtf8 "$v/$ig/media" $prm }
     catch {   # if Instagram refuses trial/audio name, post as a normal reel instead of missing the day

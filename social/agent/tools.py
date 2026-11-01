@@ -109,7 +109,7 @@ def reel(brief):
     dispatch("make-reel.yml", {"brief": brief[:400], "res": "720p"})
 
 
-EVENING_REEL_DAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+EVENING_REEL_DAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")  # 1 Nov: one main reel at 19:30 every day; 09:30 = Trial Reel
 
 
 def upcoming(q=None):
@@ -118,9 +118,10 @@ def upcoming(q=None):
     if q is None:
         q = json.load(open(os.path.join(ROOT, "social", "queue.json"), encoding="utf-8"))
     pend = [p for p in q["posts"] if not p.get("posted")]
-    morning = next((p for p in pend if p.get("video") and not p.get("evening")), None)
+    trial = next((p for p in q.get("trials", []) if not p.get("posted") and p.get("video")), None)
+    morning = trial or next((p for p in pend if p.get("video") and not p.get("evening")), None) or next((p for p in pend if p.get("video")), None)
     photo = next((p for p in pend if not p.get("video")), None)
-    ev = next((p for p in pend if p.get("video") and p.get("evening")), None)
+    ev = next((p for p in pend if p.get("video") and p.get("evening")), None) or next((p for p in pend if p.get("video") and p is not morning), None)
     now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)
     def evening_for(day):
         return ev if (day.strftime("%A") in EVENING_REEL_DAYS and ev) else photo
