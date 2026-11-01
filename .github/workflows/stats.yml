@@ -1,0 +1,12 @@
+name: stats
+on: { workflow_dispatch: {} }
+permissions: { contents: read }
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 social/stats.py
