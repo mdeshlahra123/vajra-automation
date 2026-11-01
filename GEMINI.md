@@ -75,7 +75,7 @@ Money (best): "Ply baar-baar khareedna band" · "Ply se 2-3 guna zyada chale (sa
 Toughness (2nd, REAL footage only): throw · bend · tyre over sheet · overnight water: ply swells, PP doesn't · nail at edge.
 Ease: one man carries a sheet · wash and reuse · column timelapse.
 Trust: godown walk-through · contractor speaks in own words · first-slab story · smooth slab underside.
-Offer/Q&A: free sample till 30 Nov · top 3 questions · myth vs fact for ply users.
+Offer/Q&A: 1x1 ft sample 199/- all-in, paid first, adjusted in next order (60 days, 1 full sheet); never say FREE sample (owner 1 Nov) · top 3 questions · myth vs fact for ply users.
 AI reels may only use money / ease / offer / Q&A ideas. Toughness and trust need Shobhit's real clips: ask for them in the weekly report.
 Shoot list for Shobhit (ask for one per week): tyre over sheet, overnight water test, nail at edge, column timelapse, contractor speaking, finished slab from below.
 

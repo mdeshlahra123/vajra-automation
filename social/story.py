@@ -27,7 +27,7 @@ TYPES = {
     "tip": "one practical site tip about shuttering/dhalai/handling that helps a contractor today",
     "site": "a short 'aaj site pe' style line describing the real photo shown (column/slab/beam/godown/stock)",
     "ya": "a this-or-that question: 'Ply ya PP? Reply karo' style, playful",
-    "offer": "the free sample offer: 1x1 ft sample piece, sirf delivery charge, reply karo SAMPLE",
+    "offer": "the sample offer: 1x1 ft sample piece for 199/- (GST + courier included, adjusted in next order), reply karo SAMPLE",
 }
 BANK = {
     "sawal": ["Aapki site pe har mahine kitni ply kharab hoti hai?", "Shuttering mein sabse bada sar-dard kya hai?", "Aap abhi ply use karte ho ya PP?"],
@@ -36,7 +36,7 @@ BANK = {
     "tip": ["Dhalai ke turant baad sheet paani se dho lo, agli baar finish aur saaf aayegi.", "Sheet ko seedha zameen pe na ghaseeto, utha ke rakho: zyada chalegi."],
     "site": ["Aaj site pe: column VAJRA sheet se, finish ekdum smooth.", "Ready stock, aaj hi dispatch."],
     "ya": ["Ply ya PP? Reply karo.", "Bhaari ply ya halki PP sheet? Aap batao."],
-    "offer": ["Free sample chahiye? 1x1 ft piece, sirf delivery charge. Reply karo SAMPLE."],
+    "offer": ["Sample chahiye? 1x1 ft piece sirf 199/-. Reply karo SAMPLE."],
 }
 ASK = {"sawal": "Reply karke batao", "myth": "Rate chahiye? Reply karo PP", "tip": "Aisi tips ke liye follow karo",
        "site": "Rate ke liye reply karo PP", "ya": "Reply karo: PLY ya PP", "offer": "Reply karo SAMPLE"}

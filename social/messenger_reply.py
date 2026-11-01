@@ -11,10 +11,8 @@ import datetime, json, os, sys, urllib.parse, urllib.request
 BASE = os.path.dirname(os.path.abspath(__file__))
 STATE = os.path.join(BASE, "messenger-state.json")
 PAGE, V = "1296793536861294", "https://graph.facebook.com/v24.0"
-PHOTO = "https://vajraformwork.vercel.app/social/msg-offer.jpg"  # owner offer card (A free sample / B full sheet), 31 Oct
-TEXT = ("Namaste 🙏 VAJRA Formwork se.\n"
-        "Pehle try karo: \"A\" likho = 1x1 ft FREE sample (sirf delivery charge), \"B\" likho = poori sheet 8x4 ft.\n"
-        "Saath mein naam, address aur pincode bhejiye.\n\n📞 Call / WhatsApp: 83050 70160")
+PHOTO = ""  # 1 Nov: old card said FREE sample; text only until the new 199/- card is chosen. Was  # owner offer card (A free sample / B full sheet), 31 Oct
+TEXT = 'Namaste ji 🙏\nVAJRA PP shuttering sheet: ₹3,500 + GST (8x4 ft, 12 mm).\n\nSample (1x1 ft) bhi milta hai, 199/-\n\nSample ya rate ke liye apna naam aur shehar bheje - call/WhatsApp karein: 83050 70160\n\n👉 https://vajraformwork.vercel.app/try'
 
 
 def get(path, **p):
@@ -51,7 +49,7 @@ def main():
         print("reply to", m["from"].get("name"), "|", (m.get("message") or "")[:60])
         if not dry:
             try:
-                post(f"{PAGE}/messages", pt, {"recipient": {"id": psid}, "messaging_type": "RESPONSE",
+                if PHOTO: post(f"{PAGE}/messages", pt, {"recipient": {"id": psid}, "messaging_type": "RESPONSE",
                                               "message": {"attachment": {"type": "image", "payload": {"url": PHOTO, "is_reusable": True}}}})
                 post(f"{PAGE}/messages", pt, {"recipient": {"id": psid}, "messaging_type": "RESPONSE", "message": {"text": TEXT}})
                 sent += 1

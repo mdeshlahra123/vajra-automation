@@ -9,8 +9,8 @@ import json, os, sys, urllib.parse, urllib.request
 
 BASE = os.path.dirname(os.path.abspath(__file__)); STATE = os.path.join(BASE, "comment-state.json")
 PAGE, V = "1296793536861294", "https://graph.facebook.com/v24.0"
-PHOTO = "https://vajraformwork.vercel.app/social/msg-offer.jpg"
-TEXT = "Namaste 🙏 Pehle try karo: inbox mein \"A\" likho = FREE sample, \"B\" = poori sheet. Naam, address, pincode bhejiye. 📞 Call/WhatsApp: 83050 70160"
+PHOTO = ""  # 1 Nov: old card said FREE sample; text only until the new 199/- card is chosen
+TEXT = 'Namaste ji 🙏\nVAJRA PP shuttering sheet: ₹3,500 + GST (8x4 ft, 12 mm).\n\nSample (1x1 ft) bhi milta hai, 199/-\n\nSample ya rate ke liye apna naam aur shehar bheje - call/WhatsApp karein: 83050 70160\n\n👉 https://vajraformwork.vercel.app/try'
 BATCH = 20
 
 
@@ -42,7 +42,7 @@ def main():
     for c in todo[:BATCH]:
         if not dry:
             try:
-                d = urllib.parse.urlencode({"message": TEXT, "attachment_url": PHOTO, "access_token": pt}).encode()
+                d = urllib.parse.urlencode({"message": TEXT, "access_token": pt, **({"attachment_url": PHOTO} if PHOTO else {})}).encode()
                 urllib.request.urlopen(urllib.request.Request(f"{V}/{c['id']}/comments", data=d), timeout=60); sent += 1
             except urllib.error.HTTPError as e:
                 print("fail", c["id"], e.read().decode()[:150])
