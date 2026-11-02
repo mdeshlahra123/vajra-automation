@@ -426,9 +426,10 @@
       "caption": "captions/reel-real-1102-1655.txt",
       "position": "alternate",
       "ai": true,
-      "status": "sent",
+      "status": "approved",
       "msg_id": 538,
-      "sent_at": "2026-11-02 16:58"
+      "sent_at": "2026-11-02 16:58",
+      "by": "owner (chat)"
     }
   ]
 }
