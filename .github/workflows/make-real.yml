@@ -34,3 +34,8 @@ jobs:
           git add assets/clips; git diff --cached --quiet && exit 0
           git commit -qm "library: clips from $WHO"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
+      - name: Rebuild media library gallery
+        if: always()
+        continue-on-error: true
+        env: { WEBSITE_TOKEN: "${{ secrets.WEBSITE_TOKEN }}" }
+        run: python3 social/build_library.py
