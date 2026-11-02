@@ -1,0 +1,42 @@
+name: approve-now
+# One-off: mark a pending reel approved -> add to queue, publish its file+cover to the website.
+on:
+  workflow_dispatch:
+    inputs:
+      id: { description: "pending item id", required: true }
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions: { contents: write }
+    concurrency: { group: state }
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      WEBSITE_TOKEN: ${{ secrets.WEBSITE_TOKEN }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+      ID: ${{ github.event.inputs.id }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: (sudo apt-get install -y -qq ffmpeg >/dev/null || true)
+      - name: Approve into queue
+        run: |
+          python3 - <<'PY'
+          import json, os
+          p=json.load(open('social/pending.json',encoding='utf-8'))
+          it=next(i for i in p['items'] if i['id']==os.environ['ID'])
+          it['status']='approved'; it['by']='owner (chat)'
+          json.dump(p,open('social/pending.json','w',encoding='utf-8'),ensure_ascii=False,indent=2)
+          import sys; sys.path.insert(0,'social'); import tg
+          tg.add_to_queue(it); print('queued', it['id'])
+          PY
+      - name: Publish file + cover
+        run: python3 social/publish_site.py
+      - name: Save
+        if: always()
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social; git diff --cached --quiet && exit 0
+          git commit -qm "approve+publish $ID"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
