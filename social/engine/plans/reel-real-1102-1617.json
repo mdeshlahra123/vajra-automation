@@ -1,0 +1,72 @@
+{
+  "ok": false,
+  "issues": [
+    "Clip 0 is very low resolution and contains a third-party watermark in the bottom-right corner.",
+    "Clip 1 shows unsafe site practices without PPE (worker wearing shorts, backwards cap, and no helmet while standing under falling formwork).",
+    "Footage appears to be downloaded internet video rather than genuine site footage shot by Shobhit (foreign language audible in clip 1)."
+  ],
+  "title": "Smooth Slab De-Shuttering Finish",
+  "segments": [
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 5.0,
+      "vo": "Slab shuttering nikalna dekhiye kitna aasan hai yahan.",
+      "text1": "Easy de-shuttering",
+      "text2": "Fast slab work",
+      "_len": 5.0
+    },
+    {
+      "clip": 1,
+      "start": 5.0,
+      "end": 9.0,
+      "vo": "Sheet concrete se bina chipke aasaani se nikal aati hai.",
+      "text1": "No concrete stick",
+      "text2": "Clean release",
+      "_len": 4.0
+    },
+    {
+      "clip": 1,
+      "start": 9.0,
+      "end": 14.0,
+      "vo": "Neeche slab ka smooth finish dekhiye, thekedar ko bhejiye.",
+      "text1": "Smooth slab finish",
+      "text2": "Apne mistri ko bhejo",
+      "_len": 5.0
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "VAJRA PP shuttering sheet se de-shuttering aasan aur slab ka finish ekdum smooth milta hai.\n\nWaterproof sheet hai, concrete bilkul nahi chipakti aur handling aasan rehti hai.\n\nApne thekedar / mistri ko bhejo.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\n\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Real construction site footage showing slab formwork de-shuttering with an orange pole; on-screen text reads 'Easy de-shuttering / Fast slab work'.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Continuation of the real site clip showing the grey sheet releasing cleanly from the concrete ceiling without sticking; on-screen text reads 'No concrete stick / Clean release'.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Worker walking away after sheet drops, showing the exposed smooth concrete slab surface; on-screen text reads 'Smooth slab finish / Apne mistri ko bhejo'.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=False issues=['Clip 0 is very low resolution and contains a third-party watermark in the bottom-right corner.', 'Clip 1 shows unsafe site practices without PPE (worker wearing shorts, backwards cap, and no helmet while standing under falling formwork).', 'Footage appears to be downloaded internet video rather than genuine site footage shot by Shobhit (foreign language audible in clip 1).']",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 18.3,
+  "note": " PROOF/FINISH reel: VAJRA PP shuttering se dhalai ke baad slab ka neeche se finish ekdum smooth aur level. Real site footage. Hinglish, 18-26s.",
+  "who": "Shobhit"
+}

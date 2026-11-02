@@ -1,4 +1,6 @@
 {
+ "ai-ply-broken-wet": "2026-11-02",
+ "ai-worker-worried": "2026-11-02",
  "beam-box": "2026-10-30",
  "column-smooth2": "2026-10-30",
  "finish-column": "2026-10-28",
@@ -20,7 +22,5 @@
  "v5-cage": "2026-10-31",
  "v6-close": "2026-10-31",
  "v6-done": "2026-11-02",
- "warehouse": "2026-10-30",
- "ai-ply-broken-wet": "2026-11-02",
- "ai-worker-worried": "2026-11-02"
+ "warehouse": "2026-10-30"
 }
