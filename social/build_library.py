@@ -69,6 +69,29 @@ def main():
     photos = [i for i in items if i["type"] == "photo"]
     clips = [i for i in items if i["type"] == "clip"]
 
+    # ---- repo-side index: one LIBRARY.md at the repo root listing everything (browse it on GitHub / locally) ----
+    def row(i):
+        where = "assets/clips/" if i["type"] == "clip" else "assets/photos/"
+        status = "✅ usable" if i["ok"] else "🚫 BANNED (not used in posts)"
+        inuse = " · IN USE" if i["name"] in used else ""
+        extra = f"{i['secs']}s " if i.get("secs") else ""
+        tag = "AI/Flow" if i.get("flow") else i["type"]
+        return f"| `{where}{i['name']}` | {tag} | {extra}{status}{inuse} | {i['desc'][:70]} |"
+    md = [f"# VAJRA media library",
+          f"_Auto-updated {datetime.datetime.now(IST).strftime('%d %b %Y %H:%M IST')} by social/build_library.py._",
+          "",
+          "One place that lists every photo and clip in the library. Reels are built from the clips below "
+          "(library_reel.py / make_real.py). Telegram media the owners send is added here automatically "
+          "(save-photo / make-real workflows). Web view: https://vajraformwork.vercel.app/social/library/",
+          "",
+          f"## Clips ({len(clips)})  — reels are made from these",
+          "| File | Type | Status | Note |", "|---|---|---|---|",
+          *[row(i) for i in clips], "",
+          f"## Photos ({len(photos)})",
+          "| File | Type | Status | Note |", "|---|---|---|---|",
+          *[row(i) for i in photos], ""]
+    open(os.path.join(ROOT, "LIBRARY.md"), "w", encoding="utf-8").write("\n".join(md))
+
     def card(i):
         badge = "" if i["ok"] else '<span class="bad">BANNED</span>'
         sub = i["desc"][:90]
@@ -105,9 +128,21 @@ figcaption small{{display:block;color:#cfc6b8;margin-top:3px}}
     if run("git", "-C", "site", "diff", "--cached", "--quiet").returncode != 0:
         g("commit", "-q", "-m", f"library: {len(photos)} photos, {len(clips)} clips")
         g("push", "-q")
-        print("pushed library:", len(photos), "photos,", len(clips), "clips")
+        print("pushed web library:", len(photos), "photos,", len(clips), "clips")
     else:
-        print("library unchanged")
+        print("web library unchanged")
+
+    # commit LIBRARY.md back to this (automation) repo so it's browsable locally / on GitHub
+    a = lambda *x: run("git", "-C", ROOT, *x)
+    a("config", "user.name", "vajra-bot"); a("config", "user.email", "vajra-bot@users.noreply.github.com")
+    a("add", "LIBRARY.md")
+    if run("git", "-C", ROOT, "diff", "--cached", "--quiet").returncode != 0:
+        a("commit", "-q", "-m", "library: update LIBRARY.md index")
+        for _ in range(3):
+            if a("pull", "--rebase", "-q").returncode == 0 and a("push", "-q").returncode == 0:
+                print("pushed LIBRARY.md"); break
+    else:
+        print("LIBRARY.md unchanged")
 
 
 if __name__ == "__main__":
