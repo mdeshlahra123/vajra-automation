@@ -310,14 +310,16 @@
       "caption": "captions/reel-real-1102-1733.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1733.mp4",
-      "real": true
+      "real": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1102-1733-cover.jpg"
     },
     {
       "id": "reel-real-1102-1729",
       "caption": "captions/reel-real-1102-1729.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1729.mp4",
-      "ai": true
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1102-1729-cover.jpg"
     }
   ],
   "hold": [
