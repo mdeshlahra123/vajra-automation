@@ -3,7 +3,7 @@ name: build-reel
 on:
   workflow_dispatch:
     inputs:
-      files: { description: "library clip paths, comma separated (e.g. assets/clips/slab-soffit-point-1.mp4)", required: true }
+      files: { description: "library clips AND/OR photos, comma separated (assets/clips/x.mp4, assets/photos/y.jpg) - any mix, photo-only ok", required: true }
       note:  { description: "angle/note for the planner", required: false, default: "" }
       flow:  { description: "true = AI/Flow reel (adds real VAJRA reveal photos)", required: false, default: "false" }
       who:   { description: "sender", required: false, default: "Shobhit" }

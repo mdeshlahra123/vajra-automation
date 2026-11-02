@@ -51,7 +51,7 @@ def is_flow(note):
 
 def plan(clips, note, who):
     rules = open(A("social", "engine", "brand.md"), encoding="utf-8").read()
-    lens = ", ".join(f"clip {i}: {d:.1f}s" for i, (_, d) in enumerate(clips))
+    lens = ", ".join(f"item {i}: {('photo' if (len(c) > 2 and c[2] == 'photo') else 'video %.1fs' % c[1])}" for i, c in enumerate(clips))
     flow = is_flow(note)
     src = ("AI-generated Google Flow clips (problem / site-mood shots; they show brown plywood problems or a site, NOT a real VAJRA demo). "
            "Use them ONLY for the problem part: open on the pain and end your last segment on the problem or a question (\"iska solution?\"). "
@@ -63,8 +63,8 @@ def plan(clips, note, who):
 {who}'s note about the clips: "{note or 'no note'}"
 Clip lengths: {lens}. The clips are attached in order (clip 0 first).
 
-Watch the clips. Plan a 12-25 second reel from the best parts:
-- 2 to 4 segments, each 2-7 seconds, taken from the clips (start/end in seconds inside that clip). Skip shaky, dark or useless parts.
+The items above are attached in order (item 0 first). Some items may be VIDEO clips and some may be PHOTOS (still images) — the item list says which. Plan a 12-25 second reel from the best parts:
+- 2 to 4 segments, each 2-7 seconds. A segment's "clip" is the item index. For a VIDEO item give start/end seconds inside it; for a PHOTO item use start 0 and end 4 (it becomes a ~4s slow Ken-Burns shot). You may use the same photo once. Skip shaky, dark or useless parts.
 - Segment 1 is the hook: the most striking moment, with a voiceover line that makes a contractor stop scrolling.
 - Each segment: one Hinglish voiceover line (max 12 words) describing what is really shown; on-screen text in 2 short lines
   (each max 20 characters, plain ASCII letters/numbers/basic punctuation, no emoji, no Devanagari).
@@ -79,11 +79,16 @@ Return JSON only:
   "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
   "caption": "Hinglish caption, 3-5 short lines, ends with the comment-PP line, Follow kijiye @vajraformwork, phone, hashtags from the rules"}}"""
     inp = [{"type": "text", "text": prompt}]
-    for path, _ in clips:
-        proxy = path.replace(".mp4", "-proxy.mp4")
-        sh("ffmpeg", "-v", "error", "-y", "-i", path, "-vf", "scale=-2:360,fps=12", "-c:v", "libx264", "-crf", "32", "-preset", "veryfast",
-           "-c:a", "aac", "-b:a", "48k", "-ac", "1", proxy)
-        inp.append({"type": "video", "mime_type": "video/mp4", "data": base64.b64encode(open(proxy, "rb").read()).decode()})
+    for c in clips:
+        path = c[0]; kind = c[2] if len(c) > 2 else "clip"
+        if kind == "photo":   # send the photo as an image; it will be a single static Ken-Burns scene
+            mime = "image/png" if path.lower().endswith(".png") else "image/jpeg"
+            inp.append({"type": "image", "mime_type": mime, "data": base64.b64encode(open(path, "rb").read()).decode()})
+        else:
+            proxy = path.replace(".mp4", "-proxy.mp4")
+            sh("ffmpeg", "-v", "error", "-y", "-i", path, "-vf", "scale=-2:360,fps=12", "-c:v", "libx264", "-crf", "32", "-preset", "veryfast",
+               "-c:a", "aac", "-b:a", "48k", "-ac", "1", proxy)
+            inp.append({"type": "video", "mime_type": "video/mp4", "data": base64.b64encode(open(proxy, "rb").read()).decode()})
     r = gem.interact(TEXT_MODEL, inp, response_format={"type": "text", "mime_type": "application/json"})
     p = json.loads("".join(v for k, _, v in gem.outputs(r) if k == "text"))
     segs = []
@@ -99,7 +104,7 @@ Return JSON only:
             if s[k].isupper(): s[k] = s[k].capitalize()
         s.update(clip=c, start=round(st, 2), end=round(en, 2)); segs.append(s)
     if not segs:
-        segs = [{"clip": i, "start": 0.0, "end": min(5.0, d), "vo": "", "text1": "VAJRA PP", "text2": "Asli site"} for i, (_, d) in enumerate(clips[:3])]
+        segs = [{"clip": i, "start": 0.0, "end": min(5.0, c[1]), "vo": "", "text1": "VAJRA PP", "text2": "Asli site"} for i, c in enumerate(clips[:3])]
     p["segments"] = segs
     import claims  # never promise a use count
     for s in segs:
@@ -143,9 +148,13 @@ def main():
     clips = []
     for i, fid in enumerate(x for x in a.clips.split(",") if x.strip()):
         raw = os.path.join(work, f"raw{i}.mp4"); download(fid.strip(), raw)
-        clips.append((raw, dur(raw)))
-    for f in (x.strip() for x in a.files.split(",") if x.strip()):  # library clips (assets/clips/...)
-        clips.append((f if os.path.isabs(f) else A(*f.split("/")), dur(f if os.path.isabs(f) else A(*f.split("/")))))
+        clips.append((raw, dur(raw), "clip"))
+    for f in (x.strip() for x in a.files.split(",") if x.strip()):  # library items: clips (assets/clips/..) OR photos (assets/photos/..)
+        path = f if os.path.isabs(f) else A(*f.split("/"))
+        if path.lower().endswith((".jpg", ".jpeg", ".png")):
+            clips.append((path, 5.0, "photo"))   # a photo = a ~5s Ken-Burns scene; planner sees it as an image
+        else:
+            clips.append((path, dur(path), "clip"))
     p = plan(clips, a.note, a.who)
     log.append(f"plan ok={p.get('ok')} issues={p.get('issues')}")
     import usage
@@ -160,14 +169,22 @@ def main():
         else:
             sh("ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono", "-t", "0.3", f); vo_lens.append(0.3)
         vo_files.append(f)
+    import make_reel
     parts, starts, t = [], [], 0.0
     for i, s in enumerate(p["segments"]):
-        src = clips[s["clip"]][0]
+        item = clips[s["clip"]]; src = item[0]; kind = item[2] if len(item) > 2 else "clip"
         seconds = max(s["end"] - s["start"], vo_lens[i] + 0.5, 2.0); s["_len"] = seconds
-        out = os.path.join(work, f"s{i}.mp4"); render_segment(src, s, seconds, out, work, i, has_audio(src))
+        out = os.path.join(work, f"s{i}.mp4")
+        if kind == "photo":   # still image -> Ken-Burns photo scene (silent), same renderer as the Flow reveal
+            silent = os.path.join(work, f"s{i}_v.mp4")
+            make_reel.scene_video({"type": "photo", "text1": s["text1"], "text2": s["text2"]}, src, seconds, silent, work, 20 + i)
+            sh("ffmpeg", "-v", "error", "-y", "-i", silent, "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo", "-map", "0:v", "-map", "1:a",
+               "-t", f"{seconds:.2f}", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2", out)
+            s["_promised"] = "REAL VAJRA photo: " + make_reel.PHOTOS.get(os.path.basename(src)[:-4], os.path.basename(src))
+        else:
+            render_segment(src, s, seconds, out, work, i, has_audio(src))
         parts.append(out); starts.append(t); t += seconds
     # Flow reels: show what VAJRA PP sheet really is (real photos), after the AI problem clips
-    import make_reel
     for k, (photo, t1, t2, vo) in enumerate(reveal):
         n = len(p["segments"]); seconds = max(2.6, vo_lens[n] + 0.5)
         silent = os.path.join(work, f"rv{k}_v.mp4"); out = os.path.join(work, f"rv{k}.mp4")
