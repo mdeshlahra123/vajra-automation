@@ -1,0 +1,33 @@
+{
+  "hook": "Bhari plywood uthane mein labour ka waqt barbad hota hai?",
+  "title": "One Man Lift vs Heavy Plywood",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld shot on an Indian RCC construction site. Two male construction workers in dusty clothes are straining and struggling together to lift a heavy, damp, dark brown wooden plywood sheet off the ground. Raw realistic documentary style, natural daylight, no text, no logos.",
+      "shows_vajra": false,
+      "vo": "Bhari plywood uthane mein labour ka waqt barbad hota hai?",
+      "text1": "Bhari plywood",
+      "text2": "Waqt barbad?"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld shot on an Indian RCC construction site. A single male construction worker effortlessly carrying a large flat 8 x 4 ft board, 12 mm thick, balanced on his shoulder with one hand. Plain light-grey faces, clean edge with small round holes in two staggered rows. No text, no logos, no printing on anything. Natural sunlight, phone camera look.",
+      "shows_vajra": true,
+      "vo": "VAJRA sheet itni halki hai, ek banda akele utha leta hai.",
+      "text1": "VAJRA sheet halki",
+      "text2": "Ek banda kafi"
+    },
+    {
+      "type": "photo",
+      "photo": "in-20261030-200852",
+      "shows_vajra": true,
+      "vo": "Apne thekedar ko bhejo, shuttering mein bachega waqt.",
+      "text1": "Tez shuttering",
+      "text2": "Sahi bachat"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Bhari plywood uthane mein site par waqt barbad hota hai? VAJRA PP shuttering sheet hai halki aur mazboot.\n\nEk akela banda poori 8x4 sheet akele utha sakta hai. Waterproof hai aur ply se 2-3 guna zyada chalti hai, sahi handling ke saath. Pan-India dispatch Raipur se.\n\nApne thekedar aur mistri doston ko yeh video zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": ""
+}
