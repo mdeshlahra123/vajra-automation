@@ -1,0 +1,38 @@
+name: build-reel
+# Build ONE reel from chosen library clips (assets/clips/...), review it, and send it to Telegram for approval.
+on:
+  workflow_dispatch:
+    inputs:
+      files: { description: "library clip paths, comma separated (e.g. assets/clips/slab-soffit-point-1.mp4)", required: true }
+      note:  { description: "angle/note for the planner", required: false, default: "" }
+      flow:  { description: "true = AI/Flow reel (adds real VAJRA reveal photos)", required: false, default: "false" }
+      who:   { description: "sender", required: false, default: "Shobhit" }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      FILES: ${{ github.event.inputs.files }}
+      NOTE:  ${{ github.event.inputs.note }}
+      WHO:   ${{ github.event.inputs.who }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - id: build
+        run: python3 social/engine/make_real.py --files "$FILES" --note "${{ github.event.inputs.flow == 'true' && 'flow' || '' }} $NOTE" --who "$WHO"
+      - name: Send to Telegram for approval
+        run: python3 social/tg.py send ${{ steps.build.outputs.id }}
+      - name: Save
+        if: always()
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social assets; git diff --cached --quiet && exit 0
+          git commit -qm "build-reel: ${{ steps.build.outputs.id }}"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
