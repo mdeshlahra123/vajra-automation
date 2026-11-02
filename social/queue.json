@@ -1,374 +1,374 @@
 {
- "_comment": "Daily post queue. 'posted' is set automatically after a successful post. image = public URL (photo) or video = public URL (Reel), caption = path to a UTF-8 .txt file. Make images with social/studio (render.ps1), reels with make-reels.ps1.",
- "posts": [
-  {
-   "id": "v-p-used",
-   "image": "https://vajraformwork.vercel.app/social/v-p-used.jpg",
-   "caption": "captions/posted/p-used.txt",
-   "posted": "2026-10-22"
-  },
-  {
-   "id": "reel-x4-khokla",
-   "video": "https://vajraformwork.vercel.app/social/x4-khokla.mp4",
-   "caption": "captions/posted/x4-khokla.txt",
-   "posted": "2026-10-22"
-  },
-  {
-   "id": "v-nayi-ply",
-   "image": "https://vajraformwork.vercel.app/social/v-nayi-ply.jpg",
-   "caption": "captions/posted/nayi-ply.txt",
-   "posted": "2026-10-19"
-  },
-  {
-   "id": "reel-r5-plyvspp",
-   "video": "https://vajraformwork.vercel.app/social/r5-plyvspp.mp4",
-   "caption": "captions/posted/r5-plyvspp.txt",
-   "posted": "2026-10-20"
-  },
-  {
-   "id": "reel-a1-kharcha",
-   "video": "https://vajraformwork.vercel.app/social/a1-kharcha.mp4",
-   "caption": "captions/posted/a1-kharcha.txt",
-   "posted": "2026-10-21"
-  },
-  {
-   "id": "v-compare",
-   "image": "https://vajraformwork.vercel.app/social/v-compare.jpg",
-   "caption": "captions/posted/compare.txt",
-   "posted": "2026-10-22"
-  },
-  {
-   "id": "reel-h1-hisaab",
-   "video": "https://vajraformwork.vercel.app/social/h1-hisaab.mp4",
-   "caption": "captions/posted/h1-hisaab.txt",
-   "posted": "2026-10-22"
-  },
-  {
-   "id": "reel-x2-throw",
-   "video": "https://vajraformwork.vercel.app/social/x5-throw.mp4",
-   "caption": "captions/posted/x2-throw.txt",
-   "posted": "2026-10-23"
-  },
-  {
-   "id": "reel-h2-ekhaath",
-   "video": "https://vajraformwork.vercel.app/social/h2-ekhaath-cta.mp4",
-   "caption": "captions/posted/h2-ekhaath.txt",
-   "posted": "2026-10-24"
-  },
-  {
-   "id": "reel-real-1023-1128",
-   "caption": "captions/posted/reel-real-1023-1128.txt",
-   "posted": "2026-10-25",
-   "video": "https://vajraformwork.vercel.app/social/reel-real-1023-1128.mp4",
-   "real": true
-  },
-  {
-   "id": "reel-x7-hisaab",
-   "video": "https://vajraformwork.vercel.app/social/x7-hisaab.mp4",
-   "caption": "captions/x7-hisaab.txt",
-   "posted": "2026-10-26",
-   "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg"
-  },
-  {
-   "id": "v-n2-oneman",
-   "image": "https://vajraformwork.vercel.app/social/v-n2-oneman.jpg",
-   "caption": "captions/posted/n2-oneman.txt",
-   "posted": "2026-10-23"
-  },
-  {
-   "id": "reel-x3-bend",
-   "video": "https://vajraformwork.vercel.app/social/x6-bend.mp4",
-   "caption": "captions/posted/x3-bend.txt",
-   "posted": "2026-10-26",
-   "cover": "https://vajraformwork.vercel.app/social/x6-bend-cover.jpg"
-  },
-  {
-   "id": "v-n1-column",
-   "image": "https://vajraformwork.vercel.app/social/v-n1-column.jpg",
-   "caption": "captions/posted/n1-column.txt",
-   "posted": "2026-10-24"
-  },
-  {
-   "id": "reel-samples-40-v",
-   "caption": "captions/samples-40.txt",
-   "posted": "2026-10-27",
-   "video": "https://vajraformwork.vercel.app/social/samples-40-v.mp4",
-   "cover": "https://vajraformwork.vercel.app/social/samples-40-cover.jpg",
-   "yt_tg": "2026-10-27",
-   "yt": "QJqt9-tfefc"
-  },
-  {
-   "id": "reel-mazdoor",
-   "caption": "captions/mazdoor.txt",
-   "posted": "2026-10-28",
-   "video": "https://vajraformwork.vercel.app/social/mazdoor.mp4",
-   "ai": true,
-   "cover": "https://vajraformwork.vercel.app/social/mazdoor-cover.jpg",
-   "yt_tg": "2026-10-28",
-   "yt": "FIwXhaKvSco"
-  },
-  {
-   "id": "reel-real-1027-2032",
-   "caption": "captions/reel-real-1027-2032.txt",
-   "posted": "2026-10-29",
-   "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2032.mp4",
-   "real": true,
-   "cover": "https://vajraformwork.vercel.app/social/reel-real-1027-2032-cover.jpg",
-   "yt": "eZRhXnxfibE"
-  },
-  {
-   "id": "reel-real-1028-1414",
-   "caption": "captions/reel-real-1028-1414.txt",
-   "posted": "2026-10-30",
-   "video": "https://vajraformwork.vercel.app/social/reel-real-1028-1414.mp4",
-   "ai": true,
-   "cover": "https://vajraformwork.vercel.app/social/reel-real-1028-1414-cover.jpg",
-   "yt": "o9sXKgz7wdE"
-  },
-  {
-   "id": "reel-real-1030-1010",
-   "caption": "captions/reel-real-1030-1010.txt",
-   "posted": "2026-10-30",
-   "video": "https://vajraformwork.vercel.app/social/reel-real-1030-1010.mp4",
-   "ai": true,
-   "evening": true,
-   "cover": "https://vajraformwork.vercel.app/social/reel-real-1030-1010-cover.jpg",
-   "slot": "evening",
-   "yt": "0rHsLmuRsp4"
-  },
-  {
-   "id": "reel-r3-column",
-   "video": "https://vajraformwork.vercel.app/social/r3-column-cta.mp4",
-   "caption": "captions/r3-column.txt",
-   "posted": "2026-10-31",
-   "cover": "https://vajraformwork.vercel.app/social/r3-column-cta-cover.jpg",
-   "evening": true,
-   "yt": "v1nBEFg6LE4"
-  },
-  {
-   "id": "v-n3-core",
-   "image": "https://vajraformwork.vercel.app/social/v-n3-core.jpg",
-   "caption": "captions/posted/n3-core.txt",
-   "posted": "2026-10-25",
-   "reel": "https://vajraformwork.vercel.app/social/v-n3-core-pr.mp4"
-  },
-  {
-   "id": "reel-r1-oneman",
-   "video": "https://vajraformwork.vercel.app/social/r1-oneman-cta.mp4",
-   "caption": "captions/r1-oneman.txt",
-   "posted": "2026-10-29",
-   "cover": "https://vajraformwork.vercel.app/social/r1-oneman-cta-cover.jpg",
-   "evening": true,
-   "slot": "evening",
-   "yt": "X7OgO_BwZGo"
-  },
-  {
-   "id": "car-plyvspp",
-   "image": "https://vajraformwork.vercel.app/social/car-plyvspp-1.jpg",
-   "slides": [
-    "https://vajraformwork.vercel.app/social/car-plyvspp-1.jpg",
-    "https://vajraformwork.vercel.app/social/car-plyvspp-2.jpg",
-    "https://vajraformwork.vercel.app/social/car-plyvspp-3.jpg",
-    "https://vajraformwork.vercel.app/social/car-plyvspp-4.jpg",
-    "https://vajraformwork.vercel.app/social/car-plyvspp-5.jpg",
-    "https://vajraformwork.vercel.app/social/car-plyvspp-6.jpg",
-    "https://vajraformwork.vercel.app/social/car-plyvspp-7.jpg"
-   ],
-   "caption": "captions/posted/car-plyvspp.txt",
-   "posted": "2026-10-26"
-  },
-  {
-   "id": "v-n7-inout",
-   "image": "https://vajraformwork.vercel.app/social/v-n7-inout.jpg",
-   "caption": "captions/n7-inout.txt",
-   "posted": "2026-10-27"
-  },
-  {
-   "id": "v-finish-column",
-   "image": "https://vajraformwork.vercel.app/social/v-finish-column.jpg",
-   "caption": "captions/finish-column.txt",
-   "posted": "2026-10-28",
-   "slot": "evening"
-  },
-  {
-   "id": "reel-baarish",
-   "video": "https://vajraformwork.vercel.app/social/baarish.mp4",
-   "caption": "captions/baarish.txt",
-   "posted": "2026-10-31",
-   "real": true,
-   "cover": "https://vajraformwork.vercel.app/social/baarish-cover.jpg",
-   "yt": "cB5baTBDFHI"
-  },
-  {
-   "id": "reel-r4-wash",
-   "video": "https://vajraformwork.vercel.app/social/r4-wash-cta.mp4",
-   "caption": "captions/r4-wash.txt",
-   "posted": "2026-10-31",
-   "cover": "https://vajraformwork.vercel.app/social/r4-wash-cta-cover.jpg",
-   "evening": true,
-   "slot": "evening",
-   "yt": "tHyZo5HE1f8"
-  },
-  {
-   "id": "car-p2-site",
-   "image": "https://vajraformwork.vercel.app/social/p2-slab-underside.jpg",
-   "slides": [
-    "https://vajraformwork.vercel.app/social/p2-slab-underside.jpg",
-    "https://vajraformwork.vercel.app/social/p2-beam-box.jpg",
-    "https://vajraformwork.vercel.app/social/p2-sheet-cut.jpg",
-    "https://vajraformwork.vercel.app/social/p2-column-smooth2.jpg"
-   ],
-   "caption": "captions/car-p2-site.txt",
-   "posted": ""
-  },
-  {
-   "id": "v-p-bend",
-   "image": "https://vajraformwork.vercel.app/social/v-p-bend.jpg",
-   "caption": "captions/p-bend.txt",
-   "posted": ""
-  },
-  {
-   "id": "reel-a3-mistri",
-   "video": "https://vajraformwork.vercel.app/social/a3-mistri-cta.mp4",
-   "caption": "captions/a3-mistri.txt",
-   "posted": "2026-11-01",
-   "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg",
-   "evening": true,
-   "slot": "evening",
-   "yt": "0HvAdL8d0zM"
-  },
-  {
-   "id": "v-p-workers",
-   "image": "https://vajraformwork.vercel.app/social/v-p-workers.jpg",
-   "caption": "captions/p-workers.txt",
-   "posted": ""
-  },
-  {
-   "id": "v-n4-cage",
-   "image": "https://vajraformwork.vercel.app/social/v-n4-cage.jpg",
-   "caption": "captions/n4-cage.txt",
-   "posted": ""
-  },
-  {
-   "id": "reel-real-1028-1352",
-   "video": "https://vajraformwork.vercel.app/social/reel-real-1028-1352.mp4",
-   "caption": "captions/reel-real-1028-1352.txt",
-   "posted": "",
-   "ai": true,
-   "cover": "https://vajraformwork.vercel.app/social/reel-real-1028-1352-cover.jpg",
-   "evening": true
-  },
-  {
-   "id": "reel-real-1102-1412",
-   "caption": "captions/reel-real-1102-1412.txt",
-   "posted": "",
-   "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1412.mp4",
-   "ai": true,
-   "evening": true,
-   "cover": "https://vajraformwork.vercel.app/social/reel-real-1102-1412-cover.jpg"
-  }
- ],
- "hold": [
-  {
-   "id": "reel-qa-mehnga-v",
-   "caption": "captions/qa-mehnga.txt",
-   "posted": "",
-   "video": "https://vajraformwork.vercel.app/social/qa-mehnga-v.mp4",
-   "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg"
-  },
-  {
-   "id": "reel-x7-hisaab-v",
-   "caption": "captions/x7-hisaab.txt",
-   "posted": "",
-   "video": "https://vajraformwork.vercel.app/social/x7-hisaab-v.mp4",
-   "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg",
-   "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
-  },
-  {
-   "id": "reel-r2-core",
-   "video": "https://vajraformwork.vercel.app/social/r2-core-cta.mp4",
-   "caption": "captions/r2-core.txt",
-   "posted": "",
-   "cover": "https://vajraformwork.vercel.app/social/r2-core-cta-cover.jpg",
-   "evening": true,
-   "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
-  },
-  {
-   "id": "reel-m2-quick",
-   "video": "https://vajraformwork.vercel.app/social/m2-quick-cta.mp4",
-   "caption": "captions/m2-quick.txt",
-   "posted": "",
-   "cover": "https://vajraformwork.vercel.app/social/m2-quick-cta-cover.jpg",
-   "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
-  },
-  {
-   "id": "reel-ai-1025-2041-v2",
-   "caption": "captions/reel-ai-1025-2041-v2.txt",
-   "posted": "",
-   "video": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2.mp4",
-   "ai": true,
-   "cover": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2-cover.jpg",
-   "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
-  },
-  {
-   "id": "reel-vajra-40s",
-   "video": "https://vajraformwork.vercel.app/social/vajra-40s-cta.mp4",
-   "caption": "captions/vajra-40s.txt",
-   "posted": "",
-   "cover": "https://vajraformwork.vercel.app/social/vajra-40s-cta-cover.jpg",
-   "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
-  },
-  {
-   "id": "reel-a2-dekhlo",
-   "video": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta.mp4",
-   "caption": "captions/a2-dekhlo.txt",
-   "posted": "",
-   "cover": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta-cover.jpg",
-   "evening": true,
-   "hold_reason": "2 Nov review: no payoff / banned hand-holding shots (owner)"
-  },
-  {
-   "id": "reel-qa-rate-v",
-   "video": "https://vajraformwork.vercel.app/social/qa-rate-v.mp4",
-   "caption": "captions/qa-rate.txt",
-   "posted": "",
-   "cover": "https://vajraformwork.vercel.app/social/qa-rate-cover.jpg",
-   "evening": true,
-   "hold_reason": "2 Nov review: no payoff / banned hand-holding shots (owner)"
-  },
-  {
-   "id": "reel-qa-toot-v",
-   "video": "https://vajraformwork.vercel.app/social/qa-toot-v.mp4",
-   "caption": "captions/qa-toot.txt",
-   "posted": "",
-   "cover": "https://vajraformwork.vercel.app/social/qa-toot-cover.jpg",
-   "hold_reason": "2 Nov review: no payoff / banned hand-holding shots (owner)"
-  },
-  {
-   "id": "reel-x8-column-v",
-   "video": "https://vajraformwork.vercel.app/social/x8-column-v.mp4",
-   "caption": "captions/x8-column.txt",
-   "posted": "",
-   "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg",
-   "evening": true,
-   "hold_reason": "2 Nov review: no payoff / banned hand-holding shots (owner)"
-  }
- ],
- "stories": [
-  {
-   "id": "story-samples-40",
-   "image": "https://vajraformwork.vercel.app/social/story-samples.jpg",
-   "date": "2026-10-27",
-   "posted": "2026-10-27"
-  }
- ],
- "trials": [
-  {
-   "id": "reel-real-1027-2356",
-   "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2356.mp4",
-   "caption": "captions/reel-real-1027-2356.txt",
-   "posted": "2026-10-31",
-   "ai": true
-  }
- ]
+  "_comment": "Daily post queue. 'posted' is set automatically after a successful post. image = public URL (photo) or video = public URL (Reel), caption = path to a UTF-8 .txt file. Make images with social/studio (render.ps1), reels with make-reels.ps1.",
+  "posts": [
+    {
+      "id": "v-p-used",
+      "image": "https://vajraformwork.vercel.app/social/v-p-used.jpg",
+      "caption": "captions/posted/p-used.txt",
+      "posted": "2026-10-22"
+    },
+    {
+      "id": "reel-x4-khokla",
+      "video": "https://vajraformwork.vercel.app/social/x4-khokla.mp4",
+      "caption": "captions/posted/x4-khokla.txt",
+      "posted": "2026-10-22"
+    },
+    {
+      "id": "v-nayi-ply",
+      "image": "https://vajraformwork.vercel.app/social/v-nayi-ply.jpg",
+      "caption": "captions/posted/nayi-ply.txt",
+      "posted": "2026-10-19"
+    },
+    {
+      "id": "reel-r5-plyvspp",
+      "video": "https://vajraformwork.vercel.app/social/r5-plyvspp.mp4",
+      "caption": "captions/posted/r5-plyvspp.txt",
+      "posted": "2026-10-20"
+    },
+    {
+      "id": "reel-a1-kharcha",
+      "video": "https://vajraformwork.vercel.app/social/a1-kharcha.mp4",
+      "caption": "captions/posted/a1-kharcha.txt",
+      "posted": "2026-10-21"
+    },
+    {
+      "id": "v-compare",
+      "image": "https://vajraformwork.vercel.app/social/v-compare.jpg",
+      "caption": "captions/posted/compare.txt",
+      "posted": "2026-10-22"
+    },
+    {
+      "id": "reel-h1-hisaab",
+      "video": "https://vajraformwork.vercel.app/social/h1-hisaab.mp4",
+      "caption": "captions/posted/h1-hisaab.txt",
+      "posted": "2026-10-22"
+    },
+    {
+      "id": "reel-x2-throw",
+      "video": "https://vajraformwork.vercel.app/social/x5-throw.mp4",
+      "caption": "captions/posted/x2-throw.txt",
+      "posted": "2026-10-23"
+    },
+    {
+      "id": "reel-h2-ekhaath",
+      "video": "https://vajraformwork.vercel.app/social/h2-ekhaath-cta.mp4",
+      "caption": "captions/posted/h2-ekhaath.txt",
+      "posted": "2026-10-24"
+    },
+    {
+      "id": "reel-real-1023-1128",
+      "caption": "captions/posted/reel-real-1023-1128.txt",
+      "posted": "2026-10-25",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1023-1128.mp4",
+      "real": true
+    },
+    {
+      "id": "reel-x7-hisaab",
+      "video": "https://vajraformwork.vercel.app/social/x7-hisaab.mp4",
+      "caption": "captions/x7-hisaab.txt",
+      "posted": "2026-10-26",
+      "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg"
+    },
+    {
+      "id": "v-n2-oneman",
+      "image": "https://vajraformwork.vercel.app/social/v-n2-oneman.jpg",
+      "caption": "captions/posted/n2-oneman.txt",
+      "posted": "2026-10-23"
+    },
+    {
+      "id": "reel-x3-bend",
+      "video": "https://vajraformwork.vercel.app/social/x6-bend.mp4",
+      "caption": "captions/posted/x3-bend.txt",
+      "posted": "2026-10-26",
+      "cover": "https://vajraformwork.vercel.app/social/x6-bend-cover.jpg"
+    },
+    {
+      "id": "v-n1-column",
+      "image": "https://vajraformwork.vercel.app/social/v-n1-column.jpg",
+      "caption": "captions/posted/n1-column.txt",
+      "posted": "2026-10-24"
+    },
+    {
+      "id": "reel-samples-40-v",
+      "caption": "captions/samples-40.txt",
+      "posted": "2026-10-27",
+      "video": "https://vajraformwork.vercel.app/social/samples-40-v.mp4",
+      "cover": "https://vajraformwork.vercel.app/social/samples-40-cover.jpg",
+      "yt_tg": "2026-10-27",
+      "yt": "QJqt9-tfefc"
+    },
+    {
+      "id": "reel-mazdoor",
+      "caption": "captions/mazdoor.txt",
+      "posted": "2026-10-28",
+      "video": "https://vajraformwork.vercel.app/social/mazdoor.mp4",
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/mazdoor-cover.jpg",
+      "yt_tg": "2026-10-28",
+      "yt": "FIwXhaKvSco"
+    },
+    {
+      "id": "reel-real-1027-2032",
+      "caption": "captions/reel-real-1027-2032.txt",
+      "posted": "2026-10-29",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2032.mp4",
+      "real": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1027-2032-cover.jpg",
+      "yt": "eZRhXnxfibE"
+    },
+    {
+      "id": "reel-real-1028-1414",
+      "caption": "captions/reel-real-1028-1414.txt",
+      "posted": "2026-10-30",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1028-1414.mp4",
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1028-1414-cover.jpg",
+      "yt": "o9sXKgz7wdE"
+    },
+    {
+      "id": "reel-real-1030-1010",
+      "caption": "captions/reel-real-1030-1010.txt",
+      "posted": "2026-10-30",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1030-1010.mp4",
+      "ai": true,
+      "evening": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1030-1010-cover.jpg",
+      "slot": "evening",
+      "yt": "0rHsLmuRsp4"
+    },
+    {
+      "id": "reel-r3-column",
+      "video": "https://vajraformwork.vercel.app/social/r3-column-cta.mp4",
+      "caption": "captions/r3-column.txt",
+      "posted": "2026-10-31",
+      "cover": "https://vajraformwork.vercel.app/social/r3-column-cta-cover.jpg",
+      "evening": true,
+      "yt": "v1nBEFg6LE4"
+    },
+    {
+      "id": "v-n3-core",
+      "image": "https://vajraformwork.vercel.app/social/v-n3-core.jpg",
+      "caption": "captions/posted/n3-core.txt",
+      "posted": "2026-10-25",
+      "reel": "https://vajraformwork.vercel.app/social/v-n3-core-pr.mp4"
+    },
+    {
+      "id": "reel-r1-oneman",
+      "video": "https://vajraformwork.vercel.app/social/r1-oneman-cta.mp4",
+      "caption": "captions/r1-oneman.txt",
+      "posted": "2026-10-29",
+      "cover": "https://vajraformwork.vercel.app/social/r1-oneman-cta-cover.jpg",
+      "evening": true,
+      "slot": "evening",
+      "yt": "X7OgO_BwZGo"
+    },
+    {
+      "id": "car-plyvspp",
+      "image": "https://vajraformwork.vercel.app/social/car-plyvspp-1.jpg",
+      "slides": [
+        "https://vajraformwork.vercel.app/social/car-plyvspp-1.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-2.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-3.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-4.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-5.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-6.jpg",
+        "https://vajraformwork.vercel.app/social/car-plyvspp-7.jpg"
+      ],
+      "caption": "captions/posted/car-plyvspp.txt",
+      "posted": "2026-10-26"
+    },
+    {
+      "id": "v-n7-inout",
+      "image": "https://vajraformwork.vercel.app/social/v-n7-inout.jpg",
+      "caption": "captions/n7-inout.txt",
+      "posted": "2026-10-27"
+    },
+    {
+      "id": "v-finish-column",
+      "image": "https://vajraformwork.vercel.app/social/v-finish-column.jpg",
+      "caption": "captions/finish-column.txt",
+      "posted": "2026-10-28",
+      "slot": "evening"
+    },
+    {
+      "id": "reel-baarish",
+      "video": "https://vajraformwork.vercel.app/social/baarish.mp4",
+      "caption": "captions/baarish.txt",
+      "posted": "2026-10-31",
+      "real": true,
+      "cover": "https://vajraformwork.vercel.app/social/baarish-cover.jpg",
+      "yt": "cB5baTBDFHI"
+    },
+    {
+      "id": "reel-r4-wash",
+      "video": "https://vajraformwork.vercel.app/social/r4-wash-cta.mp4",
+      "caption": "captions/r4-wash.txt",
+      "posted": "2026-10-31",
+      "cover": "https://vajraformwork.vercel.app/social/r4-wash-cta-cover.jpg",
+      "evening": true,
+      "slot": "evening",
+      "yt": "tHyZo5HE1f8"
+    },
+    {
+      "id": "car-p2-site",
+      "image": "https://vajraformwork.vercel.app/social/p2-slab-underside.jpg",
+      "slides": [
+        "https://vajraformwork.vercel.app/social/p2-slab-underside.jpg",
+        "https://vajraformwork.vercel.app/social/p2-beam-box.jpg",
+        "https://vajraformwork.vercel.app/social/p2-sheet-cut.jpg",
+        "https://vajraformwork.vercel.app/social/p2-column-smooth2.jpg"
+      ],
+      "caption": "captions/car-p2-site.txt",
+      "posted": ""
+    },
+    {
+      "id": "v-p-bend",
+      "image": "https://vajraformwork.vercel.app/social/v-p-bend.jpg",
+      "caption": "captions/p-bend.txt",
+      "posted": ""
+    },
+    {
+      "id": "reel-a3-mistri",
+      "video": "https://vajraformwork.vercel.app/social/a3-mistri-cta.mp4",
+      "caption": "captions/a3-mistri.txt",
+      "posted": "2026-11-01",
+      "cover": "https://vajraformwork.vercel.app/social/a3-mistri-cta-cover.jpg",
+      "evening": true,
+      "slot": "evening",
+      "yt": "0HvAdL8d0zM"
+    },
+    {
+      "id": "v-p-workers",
+      "image": "https://vajraformwork.vercel.app/social/v-p-workers.jpg",
+      "caption": "captions/p-workers.txt",
+      "posted": ""
+    },
+    {
+      "id": "v-n4-cage",
+      "image": "https://vajraformwork.vercel.app/social/v-n4-cage.jpg",
+      "caption": "captions/n4-cage.txt",
+      "posted": ""
+    },
+    {
+      "id": "reel-real-1028-1352",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1028-1352.mp4",
+      "caption": "captions/reel-real-1028-1352.txt",
+      "posted": "",
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1028-1352-cover.jpg",
+      "evening": true
+    },
+    {
+      "id": "reel-real-1102-1412",
+      "caption": "captions/reel-real-1102-1412.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1412.mp4",
+      "ai": true,
+      "evening": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1102-1412-cover.jpg"
+    }
+  ],
+  "hold": [
+    {
+      "id": "reel-qa-mehnga-v",
+      "caption": "captions/qa-mehnga.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/qa-mehnga-v.mp4",
+      "cover": "https://vajraformwork.vercel.app/social/qa-mehnga-cover.jpg"
+    },
+    {
+      "id": "reel-x7-hisaab-v",
+      "caption": "captions/x7-hisaab.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/x7-hisaab-v.mp4",
+      "cover": "https://vajraformwork.vercel.app/social/x7-hisaab-cover.jpg",
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
+    },
+    {
+      "id": "reel-r2-core",
+      "video": "https://vajraformwork.vercel.app/social/r2-core-cta.mp4",
+      "caption": "captions/r2-core.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/r2-core-cta-cover.jpg",
+      "evening": true,
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
+    },
+    {
+      "id": "reel-m2-quick",
+      "video": "https://vajraformwork.vercel.app/social/m2-quick-cta.mp4",
+      "caption": "captions/m2-quick.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/m2-quick-cta-cover.jpg",
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
+    },
+    {
+      "id": "reel-ai-1025-2041-v2",
+      "caption": "captions/reel-ai-1025-2041-v2.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2.mp4",
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1025-2041-v2-cover.jpg",
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
+    },
+    {
+      "id": "reel-vajra-40s",
+      "video": "https://vajraformwork.vercel.app/social/vajra-40s-cta.mp4",
+      "caption": "captions/vajra-40s.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/vajra-40s-cta-cover.jpg",
+      "hold_reason": "has hand-holding sheet shot (owner 30 Oct)"
+    },
+    {
+      "id": "reel-a2-dekhlo",
+      "video": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta.mp4",
+      "caption": "captions/a2-dekhlo.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/a2-dekhlo-cta-cover.jpg",
+      "evening": true,
+      "hold_reason": "2 Nov review: no payoff / banned hand-holding shots (owner)"
+    },
+    {
+      "id": "reel-qa-rate-v",
+      "video": "https://vajraformwork.vercel.app/social/qa-rate-v.mp4",
+      "caption": "captions/qa-rate.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/qa-rate-cover.jpg",
+      "evening": true,
+      "hold_reason": "2 Nov review: no payoff / banned hand-holding shots (owner)"
+    },
+    {
+      "id": "reel-qa-toot-v",
+      "video": "https://vajraformwork.vercel.app/social/qa-toot-v.mp4",
+      "caption": "captions/qa-toot.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/qa-toot-cover.jpg",
+      "hold_reason": "2 Nov review: no payoff / banned hand-holding shots (owner)"
+    },
+    {
+      "id": "reel-x8-column-v",
+      "video": "https://vajraformwork.vercel.app/social/x8-column-v.mp4",
+      "caption": "captions/x8-column.txt",
+      "posted": "",
+      "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg",
+      "evening": true,
+      "hold_reason": "2 Nov review: no payoff / banned hand-holding shots (owner)"
+    }
+  ],
+  "stories": [
+    {
+      "id": "story-samples-40",
+      "image": "https://vajraformwork.vercel.app/social/story-samples.jpg",
+      "date": "2026-10-27",
+      "posted": "2026-10-27"
+    }
+  ],
+  "trials": [
+    {
+      "id": "reel-real-1027-2356",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1027-2356.mp4",
+      "caption": "captions/reel-real-1027-2356.txt",
+      "posted": "2026-10-31",
+      "ai": true
+    }
+  ]
 }
