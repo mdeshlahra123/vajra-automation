@@ -44,12 +44,7 @@ if _sh.which("ffmpeg") and os.environ.get("GEMINI_API_KEY"):  # Gemini picks the
             name = os.path.basename(f).replace(".mp4", "-cover.jpg")
             note = cover.smart(f, open(os.path.join(BASE, p["caption"]), encoding="utf-8").read(), os.path.join(sdir, name))
             p["cover"] = "https://vajraformwork.vercel.app/social/" + name; removed.append("cover:" + name)
-            try:  # show the owners the cover that will be used
-                subprocess.run(["curl", "-s", "-F", "chat_id=" + os.environ["TELEGRAM_CHAT_ID"], "-F", "photo=@" + os.path.join(sdir, name),
-                                "-F", f"caption=🖼 Grid cover for {p['id']} (auto): {note[:200]}",
-                                f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/sendPhoto"], capture_output=True, timeout=60)
-            except Exception:
-                pass
+            # (owner, 2 Nov: don't send the cover thumbnail to Telegram — not needed)
         except Exception as e:
             print("cover failed", p["id"], e)
     json.dump(queue, open(queue_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
