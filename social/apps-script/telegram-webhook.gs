@@ -70,9 +70,10 @@ function pollTelegram() {
         else if (u.message) handleMessage_(u.message, P);
       });
     }
-    // clips are saved to the library 2 minutes after the last one (no reel is made here)
+    // Clips are saved to the library once no new clip has arrived for 3 minutes (no reel is made here).
+    // 3 min (was 2) so an album / several clips sent over a couple of minutes all go in ONE batch, not split up.
     var clips = JSON.parse(P.getProperty('CLIPS') || '[]');
-    if (clips.length && Date.now() - clips[clips.length - 1].t > 2 * 60 * 1000) {
+    if (clips.length && Date.now() - clips[clips.length - 1].t > 3 * 60 * 1000) {
       var note = clips.map(function (c) { return c.note || ''; }).filter(String).join('. ');
       startReel_(clips, note, clips[0].who, P, P.getProperty('CHAT_ID'));
     }
@@ -155,8 +156,9 @@ function handleMessage_(m, P) {
     }
     clips.push({ id: vid.file_id, who: who, t: Date.now(), note: (m.caption || '').replace(/^\/reel(@\w+)?/i, '').trim() });
     P.setProperty('CLIPS', JSON.stringify(clips));
+    // Confirm with the running total so the owner can SEE all clips of an album registered (e.g. "3/4 clip mila").
     tg_('sendMessage', { chat_id: chat, reply_to_message_id: m.message_id,
-      text: '📥 Clip ' + clips.length + ' mila. Library mein save ho jayega (reel abhi nahi banegi).' });
+      text: '📥 Clip mila (abhi tak ' + clips.length + ' is batch mein). 3 min baad sab library mein save honge; reel abhi nahi banegi.' });
     return;
   }
   // photos (or image files) are saved to the repo for reels / posts / covers
