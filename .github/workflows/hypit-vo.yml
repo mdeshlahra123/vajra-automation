@@ -1,0 +1,19 @@
+name: hypit-vo
+on: { workflow_dispatch: {} }
+permissions: { contents: write }
+jobs:
+  vo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: python3 social/hypit_vo.py
+      - run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add assets/hypit-pilot; git diff --cached --quiet && exit 0
+          git commit -qm "hypit pilot: voiceover lines"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 4; done; exit 1
