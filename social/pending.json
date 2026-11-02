@@ -430,6 +430,17 @@
       "msg_id": 538,
       "sent_at": "2026-11-02 16:58",
       "by": "owner (chat)"
+    },
+    {
+      "id": "reel-real-1102-1729",
+      "title": "Flow (AI) reel from library: Bhari ply ki dikkat aur thakan (24s)\n✅ Reviewer: script aur video match karte hain.",
+      "file": "social/media/reel-real-1102-1729.mp4",
+      "caption": "captions/reel-real-1102-1729.txt",
+      "position": "alternate",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 566,
+      "sent_at": "2026-11-02 17:32"
     }
   ]
 }

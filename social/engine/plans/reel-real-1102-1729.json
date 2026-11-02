@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Bhari ply ki dikkat aur thakan",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.5,
+      "end": 6.5,
+      "vo": "Bhari ply uthana har din ki sabse badi dikkat hai.",
+      "text1": "Bhari ply uthana",
+      "text2": "Roz ki dikkat",
+      "_len": 6.0
+    },
+    {
+      "clip": 1,
+      "start": 0.5,
+      "end": 6.5,
+      "vo": "Mazdoor thak jaate hain, par is bhari ply ka kya solution?",
+      "text1": "Mazdoor thak gaye",
+      "text2": "Iska solution kya?",
+      "_len": 6.0
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 4.78,
+      "_len": 4.78,
+      "vo": "Beam box bhi VAJRA PP sheet se, seedha aur mazboot.",
+      "text1": "Beam bhi",
+      "text2": "PP sheet se",
+      "_promised": "REAL still photo of VAJRA: REAL beam box: VAJRA sheets inside a red steel frame on site (beam use)"
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 2.98,
+      "_len": 2.98,
+      "vo": "Normal cutter se ply ki tarah kat jaati hai.",
+      "text1": "Ply ki tarah",
+      "text2": "aaram se kat-ti hai",
+      "_promised": "REAL still photo of VAJRA: REAL hand cutting a VAJRA sheet with a normal circular cutter (cuts easily, like wood)"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Bhari ply uthane se pareshan hain? Dekhiye iska asaan solution PP shuttering sheet ke saath.\n\nYeh halki sheet ek aadmi akele utha sakta hai. Sahi handling ke saath ply se 2-3 guna zyada chalti hai aur waterproof hai.\n\nApne thekedar aur mistri dosto ko zaroor bhejo.\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Workers carrying a heavy brown wooden plywood sheet at a dusty construction site with on-screen text 'Bhari ply uthana / Roz ki dikkat'.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "A tired worker sitting next to a stack of brown plywood sheets, wiping sweat with a cloth, with on-screen text 'Mazdoor thak gaye / Iska solution kya?'.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Real photo of a beam box formwork with light grey VAJRA PP sheet in a red frame on site, with on-screen text 'Beam bhi / PP sheet se'.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Real photo of a hand using a circular cutter to easily cut through a grey VAJRA PP sheet, with on-screen text 'Ply ki tarah / aaram se kat-ti hai'.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 23.9,
+  "note": "flow bhari ply uthana, mazdoor thak jaate, baar-baar dhona. Iska solution VAJRA PP sheet - halki, ek aadmi utha le.",
+  "who": "library"
+}
