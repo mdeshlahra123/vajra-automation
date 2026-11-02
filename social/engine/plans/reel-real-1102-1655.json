@@ -1,0 +1,100 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Ply water damage problem hook",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Baarish mein ply phool kar toot rahi hai?",
+      "text1": "Ply phool kar",
+      "text2": "toot rahi hai?",
+      "_len": 4.0600000000000005
+    },
+    {
+      "clip": 0,
+      "start": 4.0,
+      "end": 7.5,
+      "vo": "Paani lagte hi har baar naya nuksan.",
+      "text1": "Paani se nuksan",
+      "text2": "har dhalai mein",
+      "_len": 3.5
+    },
+    {
+      "clip": 1,
+      "start": 2.0,
+      "end": 7.0,
+      "vo": "Har baar naya kharcha, iska pakka solution kya hai?",
+      "text1": "Har baar naya ply?",
+      "text2": "Iska solution?",
+      "_len": 5.0
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 4.7,
+      "_len": 4.7,
+      "vo": "Ye hai VAJRA PP shuttering sheet, poora slab isi par.",
+      "text1": "Poora slab",
+      "text2": "VAJRA sheet par",
+      "_promised": "REAL still photo of VAJRA: REAL slab underside fully shuttered with grey VAJRA sheets on a yellow steel frame (slab use)"
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 3.98,
+      "_len": 3.98,
+      "vo": "Shuttering khula, aur column ekdum smooth.",
+      "text1": "Shuttering khula",
+      "text2": "Column smooth",
+      "_promised": "REAL still photo of VAJRA: REAL smooth finished concrete column on site (proof of finish)"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Baarish aur paani se ply phool kar kharab ho jati hai aur nuksan hota hai.\nApne thekedar aur mistri bhaiyon ke saath yeh share kijiye.\nSahi solution hai waterproof PP shuttering sheet jo paani se bilkul nahi phoolti.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Water-damaged brown wooden plywood breaking apart in rain on site with approved on-screen text.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Rain falling on soaked, ruined brown wooden plywood boards on muddy ground with approved text.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Stack of damaged plywood boards followed by a worker in high-vis vest looking concerned on site.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Underside of slab formwork showing plain grey VAJRA sheets supported by yellow steel framework.",
+        "problem": ""
+      },
+      {
+        "n": 5,
+        "match": true,
+        "seen": "Real cast concrete column showing smooth finish on site with approved text overlay.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 25.5,
+  "note": "flow ply paani se phool kar kharab, bhari aur baar-baar kharidni padti. Iska solution VAJRA PP sheet.",
+  "who": "library"
+}
