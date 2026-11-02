@@ -1,0 +1,100 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Ply Damage Pain and Solution Hook",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.8,
+      "vo": "Har dhalai mein tooti ply ka nuksan kab tak jheloge?",
+      "text1": "Tooti ply ka dard",
+      "text2": "Har baar nuksan",
+      "_len": 4.02
+    },
+    {
+      "clip": 0,
+      "start": 3.8,
+      "end": 7.8,
+      "vo": "Paani lagte hi ply phool kar bekar ho jati hai.",
+      "text1": "Paani se phooli ply",
+      "text2": "Site pe bekar",
+      "_len": 4.0
+    },
+    {
+      "clip": 1,
+      "start": 0.5,
+      "end": 5.5,
+      "vo": "Site pe itna nuksan, aakhir iska pakka solution kya hai?",
+      "text1": "Iska solution kya?",
+      "text2": "Nuksan kab tak?",
+      "_len": 5.0
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 4.34,
+      "_len": 4.34,
+      "vo": "Ye hai VAJRA PP shuttering sheet, column ke liye ready.",
+      "text1": "Ye hai VAJRA",
+      "text2": "PP shuttering sheet",
+      "_promised": "REAL still photo of VAJRA: tall column shuttered with VAJRA panels on a rooftop site"
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 4.58,
+      "_len": 4.58,
+      "vo": "Paani se kharab nahi hoti, aur concrete finish ekdum smooth.",
+      "text1": "Column ready",
+      "text2": "Smooth finish",
+      "_promised": "REAL still photo of VAJRA: workers holding a finished VAJRA column shuttering"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har dhalai mein tooti aur phooli ply ka nuksan kab tak jheloge?\n\nBarish aur paani se shuttering ply jaldi kharab ho jati hai. Iska pakka vikalp hai waterproof PP shuttering sheet jo bilkul nahi phoolti.\n\nApne thekedar ya mistri bhai ko zaroor bhejo.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Damaged, delaminated brown plywood sheets on a construction site with correct overlay text.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Waterlogged and swollen wooden plywood sheets with water ripple effect and matching text.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Distressed construction worker looking down at damaged plywood stacks on site with matching text.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Real rooftop photo of a tall column shuttered using plain grey VAJRA panels with timber supports.",
+        "problem": ""
+      },
+      {
+        "n": 5,
+        "match": true,
+        "seen": "Real photo of workers holding the assembled grey VAJRA column shuttering box with correct overlay text.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 26.3,
+  "note": "flow",
+  "who": "library"
+}
