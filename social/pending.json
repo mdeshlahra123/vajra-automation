@@ -392,6 +392,17 @@
       "by": "MrBeast",
       "at": "2026-11-02 16:38",
       "publish": "todo"
+    },
+    {
+      "id": "reel-real-1102-1645",
+      "title": "Real reel from Shobhit: Slab De-shuttering and Smooth Concrete Finish (19s)\n✅ Reviewer: script aur video match karte hain.",
+      "file": "social/media/reel-real-1102-1645.mp4",
+      "caption": "captions/reel-real-1102-1645.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "sent",
+      "msg_id": 534,
+      "sent_at": "2026-11-02 16:47"
     }
   ]
 }

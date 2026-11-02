@@ -1,0 +1,70 @@
+{
+  "ok": true,
+  "issues": [
+    "Clip 0 excluded due to extremely low resolution and unsafe work at height without safety gear."
+  ],
+  "title": "Slab De-shuttering and Smooth Concrete Finish",
+  "segments": [
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 5.0,
+      "vo": "Slab se shuttering sheet nikalna ab bilkul aasan hai.",
+      "text1": "Easy de-shuttering",
+      "text2": "Slab se aaram se",
+      "_len": 5.0
+    },
+    {
+      "clip": 1,
+      "start": 5.0,
+      "end": 8.5,
+      "vo": "VAJRA PP sheet concrete se bina chipke turant alag hoti hai.",
+      "text1": "Zero sticking",
+      "text2": "Sheet drops clean",
+      "_len": 4.66
+    },
+    {
+      "clip": 1,
+      "start": 8.5,
+      "end": 13.5,
+      "vo": "Neeche smooth finish dekhiye, apne thekedar ko ye slab video bhejo.",
+      "text1": "Smooth concrete",
+      "text2": "Direct finish",
+      "_len": 5.0
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "VAJRA PP shuttering sheet se de-shuttering hui aasan aur concrete finish mila ekdum smooth!\n\nBina chipke sheet aaram se nikal aati hai aur bar-bar reuse hoti hai. Apne thekedar aur mistri doston ko zaroor bhejo.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Real construction site footage showing a worker using a prop/rod to easily detach a grey PP formwork sheet from the concrete ceiling slab. On-screen text matches.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Continuation of the real site de-shuttering clip showing the grey sheet releasing cleanly without sticking and coming down. On-screen text matches.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Real site clip showing the smooth concrete finish left on the ceiling after sheet removal, with worker moving the sheet below. On-screen text matches.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=['Clip 0 excluded due to extremely low resolution and unsafe work at height without safety gear.']",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 18.8,
+  "note": " De-shuttering reel: VAJRA PP shuttering kholna aasan, aur slab ka neeche se finish smooth. Real site footage. Hinglish, 16-24s.",
+  "who": "Shobhit"
+}
