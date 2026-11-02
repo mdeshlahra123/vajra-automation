@@ -403,6 +403,17 @@
       "status": "sent",
       "msg_id": 534,
       "sent_at": "2026-11-02 16:47"
+    },
+    {
+      "id": "reel-real-1102-1647",
+      "title": "Real reel from Shobhit: Beam Shuttering PP Sheet Mould (12s)\n✅ Reviewer: script aur video match karte hain.",
+      "file": "social/media/reel-real-1102-1647.mp4",
+      "caption": "captions/reel-real-1102-1647.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "sent",
+      "msg_id": 535,
+      "sent_at": "2026-11-02 16:50"
     }
   ]
 }

@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Beam Shuttering PP Sheet Mould",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.7,
+      "vo": "Beam shuttering ke liye yeh PP mould dekhiye.",
+      "text1": "Beam shuttering",
+      "text2": "PP sheet mould",
+      "_len": 3.7
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 4.2,
+      "vo": "Yeh halka mould hai, apne thekedar bhai ko zaroor bhejo.",
+      "text1": "Halka aur solid",
+      "text2": "Beam mould taiyar",
+      "_len": 4.2
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Beam shuttering ke liye VAJRA PP shuttering sheet se bana mould use karein.\n\nYeh halka hai, waterproof hai aur sahi handling ke saath ply se 2-3 guna zyada chalti hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\n\nFollow kijiye @vajraformwork | Call / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Real construction site footage showing a beam shuttering mould constructed with light-grey PP sheet and wooden supports, matching the promised text 'Beam shuttering / PP sheet mould'.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Real site clip showing the beam mould turned on its side/edge, matching the promised text 'Halka aur solid / Beam mould taiyar'.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 12.2,
+  "note": " Beam shuttering reel: VAJRA PP sheet se bana beam-box mould, ready for dhalai. Halka, reusable, straight finish. Real footage. Hinglish, 15-22s.",
+  "who": "Shobhit"
+}
