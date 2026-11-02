@@ -16,7 +16,9 @@ import datetime, json, os, urllib.parse, urllib.request
 ACCOUNT = "act_1417609487254050"
 V = "https://graph.facebook.com/v24.0/"
 TOK = os.environ["META_ADS_TOKEN"]
-MIN_SPEND, WORSE, MIN_ACTIVE, COOLDOWN, LOW_BAL = 150.0, 1.6, 2, 7, 200.0
+# 2 Nov (owner: full automation): judge after Rs 60 (Rs 100/day split over ~5 ads means few ads ever reach 150),
+# pause when cost/chat is > 1.8x the best running ad. Still never touches budgets.
+MIN_SPEND, WORSE, MIN_ACTIVE, COOLDOWN, LOW_BAL = 60.0, 1.8, 2, 7, 200.0
 STATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ads-state.json")
 DRY = os.environ.get("DRY_RUN") == "true"
 # ads whose text breaks the use-count rule (40+ / lakh maths) or use banned footage: never resume

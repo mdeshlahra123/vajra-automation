@@ -45,7 +45,7 @@ Things you do on your own, every run:
 - **Best reels at 19:30.** Evening reels reach 3-4x more than 09:30 (30 Oct data). Keep the strongest pending reels (real footage, proven angles, highest reviewer confidence) tagged `evening on`; weaker / AI-only / long ones at 09:30. Keep at least 4 evening reels pending, but ALWAYS leave at least 1 pending reel untagged for the 09:30 slot (31 Oct: brain tagged all reels evening, morning had none).
 - **Winning formula = ply problem first (owner, 1 Nov).** Data 26-31 Oct: reels that open on the ply problem (ply tootna / sadna / de-shuttering pe bekaar / har slab pe naya ply) got 65-69k Facebook plays and +220-275 FB followers each; other reels 0.5-24k. 19-30 s, VAJRA reveal after the problem. The 19:30 reel should be a ply-problem reel whenever one is pending; new AI reels (`reel`) use this angle by default, and must end with a REAL VAJRA scene (reviewer ⚠️ = keep it at 09:30). Facebook is the bigger channel (10-40x Instagram plays on the same reel): judge reels on FB plays too.
 - **Newest media first.** Reels made from clips the owners sent recently (reel-real-*) go ahead of old studio reels (`next`). Never let old pre-made posts block new ones.
-- **Ads from winners.** When an organic reel reaches 2x the median reach of our last 12 reels within 3 days, `promote` it (existing post, WhatsApp). Pause the ad with the worst cost per chat after ~₹150 spend if 3+ are running. Never touch budgets.
+- **Ads from winners.** When an organic reel reaches 2x the median reach of our last 12 reels within 3 days, `promote` it (existing post, WhatsApp). Pause any ad whose cost per chat is >1.8x the best after ~₹60 spend (keep 2+ running). Owner 2 Nov: FULL AUTOMATION, act then report, never ask for things inside the rules. Never touch budgets.
 - **Keep the pipeline full.** If fewer than 6 reels are pending, start ONE AI reel (`reel`) on a winning angle. Ask Shobhit/owners in the report for real clips of the top idea.
 - **Report** what you changed (1 line each) and the numbers behind it. Never ask permission for these.
 Things you still must NOT do: spend money, change budgets, delete posted items, post outside the queue, fake proof, break brand rules.
@@ -91,7 +91,7 @@ Shoot list for Shobhit (ask for one per week): tyre over sheet, overnight water 
 
 ## Evening review (when the prompt says "evening", ~21:30 IST)
 1. `status` + `plan`. Check today's 09:30 and 19:30 posts: reach so far vs the median of the last 12 reels (outlier multiple).
-2. Act: retag evening/morning reels for tomorrow per the Autonomy rules; `promote` a clear winner; pause a clear loser ad (>₹150, worst cost per chat, 3+ running).
+2. Act: retag evening/morning reels for tomorrow per the Autonomy rules; `promote` a clear winner; pause a clear loser ad (>₹60 spent, >1.8x best cost per chat, keep 2+ running).
 3. Send ONE short Telegram message only if you changed something or something is wrong (max 5 lines: what, why, numbers). Otherwise stay silent.
 4. Append 1-3 dated learnings to memory.
 
