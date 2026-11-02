@@ -1,22 +1,26 @@
 # VAJRA media library
-_Auto-updated 02 Nov 2026 15:45 IST by social/build_library.py._
+_Auto-updated 02 Nov 2026 17:12 IST by social/build_library.py._
 
 One place that lists every photo and clip in the library. Reels are built from the clips below (library_reel.py / make_real.py). Telegram media the owners send is added here automatically (save-photo / make-real workflows). Web view: https://vajraformwork.vercel.app/social/library/
 
-## Clips (11)  — reels are made from these
+## Clips (15)  — reels are made from these
 | File | Type | Status | Note |
 |---|---|---|---|
-| `assets/clips/beam-box-1.mp4` | clip | ✅ usable | real |
-| `assets/clips/beam-box-2.mp4` | clip | ✅ usable | real |
-| `assets/clips/beam-box-3.mp4` | clip | ✅ usable | real |
-| `assets/clips/sheet-cut-1.mp4` | clip | ✅ usable | real |
-| `assets/clips/sheet-cut-2.mp4` | clip | ✅ usable | real |
-| `assets/clips/slab-stripping.mp4` | clip | ✅ usable | real |
-| `assets/clips/tg-1031-1627-1.mp4` | AI/Flow | 7.9s ✅ usable | flow |
-| `assets/clips/tg-1031-1627-2.mp4` | AI/Flow | 7.9s ✅ usable | flow |
-| `assets/clips/tg-1031-1749-1.mp4` | clip | 18.2s ✅ usable | real |
-| `assets/clips/tg-1031-1749-2.mp4` | clip | 14.2s ✅ usable | real |
-| `assets/clips/tg-1102-1426-1.mp4` | clip | 14.2s ✅ usable | real |
+| `assets/clips/ai-ply-broken-wet.mp4` | AI/Flow | 7.9s ✅ usable | AI/Flow: broken water-soaked brown plywood debris (ply problem) |
+| `assets/clips/ai-worker-worried.mp4` | AI/Flow | 7.9s ✅ usable | AI/Flow: worried worker in vest at ply site (ply problem) |
+| `assets/clips/beambox-pp-ground-1.mp4` | clip | ✅ usable | REAL: white PP sheets in red beam-box mould on ground |
+| `assets/clips/beambox-pp-ground-2.mp4` | clip | ✅ usable | REAL: PP beam-box moulds ready for casting |
+| `assets/clips/beambox-pp-ground-3.mp4` | clip | ✅ usable | REAL: PP beam-box mould, close |
+| `assets/clips/pp-cutting-1.mp4` | clip | ✅ usable | REAL: worker cutting grey PP sheet with circular cutter |
+| `assets/clips/pp-cutting-2.mp4` | clip | ✅ usable | REAL: cutting PP sheet to size, cutter |
+| `assets/clips/slab-deshutter.mp4` | clip | ✅ usable | REAL: de-shuttering formwork from below a slab |
+| `assets/clips/slab-soffit-point-1.mp4` | clip | 18.2s ✅ usable | REAL: worker points up at finished smooth slab underside (Shobhit) |
+| `assets/clips/slab-soffit-point-2.mp4` | clip | 14.2s ✅ usable | REAL: red rod pointing at smooth slab ceiling, beam edges (Shobhit) |
+| `assets/clips/slab-soffit-smooth.mp4` | clip | 14.2s ✅ usable | REAL: finished slab underside, smooth grey concrete ceiling |
+| `assets/clips/tg-1102-1711-1.mp4` | AI/Flow | 7.9s ✅ usable | flow. flow |
+| `assets/clips/tg-1102-1711-2.mp4` | AI/Flow | 7.9s ✅ usable | flow. flow |
+| `assets/clips/tg-1102-1711-3.mp4` | AI/Flow | 7.9s ✅ usable | flow. flow |
+| `assets/clips/tg-1102-1711-4.mp4` | AI/Flow | 7.9s ✅ usable | flow. flow |
 
 ## Photos (25)
 | File | Type | Status | Note |
