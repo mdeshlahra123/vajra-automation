@@ -1,37 +1,67 @@
 {
- "tg-1031-1627-1.mp4": {
+ "slab-soffit-point-1.mp4": {
   "who": "MrBeast",
-  "note": "flow",
-  "flow": true,
-  "secs": 7.9,
-  "added": "2026-10-31"
- },
- "tg-1031-1627-2.mp4": {
-  "who": "MrBeast",
-  "note": "flow",
-  "flow": true,
-  "secs": 7.9,
-  "added": "2026-10-31"
- },
- "tg-1031-1749-1.mp4": {
-  "who": "MrBeast",
-  "note": "",
+  "note": "REAL: worker points up at finished smooth slab underside (Shobhit)",
   "flow": false,
   "secs": 18.2,
   "added": "2026-10-31"
  },
- "tg-1031-1749-2.mp4": {
+ "slab-soffit-point-2.mp4": {
   "who": "MrBeast",
-  "note": "",
+  "note": "REAL: red rod pointing at smooth slab ceiling, beam edges (Shobhit)",
   "flow": false,
   "secs": 14.2,
   "added": "2026-10-31"
  },
- "tg-1102-1426-1.mp4": {
+ "slab-soffit-smooth.mp4": {
   "who": "Rahul",
-  "note": "",
+  "note": "REAL: finished slab underside, smooth grey concrete ceiling",
   "flow": false,
   "secs": 14.2,
   "added": "2026-11-02"
+ },
+ "ai-ply-broken-wet.mp4": {
+  "who": "MrBeast",
+  "note": "AI/Flow: broken water-soaked brown plywood debris (ply problem)",
+  "flow": true,
+  "secs": 7.9,
+  "added": "2026-10-31"
+ },
+ "ai-worker-worried.mp4": {
+  "who": "MrBeast",
+  "note": "AI/Flow: worried worker in vest at ply site (ply problem)",
+  "flow": true,
+  "secs": 7.9,
+  "added": "2026-10-31"
+ },
+ "beambox-pp-ground-1.mp4": {
+  "who": "owner",
+  "flow": false,
+  "note": "REAL: white PP sheets in red beam-box mould on ground"
+ },
+ "beambox-pp-ground-2.mp4": {
+  "who": "owner",
+  "flow": false,
+  "note": "REAL: PP beam-box moulds ready for casting"
+ },
+ "beambox-pp-ground-3.mp4": {
+  "who": "owner",
+  "flow": false,
+  "note": "REAL: PP beam-box mould, close"
+ },
+ "pp-cutting-1.mp4": {
+  "who": "owner",
+  "flow": false,
+  "note": "REAL: worker cutting grey PP sheet with circular cutter"
+ },
+ "pp-cutting-2.mp4": {
+  "who": "owner",
+  "flow": false,
+  "note": "REAL: cutting PP sheet to size, cutter"
+ },
+ "slab-deshutter.mp4": {
+  "who": "owner",
+  "flow": false,
+  "note": "REAL: de-shuttering formwork from below a slab"
  }
 }
