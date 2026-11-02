@@ -391,7 +391,7 @@
       "sent_at": "2026-11-02 16:38",
       "by": "MrBeast",
       "at": "2026-11-02 16:38",
-      "publish": "todo"
+      "publish": "done"
     },
     {
       "id": "reel-real-1102-1645",
@@ -400,9 +400,10 @@
       "caption": "captions/reel-real-1102-1645.txt",
       "position": "alternate",
       "real": true,
-      "status": "sent",
+      "status": "approved",
       "msg_id": 534,
-      "sent_at": "2026-11-02 16:47"
+      "sent_at": "2026-11-02 16:47",
+      "by": "owner (chat)"
     },
     {
       "id": "reel-real-1102-1647",
@@ -416,7 +417,7 @@
       "sent_at": "2026-11-02 16:50",
       "by": "MrBeast",
       "at": "2026-11-02 16:51",
-      "publish": "todo"
+      "publish": "done"
     }
   ]
 }
