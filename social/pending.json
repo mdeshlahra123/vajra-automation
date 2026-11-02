@@ -438,9 +438,12 @@
       "caption": "captions/reel-real-1102-1729.txt",
       "position": "alternate",
       "ai": true,
-      "status": "sent",
+      "status": "approved",
       "msg_id": 566,
-      "sent_at": "2026-11-02 17:32"
+      "sent_at": "2026-11-02 17:32",
+      "by": "MrBeast",
+      "at": "2026-11-02 17:38",
+      "publish": "todo"
     },
     {
       "id": "reel-real-1102-1733",
