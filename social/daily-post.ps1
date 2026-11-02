@@ -34,6 +34,7 @@ if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
 $item = $pending | Select-Object -First 1
 # only items whose media is really live on the website (an approved reel can still be waiting for upload)
 function Live($x) {   # waits up to ~4 min: the website (Vercel) may still be deploying a file pushed a moment ago
+  if (-not (Test-Path "$base/$($x.caption)")) { Log "  SKIP (caption file missing): $($x.id) -> $($x.caption)"; return $false }  # 2 Nov: a missing caption used to crash the whole run (line 66)
   $u = if ($x.video) { $x.video } else { $x.image }
   for ($k = 0; $k -lt 16; $k++) { try { if ((Invoke-WebRequest $u -Method Head -UseBasicParsing -TimeoutSec 30).StatusCode -eq 200) { return $true } } catch {}; Start-Sleep 15 }
   Log "  SKIP (file not live after 4 min): $($x.id)"; $false }
