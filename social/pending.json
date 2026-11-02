@@ -452,9 +452,12 @@
       "caption": "captions/reel-real-1102-1733.txt",
       "position": "alternate",
       "real": true,
-      "status": "sent",
+      "status": "approved",
       "msg_id": 567,
-      "sent_at": "2026-11-02 17:35"
+      "sent_at": "2026-11-02 17:35",
+      "by": "MrBeast",
+      "at": "2026-11-02 17:38",
+      "publish": "todo"
     }
   ]
 }
