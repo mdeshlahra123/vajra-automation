@@ -1,0 +1,20 @@
+name: flow-brief-now
+# One-off: send a varied batch of Flow prompts (several ideas, reviewed) to the Telegram group now.
+on:
+  workflow_dispatch:
+    inputs:
+      show: { description: "true = print only, don't send", required: false, default: "false" }
+      n:    { description: "how many idea sets to send", required: false, default: "4" }
+permissions: { contents: read }
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 social/flow_brief.py --batch ${{ github.event.inputs.n }} ${{ github.event.inputs.show == 'true' && '--show' || '' }}

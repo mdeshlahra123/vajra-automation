@@ -15,18 +15,28 @@ import gem
 MODEL = "gemini-3.5-flash-lite"  # free tier, fast (3.8-flash daily quota ran out and the run hit the timeout, 31 Oct)
 # one idea = shots that belong to the same reel (problem part only; the answer is our real footage)
 IDEAS = [
+    # --- ply problem (brown plywood only; our real VAJRA footage is the answer) ---
     ["Brown plywood shuttering boards swollen and peeling after rain on an Indian site, water dripping",
      "Indian contractor shaking his head at wet damaged brown plywood boards in the rain"],
     ["Two Indian labourers struggling to carry one heavy brown plywood board across a site",
      "Tired Indian labourer sitting next to brown plywood boards, wiping sweat in the afternoon heat"],
     ["Slow move toward a pile of broken cracked brown plywood boards in the corner of a half-built Indian house",
      "Workers pulling brown plywood off a concrete slab underside, the board cracks and splinters"],
+    # --- cost / labour worry (contractor story) ---
     ["Indian contractor at a site table looking at a bill book, holding his head in worry, brown plywood behind",
-     "Small truck unloading new brown plywood boards at an Indian site"],
+     "Small truck unloading new brown plywood boards at an Indian site, contractor watching the pile grow"],
+    ["Close on an Indian contractor's tired face doing sums on a calculator at a dusty site table, evening light",
+     "Hands flipping through a worn site expense notebook, brown plywood offcuts scattered nearby"],
+    # --- general construction scenes (full-AI reel b-roll, no shuttering needed) ---
     ["Sunrise over a half-built two-storey Indian house with bamboo props and scaffolding",
      "Gloved hands tying steel rebar for a column at an Indian site in morning light"],
-    ["Workers pouring and spreading concrete on a slab at an Indian site, seen from above",
-     "Concrete mixer turning at an Indian site, worker adding cement, dust in the air"],
+    ["Workers pouring and spreading wet concrete on a slab at an Indian site, seen from above",
+     "Concrete mixer turning at an Indian site, a worker adding cement, dust in the air"],
+    ["Wide drone-style rise over a busy Indian residential construction site, many workers, morning haze",
+     "A mason smoothing fresh plaster on a brick wall with a trowel, close handheld shot"],
+    # --- before / after storytelling (problem framing only) ---
+    ["A rough uneven concrete column surface after formwork is removed on an Indian site, honeycomb patches visible",
+     "An Indian engineer running a hand over a rough patchy concrete wall, frowning, site in background"],
 ]
 
 REVIEW = """You review prompts for Google Flow (Veo 3.1 / Gemini Omni Flash video) for VAJRA, a PP shuttering sheet brand
@@ -36,7 +46,9 @@ For each draft, return a final prompt that a non-technical person can paste into
 - One clear shot, 8 seconds, vertical 9:16, realistic handheld phone-video look on an Indian construction site.
 - Structure: camera/shot, subject, action, setting, light, then a "Sound:" line with ambient sound only.
 - Plain simple English, 40-80 words, no jargon, no lists, nothing the model could misread.
-- Any shuttering/plywood shown must be BROWN wooden plywood. Never a grey or plastic sheet.
+- IF the shot shows shuttering/formwork boards, they must be BROWN wooden plywood. Never a grey or plastic sheet
+  (that is our real product; AI must never fake it). General construction scenes (rebar, concrete pour, plaster,
+  site views, a worried contractor) need no shuttering at all and are welcome.
 - No product test or proof (no throwing, bending, nailing, water test of any sheet). No brand names, no text, signs,
   logos, subtitles or watermarks in frame. No dialogue. People: ordinary Indian workers/contractors, no famous
   faces, no children, nothing unsafe or degrading.
@@ -65,9 +77,19 @@ def today():
 
 if __name__ == "__main__":
     d = today()
-    prompts = review(IDEAS[d.toordinal() % len(IDEAS)])
-    msgs = ([f"🎬 Flow {d.strftime('%d %b')} – {len(prompts)} video (9:16). Bana ke yahin bhejo, caption: flow"]
-            + [f"{i}) {p}" for i, p in enumerate(prompts, 1)]) if prompts else []
+    if "--batch" in sys.argv:   # one-off varied batch: review N idea sets across the themes and send them together
+        try:
+            n = int(sys.argv[sys.argv.index("--batch") + 1])
+        except (ValueError, IndexError):
+            n = 4
+        prompts = []
+        for idea in IDEAS[:max(1, n)]:
+            prompts += review(idea)
+        head = f"🎬 Flow prompts – {len(prompts)} alag-alag video (9:16). Jo achhe lage bana ke yahin bhejo, caption: flow"
+    else:
+        prompts = review(IDEAS[d.toordinal() % len(IDEAS)])
+        head = f"🎬 Flow {d.strftime('%d %b')} – {len(prompts)} video (9:16). Bana ke yahin bhejo, caption: flow"
+    msgs = ([head] + [f"{i}) {p}" for i, p in enumerate(prompts, 1)]) if prompts else []
     if "--show" in sys.argv:
         sys.stdout.reconfigure(encoding="utf-8"); print("\n---\n".join(msgs) or "nothing passed review"); sys.exit()
     api = f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/sendMessage"
