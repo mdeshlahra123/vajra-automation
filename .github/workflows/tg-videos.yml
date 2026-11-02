@@ -1,0 +1,13 @@
+name: tg-videos
+on: { workflow_dispatch: {} }
+permissions: { contents: read }
+jobs:
+  peek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 social/tg_recent_videos.py
