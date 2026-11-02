@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "VAJRA PP Sheet Site Use - Slab, Column, Beam",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Slab dhalai ke liye aisi mazboot shuttering dekhi hai?",
+      "text1": "Slab dhalai setup",
+      "text2": "VAJRA PP sheet",
+      "_len": 4.0,
+      "_promised": "REAL VAJRA photo: REAL slab underside fully shuttered with grey VAJRA sheets on a yellow steel frame (slab use)"
+    },
+    {
+      "clip": 2,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Beam aur column box ke liye aasan cutting aur fitting.",
+      "text1": "Beam aur column",
+      "text2": "Aasan fitting",
+      "_len": 4.0,
+      "_promised": "REAL VAJRA photo: REAL beam box: VAJRA sheets inside a red steel frame on site (beam use)"
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "De-shuttering ke baad aisi clean aur smooth concrete finish milti hai.",
+      "text1": "Smooth concrete",
+      "text2": "Clean finish",
+      "_len": 4.58,
+      "_promised": "REAL VAJRA photo: REAL smooth finished concrete column on site (proof of finish)"
+    },
+    {
+      "clip": 3,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Apne thekedar ko bhejo aur site ke liye mangwao aisi shuttering.",
+      "text1": "Pan India dispatch",
+      "text2": "Raipur godown",
+      "_len": 4.3,
+      "_promised": "REAL VAJRA photo: stacks of new VAJRA sheets on pallets in the godown"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Slab, beam aur column dhalai ke liye best hai VAJRA PP shuttering sheet.\n\nSahi handling ke saath ply se 2-3 guna zyada chalti hai aur concrete finish aati hai bilkul smooth. Har dhalai ka kharcha ply se kam padta hai.\n\nApne thekedar aur mistri bhai ke saath share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Real photo showing slab underside formwork shuttered with grey PP sheets on a yellow steel frame.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Real photo of a beam box shuttering panel on site with grey sheets fitted inside a red frame.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Real photo of a smooth finished cast-concrete column on an active construction site.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Real photo of stacks of new grey PP sheets on wooden pallets inside a godown/warehouse.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 20.9,
+  "note": " VAJRA PP shuttering sheet ka kaam: slab, column, beam sab ismein. Photo slideshow, smooth finish dikhe. Hinglish.",
+  "who": "library"
+}
