@@ -253,10 +253,12 @@
       "id": "reel-real-1028-1352",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1028-1352.mp4",
       "caption": "captions/reel-real-1028-1352.txt",
-      "posted": "",
+      "posted": "2026-11-02",
       "ai": true,
       "cover": "https://vajraformwork.vercel.app/social/reel-real-1028-1352-cover.jpg",
-      "evening": true
+      "evening": true,
+      "slot": "evening",
+      "yt": "HII2wJbBGAs"
     },
     {
       "id": "reel-real-1102-1617",

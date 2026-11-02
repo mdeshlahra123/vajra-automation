@@ -154,3 +154,7 @@
 2026-11-01 14:01    DONE. 9 posts left in queue.
 2026-11-02 09:30  POSTING reel-real-1028-1352
 2026-11-02 09:31    DRYRUN: IG upload OK (container 18129614800826022), not published. Next: reel-real-1028-1352
+2026-11-02 14:01  POSTING reel-real-1028-1352
+2026-11-02 14:02    IG OK https://www.instagram.com/reel/DfPeUq8Cuaw/
+2026-11-02 14:02    FB OK video 1642443050713617
+2026-11-02 14:02    DONE. 12 posts left in queue.
