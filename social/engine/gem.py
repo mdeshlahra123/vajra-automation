@@ -27,8 +27,10 @@ def _req(path, body=None, method=None, timeout=900):
             except urllib.error.HTTPError as e:
                 msg = e.read().decode()[:1500]
                 last = RuntimeError(f"HTTP {e.code}: {msg}")
-                if e.code in (403, 429) and ("cap" in msg.lower() or "quota" in msg.lower() or "exhausted" in msg.lower()):
-                    break  # this key is out: try the next key
+                ml = msg.lower()
+                # this key is out (spend cap / daily quota / rate limit) -> try the next key (billed after free)
+                if e.code in (403, 429) and any(w in ml for w in ("cap", "quota", "exhausted", "rate limit", "too_many_requests", "limit:")):
+                    break
                 if e.code in (429, 500, 503) and attempt < 2:
                     time.sleep(20 * (attempt + 1)); continue
                 raise last
