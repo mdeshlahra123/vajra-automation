@@ -1,0 +1,68 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "PP Sheet Site Cutting Demo",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 2.3,
+      "vo": "PP sheet cutter se kategi kya?",
+      "text1": "PP sheet cutting",
+      "text2": "Cutter se aasan",
+      "_len": 2.38
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 3.2,
+      "vo": "Normal cutter se bilkul ply ki tarah aaram se kat ti hai.",
+      "text1": "Ply jaisi cutting",
+      "text2": "Normal site cutter",
+      "_len": 3.7
+    },
+    {
+      "clip": 1,
+      "start": 3.2,
+      "end": 6.3,
+      "vo": "Apne size mein kaato, mistri aur thekedar ko share karo.",
+      "text1": "Size adjust aasan",
+      "text2": "Mistri ko share karo",
+      "_len": 4.02
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "VAJRA PP shuttering sheet ko site pe normal cutter se aaram se kaat sakte hain, bilkul ply ki tarah.\n\nKoi special tool nahi chahiye, beam aur slab ke hisaab se manchaaha size banayein. Sahi handling ke saath ply se 2-3 guna zyada chalti hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\n\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Real construction site footage showing a handheld circular saw cutter cutting a plain light-grey PP sheet with on-screen text 'PP sheet cutting / Cutter se aasan'.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Real site footage showing a worker squatting and cutting the light-grey PP sheet with the cutter, with on-screen text 'Ply jaisi cutting / Normal site cutter'.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Real site footage continuing the cutting process of the PP sheet to size, with on-screen text 'Size adjust aasan / Mistri ko share karo'.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 14.5,
+  "note": " HOW-TO / aasan reel: VAJRA PP shuttering sheet ko site pe cutter se aaram se size mein kaat sakte ho, ply ki tarah. Real footage. Hinglish, 15-22s.",
+  "who": "Shobhit"
+}

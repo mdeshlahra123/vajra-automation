@@ -378,6 +378,17 @@
       "by": "owner (chat)",
       "at": "2026-11-02 16:21",
       "publish": "done"
+    },
+    {
+      "id": "reel-real-1102-1636",
+      "title": "Real reel from Shobhit: PP Sheet Site Cutting Demo (14s)\n✅ Reviewer: script aur video match karte hain.",
+      "file": "social/media/reel-real-1102-1636.mp4",
+      "caption": "captions/reel-real-1102-1636.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "sent",
+      "msg_id": 533,
+      "sent_at": "2026-11-02 16:38"
     }
   ]
 }
