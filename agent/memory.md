@@ -123,3 +123,10 @@
 - 1 Nov (evening review):
   - Tagged `reel-qa-rate-v` (ply problem hook) to evening slot to maintain 4 pending evening reels per autonomy rules.
   - Active ads running well; no ad exceeds ₹150 spend yet. Sent evening Telegram update.
+
+## 2 Nov 2026 (Monday Weekly Report & Daily Run)
+- Followers reached 909 (+124 this week). Total post reach strong, led by de-shuttering outlier reel (6.3k reach, 47 saves, 36 shares, 4.2x median).
+- WhatsApp Ads dominant: ~130 chats at ~₹5.5/chat vs ₹16/lead for Lead Form. Ad balance: ₹131.43 INR.
+- Lead Quality: 81% contractors/builders, 48% needing 2,000+ sq ft.
+- Started 1 new AI reel (`reel`) on ply-problem money angle since queue dipped to 5 pending reels.
+- Weekly report sent via Telegram.
