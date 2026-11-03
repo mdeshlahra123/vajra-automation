@@ -5,7 +5,7 @@ on:
     inputs:
       show: { description: "true = print only, don't send", required: false, default: "false" }
       n:    { description: "how many idea sets to send", required: false, default: "4" }
-permissions: { contents: read }
+permissions: { contents: write }
 jobs:
   brief:
     runs-on: ubuntu-latest
@@ -18,3 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 social/flow_brief.py --batch ${{ github.event.inputs.n }} ${{ github.event.inputs.show == 'true' && '--show' || '' }}
+      - name: Save state
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social/flow-state.json; git diff --cached --quiet && exit 0
+          git commit -qm "bot: flow state"; for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 4; done; exit 1

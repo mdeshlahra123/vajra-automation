@@ -37,6 +37,23 @@ IDEAS = [
     # --- before / after storytelling (problem framing only) ---
     ["A rough uneven concrete column surface after formwork is removed on an Indian site, honeycomb patches visible",
      "An Indian engineer running a hand over a rough patchy concrete wall, frowning, site in background"],
+    # --- added 3 Nov: more angles so the brief never repeats for weeks ---
+    ["Monsoon rain pouring onto stacked brown plywood boards on an open Indian site, puddles forming around them",
+     "Close shot of water dripping off the swollen edge of a brown plywood board, slow and detailed"],
+    ["A worker hammering nails into a brown plywood board that splits along the edge, Indian site, afternoon light",
+     "Bent rusty nails and splinters lying on a cracked brown plywood board on the ground, close handheld shot"],
+    ["Indian site godown with a tall messy stack of old warped brown plywood boards, dim light from a doorway",
+     "A worker pulling one warped brown plywood board out of a messy stack, it is curved and uneven"],
+    ["Two Indian contractors arguing politely over a paper site register, brown plywood stacked behind them",
+     "An Indian contractor on a phone call, looking stressed, walking past a pile of damaged brown plywood"],
+    ["Early morning Indian construction site, labourers arriving with tiffin boxes, bamboo props and rebar in frame",
+     "A tea break on an Indian site, labourers sitting on bricks drinking chai from small glasses, warm light"],
+    ["Steel column cage standing tall on an Indian rooftop site against a clear blue sky, slow upward tilt",
+     "Close slow move along a neatly tied rebar mesh on a slab before concrete, Indian site, golden light"],
+    ["A wheelbarrow of fresh wet concrete being pushed up a wooden ramp on an Indian site, worker straining",
+     "Concrete being poured into a column formwork from a bucket on an Indian site, splashing slightly"],
+    ["Top-down drone-style view of a half-finished Indian house slab with workers spreading concrete in a pattern",
+     "Time-of-day feel: sunset over a finished concrete slab on an Indian site, workers packing up tools"],
 ]
 
 REVIEW = """You review prompts for Google Flow (Veo 3.1 / Gemini Omni Flash video) for VAJRA, a PP shuttering sheet brand
@@ -71,24 +88,48 @@ def review(drafts):
     return out
 
 
+STATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "flow-state.json")
+
+
+def load_state():
+    try:
+        return json.load(open(STATE, encoding="utf-8"))
+    except Exception:
+        return {"sent": {}}
+
+
+def pick(n, st):
+    """n idea indexes, least recently sent first (never-sent first). Ties keep bank order."""
+    last = st.get("sent", {})
+    order = sorted(range(len(IDEAS)), key=lambda i: (last.get(str(i), "0000-00-00"), i))
+    return order[:n]
+
+
 def today():
     return (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)).date()
 
 
 if __name__ == "__main__":
     d = today()
+    st = load_state()
     if "--batch" in sys.argv:   # one-off varied batch: review N idea sets across the themes and send them together
         try:
             n = int(sys.argv[sys.argv.index("--batch") + 1])
         except (ValueError, IndexError):
             n = 4
-        prompts = []
-        for idea in IDEAS[:max(1, n)]:
-            prompts += review(idea)
-        head = f"🎬 Flow prompts – {len(prompts)} alag-alag video (9:16). Jo achhe lage bana ke yahin bhejo, caption: flow"
-    else:
-        prompts = review(IDEAS[d.toordinal() % len(IDEAS)])
-        head = f"🎬 Flow {d.strftime('%d %b')} – {len(prompts)} video (9:16). Bana ke yahin bhejo, caption: flow"
+        chosen = pick(max(1, n), st)
+        head_fmt = "🎬 Flow prompts – {} alag-alag video (9:16). Jo achhe lage bana ke yahin bhejo, caption: flow"
+    else:   # 3 Nov fix: was IDEAS[day % len] -> same prompts came back every few days. Now least-recently-sent.
+        chosen = pick(1, st)
+        head_fmt = "🎬 Flow " + d.strftime('%d %b') + " – {} video (9:16). Bana ke yahin bhejo, caption: flow"
+    prompts = []
+    for i in chosen:
+        prompts += review(IDEAS[i])
+    head = head_fmt.format(len(prompts))
+    if prompts and "--show" not in sys.argv:
+        for i in chosen:
+            st.setdefault("sent", {})[str(i)] = d.isoformat()
+        json.dump(st, open(STATE, "w", encoding="utf-8"), indent=1)
     msgs = ([head] + [f"{i}) {p}" for i, p in enumerate(prompts, 1)]) if prompts else []
     if "--show" in sys.argv:
         sys.stdout.reconfigure(encoding="utf-8"); print("\n---\n".join(msgs) or "nothing passed review"); sys.exit()
