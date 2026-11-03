@@ -10,3 +10,5 @@ gha-creds-*.json
 
 yt-client.json
 yt-token.json
+
+sheets-token.json
