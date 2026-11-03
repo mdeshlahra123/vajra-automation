@@ -1,5 +1,5 @@
 {
- "n": 10,
+ "n": 11,
  "photos": [
   "slab-underside",
   "v4-point",
@@ -10,7 +10,8 @@
   "in-20261026-082817",
   "in-20261026-082952",
   "in-20261027-201151",
-  "in-20261030-200852"
+  "in-20261030-200852",
+  "finish-column"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
@@ -22,6 +23,7 @@
   "Aapki site par har dhalai mein kitni ply waste hoti hai?",
   "Log kehte hain: plastic sheet kamzor hoti hai. Sach: VAJRA sheet site ki maar jhel leti hai.",
   "Slab ki dhalai se pehle oil lagane se concrete chipkta nahi hai.",
-  "Aaj site par column ki casting ke liye taiyar hai solid VAJRA sheet."
+  "Aaj site par column ki casting ke liye taiyar hai solid VAJRA sheet.",
+  "Column ki smooth finish ke liye ply ya PP? Reply karo?"
  ]
 }
