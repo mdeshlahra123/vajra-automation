@@ -299,14 +299,6 @@
       "yt": "XD89R09o4HA"
     },
     {
-      "id": "reel-real-1102-1655",
-      "caption": "captions/reel-real-1102-1655.txt",
-      "posted": "",
-      "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1655.mp4",
-      "ai": true,
-      "evening": true
-    },
-    {
       "id": "reel-real-1102-1733",
       "caption": "captions/reel-real-1102-1733.txt",
       "posted": "",
@@ -424,6 +416,15 @@
       "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1645.mp4",
       "real": true,
       "evening": true
+    },
+    {
+      "id": "reel-real-1102-1655",
+      "caption": "captions/reel-real-1102-1655.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1655.mp4",
+      "ai": true,
+      "evening": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1102-1655-cover.jpg"
     }
   ],
   "stories": [
