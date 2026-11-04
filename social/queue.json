@@ -292,18 +292,11 @@
     {
       "id": "reel-real-1102-1647",
       "caption": "captions/reel-real-1102-1647.txt",
-      "posted": "",
+      "posted": "2026-11-04",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1647.mp4",
       "real": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-real-1102-1647-cover.jpg"
-    },
-    {
-      "id": "reel-real-1102-1645",
-      "caption": "captions/reel-real-1102-1645.txt",
-      "posted": "",
-      "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1645.mp4",
-      "real": true,
-      "evening": true
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1102-1647-cover.jpg",
+      "yt": "XD89R09o4HA"
     },
     {
       "id": "reel-real-1102-1655",
@@ -335,7 +328,8 @@
       "caption": "captions/reel-real-1104-0830.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1104-0830.mp4",
-      "ai": true
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1104-0830-cover.jpg"
     }
   ],
   "hold": [
@@ -422,6 +416,14 @@
       "cover": "https://vajraformwork.vercel.app/social/x8-column-cover.jpg",
       "evening": true,
       "hold_reason": "2 Nov review: no payoff / banned hand-holding shots (owner)"
+    },
+    {
+      "id": "reel-real-1102-1645",
+      "caption": "captions/reel-real-1102-1645.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1102-1645.mp4",
+      "real": true,
+      "evening": true
     }
   ],
   "stories": [
