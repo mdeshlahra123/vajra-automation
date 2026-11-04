@@ -1,5 +1,5 @@
 {
- "n": 12,
+ "n": 13,
  "photos": [
   "slab-underside",
   "v4-point",
@@ -12,7 +12,8 @@
   "in-20261027-201151",
   "in-20261030-200852",
   "finish-column",
-  "godown"
+  "godown",
+  "r-workers"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
@@ -26,6 +27,7 @@
   "Slab ki dhalai se pehle oil lagane se concrete chipkta nahi hai.",
   "Aaj site par column ki casting ke liye taiyar hai solid VAJRA sheet.",
   "Column ki smooth finish ke liye ply ya PP? Reply karo?",
-  "Quality khud apni site par check karne ke liye message mein SAMPLE likhiye"
+  "Quality khud apni site par check karne ke liye message mein SAMPLE likhiye",
+  "Har naye floor ke liye kitni ply kharidni padti hai?"
  ]
 }
