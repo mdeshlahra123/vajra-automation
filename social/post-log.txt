@@ -172,3 +172,5 @@
 2026-11-04 04:02    IG OK https://www.instagram.com/reel/DfTjVTUDF_l/
 2026-11-04 04:02    FB OK video 1441121777411134
 2026-11-04 04:02    DONE. 9 posts left in queue.
+2026-11-04 04:15  POSTING reel-real-1102-1636
+2026-11-04 04:15    DRYRUN: IG upload OK (container 18130003207826022), not published. Next: reel-real-1102-1636
