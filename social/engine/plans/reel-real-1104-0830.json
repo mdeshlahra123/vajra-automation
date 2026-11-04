@@ -1,0 +1,64 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Ply Ka Tension Aur Solution",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 4.5,
+      "vo": "Har baar ply ka hisaab dekh kar pareshaan?",
+      "text1": "Ply ka hisaab",
+      "text2": "Badi tension",
+      "_len": 4.5
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Site par har baar ply jaldi kharab ho jaati hai.",
+      "text1": "Site par ply",
+      "text2": "Kharab ho gayi",
+      "_len": 4.0
+    },
+    {
+      "clip": 1,
+      "start": 4.0,
+      "end": 7.8,
+      "vo": "Toh is kharche aur hisaab ka solution kya hai?",
+      "text1": "Iska pakka",
+      "text2": "Solution kya hai",
+      "_len": 3.8
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 4.58,
+      "_len": 4.58,
+      "vo": "Ye hai VAJRA PP shuttering sheet, poora slab isi par.",
+      "text1": "Poora slab",
+      "text2": "VAJRA sheet par",
+      "_promised": "REAL still photo of VAJRA: REAL slab underside fully shuttered with grey VAJRA sheets on a yellow steel frame (slab use)"
+    },
+    {
+      "clip": "real-photo",
+      "start": 0,
+      "end": 4.0600000000000005,
+      "_len": 4.0600000000000005,
+      "vo": "Shuttering khula, aur column ekdum smooth.",
+      "text1": "Shuttering khula",
+      "text2": "Column smooth",
+      "_promised": "REAL still photo of VAJRA: REAL smooth finished concrete column on site (proof of finish)"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har baar naya ply khareedne se pareshan hain? Dekhiye RCC slab aur column ka naya solution.\n\nVAJRA PP shuttering sheet waterproof hai aur sahi handling ke saath ply se 2-3 guna zyada chalti hai.\n\nApne thekedar ya mistri ko bhejo.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall ya WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review_line": "⚠️ Reviewer nahi chala: HTTP 503: {\"error\":{\"message\":\"gemini-3.8-flash is currently experiencing high demand, spikes in demand are usually temp",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ⚠️ Reviewer nahi chala: HTTP 503: {\"error\":{\"message\":\"gemini-3.8-flash is currently experiencing high demand, spikes in demand are usually temp"
+  ],
+  "seconds": 25.1,
+  "note": "flow",
+  "who": "library"
+}

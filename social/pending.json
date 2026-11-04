@@ -458,6 +458,17 @@
       "by": "owner (chat)",
       "at": "2026-11-02 17:38",
       "publish": "done"
+    },
+    {
+      "id": "reel-real-1104-0830",
+      "title": "Flow (AI) reel from library: Ply Ka Tension Aur Solution (25s)\n⚠️ Reviewer nahi chala: HTTP 503: {\"error\":{\"message\":\"gemini-3.8-flash is currently experiencing high demand, spikes in demand are usually temp",
+      "file": "social/media/reel-real-1104-0830.mp4",
+      "caption": "captions/reel-real-1104-0830.txt",
+      "position": "alternate",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 610,
+      "sent_at": "2026-11-04 08:34"
     }
   ]
 }
