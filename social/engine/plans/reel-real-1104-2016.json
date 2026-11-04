@@ -1,0 +1,73 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Ply Pain to Smart Solution",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Har kuch slab pe tuta hua ply?",
+      "text1": "Tuta hua ply",
+      "text2": "Har baar naya?",
+      "_len": 3.5,
+      "_promised": "AI clip tg-1104-0827-1.mp4 0.0-3.5s: Har kuch slab pe tuta hua ply?"
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Har dhalai ke baad sirf ply ka kharcha aur hisaab.",
+      "text1": "Bar bar kharcha",
+      "text2": "Hisaab ka jhanjhat",
+      "_len": 4.54,
+      "_promised": "AI clip tg-1104-0827-2.mp4 0.0-3.5s: Har dhalai ke baad sirf ply ka kharcha aur hisaab."
+    },
+    {
+      "clip": 2,
+      "start": 0.0,
+      "end": 5.0,
+      "vo": "Bhari ply se pareshan? Yeh video apne thekedar ko bhejo.",
+      "text1": "Bhari ply se thakan",
+      "text2": "Thekedar ko bhejo",
+      "_len": 5.0,
+      "_promised": "AI clip ai-labour-tired.mp4 0.0-5.0s: Bhari ply se pareshan? Yeh video apne thekedar ko bhejo."
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har kuch slab pe naya ply khareedne se pareshan hain? VAJRA PP shuttering sheet apnaiye aur dhalai aasan banaiye.\n\nWaterproof, lightweight aur sahi handling ke saath ply se 2-3 guna zyada chalti hai.\n\nApne thekedar aur mistri bhai ke saath yeh reel zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\n\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": false,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Damaged brown wooden plywood pieces lying on a concrete floor.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Hands turning pages of an expense ledger at a worksite.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": false,
+        "seen": "Exhausted worker sitting near stacked wooden plywood with visible printed branding on top.",
+        "problem": "Visible printed logo/text on plywood sheet violates brand rules."
+      }
+    ],
+    "issues": [
+      "Scene 3 shows visible text/logos printed on the plywood sheet."
+    ]
+  },
+  "review_line": "⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 3: Visible printed logo/text on plywood sheet violates brand rules.\nScene 3 shows visible text/logos printed on the plywood sheet.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ⚠️ Reviewer: script se alag hai, dhyan se dekho. | Scene 3: Visible printed logo/text on plywood sheet violates brand rules. | Scene 3 shows visible text/logos printed on the plywood sheet."
+  ],
+  "seconds": 17.1,
+  "note": "recipe: full AI clips. items: FLOW AI clip (owner, 4 Nov); FLOW AI clip (owner, 4 Nov); AI/Flow: tired labourer sitting by brown plywood, wiping sweat",
+  "who": "library"
+}
