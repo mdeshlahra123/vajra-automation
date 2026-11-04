@@ -18,8 +18,9 @@ Never:
 - Never say the sheet price (no "3,500", no "Rs per sheet") in video, voiceover or caption.
 - Never invent numbers, certifications, awards, customer names or guarantees.
 - Never show text, logos or brand names on the sheet itself.
-- Never use AI video to "prove" a test result (throw, bend, nails, water). Proof shots must come from the real photo list.
-  AI video may show ideas: a contractor's problem, lifting/carrying, a site scene, ply vs PP comparison mood.
+- AI is allowed everywhere (owner, 4 Nov): full-AI reels, AI then real, real then AI, AI/real photos, any mix.
+  AI may show the grey VAJRA sheet in use, lifting, washing, column/slab/beam work, even demos. Any reel with AI gets
+  Instagram's AI label (ai: true). AI sheets must stay plain light-grey with no printing; never present AI people as real customers.
 - No competitor names.
 
 Every reel ends with: "Comment mein PP likhiye, follow kijiye, rate aapke DM mein."

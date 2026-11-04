@@ -21,17 +21,19 @@ def main():
     for f in sorted(os.listdir(INBOX)) if os.path.isdir(INBOX) else []:
         if not f.lower().endswith((".jpg", ".jpeg", ".png")) or f in done:
             continue
-        path = os.path.join(INBOX, f); ok, desc = True, "real site photo of VAJRA PP shuttering"
+        path = os.path.join(INBOX, f); ok, desc, ai = True, "site photo of VAJRA PP shuttering", True
         try:
             import gem
             q = ("This photo was sent by the owners of VAJRA (grey PP hollow shuttering sheets) for Instagram reels/posts. "
-                 "JSON only: {\"ok\": true/false, \"desc\": \"one line: what it shows (column/slab/beam/stock/cutting...)\", \"why\": \"\"}. "
+                 "JSON only: {\"ok\": true/false, \"ai\": true/false, \"desc\": \"one line: what it shows (column/slab/beam/stock/cutting...)\", \"why\": \"\"}. "
+                 "ai=true if it looks AI-generated (Gemini/Flow image) rather than a real phone photo; if unsure, ai=true. "
                  "ok=false if: the sheet looks dirty/used/stained with old concrete, it is blurry or very dark, a price or readable text is "
                  "prominent, or a close-up face is the main subject.")
             r = gem.interact("gemini-3.5-flash-lite", [{"type": "text", "text": q}, gem.img_part(path)],
                              response_format={"type": "text", "mime_type": "application/json"})
             j = json.loads("".join(v for k, _, v in gem.outputs(r) if k == "text"))
             ok, desc = bool(j.get("ok")) or "--accept-all" in sys.argv, (j.get("desc") or desc)[:140]
+            ai = bool(j.get("ai"))
             if not ok:
                 desc += " | rejected: " + j.get("why", "")[:100]
         except Exception as e:
@@ -39,7 +41,7 @@ def main():
         key = "in-" + f.split("-MrBeast")[0].split("-Rahul")[0].replace(".jpg", "")[:15].rstrip("-")
         if ok:
             shutil.copy(path, os.path.join(ROOT, "assets", "photos", key + ".jpg"))
-        lib[key] = {"desc": "REAL owner photo: " + desc, "src": f, "ok": ok}
+        lib[key] = {"desc": ("AI image: " if ai else "REAL owner photo: ") + desc, "src": f, "ok": ok, "ai": ai}
         print(("ADDED " if ok else "REJECTED ") + key, desc)
     json.dump(lib, open(LIB, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 

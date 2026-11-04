@@ -49,22 +49,33 @@ def is_flow(note):
     return "flow" in (note or "").lower()
 
 
-def plan(clips, note, who):
+def item_ai(path):
+    """AI or real, from the libraries (clips: flow flag; photos: ai flag). Unknown library photos/clips = real."""
+    name = os.path.basename(path)
+    try:
+        if path.lower().endswith(".mp4"):
+            return bool(json.load(open(A("assets", "clips", "library.json"), encoding="utf-8")).get(name, {}).get("flow"))
+        return bool(json.load(open(A("assets", "photos", "library.json"), encoding="utf-8")).get(name.rsplit(".", 1)[0], {}).get("ai"))
+    except Exception:
+        return False
+
+
+def plan(clips, note, who, order=""):
     rules = open(A("social", "engine", "brand.md"), encoding="utf-8").read()
-    lens = ", ".join(f"item {i}: {('photo' if (len(c) > 2 and c[2] == 'photo') else 'video %.1fs' % c[1])}" for i, c in enumerate(clips))
-    flow = is_flow(note)
-    src = ("AI-generated Google Flow clips (problem / site-mood shots; they show brown plywood problems or a site, NOT a real VAJRA demo). "
-           "Use them ONLY for the problem part: open on the pain and end your last segment on the problem or a question (\"iska solution?\"). "
-           "Do NOT mention or show VAJRA in your segments: our REAL VAJRA photos are added automatically right after them as the answer. "
-           "NEVER describe an AI clip as a test, proof or real result (no throw/bend/nail/water proof). Do not call people in them customers") if flow else f"REAL site clips that {who} shot"
+    lens = ", ".join(f"item {i}: {'AI' if c[3] else 'REAL'} {('photo' if c[2] == 'photo' else 'video %.1fs' % c[1])}" for i, c in enumerate(clips))
+    src = (f"a mix of items: REAL footage/photos ({who}) and/or AI-generated items (Google Flow / Gemini). Each item is marked AI or REAL. "
+           "AI items may show anything, including the grey VAJRA sheet in use or a demo; the reel gets Instagram's AI label. "
+           "Do not call people in AI items real customers.")
+    order = order or "Use the best items in the order that tells the strongest story (pain first, then the VAJRA answer)."
     prompt = f"""You edit an Instagram Reel for VAJRA from {src}. Brand rules (follow strictly):
 {rules}
 
 {who}'s note about the clips: "{note or 'no note'}"
 Clip lengths: {lens}. The clips are attached in order (clip 0 first).
 
-The items above are attached in order (item 0 first). Some items may be VIDEO clips and some may be PHOTOS (still images) — the item list says which. Plan a 12-25 second reel from the best parts:
-- 2 to 4 segments, each 2-7 seconds. A segment's "clip" is the item index. For a VIDEO item give start/end seconds inside it; for a PHOTO item use start 0 and end 4 (it becomes a ~4s slow Ken-Burns shot). You may use the same photo once. Skip shaky, dark or useless parts.
+The items above are attached in order (item 0 first). Some items may be VIDEO clips and some may be PHOTOS (still images) — the item list says which. Plan a 12-30 second reel from the best parts.
+Story order: {order}
+- 2 to 5 segments, each 2-7 seconds. A segment's "clip" is the item index. For a VIDEO item give start/end seconds inside it; for a PHOTO item use start 0 and end 4 (it becomes a ~4s slow Ken-Burns shot). You may use the same photo once. Skip shaky, dark or useless parts.
 - Segment 1 is the hook: the most striking moment, with a voiceover line that makes a contractor stop scrolling.
 - Each segment: one Hinglish voiceover line (max 12 words) describing what is really shown; on-screen text in 2 short lines
   (each max 20 characters, plain ASCII letters/numbers/basic punctuation, no emoji, no Devanagari).
@@ -80,7 +91,7 @@ Return JSON only:
   "caption": "Hinglish caption, 3-5 short lines, ends with the comment-PP line, Follow kijiye @vajraformwork, phone, hashtags from the rules"}}"""
     inp = [{"type": "text", "text": prompt}]
     for c in clips:
-        path = c[0]; kind = c[2] if len(c) > 2 else "clip"
+        path = c[0]; kind = c[2]
         if kind == "photo":   # send the photo as an image; it will be a single static Ken-Burns scene
             mime = "image/png" if path.lower().endswith(".png") else "image/jpeg"
             inp.append({"type": "image", "mime_type": mime, "data": base64.b64encode(open(path, "rb").read()).decode()})
@@ -92,7 +103,7 @@ Return JSON only:
     r = gem.interact(TEXT_MODEL, inp, response_format={"type": "text", "mime_type": "application/json"})
     p = json.loads("".join(v for k, _, v in gem.outputs(r) if k == "text"))
     segs = []
-    for s in p.get("segments", [])[:4]:
+    for s in p.get("segments", [])[:5]:
         c = int(s.get("clip", 0))
         if not 0 <= c < len(clips):
             continue
@@ -142,23 +153,27 @@ def render_segment(src, s, seconds, out, work, i, audio):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--clips", default=""); ap.add_argument("--files", default=""); ap.add_argument("--note", default=""); ap.add_argument("--who", default="Shobhit")
+    ap.add_argument("--order", default="", help="story order hint for the planner (library recipe)")
+    ap.add_argument("--reveal", action="store_true", help="add 2 real VAJRA photo scenes after the items")
     a = ap.parse_args()
     rid = "reel-real-" + (datetime.datetime.utcnow() + datetime.timedelta(hours=5.5)).strftime("%m%d-%H%M")
     work = A("work", rid); os.makedirs(work, exist_ok=True); log = []
     clips = []
     for i, fid in enumerate(x for x in a.clips.split(",") if x.strip()):
         raw = os.path.join(work, f"raw{i}.mp4"); download(fid.strip(), raw)
-        clips.append((raw, dur(raw), "clip"))
+        clips.append((raw, dur(raw), "clip", is_flow(a.note)))
     for f in (x.strip() for x in a.files.split(",") if x.strip()):  # library items: clips (assets/clips/..) OR photos (assets/photos/..)
         path = f if os.path.isabs(f) else A(*f.split("/"))
         if path.lower().endswith((".jpg", ".jpeg", ".png")):
-            clips.append((path, 5.0, "photo"))   # a photo = a ~5s Ken-Burns scene; planner sees it as an image
+            clips.append((path, 5.0, "photo", item_ai(path)))   # a photo = a ~5s Ken-Burns scene; planner sees it as an image
         else:
-            clips.append((path, dur(path), "clip"))
-    p = plan(clips, a.note, a.who)
+            clips.append((path, dur(path), "clip", item_ai(path)))
+    p = plan(clips, a.note, a.who, a.order)
     log.append(f"plan ok={p.get('ok')} issues={p.get('issues')}")
     import usage
-    reveal = max(REVEALS, key=lambda g: min(usage.age(x[0]) for x in g)) if is_flow(a.note) else []
+    used = {s["clip"] for s in p["segments"]}
+    any_ai = any(clips[i][3] for i in used)
+    reveal = max(REVEALS, key=lambda g: min(usage.age(x[0]) for x in g)) if (a.reveal or (a.clips and is_flow(a.note))) else []
     usage.mark(*[x[0] for x in reveal])
     lines = [s["vo"] for s in p["segments"]] + [r[3] for r in reveal] + [p.get("end_vo") or "Comment mein PP likhiye, follow kijiye, rate aapke DM mein."]
     vo_files, vo_lens = [], []
@@ -172,7 +187,7 @@ def main():
     import make_reel
     parts, starts, t = [], [], 0.0
     for i, s in enumerate(p["segments"]):
-        item = clips[s["clip"]]; src = item[0]; kind = item[2] if len(item) > 2 else "clip"
+        item = clips[s["clip"]]; src = item[0]; kind = item[2]
         seconds = max(s["end"] - s["start"], vo_lens[i] + 0.5, 2.0); s["_len"] = seconds
         out = os.path.join(work, f"s{i}.mp4")
         if kind == "photo":   # still image -> Ken-Burns photo scene (silent), same renderer as the Flow reveal
@@ -180,9 +195,10 @@ def main():
             make_reel.scene_video({"type": "photo", "text1": s["text1"], "text2": s["text2"]}, src, seconds, silent, work, 20 + i)
             sh("ffmpeg", "-v", "error", "-y", "-i", silent, "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo", "-map", "0:v", "-map", "1:a",
                "-t", f"{seconds:.2f}", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2", out)
-            s["_promised"] = "REAL VAJRA photo: " + make_reel.PHOTOS.get(os.path.basename(src)[:-4], os.path.basename(src))
+            s["_promised"] = ("AI image: " if item[3] else "REAL VAJRA photo: ") + make_reel.PHOTOS.get(os.path.basename(src)[:-4], os.path.basename(src))
         else:
             render_segment(src, s, seconds, out, work, i, has_audio(src))
+            s["_promised"] = ("AI clip " if item[3] else "real site clip ") + f"{os.path.basename(src)} {s['start']}-{s['end']}s: " + s.get("vo", "")
         parts.append(out); starts.append(t); t += seconds
     # Flow reels: show what VAJRA PP sheet really is (real photos), after the AI problem clips
     for k, (photo, t1, t2, vo) in enumerate(reveal):
@@ -217,7 +233,7 @@ def main():
         for s in p["segments"]:
             ln = s.get("_len", 0) or 3.0
             sc.append({"start": tt, "end": tt + ln, "vo": s.get("vo", ""), "text": f"{s.get('text1','')} / {s.get('text2','')}",
-                       "promised": s.get("_promised") or ("AI Flow clip " if is_flow(a.note) else "real site clip ") + f"{s.get('clip')} {s.get('start')}-{s.get('end')}s: " + s.get("vo", "")})
+                       "promised": s.get("_promised") or f"clip {s.get('clip')} {s.get('start')}-{s.get('end')}s: " + s.get("vo", "")})
             tt += ln
         rv = review_reel.review(final, sc, work)
         p["review"] = rv; p["review_line"] = review_reel.summary(rv)
@@ -231,9 +247,10 @@ def main():
     warn = "" if p.get("ok", True) else " ⚠️ CHECK: " + "; ".join(p.get("issues", []))[:300]
     pend_path = A("social", "pending.json")
     pend = json.load(open(pend_path, encoding="utf-8")) if os.path.exists(pend_path) else {"items": []}
-    pend["items"].append({"id": rid, "title": f"{"Flow (AI) reel" if is_flow(a.note) else "Real reel"} from {a.who}: {p.get('title', '')} ({total:.0f}s){warn}\n{p.get('review_line', '')}",
+    kind = "AI reel" if all(clips[i][3] for i in used) else ("AI + real reel" if any_ai else "Real reel")
+    pend["items"].append({"id": rid, "title": f"{kind} from {a.who}: {p.get('title', '')} ({total:.0f}s){warn}\n{p.get('review_line', '')}",
                           "file": f"social/media/{rid}.mp4", "caption": f"captions/{rid}.txt", "position": "alternate",
-                          **({"ai": True} if is_flow(a.note) else {"real": True}), "status": "draft"})
+                          **({"ai": True} if any_ai else {"real": True}), "status": "draft"})
     json.dump(pend, open(pend_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     print("REEL", rid, f"{total:.1f}s", final); print("\n".join(log))
     with open(os.environ.get("GITHUB_OUTPUT", os.devnull), "a") as f: f.write(f"id={rid}\n")

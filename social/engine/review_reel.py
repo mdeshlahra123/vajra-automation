@@ -1,4 +1,4 @@
-"""Delivery reviewer: compares the FINISHED reel against the approved script before it goes to Telegram.
+﻿"""Delivery reviewer: compares the FINISHED reel against the approved script before it goes to Telegram.
 For every scene it takes 2 frames from the final mp4 and asks Gemini: does what we SEE match what the script
 PROMISED (type ai/photo/clip, subject, words on screen, voiceover)? Also checks brand rules.
 Returns {"ok": bool, "scenes": [{"n", "match", "seen", "problem"}], "issues": [...]}.
@@ -13,7 +13,7 @@ from make_reel import sh, TEXT_MODEL
 
 RULES = ("Brand rules: problem/ply scenes must show BROWN wooden plywood, never the grey VAJRA sheet. VAJRA scenes show a "
          "plain light-grey hollow PP sheet with no printing. No visible price, no competitor logo, no readable text or logos on "
-         "any sheet, no deformed hands/faces, no glitches. AI video must never pretend to be proof (throw/bend/nail/water test).")
+         "any sheet, no deformed hands/faces, no glitches. AI scenes are allowed anywhere, including the VAJRA sheet in use or a demo.")
 
 
 def review(final, scenes, work):

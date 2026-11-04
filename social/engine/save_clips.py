@@ -24,7 +24,11 @@ def main():
     for i, fid in enumerate(x.strip() for x in a.clips.split(",") if x.strip()):
         name = f"tg-{stamp}-{i + 1}.mp4"; path = os.path.join(ROOT, "assets", "clips", name)
         download(fid, path)
-        lib[name] = {"who": a.who, "note": a.note[:200], "flow": "flow" in a.note.lower(), "secs": round(dur(path), 1), "added": now.strftime("%Y-%m-%d")}
+        import ai_check  # owner 4 Nov: no caption needed, AI vs real is detected from the frames
+        ai, desc = ai_check.check(path)
+        ai = ai or "flow" in a.note.lower()
+        lib[name] = {"who": a.who, "note": (a.note or ("AI: " if ai else "REAL: ") + desc)[:200], "flow": ai,
+                     "secs": round(dur(path), 1), "added": now.strftime("%Y-%m-%d")}
         saved.append(name)
     json.dump(lib, open(LIB, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("SAVED", saved)
