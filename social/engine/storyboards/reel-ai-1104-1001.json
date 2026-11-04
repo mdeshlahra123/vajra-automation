@@ -1,0 +1,33 @@
+{
+  "hook": "Ply har baar itni bhari kyun lagti hai?",
+  "title": "One man lift vs heavy ply",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld video on an Indian RCC construction site. Two male construction workers struggling and straining to lift a single wet, dark brown heavy wooden plywood sheet off muddy ground. Raw concrete pillars and rebar in background. Natural daylight, realistic handheld camera motion, no text or logos anywhere.",
+      "shows_vajra": false,
+      "vo": "Ply har baar itni bhari kyun lagti hai?",
+      "text1": "Ply itni bhari?",
+      "text2": "Do aadmi kyu?"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld camera on an Indian building site. A single male Indian laborer effortlessly lifting an 8 by 4 ft, 12 mm thick plain light-grey plastic formwork sheet onto his shoulder with one hand and walking smoothly. The sheet is plain light grey with no logos or text, edge showing small round hollow holes in two staggered rows. Bright daylight.",
+      "shows_vajra": true,
+      "vo": "VAJRA sheet akele ek banda aasaani se utha leta hai.",
+      "text1": "Ek banda uthaye",
+      "text2": "Light aur solid"
+    },
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": true,
+      "vo": "Apne thekedar ko bhejo, ply se halki aur mazboot hai.",
+      "text1": "Halki aur majboot",
+      "text2": "Thekedar ko bhejo"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Bhari plywood chodiye aur light VAJRA PP shuttering sheet apnaiye! Pani mein na phule, wazan mein halki aur ek banda aasaani se utha le. Sahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha kam karti hai.\n\nApne mistri aur thekedar bhaiyon ko zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": ""
+}
