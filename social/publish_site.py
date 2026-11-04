@@ -26,6 +26,19 @@ sdir = os.path.join("site", "social")
 for i in todo:
     shutil.copy(os.path.join(BASE, "..", i["file"]), os.path.join(sdir, os.path.basename(i["file"])))
     i["publish"] = "done"
+# 4 Nov safety net: ANY unposted queue/trial reel whose video is ours but missing on the site gets uploaded,
+# however it was approved (tap, chat, brain, library). Files come from social/media.
+for p in queue["posts"] + queue.get("trials", []):
+    v = p.get("video") or ""
+    if p.get("posted") or "vajraformwork.vercel.app/social/" not in v:
+        continue
+    f = os.path.basename(v); src = os.path.join(BASE, "media", f)
+    if not os.path.exists(os.path.join(sdir, f)) and os.path.exists(src):
+        shutil.copy(src, os.path.join(sdir, f)); todo.append({"id": p["id"], "file": "social/media/" + f})
+        print("safety net: uploaded missing", f)
+        for i in pend["items"]:
+            if i["id"] == p["id"]:
+                i["publish"] = "done"
 removed = [f for f in os.listdir(sdir) if f.endswith((".mp4", ".jpg")) and f not in keep and not any(os.path.basename(i["file"]) == f for i in todo)]
 for f in removed:
     os.remove(os.path.join(sdir, f))
@@ -83,9 +96,20 @@ def hook(p):
         return ""
 pend_posts = [p for p in queue["posts"] if not p.get("posted")]
 nxt = {"made": str(today), "reels": [], "images": []}
-for kind, key, t in (("reels", "video", "09:30"), ("images", "image", "19:30")):
-    for n, p in enumerate([p for p in pend_posts if p.get(key)][:7]):
-        nxt[kind].append({"date": str(today + datetime.timedelta(days=n)), "time": t, "id": p["id"], "url": p[key], "hook": hook(p)})
+# same rules as daily-post.ps1 (1 Nov): 09:30 = trial reel (trial pool first, else next non-evening reel),
+# 19:30 = main reel (next evening-tagged reel, else any reel), photo only when no reel is left.
+trials = [p for p in queue.get("trials", []) if not p.get("posted") and p.get("video")]
+am = [p for p in pend_posts if p.get("video") and not p.get("evening")]
+ev = [p for p in pend_posts if p.get("video") and p.get("evening")]
+for n in range(7):
+    d = str(today + datetime.timedelta(days=n))
+    m = trials.pop(0) if trials else (am.pop(0) if am else (ev.pop(0) if ev else None))
+    e = ev.pop(0) if ev else (am.pop(0) if am else None)
+    for p, t in ((m, "09:30 trial"), (e, "19:30")):
+        if p:
+            nxt["reels"].append({"date": d, "time": t, "id": p["id"], "url": p["video"], "hook": hook(p)})
+for n, p in enumerate([p for p in pend_posts if p.get("image")][:7]):
+    nxt["images"].append({"date": "when no reel is left", "time": "19:30", "id": p["id"], "url": p["image"], "hook": hook(p)})
 npath = os.path.join(sdir, "next.json")
 old = open(npath, encoding="utf-8").read() if os.path.exists(npath) else ""
 new = json.dumps(nxt, ensure_ascii=False, indent=1)

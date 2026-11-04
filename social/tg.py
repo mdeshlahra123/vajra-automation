@@ -77,6 +77,8 @@ def send(item_id):
 def add_to_queue(it):
     q = load(QUEUE, {"posts": []})
     if any(p["id"] == it["id"] for p in q["posts"]):
+        if it.get("file") and it.get("publish") != "done":
+            it["publish"] = "todo"   # already queued but never uploaded: still publish it
         return
     entry = {"id": it["id"], "caption": it["caption"], "posted": ""}
     if it.get("file"):

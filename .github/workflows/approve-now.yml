@@ -27,9 +27,10 @@ jobs:
           p=json.load(open('social/pending.json',encoding='utf-8'))
           it=next(i for i in p['items'] if i['id']==os.environ['ID'])
           it['status']='approved'; it['by']='owner (chat)'
-          json.dump(p,open('social/pending.json','w',encoding='utf-8'),ensure_ascii=False,indent=2)
           import sys; sys.path.insert(0,'social'); import tg
-          tg.add_to_queue(it); print('queued', it['id'])
+          tg.add_to_queue(it); it['publish']='todo'   # 4 Nov fix: save AFTER add_to_queue, else publish_site never sees 'todo'
+          json.dump(p,open('social/pending.json','w',encoding='utf-8'),ensure_ascii=False,indent=2)
+          print('queued', it['id'])
           PY
       - name: Publish file + cover
         run: python3 social/publish_site.py
