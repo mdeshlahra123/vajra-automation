@@ -1,5 +1,5 @@
 # VAJRA media library
-_Auto-updated 04 Nov 2026 08:28 IST by social/build_library.py._
+_Auto-updated 04 Nov 2026 08:30 IST by social/build_library.py._
 
 One place that lists every photo and clip in the library. Reels are built from the clips below (library_reel.py / make_real.py). Telegram media the owners send is added here automatically (save-photo / make-real workflows). Web view: https://vajraformwork.vercel.app/social/library/
 
@@ -21,10 +21,10 @@ One place that lists every photo and clip in the library. Reels are built from t
 | `assets/clips/slab-soffit-point-1.mp4` | clip | 18.2s ✅ usable | REAL: worker points up at finished smooth slab underside (Shobhit) |
 | `assets/clips/slab-soffit-point-2.mp4` | clip | 14.2s ✅ usable | REAL: red rod pointing at smooth slab ceiling, beam edges (Shobhit) |
 | `assets/clips/slab-soffit-smooth.mp4` | clip | 14.2s ✅ usable | REAL: finished slab underside, smooth grey concrete ceiling |
-| `assets/clips/tg-1104-0827-1.mp4` | clip | 7.9s ✅ usable | real |
-| `assets/clips/tg-1104-0827-2.mp4` | clip | 7.9s ✅ usable | real |
-| `assets/clips/tg-1104-0827-3.mp4` | clip | 7.9s ✅ usable | real |
-| `assets/clips/tg-1104-0827-4.mp4` | clip | 7.9s ✅ usable | real |
+| `assets/clips/tg-1104-0827-1.mp4` | AI/Flow | 7.9s ✅ usable | FLOW AI clip (owner, 4 Nov) |
+| `assets/clips/tg-1104-0827-2.mp4` | AI/Flow | 7.9s ✅ usable | FLOW AI clip (owner, 4 Nov) |
+| `assets/clips/tg-1104-0827-3.mp4` | AI/Flow | 7.9s ✅ usable | FLOW AI clip (owner, 4 Nov) |
+| `assets/clips/tg-1104-0827-4.mp4` | AI/Flow | 7.9s ✅ usable | FLOW AI clip (owner, 4 Nov) |
 
 ## Photos (25)
 | File | Type | Status | Note |
