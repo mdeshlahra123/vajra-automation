@@ -1,9 +1,9 @@
 # VAJRA media library
-_Auto-updated 04 Nov 2026 20:40 IST by social/build_library.py._
+_Auto-updated 05 Nov 2026 09:23 IST by social/build_library.py._
 
 One place that lists every photo and clip in the library. Reels are built from the clips below (library_reel.py / make_real.py). Telegram media the owners send is added here automatically (save-photo / make-real workflows). Web view: https://vajraformwork.vercel.app/social/library/
 
-## Clips (19)  — reels are made from these
+## Clips (22)  — reels are made from these
 | File | Type | Status | Note |
 |---|---|---|---|
 | `assets/clips/ai-carry-heavy-ply.mp4` | AI/Flow | 7.9s ✅ usable | AI/Flow: two labourers struggle to carry a heavy brown plywood board ( |
@@ -25,6 +25,9 @@ One place that lists every photo and clip in the library. Reels are built from t
 | `assets/clips/tg-1104-0827-2.mp4` | AI/Flow | 7.9s ✅ usable | FLOW AI clip (owner, 4 Nov) |
 | `assets/clips/tg-1104-0827-3.mp4` | AI/Flow | 7.9s ✅ usable | FLOW AI clip (owner, 4 Nov) |
 | `assets/clips/tg-1104-0827-4.mp4` | AI/Flow | 7.9s ✅ usable | FLOW AI clip (owner, 4 Nov) |
+| `assets/clips/tg-1105-0922-1.mp4` | clip | 7.9s ✅ usable | REAL: stack of used damaged brown plywood sheets at construction site |
+| `assets/clips/tg-1105-0922-2.mp4` | clip | 7.9s ✅ usable | REAL: labour handling stacked brown plywood sheets on a construction s |
+| `assets/clips/tg-1105-0922-3.mp4` | clip | 7.9s ✅ usable | REAL: smooth concrete column showcasing the neat finish achieved with  |
 
 ## Photos (25)
 | File | Type | Status | Note |
