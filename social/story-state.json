@@ -1,5 +1,5 @@
 {
- "n": 14,
+ "n": 15,
  "photos": [
   "slab-underside",
   "v4-point",
@@ -14,7 +14,8 @@
   "finish-column",
   "godown",
   "r-workers",
-  "warehouse"
+  "warehouse",
+  "v4-point"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
@@ -30,6 +31,7 @@
   "Column ki smooth finish ke liye ply ya PP? Reply karo?",
   "Quality khud apni site par check karne ke liye message mein SAMPLE likhiye",
   "Har naye floor ke liye kitni ply kharidni padti hai?",
-  "Log kehte hain: plastic sheet waterproof nahi hoti. Sach: pani me bhi kharab nahi hoti."
+  "Log kehte hain: plastic sheet waterproof nahi hoti. Sach: pani me bhi kharab nahi hoti.",
+  "Sheet ko seedha zameen pe na ghaseeto, utha ke rakho: zyada chalegi."
  ]
 }
