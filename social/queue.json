@@ -328,6 +328,13 @@
       "ai": true,
       "cover": "https://vajraformwork.vercel.app/social/reel-real-1104-0830-cover.jpg",
       "evening": true
+    },
+    {
+      "id": "reel-real-1105-2020",
+      "caption": "captions/reel-real-1105-2020.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1105-2020.mp4",
+      "ai": true
     }
   ],
   "hold": [

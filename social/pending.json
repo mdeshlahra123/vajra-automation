@@ -492,9 +492,12 @@
       "caption": "captions/reel-real-1105-2020.txt",
       "position": "alternate",
       "ai": true,
-      "status": "sent",
+      "status": "approved",
       "msg_id": 670,
-      "sent_at": "2026-11-05 20:22"
+      "sent_at": "2026-11-05 20:22",
+      "by": "MrBeast",
+      "at": "2026-11-05 21:01",
+      "publish": "todo"
     }
   ]
 }
