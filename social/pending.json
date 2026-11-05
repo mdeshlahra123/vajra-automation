@@ -484,6 +484,17 @@
       "status": "sent",
       "msg_id": 630,
       "sent_at": "2026-11-04 20:19"
+    },
+    {
+      "id": "reel-real-1105-2020",
+      "title": "AI + real reel from library: Ply Pain to PP Shuttering Solution (21s)\n⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 4: VAJRA scene shows broken wooden plywood instead of the light-grey hollow PP sheet.\nScene 4 violates brand guidelines by displaying wooden plywood during the VAJRA product section instead of the grey PP sheet.",
+      "file": "social/media/reel-real-1105-2020.mp4",
+      "caption": "captions/reel-real-1105-2020.txt",
+      "position": "alternate",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 670,
+      "sent_at": "2026-11-05 20:22"
     }
   ]
 }

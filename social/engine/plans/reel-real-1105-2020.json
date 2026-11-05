@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Ply Pain to PP Shuttering Solution",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Bhaari ply uthane mein do mazdoor lagte hain.",
+      "text1": "Bhaari plywood",
+      "text2": "Uthana mushkil",
+      "_len": 3.5,
+      "_promised": "AI clip ai-carry-heavy-ply.mp4 0.0-3.5s: Bhaari ply uthane mein do mazdoor lagte hain."
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 3.2,
+      "vo": "Thekedar bhi pareshan, paani lagte hi ply phoolti hai.",
+      "text1": "Paani se kharab",
+      "text2": "Thekedar pareshan",
+      "_len": 4.38,
+      "_promised": "AI clip ai-contractor-concern.mp4 0.0-3.2s: Thekedar bhi pareshan, paani lagte hi ply phoolti hai."
+    },
+    {
+      "clip": 2,
+      "start": 2.5,
+      "end": 5.7,
+      "vo": "Site pe aisi tooti phooti ply ka dher lagta hai.",
+      "text1": "Tooti phooti ply",
+      "text2": "Site par nuksan",
+      "_len": 3.34,
+      "_promised": "real site clip tg-1105-0922-1.mp4 2.5-5.7s: Site pe aisi tooti phooti ply ka dher lagta hai."
+    },
+    {
+      "clip": 3,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Apne thekedar ko bhejo, VAJRA waterproof hai aur bhaari ply se behtar.",
+      "text1": "VAJRA PP sheet",
+      "text2": "Waterproof formwork",
+      "_len": 5.5,
+      "_promised": "real site clip tg-1105-0922-2.mp4 0.0-3.5s: Apne thekedar ko bhejo, VAJRA waterproof hai aur bhaari ply se behtar."
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har dhalai mein tooti aur bhaari ply se pareshan hain? Switch kijiye VAJRA PP shuttering sheet par.\n\nWaterproof formwork jo paani se na phoole na sade. Har dhalai ka kharcha bachaayein aur kaam aasan banayein. Pan-India dispatch Raipur Chhattisgarh se.\n\nApne thekedar aur mistri dosto ko zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": false,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Two laborers carrying a heavy brown plywood board on a muddy construction site.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Contractor wearing a white helmet looking stressed at a site with stacked plywood.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Tall stack of worn and damaged wooden formwork plywood on site.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": false,
+        "seen": "Worker lifting broken brown wooden plywood from a stack.",
+        "problem": "VAJRA scene shows broken wooden plywood instead of the light-grey hollow PP sheet."
+      }
+    ],
+    "issues": [
+      "Scene 4 violates brand guidelines by displaying wooden plywood during the VAJRA product section instead of the grey PP sheet."
+    ]
+  },
+  "review_line": "⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 4: VAJRA scene shows broken wooden plywood instead of the light-grey hollow PP sheet.\nScene 4 violates brand guidelines by displaying wooden plywood during the VAJRA product section instead of the grey PP sheet.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ⚠️ Reviewer: script se alag hai, dhyan se dekho. | Scene 4: VAJRA scene shows broken wooden plywood instead of the light-grey hollow PP sheet. | Scene 4 violates brand guidelines by displaying wooden plywood during the VAJRA product section instead of the grey PP sheet."
+  ],
+  "seconds": 20.9,
+  "note": "recipe: AI clips then real clips. items: AI/Flow: two labourers struggle to carry a heavy brown plywood board (has audio); AI/Flow: contractor in helmet walking past brown plywood stacks, concerned; REAL: stack of used damaged brown plywood sheets at construction site; REAL: labour handling stacked brown plywood sheets on a construction si",
+  "who": "library"
+}
