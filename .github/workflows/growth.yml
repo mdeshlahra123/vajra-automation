@@ -22,7 +22,7 @@ jobs:
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: timeout 300 sh -c 'sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null' || echo 'ffmpeg install skipped (no re-cut today)'
       - run: python3 social/growth.py ${{ github.event.inputs.dry == 'true' && '--dry' || '' }}
       - name: Save
         if: always() && github.event.inputs.dry != 'true'
