@@ -28,11 +28,39 @@ def sim(a, b):
     return len(wa & wb) / max(1, len(wa | wb))
 
 
+def G(path, **p):
+    """Meta call with backoff (403/400 here are usually the app rate limit)."""
+    import time
+    for i in range(3):
+        try:
+            return tools.g(path, **p)
+        except Exception as e:
+            print("meta retry", i + 1, path[:40], str(e)[:80]); time.sleep(20 * (i + 1))
+    raise RuntimeError("meta unavailable: " + path)
+
+
 def measure():
-    pt = tools.g(tools.PAGE, fields="access_token").get("access_token"); tok = {"access_token": pt} if pt else {}
+    cache = load("perf.json", {})
+    try:
+        pt = G(tools.PAGE, fields="access_token").get("access_token")
+    except Exception:
+        pt = None
+    tok = {"access_token": pt} if pt else {}
     fb = []
-    for v in tools.g(f"{tools.PAGE}/videos", fields="id,created_time,description,length", limit=30, **tok)["data"]:
+    try:
+        vids = G(f"{tools.PAGE}/videos", fields="id,created_time,description,length", limit=30, **tok)["data"]
+    except Exception as e:   # Meta down / rate limited: decide from the last saved numbers
+        print("using cached perf:", e)
+        rows = sorted(cache.values(), key=lambda r: r["t"], reverse=True)[:30]
+        for r in rows:
+            r["age_h"] = round((NOW - datetime.datetime.fromisoformat(r["t"] + "+00:00")).total_seconds() / 3600)
+        return rows, None
+    for v in vids:
         r = {"t": v["created_time"][:16], "hook": (v.get("description") or "").split("\n")[0][:90], "len": round(v.get("length") or 0)}
+        old = cache.get(r["t"] + " " + r["hook"][:40])
+        age_d = (NOW - datetime.datetime.fromisoformat(r["t"] + "+00:00")).days
+        if old and age_d > 10:   # numbers barely move after 10 days: reuse, saves Meta calls
+            fb.append({**old}); continue
         for mt in ("fb_reels_total_plays", "post_video_avg_time_watched", "post_video_followers", "post_video_social_actions"):
             try:
                 d = tools.g(f"{v['id']}/video_insights", metric=mt, **tok)["data"]
@@ -40,21 +68,25 @@ def measure():
             except Exception:
                 pass
         if r.get("fb_reels_total_plays") is None:
+            if old: fb.append({**old})
             continue
         r["plays"] = r.pop("fb_reels_total_plays"); r["watch"] = round((r.pop("post_video_avg_time_watched", 0) or 0) / 1000, 1)
         r["foll"] = r.pop("post_video_followers", 0) or 0; r["com"] = (r.pop("post_video_social_actions", {}) or {}).get("COMMENT", 0)
         fb.append(r)
-    ig_id = tools.g(tools.PAGE, fields="instagram_business_account")["instagram_business_account"]["id"]
-    ig = {}
-    for m in tools.g(f"{ig_id}/media", fields="id,timestamp,caption,media_product_type", limit=30)["data"]:
-        if m.get("media_product_type") != "REELS":
-            continue
-        try:
-            x = {i["name"]: i["values"][0]["value"] for i in tools.g(f"{m['id']}/insights", metric="reach,views")["data"]}
-        except Exception:
-            x = {}
-        ig[norm((m.get("caption") or "").split("\n")[0])[:40]] = x
-    followers = tools.g(ig_id, fields="followers_count").get("followers_count")
+    ig, followers = {}, None
+    try:
+        ig_id = G(tools.PAGE, fields="instagram_business_account")["instagram_business_account"]["id"]
+        for m in G(f"{ig_id}/media", fields="id,timestamp,caption,media_product_type", limit=20)["data"]:
+            if m.get("media_product_type") != "REELS":
+                continue
+            try:
+                x = {i["name"]: i["values"][0]["value"] for i in tools.g(f"{m['id']}/insights", metric="reach,views")["data"]}
+            except Exception:
+                x = {}
+            ig[norm((m.get("caption") or "").split("\n")[0])[:40]] = x
+        followers = G(ig_id, fields="followers_count").get("followers_count")
+    except Exception as e:
+        print("IG skipped:", e)
     for r in fb:
         r["ig_views"] = ig.get(norm(r["hook"])[:40], {}).get("views")
         r["age_h"] = round((NOW - datetime.datetime.fromisoformat(r["t"] + "+00:00")).total_seconds() / 3600)
