@@ -12,7 +12,7 @@ permissions: { contents: write }
 jobs:
   grow:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 30
     env:
       META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
