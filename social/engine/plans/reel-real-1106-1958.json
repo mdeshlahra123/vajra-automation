@@ -1,0 +1,90 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Rain Proof VAJRA PP Sheet vs Broken Ply",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Barish aur keechad mein sheet bilkul waterproof rehti hai.",
+      "text1": "Barish mein safe",
+      "text2": "Waterproof sheet",
+      "_len": 3.82,
+      "_promised": "real site clip tg-1106-1853-1.mp4 0.0-3.5s: Barish aur keechad mein sheet bilkul waterproof rehti hai."
+    },
+    {
+      "clip": 1,
+      "start": 0.5,
+      "end": 4.0,
+      "vo": "Site pe unloading aasan hai, sheet uthane mein halki hai.",
+      "text1": "Aasan unloading",
+      "text2": "Halki PP sheet",
+      "_len": 4.1,
+      "_promised": "real site clip tg-1106-1853-2.mp4 0.5-4.0s: Site pe unloading aasan hai, sheet uthane mein halki hai."
+    },
+    {
+      "clip": 2,
+      "start": 1.5,
+      "end": 4.5,
+      "vo": "Wahin purani ply toot kar site pe kachra ban jati hai.",
+      "text1": "Ply har baar naya?",
+      "text2": "Toota hua kharcha",
+      "_len": 4.02,
+      "_promised": "AI clip ai-ply-waste-pile.mp4 1.5-4.5s: Wahin purani ply toot kar site pe kachra ban jati hai."
+    },
+    {
+      "clip": 3,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Barish mein pareshani se bacho, apne thekedar ko share karo!",
+      "text1": "Thekedar ko bhejo",
+      "text2": "Nuksan se bacho",
+      "_len": 4.140000000000001,
+      "_promised": "AI clip ai-worker-worried.mp4 0.0-3.5s: Barish mein pareshani se bacho, apne thekedar ko share karo!"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Barish aur keechad mein bhi zero tension deti hai VAJRA PP shuttering sheet!\n\nPani mein na phoolti hai na sadti hai. Sahi handling ke saath ply se 2-3 guna zyada chalti hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": false,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Stacks of light-grey hollow PP sheets on a muddy construction site in the rain with matching on-screen text.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Two workers unloading a grey hollow PP sheet from a truck and stacking it on the ground.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "A waste pile of broken brown wooden plywood in the corner of a brick structure.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": false,
+        "seen": "First frame shows the promised worried worker, but the second frame cuts to a completely different video of waterlogged broken plywood with visible text/logos.",
+        "problem": "Scene 4 cuts to an unpromised clip of waterlogged plywood instead of staying on ai-worker-worried.mp4, and shows readable branding/logos on the plywood sheet."
+      }
+    ],
+    "issues": [
+      "Scene 4 contains an incorrect clip transition to waterlogged plywood instead of showing the promised worried worker video throughout.",
+      "Scene 4 second frame shows readable text/logo on the plywood sheet, violating brand rules."
+    ]
+  },
+  "review_line": "⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 4: Scene 4 cuts to an unpromised clip of waterlogged plywood instead of staying on ai-worker-worried.mp4, and shows readable branding/logos on the plywood sheet.\nScene 4 contains an incorrect clip transition to waterlogged plywood instead of showing the promised worried worker video throughout.\nScene 4 second frame shows readable text/logo on the plywood sheet, violating brand rules.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ⚠️ Reviewer: script se alag hai, dhyan se dekho. | Scene 4: Scene 4 cuts to an unpromised clip of waterlogged plywood instead of staying on ai-worker-worried.mp4, and shows readable branding/logos on the plywood sheet. | Scene 4 contains an incorrect clip transition to waterlogged plywood instead of showing the promised worried worker video throughout. | Scene 4 second frame shows readable text/logo on the plywood sheet, violating brand rules."
+  ],
+  "seconds": 20.1,
+  "note": "recipe: real clips then AI clips. items: REAL: grey VAJRA sheet stacked on a muddy construction site during rain; REAL: workers unloading grey VAJRA sheets from a truck at a construction site; AI/Flow: pile of broken brown plywood in a half-built brick house; AI/Flow: worried worker in vest at ply site (ply problem)",
+  "who": "library"
+}

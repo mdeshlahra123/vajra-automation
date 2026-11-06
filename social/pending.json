@@ -512,6 +512,17 @@
       "by": "MrBeast",
       "at": "2026-11-06 08:41",
       "publish": "done"
+    },
+    {
+      "id": "reel-real-1106-1958",
+      "title": "AI + real reel from library: Rain Proof VAJRA PP Sheet vs Broken Ply (20s)\n⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 4: Scene 4 cuts to an unpromised clip of waterlogged plywood instead of staying on ai-worker-worried.mp4, and shows readable branding/logos on the plywood sheet.\nScene 4 contains an incorrect clip transition to waterlogged plywood instead of showing the promised worried worker video throughout.\nScene 4 second frame shows readable text/logo on the plywood sheet, violating brand rules.",
+      "file": "social/media/reel-real-1106-1958.mp4",
+      "caption": "captions/reel-real-1106-1958.txt",
+      "position": "alternate",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 702,
+      "sent_at": "2026-11-06 20:02"
     }
   ]
 }
