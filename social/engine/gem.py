@@ -1,4 +1,4 @@
-"""Small Gemini API helper (Interactions API, REST, no SDK).
+﻿"""Small Gemini API helper (Interactions API, REST, no SDK).
 Env: GEMINI_API_KEY (billed: video/voice/music), GEMINI_FREE_KEY (free tier: text/vision, tried first), GROQ_API_KEY (text fallback)."""
 import base64, json, os, time, urllib.request, urllib.error
 
@@ -46,7 +46,7 @@ def groq(prompt, json_mode=False, model="llama-3.3-70b-versatile"):
     if json_mode:
         body["response_format"] = {"type": "json_object"}
     req = urllib.request.Request("https://api.groq.com/openai/v1/chat/completions", data=json.dumps(body).encode(),
-                                 headers={"Content-Type": "application/json", "Authorization": f"Bearer {key}"})
+                                 headers={"Content-Type": "application/json", "Authorization": f"Bearer {key}", "User-Agent": "vajra-bot/1.0"})
     out = json.load(urllib.request.urlopen(req, timeout=120))["choices"][0]["message"]["content"]
     return json.loads(out) if json_mode else out
 

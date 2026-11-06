@@ -1,4 +1,4 @@
-"""VAJRA growth loop (owner, 6 Nov: 'completely autopilot'). Daily 18:00 IST via growth.yml, before the 19:30 post.
+﻿"""VAJRA growth loop (owner, 6 Nov: 'completely autopilot'). Daily 18:00 IST via growth.yml, before the 19:30 post.
   1 MEASURE  : FB plays / watch / followers / comments + IG views / reach for every posted reel (perf history in social/perf.json)
   2 DIAGNOSE : each reel vs the median of the last 14; angle of every hook; tired angles; repeated hooks; winners
   3 DECIDE   : free LLM chain (Groq gpt-oss-120b -> Gemini free -> rules) picks the next angles, hooks to avoid,
@@ -92,7 +92,7 @@ Decide, returning JSON only:
  "diagnosis": "2-3 short sentences: what is working, what is falling and why (specific)",
  "next_angles": ["3 angles for the next 3 new reels: best performer first, never the same angle as the last 2 posts, include 1 under-tried angle"],
  "avoid_hooks": ["first lines from the last 10 posts that new reels must not resemble"],
- "hook_ideas": ["5 fresh Hinglish hooks (max 9 words, sentence case, no price, no exact number of uses)"],
+ "hook_ideas": ["5 fresh Hinglish hooks (max 9 words, sentence case). Claims allowed ONLY: lighter than ply, one man can lift, waterproof / does not swell, washable and reusable, sahi handling ke saath ply se 2-3 guna zyada chalti hai. No price, no number of uses, no years/saalo saal, no guarantees"],
  "evening_pick": "id of the pending reel whose angle fits next_angles[0] best for 19:30 tonight, or null",
  "recut": "id of a posted reel with plays >= 2x the median, posted 10+ days ago, to re-cut with a new hook, or null",
  "ask_owners": "one short Hinglish request for specific REAL clips the library lacks for next_angles, or null"}}"""
@@ -147,7 +147,7 @@ def main():
     # 1 plan for the reel builders
     plan = {"made": IST.strftime("%Y-%m-%d %H:%M"), "src": src, "next_angles": d.get("next_angles", [])[:3],
             "avoid_hooks": [h for h in (d.get("avoid_hooks") or [])][:12] or [r["hook"] for r in fb[:10]],
-            "hook_ideas": (d.get("hook_ideas") or [])[:6], "diagnosis": d.get("diagnosis", ""), "median_plays": median}
+            "hook_ideas": [h for h in (d.get("hook_ideas") or []) if not re.search(r"(?i)saal|guarantee|\d", h)][:6], "diagnosis": d.get("diagnosis", ""), "median_plays": median}
     for r in fb[:10]:   # always include the real last 10 hooks
         if r["hook"] not in plan["avoid_hooks"]:
             plan["avoid_hooks"].append(r["hook"])
