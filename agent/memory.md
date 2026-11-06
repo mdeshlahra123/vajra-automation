@@ -167,4 +167,8 @@
 - Queue pending reels was 2 (< 6), so started 1 new AI reel (`reel`) on money/ply-problem angle ("Ply baar-baar khareedna band").
 - Daily report sent to owners on Telegram with shoot request for Shobhit (column deshuttering/water wash).
 
+- 6 Nov (evening review):
+  - Checked today's posts and queue: active ads (L12, L13, L9) running with strong CPL (~₹4-5).
+  - Started 1 AI reel to keep pipeline full. Sent evening Telegram update.
+
 
