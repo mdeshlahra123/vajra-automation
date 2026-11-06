@@ -1,0 +1,39 @@
+{
+  "hook": "Ply har baar naya khareed kar thak gaye?",
+  "title": "Ply kharcha bachao reel",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Single continuous vertical shot on an active Indian building construction site, handheld phone camera style. A site mistri angrily tosses a cracked, swollen, water-damaged brown wooden shuttering plywood sheet onto a messy scrap pile of broken plywood. Natural daytime sunlight, dust flying, realistic documentary look, no text anywhere.",
+      "shows_vajra": false,
+      "vo": "Ply har baar naya khareed kar thak gaye?",
+      "text1": "Har kuch slab pe",
+      "text2": "naya ply?"
+    },
+    {
+      "type": "photo",
+      "photo": "r-throw",
+      "shows_vajra": true,
+      "vo": "Sahi handling ke saath yeh ply se do-teen guna zyada chalti hai.",
+      "text1": "2-3 guna zyada",
+      "text2": "chalti hai"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Single continuous vertical shot on an RCC slab under construction in India, handheld phone look. A construction worker easily lifts and positions a plain light-grey hollow shuttering panel across steel rebar. These must look exactly like the reference photos: VAJRA PP hollow shuttering sheet, a large flat 8 x 4 ft board (taller than a man when standing), 12 mm thick, plain light-grey faces, edge with SMALL round holes in two staggered rows. No text, no logos, no printing on anything.",
+      "shows_vajra": true,
+      "vo": "Har dhalai ka kharcha bachao, apne mistri ko bhejo aur ply bhoolo!",
+      "text1": "Kam kharcha",
+      "text2": "Mistri ko bhejo"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har slab par naya ply khareedna band kijiye aur apna kharcha bachaiye!\n\nVAJRA PP shuttering sheet waterproof hai aur sahi handling ke saath ply se 2-3 guna zyada chalti hai. Har dhalai ka kharcha ply se kam padta hai. Raipur godown se pan-India dispatch uplabdh hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Ply baar-baar khareedna band, har dhalai mein ply ka kharcha bachao",
+  "build_log": [
+    "scene 0 ai attempt 1: ok=True The frames depict brown wooden plywood consistently without prominent text, glitches, or anatomical defects.",
+    "scene 2 ai attempt 1: ok=False Prominent brand logo visible on pants.",
+    "scene 2 ai attempt 2: ok=True The frames depict a real, plain light-grey plastic construction board with no visible text, logos, or anatomical distortions."
+  ],
+  "seconds": 16.8
+}

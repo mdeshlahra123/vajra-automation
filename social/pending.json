@@ -498,6 +498,17 @@
       "by": "MrBeast",
       "at": "2026-11-05 21:01",
       "publish": "todo"
+    },
+    {
+      "id": "reel-ai-1106-0701",
+      "title": "AI reel: Ply kharcha bachao reel (17s)",
+      "file": "social/media/reel-ai-1106-0701.mp4",
+      "caption": "captions/reel-ai-1106-0701.txt",
+      "position": "end",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 679,
+      "sent_at": "2026-11-06 08:40"
     }
   ]
 }
