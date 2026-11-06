@@ -347,6 +347,13 @@
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1106-0701.mp4",
       "ai": true,
       "cover": "https://vajraformwork.vercel.app/social/reel-ai-1106-0701-cover.jpg"
+    },
+    {
+      "id": "reel-real-1106-1958",
+      "caption": "captions/reel-real-1106-1958.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-real-1106-1958.mp4",
+      "ai": true
     }
   ],
   "hold": [
