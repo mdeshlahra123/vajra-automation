@@ -335,6 +335,13 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1105-2020.mp4",
       "ai": true
+    },
+    {
+      "id": "reel-ai-1106-0701",
+      "caption": "captions/reel-ai-1106-0701.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-ai-1106-0701.mp4",
+      "ai": true
     }
   ],
   "hold": [
