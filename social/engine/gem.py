@@ -1,6 +1,6 @@
 ﻿"""Small Gemini API helper (Interactions API, REST, no SDK).
 Env: GEMINI_API_KEY (billed: video/voice/music), GEMINI_FREE_KEY (free tier: text/vision, tried first), GROQ_API_KEY (text fallback)."""
-import base64, json, os, time, urllib.request, urllib.error
+import base64, json, os, re, time, urllib.request, urllib.error
 
 URL = "https://generativelanguage.googleapis.com/v1beta/"
 
@@ -74,6 +74,24 @@ def outputs(r):
                 yield t or mime.split("/")[0], mime, base64.b64decode(c["data"])
             elif c.get("text") is not None:
                 yield "text", "text/plain", c["text"]
+
+
+def nvidia(prompt, json_mode=False, model="nvidia/nemotron-3.5-super-vl-120b-a12b"):
+    """Free NVIDIA NIM (build.nvidia.com, ~10k requests/day). Text only."""
+    key = os.environ.get("NVIDIA_API_KEY")
+    if not key:
+        raise RuntimeError("no NVIDIA_API_KEY")
+    p = prompt if isinstance(prompt, str) else json.dumps(prompt)
+    if json_mode:
+        p += "\n\nReturn ONLY valid JSON, no other text."
+    body = {"model": model, "messages": [{"role": "user", "content": p}], "max_tokens": 4000, "temperature": 0.4}
+    req = urllib.request.Request("https://integrate.api.nvidia.com/v1/chat/completions", data=json.dumps(body).encode(),
+                                 headers={"Content-Type": "application/json", "Authorization": f"Bearer {key}", "User-Agent": "vajra-bot/1.0"})
+    out = json.load(urllib.request.urlopen(req, timeout=180))["choices"][0]["message"]["content"] or ""
+    if not json_mode:
+        return out
+    m = re.search(r"\{.*\}", out, re.S)
+    return json.loads(m.group(0) if m else out)
 
 
 def text(model, prompt, json_mode=False):

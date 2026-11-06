@@ -128,7 +128,8 @@ Decide, returning JSON only:
  "evening_pick": "id of the pending reel whose angle fits next_angles[0] best for 19:30 tonight, or null",
  "recut": "id of a posted reel with plays >= 2x the median, posted 10+ days ago, to re-cut with a new hook, or null",
  "ask_owners": "one short Hinglish request for specific REAL clips the library lacks for next_angles, or null"}}"""
-    for fn in (lambda: gem.groq(ask, json_mode=True, model="openai/gpt-oss-120b"),
+    for fn in (lambda: gem.nvidia(ask, json_mode=True),
+               lambda: gem.groq(ask, json_mode=True, model="openai/gpt-oss-120b"),
                lambda: gem.groq(ask, json_mode=True),
                lambda: gem.text("gemini-3.5-flash-lite", ask, json_mode=True)):
         try:
