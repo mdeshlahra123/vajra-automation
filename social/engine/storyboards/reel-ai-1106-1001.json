@@ -1,0 +1,33 @@
+{
+  "hook": "Bhari ply se roz pareshan hote ho?",
+  "title": "One Man Lift vs Heavy Ply",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld camera view on an active Indian construction site. Two workers struggle together to lift a heavy, water-soaked, dark brown wooden plywood sheet from the ground, straining under the weight. Natural daylight, realistic gritty construction background, no text, no logos.",
+      "shows_vajra": false,
+      "vo": "Bhari ply se roz pareshan hote ho?",
+      "text1": "Bhari ply ka load",
+      "text2": "Roz ki pareshani"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical phone video on an Indian slab shuttering site. A single construction worker effortlessly lifts an 8x4 ft plain light-grey plastic board onto his shoulder with one arm and walks forward. The sheet is 12 mm thick, clean light-grey with no text or logos, edge shows small round holes in two staggered rows. Handheld motion, natural sunlight.",
+      "shows_vajra": true,
+      "vo": "VAJRA sheet halki hai, ek banda aaram se uthayega.",
+      "text1": "Ek banda utha le",
+      "text2": "VAJRA halki sheet"
+    },
+    {
+      "type": "photo",
+      "photo": "v1-lean",
+      "shows_vajra": true,
+      "vo": "Apne thekedar ko bhejo, ab mat ho pareshan.",
+      "text1": "Zyada lambi life",
+      "text2": "Thekedar ko bhejo"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Bhari ply utha ke thak gaye? VAJRA PP shuttering sheet hai halki aur waterproof, ek banda aaram se utha le!\n\nPly se 2-3 guna zyada chalti hai, sahi handling ke saath. Har dhalai ka kharcha ply se kam.\nApne thekedar ya mistri ko zaroor share kijiye.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": ""
+}
