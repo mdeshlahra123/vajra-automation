@@ -11,8 +11,11 @@ ACCOUNT, PAGE = "act_1417609487254050", "1296793536861294"
 
 
 def g(path, **p):
-    p["access_token"] = os.environ["META_ADS_TOKEN"]
-    return json.load(urllib.request.urlopen(V + path + "?" + urllib.parse.urlencode(p), timeout=60))
+    p.setdefault("access_token", os.environ["META_ADS_TOKEN"])
+    try:
+        return json.load(urllib.request.urlopen(V + path + "?" + urllib.parse.urlencode(p), timeout=60))
+    except urllib.error.HTTPError as e:   # show Meta's real reason (token expired / rate limit / permission)
+        raise RuntimeError(f"Meta {e.code} on {path[:50]}: {e.read().decode('utf-8', 'replace')[:300]}") from None
 
 
 def leads(row):
