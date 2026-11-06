@@ -67,6 +67,16 @@ def plan(clips, note, who, order=""):
            "AI items may show anything, including the grey VAJRA sheet in use or a demo; the reel gets Instagram's AI label. "
            "Do not call people in AI items real customers.")
     order = order or "Use the best items in the order that tells the strongest story (pain first, then the VAJRA answer)."
+    try:   # growth loop (social/growth.py): today's angle + hooks that must not repeat
+        g = json.load(open(A("social", "growth-plan.json"), encoding="utf-8"))
+        if g.get("next_angles"):
+            order += f"\nANGLE for this reel (growth plan): {g['next_angles'][0]}. Build the hook and voice around it if the items allow."
+        if g.get("hook_ideas"):
+            order += "\nFresh hook ideas you may use or adapt: " + " | ".join(g["hook_ideas"][:5])
+        if g.get("avoid_hooks"):
+            order += "\nThe hook (segment 1 voice + caption first line) must NOT resemble these recent hooks: " + " | ".join(g["avoid_hooks"][:12])
+    except Exception:
+        pass
     prompt = f"""You edit an Instagram Reel for VAJRA from {src}. Brand rules (follow strictly):
 {rules}
 
@@ -155,6 +165,7 @@ def main():
     ap.add_argument("--clips", default=""); ap.add_argument("--files", default=""); ap.add_argument("--note", default=""); ap.add_argument("--who", default="Shobhit")
     ap.add_argument("--order", default="", help="story order hint for the planner (library recipe)")
     ap.add_argument("--reveal", action="store_true", help="add 2 real VAJRA photo scenes after the items")
+    ap.add_argument("--ai", action="store_true", help="treat all items as AI (re-cut of an AI reel)")
     a = ap.parse_args()
     rid = "reel-real-" + (datetime.datetime.utcnow() + datetime.timedelta(hours=5.5)).strftime("%m%d-%H%M")
     work = A("work", rid); os.makedirs(work, exist_ok=True); log = []
@@ -167,7 +178,7 @@ def main():
         if path.lower().endswith((".jpg", ".jpeg", ".png")):
             clips.append((path, 5.0, "photo", item_ai(path)))   # a photo = a ~5s Ken-Burns scene; planner sees it as an image
         else:
-            clips.append((path, dur(path), "clip", item_ai(path)))
+            clips.append((path, dur(path), "clip", item_ai(path) or a.ai))
     p = plan(clips, a.note, a.who, a.order)
     log.append(f"plan ok={p.get('ok')} issues={p.get('issues')}")
     import usage

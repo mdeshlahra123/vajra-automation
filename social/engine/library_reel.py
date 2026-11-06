@@ -112,6 +112,11 @@ def main():
     if not rid:
         raise SystemExit("reel not made")
     usage.mark(*pick)
+    queue_or_send(rid)
+
+
+def queue_or_send(rid):
+    """reviewer ✅ -> straight into the queue (evening slot) + FYI; ⚠️ -> Telegram approval card."""
     import tg
     pend = json.load(open(os.path.join(ROOT, "social", "pending.json"), encoding="utf-8"))
     it = next(i for i in pend["items"] if i["id"] == rid)

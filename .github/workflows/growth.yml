@@ -1,0 +1,33 @@
+name: growth
+# Growth loop (owner, 6 Nov: full autopilot): measure -> diagnose -> decide -> act -> report (only on change, weekly on Sunday).
+# Daily 12:30 UTC = 18:00 IST, before the 19:30 post. Manual: dry=true prints the decision without changing anything.
+on:
+  schedule:
+    - cron: '30 12 * * *'
+  workflow_dispatch:
+    inputs:
+      dry: { description: "true = decide only, change nothing", required: false, default: "false" }
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  grow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: python3 social/growth.py ${{ github.event.inputs.dry == 'true' && '--dry' || '' }}
+      - name: Save
+        if: always() && github.event.inputs.dry != 'true'
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social assets; git diff --cached --quiet && exit 0
+          git commit -qm "bot: growth loop"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
