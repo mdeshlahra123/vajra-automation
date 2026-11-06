@@ -155,6 +155,8 @@ def tg(text):
 def main():
     st = load("growth-state.json", {"recut": {}, "asked": "", "weekly": ""})
     fb, followers = measure()
+    if len([r for r in fb if r.get("plays")]) < 5:   # no real numbers (Meta down + no cache): never decide blind
+        print("not enough performance data; nothing changed"); return
     q = match_queue(fb)
     perf = load("perf.json", {})
     for r in fb:
