@@ -1,0 +1,39 @@
+name: watchdog
+# Autopilot safety net (owner, 6 Nov): 10:30 and 20:30 IST. If the 09:30 / 19:30 post is missing, re-run it
+# (daily-post.ps1 refuses to post a second reel for the same slot) and tell the group. GitHub schedules can run late; that is fine.
+on:
+  schedule:
+    - cron: '0 5 * * *'     # 10:30 IST
+    - cron: '0 15 * * *'    # 20:30 IST
+  workflow_dispatch:
+permissions: { contents: read, actions: write }
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check today's slots
+        run: |
+          python3 - <<'PY'
+          import datetime, json, os, subprocess, urllib.parse, urllib.request
+          q = json.load(open("social/queue.json", encoding="utf-8"))
+          ist = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)
+          today = ist.strftime("%Y-%m-%d"); mins = ist.hour * 60 + ist.minute
+          items = [p for p in q["posts"] + q.get("trials", []) if str(p.get("posted", "")) == today]
+          morning = any(p.get("video") and p.get("slot") != "evening" for p in items)
+          evening = any(p.get("slot") == "evening" for p in items)
+          todo = []
+          if mins >= 10 * 60 + 15 and not morning: todo.append(("reel", "9:30"))
+          if mins >= 20 * 60 + 15 and not evening: todo.append(("image", "19:30"))
+          print(today, "morning", morning, "evening", evening, "todo", todo)
+          for typ, label in todo:
+              r = subprocess.run(["gh", "workflow", "run", "post.yml", "-f", f"type={typ}", "-f", "dryrun=false"], capture_output=True, text=True)
+              msg = f"🛠 {label} ka post nahi mila, dobara chala diya ({'ok' if r.returncode == 0 else 'FAIL: ' + r.stderr[:150]}). 10 min mein check karna."
+              data = urllib.parse.urlencode({"chat_id": os.environ["TELEGRAM_CHAT_ID"], "text": msg}).encode()
+              urllib.request.urlopen(f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/sendMessage", data, timeout=30)
+          PY
