@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Column shuttering sahi handling",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Column par yeh sheet sahi handling ke saath lambi chalti hai.",
+      "text1": "Column shuttering",
+      "text2": "Sahi handling",
+      "_len": 4.0600000000000005,
+      "_promised": "real site clip tg-1107-0838-1.mp4 0.0-3.5s: Column par yeh sheet sahi handling ke saath lambi chalti hai."
+    },
+    {
+      "clip": 1,
+      "start": 1.0,
+      "end": 4.5,
+      "vo": "Paani aur keechad mein aam ply phool kar bekaar ho jati hai.",
+      "text1": "Aam ply ka nuksan",
+      "text2": "Paani se kharab",
+      "_len": 4.02,
+      "_promised": "real site clip tg-1107-0838-3.mp4 1.0-4.5s: Paani aur keechad mein aam ply phool kar bekaar ho jati hai."
+    },
+    {
+      "clip": 2,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Lightweight sheet se column ka box asaani se khada ho jata hai.",
+      "text1": "Lightweight sheet",
+      "text2": "Aasan setting",
+      "_len": 4.140000000000001,
+      "_promised": "REAL VAJRA photo: workers holding a finished VAJRA column shuttering"
+    },
+    {
+      "clip": 3,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Apne thekedar dost ko bhejo aur sahi handling se kaam aasan karo.",
+      "text1": "Column box ready",
+      "text2": "Mistri ko bhejo",
+      "_len": 4.58,
+      "_promised": "REAL VAJRA photo: tall column shuttered with VAJRA panels on a rooftop site"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Column dhalai mein sahi handling ke saath PP shuttering sheet ply se 2-3 guna zyada chalti hai.\n\nPaani aur seelan se sheet kharab nahi hoti aur column setting aasan rehti hai. Raipur, Durg, Bhilai se pan-India dispatch uplabdh hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Two construction workers in safety gear fastening clamps on a column shuttering formwork with matching on-screen text.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Water-damaged brown wooden plywood sheet lying on muddy ground with matching on-screen text.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Workers assembling and holding a column shuttering box lined with grey VAJRA sheets with matching on-screen text.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Tall column shuttering box erected on a rooftop site with workers around it and matching on-screen text.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 20.7,
+  "note": "recipe: real clips + real photos. items: REAL: labour installing grey VAJRA shuttering sheets on a concrete column at a construction site; REAL: damaged brown ply showing delamination and rot at a construction site; v6-done.jpg; p2-column.jpg",
+  "who": "library"
+}

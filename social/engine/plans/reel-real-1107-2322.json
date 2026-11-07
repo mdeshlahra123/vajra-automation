@@ -1,0 +1,90 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Waterproof Ply vs VAJRA PP Sheet Recut",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Kya ply sach mein waterproof hoti hai? Paani se phoolti hai.",
+      "text1": "Waterproof ply sach",
+      "text2": "Paani se kharab",
+      "_len": 4.58,
+      "_promised": "AI clip reel-real-1102-1412.mp4 0.0-3.5s: Kya ply sach mein waterproof hoti hai? Paani se phoolti hai."
+    },
+    {
+      "clip": 0,
+      "start": 7.5,
+      "end": 11.5,
+      "vo": "Tooti aur phooli ply se site par baar baar nuksan.",
+      "text1": "Site par nuksan",
+      "text2": "Tooti phooli ply",
+      "_len": 4.1,
+      "_promised": "AI clip reel-real-1102-1412.mp4 7.5-11.5s: Tooti aur phooli ply se site par baar baar nuksan."
+    },
+    {
+      "clip": 0,
+      "start": 12.5,
+      "end": 16.5,
+      "vo": "VAJRA PP sheet se column formwork aasan ho jata hai.",
+      "text1": "VAJRA column work",
+      "text2": "Aasan shuttering",
+      "_len": 4.0,
+      "_promised": "AI clip reel-real-1102-1412.mp4 12.5-16.5s: VAJRA PP sheet se column formwork aasan ho jata hai."
+    },
+    {
+      "clip": 0,
+      "start": 16.5,
+      "end": 20.5,
+      "vo": "Yeh waterproof sheet paani se nahi phoolti, thekedar ko bhejo.",
+      "text1": "Waterproof sheet",
+      "text2": "Thekedar ko bhejo",
+      "_len": 4.3,
+      "_promised": "AI clip reel-real-1102-1412.mp4 16.5-20.5s: Yeh waterproof sheet paani se nahi phoolti, thekedar ko bhejo."
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Kya ply sach mein waterproof hoti hai? Paani lagte hi ply phool kar kharab ho jati hai.\n\nVAJRA PP shuttering sheet paani se bilkul nahi phoolti aur sahi handling ke saath ply se 2-3 guna zyada chalti hai. Column aur slab dhalai mein paani ki no tension.\n\nApne thekedar aur mistri bhai ko zaroor share kijiye.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall ya WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": false,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Damaged, waterlogged brown wooden plywood sheets on site with requested overlay text.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": false,
+        "seen": "Distressed worker followed by damaged plywood stack; overlay text has garbled characters.",
+        "problem": "Text contains typos or encoding artifacts ('a?' and '?')."
+      },
+      {
+        "n": 3,
+        "match": false,
+        "seen": "Workers erecting column shuttering with grey PP sheets; text overlay has trailing letters.",
+        "problem": "Overlay text displays 'Aasan shuttering et' instead of 'Aasan shuttering'."
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Workers fitting column formwork using grey waterproof sheet with correct overlay text.",
+        "problem": ""
+      }
+    ],
+    "issues": [
+      "Scene 2 on-screen text contains stray characters ('a?' and '?')",
+      "Scene 3 on-screen text contains trailing typo ('et')"
+    ]
+  },
+  "review_line": "⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 2: Text contains typos or encoding artifacts ('a?' and '?').\nScene 3: Overlay text displays 'Aasan shuttering et' instead of 'Aasan shuttering'.\nScene 2 on-screen text contains stray characters ('a?' and '?')\nScene 3 on-screen text contains trailing typo ('et')",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ⚠️ Reviewer: script se alag hai, dhyan se dekho. | Scene 2: Text contains typos or encoding artifacts ('a?' and '?'). | Scene 3: Overlay text displays 'Aasan shuttering et' instead of 'Aasan shuttering'. | Scene 2 on-screen text contains stray characters ('a?' and '?') | Scene 3 on-screen text contains trailing typo ('et')"
+  ],
+  "seconds": 20.8,
+  "note": "RECUT of a winning reel (141465 FB plays). Keep the strongest moments but use a NEW hook (not: Har dhalai mein tooti aur phooli ply ka nuksan kab tak jheloge?), new voice lines, different segment order. Angle: wash and reuse",
+  "who": "growth"
+}

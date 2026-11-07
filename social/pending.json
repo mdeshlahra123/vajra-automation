@@ -554,6 +554,28 @@
       "by": "MrBeast",
       "at": "2026-11-07 18:57",
       "publish": "done"
+    },
+    {
+      "id": "reel-real-1107-2322",
+      "title": "AI reel from growth: Waterproof Ply vs VAJRA PP Sheet Recut (21s)\n⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 2: Text contains typos or encoding artifacts ('a?' and '?').\nScene 3: Overlay text displays 'Aasan shuttering et' instead of 'Aasan shuttering'.\nScene 2 on-screen text contains stray characters ('a?' and '?')\nScene 3 on-screen text contains trailing typo ('et')",
+      "file": "social/media/reel-real-1107-2322.mp4",
+      "caption": "captions/reel-real-1107-2322.txt",
+      "position": "alternate",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 734,
+      "sent_at": "2026-11-07 23:25"
+    },
+    {
+      "id": "reel-real-1107-2325",
+      "title": "Real reel from library: Column shuttering sahi handling (21s)\n✅ Reviewer: script aur video match karte hain.",
+      "file": "social/media/reel-real-1107-2325.mp4",
+      "caption": "captions/reel-real-1107-2325.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "approved",
+      "by": "auto (reviewer ok)",
+      "publish": "todo"
     }
   ]
 }
