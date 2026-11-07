@@ -171,10 +171,14 @@
   - Checked today's posts and queue: active ads (L12, L13, L9) running with strong CPL (~₹4-5).
   - Started 1 AI reel to keep pipeline full. Sent evening Telegram update.
 
-## 7 Nov 2026 (daily run)
+- 7 Nov 2026 (daily run)
 - Followers reached 963 (+14).
 - WhatsApp Ads: L12, L13, L9 active with strong CPL (~₹4.5/chat). Ad balance critically low at ₹31.44 INR.
 - Queue pending reels was 2 (< 6), so started 1 new AI reel (`reel`) on ply-problem money angle.
 - Daily report sent to owners on Telegram with low ad balance alert and shoot request for Shobhit (column deshuttering/water wash).
+
+- 7 Nov (evening review):
+  - Tagged real reel `reel-real-1107-1852` for tomorrow's 19:30 evening slot (AI reel at 09:30).
+  - Active WhatsApp ads running stably; sent evening Telegram update.
 
 
