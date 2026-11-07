@@ -526,6 +526,17 @@
       "by": "MrBeast",
       "at": "2026-11-06 20:03",
       "publish": "todo"
+    },
+    {
+      "id": "reel-ai-1107-0702",
+      "title": "AI reel: Switch from ply to VAJRA (16s)",
+      "file": "social/media/reel-ai-1107-0702.mp4",
+      "caption": "captions/reel-ai-1107-0702.txt",
+      "position": "end",
+      "ai": true,
+      "status": "sent",
+      "msg_id": 722,
+      "sent_at": "2026-11-07 08:35"
     }
   ]
 }
