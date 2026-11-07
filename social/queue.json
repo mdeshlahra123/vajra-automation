@@ -352,17 +352,20 @@
     {
       "id": "reel-real-1106-1958",
       "caption": "captions/reel-real-1106-1958.txt",
-      "posted": "",
+      "posted": "2026-11-07",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1106-1958.mp4",
       "ai": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-real-1106-1958-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1106-1958-cover.jpg",
+      "slot": "evening",
+      "yt": "TiaIkofExPU"
     },
     {
       "id": "reel-real-1107-1852",
       "caption": "captions/reel-real-1107-1852.txt",
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1107-1852.mp4",
-      "real": true
+      "real": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1107-1852-cover.jpg"
     },
     {
       "id": "reel-ai-1107-0702",
