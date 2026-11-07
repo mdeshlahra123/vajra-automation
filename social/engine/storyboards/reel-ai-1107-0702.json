@@ -1,0 +1,33 @@
+{
+  "hook": "Ply har baar naya khareed ke pareshan?",
+  "title": "Switch from ply to VAJRA",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld smartphone video on a dusty Indian construction site. A construction mistri angrily throws a broken, water-damaged, peeling brown wooden plywood sheet onto an untidy scrap heap of old timber shuttering boards. Bright daylight, realistic site action, natural camera movement, no text anywhere, no dialogue.",
+      "shows_vajra": false,
+      "vo": "Ply har baar naya khareed ke pareshan ho gaye?",
+      "text1": "Ply har baar naya?",
+      "text2": "Kharcha band!"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld video on an Indian RCC construction site. A worker easily carries a single 8x4 ft, 12 mm thick plain light-grey plastic formwork sheet on his shoulder with one hand. Smooth light-grey surface without any text or logos, edges showing small hollow round holes in two staggered rows. Daylight, realistic site setting, no dialogue, no text.",
+      "shows_vajra": true,
+      "vo": "Switch kijiye light-weight VAJRA PP shuttering sheet par.",
+      "text1": "Switch to VAJRA",
+      "text2": "Halka aur mazboot"
+    },
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": true,
+      "vo": "Sahi handling ke saath ply se do guna zyada. Thekedar ko bhejo!",
+      "text1": "Sahi handling par",
+      "text2": "2-3x zyada chalegi"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Ply har baar khareedne se pareshan? Switch kijiye VAJRA PP shuttering sheet pe jo chalti hai 2-3 guna zyada!\n\nSahi handling ke saath har dhalai ka kharcha ply se kam padta hai. Waterproof sheet, na sadegi na fulegi.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Ply baar-baar khareedne se pareshan? Switch kijiye VAJRA PP shuttering sheet pe, jo chale 2-3 guna zyada"
+}
