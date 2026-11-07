@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Column shuttering to smooth finish",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Column aur slab ke liye ply har baar naya?",
+      "text1": "Har Baar Naya",
+      "text2": "Ply Ka Jhanjhat?",
+      "_len": 3.5,
+      "_promised": "REAL VAJRA photo: a VAJRA sheet lying flat on a site floor, close view"
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "VAJRA sheet se column box set karna bilkul aasan hai.",
+      "text1": "Column Shuttering",
+      "text2": "Asaan Fitting",
+      "_len": 3.74,
+      "_promised": "REAL VAJRA photo: column fully closed with VAJRA panels and wooden battens"
+    },
+    {
+      "clip": 2,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Dhalai ke baad dekhiye kaisa clean concrete finish milta hai.",
+      "text1": "De Shuttering",
+      "text2": "Solid Finish",
+      "_len": 4.38,
+      "_promised": "REAL VAJRA photo: REAL owner photo: finished concrete column on site with props"
+    },
+    {
+      "clip": 3,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Aisa smooth column finish dekh kar apne thekedar ko bhejo.",
+      "text1": "Zero Honeycomb",
+      "text2": "Smooth Column",
+      "_len": 4.0600000000000005,
+      "_promised": "REAL VAJRA photo: REAL owner photo: smooth concrete column surface close-up after VAJRA shuttering"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Column dhalai ke baad smooth finish chahiye to VAJRA PP shuttering sheet apnaiye.\nWaterproof sheet hai, concrete chipakta nahi aur finish aati hai ekdam solid. Sahi handling ke saath ply se 2-3 guna zyada chalti hai.\nApne mistri aur thekedar bhaiyo ke saath share kijiye.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": false,
+    "scenes": [
+      {
+        "n": 1,
+        "match": false,
+        "seen": "A light-grey VAJRA sheet propped up at an angle on the ground outdoors with text 'Har Baar Naya / Ply Ka Jhanjhat?'.",
+        "problem": "Brand rule violation: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet. Additionally, the sheet is propped up rather than lying flat on the floor as promised."
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Workers assembling and positioning a closed column shuttering box fitted with VAJRA sheets and wooden battens.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Finished concrete column standing on site supported by wooden props after de-shuttering.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Close-up view of the smooth, finished concrete column surface with minimal imperfections.",
+        "problem": ""
+      }
+    ],
+    "issues": [
+      "Scene 1 violates brand rule: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet."
+    ]
+  },
+  "review_line": "⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 1: Brand rule violation: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet. Additionally, the sheet is propped up rather than lying flat on the floor as promised.\nScene 1 violates brand rule: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ⚠️ Reviewer: script se alag hai, dhyan se dekho. | Scene 1: Brand rule violation: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet. Additionally, the sheet is propped up rather than lying flat on the floor as promised. | Scene 1 violates brand rule: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet."
+  ],
+  "seconds": 19.7,
+  "note": "recipe: full real photos. items: v1-lean.jpg; v6-close.jpg; in-20261026-082817.jpg; in-20261026-082952.jpg",
+  "who": "library"
+}
