@@ -534,9 +534,12 @@
       "caption": "captions/reel-ai-1107-0702.txt",
       "position": "end",
       "ai": true,
-      "status": "sent",
+      "status": "approved",
       "msg_id": 722,
-      "sent_at": "2026-11-07 08:35"
+      "sent_at": "2026-11-07 08:35",
+      "by": "MrBeast",
+      "at": "2026-11-07 08:39",
+      "publish": "todo"
     }
   ]
 }
