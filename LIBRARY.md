@@ -1,9 +1,9 @@
 # VAJRA media library
-_Auto-updated 07 Nov 2026 19:16 IST by social/build_library.py._
+_Auto-updated 08 Nov 2026 08:38 IST by social/build_library.py._
 
 One place that lists every photo and clip in the library. Reels are built from the clips below (library_reel.py / make_real.py). Telegram media the owners send is added here automatically (save-photo / make-real workflows). Web view: https://vajraformwork.vercel.app/social/library/
 
-## Clips (28)  — reels are made from these
+## Clips (31)  — reels are made from these
 | File | Type | Status | Note |
 |---|---|---|---|
 | `assets/clips/ai-carry-heavy-ply.mp4` | AI/Flow | 7.9s ✅ usable | AI/Flow: two labourers struggle to carry a heavy brown plywood board ( |
@@ -34,6 +34,9 @@ One place that lists every photo and clip in the library. Reels are built from t
 | `assets/clips/tg-1107-0838-1.mp4` | clip | 7.9s ✅ usable | REAL: labour installing grey VAJRA shuttering sheets on a concrete col |
 | `assets/clips/tg-1107-0838-2.mp4` | clip | 7.9s ✅ usable | REAL: worker cutting grey VAJRA sheet with circular saw |
 | `assets/clips/tg-1107-0838-3.mp4` | clip | 7.9s ✅ usable | REAL: damaged brown ply showing delamination and rot at a construction |
+| `assets/clips/tg-1108-0837-1.mp4` | clip | 7.9s ✅ usable | REAL: labour carrying grey VAJRA sheet at construction site |
+| `assets/clips/tg-1108-0837-2.mp4` | clip | 7.9s ✅ usable | REAL: damaged wet brown plywood sheets showing internal rotting and sp |
+| `assets/clips/tg-1108-0837-3.mp4` | clip | 7.9s ✅ usable | REAL: contractor couple inspecting a smooth exposed concrete ceiling c |
 
 ## Photos (25)
 | File | Type | Status | Note |
