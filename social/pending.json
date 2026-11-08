@@ -567,7 +567,7 @@
       "sent_at": "2026-11-07 23:25",
       "by": "MrBeast",
       "at": "2026-11-07 23:36",
-      "publish": "todo"
+      "publish": "done"
     },
     {
       "id": "reel-real-1107-2325",
@@ -578,7 +578,7 @@
       "real": true,
       "status": "approved",
       "by": "auto (reviewer ok)",
-      "publish": "todo"
+      "publish": "done"
     }
   ]
 }

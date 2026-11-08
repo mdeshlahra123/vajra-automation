@@ -1,5 +1,5 @@
 {
- "n": 18,
+ "n": 19,
  "photos": [
   "slab-underside",
   "v4-point",
@@ -18,7 +18,8 @@
   "v4-point",
   "sheet-thin",
   "v5-cage",
-  "beam-box"
+  "beam-box",
+  "sheet-cut"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
@@ -38,6 +39,7 @@
   "Sheet ko seedha zameen pe na ghaseeto, utha ke rakho: zyada chalegi.",
   "Patli aur halki lagne wali ye sheet site par poori taqat deti hai.",
   "Column ki casting ke liye purani ply ya solid VAJRA sheet? Reply karo?",
-  "Site par khud quality check karne ke liye 1x1 ft sample mangwayiye, reply karo SAMPLE."
+  "Site par khud quality check karne ke liye 1x1 ft sample mangwayiye, reply karo SAMPLE.",
+  "Aapki site par kitni ply waste ho rahi hai?"
  ]
 }
