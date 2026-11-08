@@ -1,0 +1,33 @@
+{
+  "hook": "Ply har baar naya khareed kar thak gaye?",
+  "title": "Ply baar-baar khareedna band",
+  "scenes": [
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": false,
+      "vo": "Ply har baar naya khareed kar thak gaye?",
+      "text1": "Har baar naya ply?",
+      "text2": "Kharcha roko"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld phone video on an active Indian RCC construction site. An Indian construction worker easily lifts and carries a single large flat 8x4 ft light-grey plastic sheet on his shoulder across reinforcement rebar. The sheet is 12 mm thick with plain light-grey faces and small round hollow holes visible along the edge. Natural daylight, realistic site background, no text, no logos.",
+      "shows_vajra": true,
+      "vo": "VAJRA PP sheet light hai aur paani se nahi phoolti.",
+      "text1": "Halki aur waterproof",
+      "text2": "Ek aadmi uthaye"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld phone video on an Indian construction site. A worker washes wet concrete slurry off a plain light-grey 8x4 ft plastic shuttering board using a water hose, revealing a clean smooth surface. The 12 mm edge clearly shows small round hollow holes in two staggered rows. Bright daylight, realistic wet concrete texture, no text, no logos.",
+      "shows_vajra": true,
+      "vo": "Sahi handling ke saath yeh ply se do-teen guna zyada chalegi.",
+      "text1": "Zyada lambi life",
+      "text2": "Sahi handling par"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har dhalai par naya ply lene ka kharcha ab band kijiye!\n\nVAJRA PP shuttering sheet waterproof hai, halki hai aur sahi handling ke saath ply se 2-3 guna zyada chalti hai. Pan-India dispatch from Raipur, Durg, Bhilai. Apne mistri aur thekedar doston ko zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Ply baar-baar khareedna band - 2-3 guna zyada chalti hai VAJRA PP shuttering sheet"
+}
