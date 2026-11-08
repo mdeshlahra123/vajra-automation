@@ -1,5 +1,5 @@
 {
- "n": 19,
+ "n": 20,
  "photos": [
   "slab-underside",
   "v4-point",
@@ -19,7 +19,8 @@
   "sheet-thin",
   "v5-cage",
   "beam-box",
-  "sheet-cut"
+  "sheet-cut",
+  "in-20261027-201151"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
@@ -40,6 +41,7 @@
   "Patli aur halki lagne wali ye sheet site par poori taqat deti hai.",
   "Column ki casting ke liye purani ply ya solid VAJRA sheet? Reply karo?",
   "Site par khud quality check karne ke liye 1x1 ft sample mangwayiye, reply karo SAMPLE.",
-  "Aapki site par kitni ply waste ho rahi hai?"
+  "Aapki site par kitni ply waste ho rahi hai?",
+  "Log kehte hain plastic formwork mud jaata hai. Sach: VAJRA heavy site load araam se uthati hai."
  ]
 }
