@@ -1,0 +1,71 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Waterproof Ply Truth vs Vajra PP Sheet",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Kya ply sach mein waterproof hoti hai? Dekhiye sadan.",
+      "text1": "Waterproof ply?",
+      "text2": "Asli sach dekhiye",
+      "_len": 3.9,
+      "_promised": "real site clip tg-1108-0837-2.mp4 0.0-3.5s: Kya ply sach mein waterproof hoti hai? Dekhiye sadan."
+    },
+    {
+      "clip": 1,
+      "start": 0.5,
+      "end": 4.5,
+      "vo": "VAJRA light sheet ek labour aaram se utha leta hai.",
+      "text1": "Lightweight sheet",
+      "text2": "Single labour lift",
+      "_len": 4.0,
+      "_promised": "real site clip tg-1108-0837-1.mp4 0.5-4.5s: VAJRA light sheet ek labour aaram se utha leta hai."
+    },
+    {
+      "clip": 2,
+      "start": 3.2,
+      "end": 7.2,
+      "vo": "Smooth ceiling finish ke liye apne thekedar ko bhejo, chhodho ply.",
+      "text1": "Smooth ceiling",
+      "text2": "Thekedar ko bhejo",
+      "_len": 4.54,
+      "_promised": "real site clip tg-1108-0837-3.mp4 3.2-7.2s: Smooth ceiling finish ke liye apne thekedar ko bhejo, chhodho ply."
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Kya ply sach mein waterproof hoti hai? Barish aur paani se ply phool kar tootne lagti hai, jabki VAJRA PP shuttering sheet rehti hai 100% waterproof.\n\nSahi handling ke saath ply se 2-3 guna zyada chalti hai aur slab par milta hai smooth concrete finish. Pan-India dispatch Raipur, Durg, Bhilai se uplabdh hai.\n\nApne thekedar aur mistri bhaiyon ke saath share kijiye.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Close-up of wet, damaged, and decaying brown wooden plywood edge with water dripping from it.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "A single construction worker easily carrying a plain light-grey hollow sheet on his shoulder at a work site.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "A couple happily looking up and pointing at a smooth concrete ceiling finish.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 16.2,
+  "note": "recipe: full real clips. items: REAL: damaged wet brown plywood sheets showing internal rotting and splintering; REAL: labour carrying grey VAJRA sheet at construction site; REAL: contractor couple inspecting a smooth exposed concrete ceiling cast using grey VAJRA shuttering sheets",
+  "who": "library"
+}

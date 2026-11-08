@@ -579,6 +579,17 @@
       "status": "approved",
       "by": "auto (reviewer ok)",
       "publish": "done"
+    },
+    {
+      "id": "reel-real-1108-1913",
+      "title": "Real reel from library: Waterproof Ply Truth vs Vajra PP Sheet (16s)\n✅ Reviewer: script aur video match karte hain.",
+      "file": "social/media/reel-real-1108-1913.mp4",
+      "caption": "captions/reel-real-1108-1913.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "approved",
+      "by": "auto (reviewer ok)",
+      "publish": "todo"
     }
   ]
 }
