@@ -1,0 +1,27 @@
+name: tg-send
+# Manual: send every file in social/outbox/ to the Telegram group as photos (with an optional caption), then clear the outbox.
+on:
+  workflow_dispatch:
+    inputs:
+      text: { description: "message sent before the photos", required: false, default: "" }
+permissions: { contents: write }
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TEXT: ${{ github.event.inputs.text }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          API="https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN"
+          [ -n "$TEXT" ] && curl -s -X POST "$API/sendMessage" -d chat_id="$TELEGRAM_CHAT_ID" --data-urlencode text="$TEXT" >/dev/null
+          for f in social/outbox/*; do
+            [ -f "$f" ] || continue
+            curl -s -F chat_id="$TELEGRAM_CHAT_ID" -F document=@"$f" "$API/sendDocument" | grep -o '"ok":[a-z]*'
+          done
+      - run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git rm -q -r social/outbox && git commit -qm "tg-send: outbox sent" && git push -q || true
