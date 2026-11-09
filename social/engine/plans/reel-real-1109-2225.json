@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Bhari ply chhodho, light PP sheet apnao",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Bhari ply chhodho, PP sheet column mein aaram se fit hoti hai.",
+      "text1": "Bhari ply chhodho",
+      "text2": "Light PP sheet",
+      "_len": 4.82,
+      "_promised": "REAL VAJRA photo: workers fixing VAJRA sheets around a column on site"
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Godown se plain grey sheets dispatch ke liye poori tarah ready hain.",
+      "text1": "Godown stock ready",
+      "text2": "Pan-India dispatch",
+      "_len": 4.18,
+      "_promised": "REAL VAJRA photo: stacks of new VAJRA sheets on pallets in the godown"
+    },
+    {
+      "clip": 2,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Slab dhalai mein yeh sheet paani lagne par bhi nahi phoolti.",
+      "text1": "Slab shuttering",
+      "text2": "No water swelling",
+      "_len": 4.38,
+      "_promised": "REAL VAJRA photo: REAL slab underside fully shuttered with grey VAJRA sheets on a yellow steel frame (slab use)"
+    },
+    {
+      "clip": 3,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "De-shuttering ke baad mila smooth finish, apne thekedar bhai ko bhejo.",
+      "text1": "Smooth column finish",
+      "text2": "Thekedar ko bhejo",
+      "_len": 4.3,
+      "_promised": "REAL VAJRA photo: REAL smooth finished concrete column on site (proof of finish)"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Bhari ply chhodho aur switch kijiye lightweight PP shuttering sheet par jo paani se bilkul nahi phoolti.\n\nSahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai par milta hai smooth concrete finish. Pan-India dispatch Raipur, Durg, Bhilai godown se.\n\nApne thekedar aur mistri doston ke saath zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Real construction site footage showing workers fitting grey VAJRA PP sheets framed with wooden battens around a column rebar cage, with correct on-screen text.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Real photo/video of stacked plain grey VAJRA sheets on pallets inside a godown/warehouse, with matching on-screen text.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Real slab underside shuttered with grey VAJRA sheets supported by a yellow steel frame, with matching on-screen text.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Real smooth finished cast concrete column standing on site after de-shuttering, with matching on-screen text.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 21.7,
+  "note": "recipe: full real photos. items: r-workers.jpg; godown.jpg; slab-underside.jpg; column-smooth2.jpg",
+  "who": "library"
+}

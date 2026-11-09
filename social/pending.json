@@ -590,6 +590,17 @@
       "status": "approved",
       "by": "auto (reviewer ok)",
       "publish": "done"
+    },
+    {
+      "id": "reel-real-1109-2225",
+      "title": "Real reel from library: Bhari ply chhodho, light PP sheet apnao (22s)\n✅ Reviewer: script aur video match karte hain.",
+      "file": "social/media/reel-real-1109-2225.mp4",
+      "caption": "captions/reel-real-1109-2225.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "todo"
     }
   ]
 }
