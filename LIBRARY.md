@@ -1,9 +1,9 @@
 # VAJRA media library
-_Auto-updated 08 Nov 2026 19:36 IST by social/build_library.py._
+_Auto-updated 09 Nov 2026 11:10 IST by social/build_library.py._
 
 One place that lists every photo and clip in the library. Reels are built from the clips below (library_reel.py / make_real.py). Telegram media the owners send is added here automatically (save-photo / make-real workflows). Web view: https://vajraformwork.vercel.app/social/library/
 
-## Clips (31)  — reels are made from these
+## Clips (33)  — reels are made from these
 | File | Type | Status | Note |
 |---|---|---|---|
 | `assets/clips/ai-carry-heavy-ply.mp4` | AI/Flow | 7.9s ✅ usable | AI/Flow: two labourers struggle to carry a heavy brown plywood board ( |
@@ -37,6 +37,8 @@ One place that lists every photo and clip in the library. Reels are built from t
 | `assets/clips/tg-1108-0837-1.mp4` | clip | 7.9s ✅ usable | REAL: labour carrying grey VAJRA sheet at construction site |
 | `assets/clips/tg-1108-0837-2.mp4` | clip | 7.9s ✅ usable | REAL: damaged wet brown plywood sheets showing internal rotting and sp |
 | `assets/clips/tg-1108-0837-3.mp4` | clip | 7.9s ✅ usable | REAL: contractor couple inspecting a smooth exposed concrete ceiling c |
+| `assets/clips/tg-1109-1109-1.mp4` | clip | 7.9s ✅ usable | REAL: contractors checking records and blueprints outdoors at construc |
+| `assets/clips/tg-1109-1109-2.mp4` | clip | 7.9s ✅ usable | REAL: contractor in hard hat talking on phone at a construction site |
 
 ## Photos (25)
 | File | Type | Status | Note |
