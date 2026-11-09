@@ -1,0 +1,33 @@
+{
+  "hook": "Har kuch slab pe naya ply khareedna band kijiye.",
+  "title": "Stop buying plywood every slab",
+  "scenes": [
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": false,
+      "vo": "Har kuch slab pe naya ply khareedna band kijiye.",
+      "text1": "Naya ply har baar?",
+      "text2": "Kharcha band kijiye"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Single continuous vertical shot, handheld phone camera perspective on an Indian RCC slab construction site under natural daylight. An Indian construction worker easily lifts and carries a single large flat board across the reinforced rebar grid without straining. These must look exactly like the reference photos: VAJRA PP hollow shuttering sheet, a large flat 8 x 4 ft board (taller than a man when standing), 12 mm thick, plain light-grey faces, edge with SMALL round holes in two staggered rows. No text, no logos, no printing on anything. Realistic site surroundings, natural lighting, no text overlays, no dialogue.",
+      "shows_vajra": true,
+      "vo": "Sahi handling ke saath, ply se do teen guna chalegi.",
+      "text1": "Waterproof sheet",
+      "text2": "2-3 guna lambi life"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Single continuous vertical shot, handheld camera look on an active Indian building site in bright daylight. A construction worker smoothly pulls down a shuttering board from freshly cured concrete, revealing an ultra-smooth ceiling finish without patches. These must look exactly like the reference photos: VAJRA PP hollow shuttering sheet, a large flat 8 x 4 ft board (taller than a man when standing), 12 mm thick, plain light-grey faces, edge with SMALL round holes in two staggered rows. No text, no logos, no printing on anything. Clean release, no dialogue, authentic site atmosphere.",
+      "shows_vajra": true,
+      "vo": "Apne thekedar ko bhejo, har slab par bachat paaiye.",
+      "text1": "Smooth concrete",
+      "text2": "Har slab par bachat"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har baar naya ply khareed kar apna nuksan mat kijiye. VAJRA PP shuttering sheet hai 100% waterproof aur deti hai smooth concrete finish. Sahi handling ke saath ply se do se teen guna zyada chalti hai. Apne thekedar ya mistri ko zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Har slab par naya ply khareedna band kijiye, VAJRA PP shuttering sheet se bachat aur strong finish paaiye"
+}
