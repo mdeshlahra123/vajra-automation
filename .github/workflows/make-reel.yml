@@ -5,7 +5,7 @@ on:
     inputs:
       brief: { description: "idea (blank = engine picks)", required: false, default: "" }
       res: { description: "AI video resolution: 360p (draft) / 720p", required: false, default: "720p" }
-      mode: { description: "plan (storyboard to Telegram) / build (after Banao) / revise (owner feedback)", required: false, default: "plan" }
+      mode: { description: "auto (plan+build+queue, default) / plan (storyboard for approval) / build / revise", required: false, default: "auto" }
       id: { description: "storyboard id (build/revise)", required: false, default: "" }
       feedback: { description: "owner changes (revise)", required: false, default: "" }
 concurrency: { group: state, cancel-in-progress: false }
@@ -28,7 +28,7 @@ jobs:
       - id: make
         if: github.event.inputs.brief != 'selftest'
         env: { BRIEF: "${{ github.event.inputs.brief }}", FEEDBACK: "${{ github.event.inputs.feedback }}" }
-        run: python3 social/engine/make_reel.py --mode "${{ github.event.inputs.mode || 'plan' }}" --id "${{ github.event.inputs.id }}" --brief "$BRIEF" --feedback "$FEEDBACK" --res "${{ github.event.inputs.res }}"
+        run: python3 social/engine/make_reel.py --mode "${{ github.event.inputs.mode || 'auto' }}" --id "${{ github.event.inputs.id }}" --brief "$BRIEF" --feedback "$FEEDBACK" --res "${{ github.event.inputs.res }}"
       - if: github.event.inputs.brief != 'selftest' && github.event.inputs.mode == 'build'
         run: python3 social/tg.py send "${{ steps.make.outputs.id }}"
       - uses: actions/upload-artifact@v4

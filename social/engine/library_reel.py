@@ -120,15 +120,16 @@ def queue_or_send(rid):
     import tg
     pend = json.load(open(os.path.join(ROOT, "social", "pending.json"), encoding="utf-8"))
     it = next(i for i in pend["items"] if i["id"] == rid)
-    if "✅" in it.get("title", ""):   # reviewer passed: straight into the queue, evening slot
-        it["status"] = "approved"; it["by"] = "auto (reviewer ok)"; tg.add_to_queue(it)
+    # owner 9 Nov (autopilot): reviewer notes (⚠) no longer need a tap. Only a planner CHECK (price / claim / unusable) asks.
+    if "CHECK:" not in it.get("title", ""):
+        it["status"] = "approved"; it["by"] = "auto"; tg.add_to_queue(it)
         q = json.load(open(os.path.join(ROOT, "social", "queue.json"), encoding="utf-8"))
         for p in q["posts"]:
             if p["id"] == rid:
                 p["evening"] = True
         json.dump(q, open(os.path.join(ROOT, "social", "queue.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
         json.dump(pend, open(os.path.join(ROOT, "social", "pending.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-        tg.call("sendMessage", chat_id=tg.CHAT, text=f"🎬 Library se nayi reel bani aur queue mein daal di (reviewer ✅): {rid}. Pasand na ho to 'hatao {rid}' likho.")
+        tg.call("sendMessage", chat_id=tg.CHAT, text=f"🎬 Nayi reel bani aur queue mein daal di: {rid}. Pasand na ho to 'hatao {rid}' likho.")
         print("QUEUED", rid)
     else:
         tg.send(rid); print("SENT FOR APPROVAL", rid)

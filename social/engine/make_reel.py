@@ -57,6 +57,26 @@ def dur(path):
     return float(out.strip() or 0)
 
 
+def growth_note(past):
+    """Angle + hooks to avoid from the growth loop (social/growth-plan.json). Owner 9 Nov: stop the same ply-problem reels."""
+    avoid = list(past)
+    try:
+        g = json.load(open(A("social", "growth-plan.json"), encoding="utf-8"))
+        n = len([f for f in os.listdir(A("social", "engine", "storyboards"))]) if os.path.isdir(A("social", "engine", "storyboards")) else 0
+        angles = g.get("next_angles") or []
+        angle = angles[n % len(angles)] if angles else ""
+        avoid += g.get("avoid_hooks", [])
+        ideas = " | ".join(g.get("hook_ideas", [])[:5])
+    except Exception:
+        angle, ideas = "", ""
+    out = (f"ANGLE for this reel (from our performance data, follow it): {angle}.\n" if angle else "")
+    if angle and "ply" not in angle.lower():
+        out += "Ply problems may appear at most in ONE scene, never as the hook.\n"
+    if ideas:
+        out += f"Fresh hook ideas you may use or adapt: {ideas}\n"
+    return out + "The hook must NOT resemble any of these recent hooks: " + " | ".join(h for h in avoid[:20] if h)
+
+
 def plan(brief, rid):
     rules = open(A("social", "engine", "brand.md"), encoding="utf-8").read()
     import usage
@@ -72,10 +92,11 @@ def plan(brief, rid):
 Real photos you can use for proof scenes (use the key):
 {photos}
 
-Idea / brief: {brief or "Pick a strong idea that makes a contractor stop scrolling. Vary from these recent hooks: " + "; ".join(past)}
+Idea / brief: {brief or "Pick a strong idea that makes a contractor stop scrolling."}
+{growth_note(past)}
 
 Make exactly 3 scenes. At most 2 scenes may be type "ai" (generated video); the rest are type "photo".
-The first scene is the hook: a problem or question that grabs a contractor in 1 second.
+The first scene is the hook: it grabs a contractor in 1 second and follows the ANGLE above (it does NOT have to be a ply problem).
 Each scene: one voiceover line in Hinglish, max 12 words, natural spoken style; and on-screen text in 2 short lines
 (normal sentence case, not all capitals; each max 20 characters, plain ASCII letters/numbers/basic punctuation only, no emoji, no Devanagari).
 For "ai" scenes write a detailed English video prompt: single continuous shot, vertical, Indian construction site or godown,
@@ -310,6 +331,9 @@ def main():
     if a.selftest:
         return selftest()
     sbdir = A("social", "engine", "storyboards"); os.makedirs(sbdir, exist_ok=True)
+    auto = a.mode == "auto"   # owner 9 Nov: autopilot, plan + build without the 'Banao' approval
+    if auto:
+        a.mode = "plan"
     if a.mode in ("plan", "revise"):
         if a.mode == "revise":
             old = json.load(open(os.path.join(sbdir, a.id + ".json"), encoding="utf-8"))
@@ -321,8 +345,10 @@ def main():
             rid = a.id or "reel-ai-" + (datetime.datetime.utcnow() + datetime.timedelta(hours=5.5)).strftime("%m%d-%H%M")
         p = plan(brief, rid); p["brief"] = brief[:1500] if a.mode == "plan" else old.get("brief", "")
         json.dump(p, open(os.path.join(sbdir, rid + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-        storyboard(p, rid); print("STORYBOARD", rid)
-        return
+        if not auto:
+            storyboard(p, rid); print("STORYBOARD", rid)
+            return
+        a.id = rid
     rid = a.id
     p = json.load(open(os.path.join(sbdir, rid + ".json"), encoding="utf-8"))
     final, total, log = build(p, rid, a.res)
@@ -336,6 +362,8 @@ def main():
                           "caption": f"captions/{rid}.txt", "position": "end", "ai": True, "status": "draft"})
     json.dump(pend, open(pend_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     print("REEL", rid, f"{total:.1f}s", final); print("\n".join(log))
+    if auto:   # straight into the queue + FYI (no approval tap); see library_reel.queue_or_send
+        import library_reel; library_reel.queue_or_send(rid)
     with open(os.environ.get("GITHUB_OUTPUT", os.devnull), "a") as f: f.write(f"id={rid}\n")
 
 
