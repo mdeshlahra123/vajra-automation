@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Myth Buster: Ply Ka Nuksan",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Kya site par har baar ply ka phoolna lazmi hai?",
+      "text1": "Ply ka nuksan",
+      "text2": "Kyun hota hai?",
+      "_len": 3.5,
+      "_promised": "real site clip tg-1109-1109-2.mp4 0.0-3.5s: Kya site par har baar ply ka phoolna lazmi hai?"
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 3.2,
+      "vo": "Hisaab check kijiye, paani lagte hi ply barbad hoti hai.",
+      "text1": "Site ka hisaab",
+      "text2": "Check karein",
+      "_len": 4.02,
+      "_promised": "real site clip tg-1109-1109-1.mp4 0.0-3.2s: Hisaab check kijiye, paani lagte hi ply barbad hoti hai."
+    },
+    {
+      "clip": 2,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "VAJRA sheet waterproof hai aur nails bhi mazboot pakadti hai.",
+      "text1": "Waterproof sheet",
+      "text2": "Nails hold karegi",
+      "_len": 4.5,
+      "_promised": "REAL VAJRA photo: person pointing at a VAJRA sheet"
+    },
+    {
+      "clip": 3,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Apne thekedar ko bhejo aur site par ply badlo.",
+      "text1": "Pan India dispatch",
+      "text2": "Stock ready hai",
+      "_len": 3.5,
+      "_promised": "REAL VAJRA photo: large ready stock of VAJRA sheets in a warehouse"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Kya construction site par har baar ply ka nuksan hona lazmi hai? Bilkul nahi!\n\nSwitch kijiye VAJRA PP shuttering sheet par jo hai 100% waterproof aur lightweight. Sahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha kam karti hai.\n\nApne thekedar ya mistri ko ye reel share kijiye.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\n\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Site worker in a yellow helmet talking on phone with damaged wooden plywood stacks visible in the background; on-screen text matches.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Two men reviewing records in a notebook at a site with wooden shuttering plywood behind them; on-screen text matches.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Person pointing at a light-grey hollow VAJRA sheet showing nail holes; on-screen text matches.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Pallets of ready stock light-grey hollow sheets stacked in a warehouse; on-screen text matches.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 19.8,
+  "note": "recipe: real clips + real photos. items: REAL: contractor in hard hat talking on phone at a construction site; REAL: contractors checking records and blueprints outdoors at construction site; v4-point.jpg; warehouse.jpg",
+  "who": "library"
+}
