@@ -1,0 +1,33 @@
+{
+  "hook": "Cover block ke bina slab dhalai ki to sariya sad jayega!",
+  "title": "Educational: Slab Cover Block Tip",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Handheld vertical phone footage on an Indian RCC slab construction site under natural daylight. Close-up shot showing steel rebar mesh lying flat directly against shuttering base without spacer blocks, with a mason pointing out the mistake.",
+      "shows_vajra": false,
+      "vo": "Cover block ke bina slab dhalai ki to sariya sad jayega.",
+      "text1": "Cover block zaroori",
+      "text2": "Rusting se bachao"
+    },
+    {
+      "type": "photo",
+      "photo": "r-throw",
+      "shows_vajra": false,
+      "vo": "Slab mein bees mm cover block engineer se confirm karein.",
+      "text1": "20 mm cover",
+      "text2": "Sahi spacing rakhein"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld camera view of an Indian construction supervisor checking slab reinforcement height and placing concrete cover blocks evenly under the steel mesh. Realistic site environment, natural light, no text.",
+      "shows_vajra": false,
+      "vo": "Apne thekedar ko bhejo aur surakshit karo agla slab.",
+      "text1": "Mistri ko bhejo",
+      "text2": "Strong slab pao"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Slab dhalai se pehle cover block check kiya kya?\n\nBina proper cover block ke sariya bahar dikhne lagta hai aur jung lagne ka khatra badhta hai. Hamesha sahi spacing rakhein (structural details apne site engineer se confirm karein).\n\nSmooth concrete finish aur behtar dhalai ke liye switch kijiye VAJRA PP shuttering sheet par.\n\nApne thekedar aur mistri ko share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork | Call / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Ply baar-baar khareedna band, VAJRA PP shuttering sheet se bachat karo"
+}
