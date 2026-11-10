@@ -93,7 +93,7 @@ Return JSON only:
 
 
 def flow_brief(lid, p):
-    msg = (f"🎬 LONG VIDEO ({lid}): \"{p['title']}\"\nFlow mein 16:9 (landscape) chuniye. Har prompt: 8 sec banao, phir Extend 2-3 baar. "
+    msg = (f"🎬 LONG VIDEO ({lid}): \"{p['title']}\"\nFlow mein 16:9 (landscape) chuniye. Har prompt: 8 sec banao, phir Extend karo, max ~30 sec (Flow ki limit). 720p download karke video ki tarah bhejo (file 20 MB se kam). "
            f"Bana ke yahin bhejo (caption ki zarurat nahi). Gurwaar ko video apne-aap banegi; jo clips aayengi wo use hongi, baaki library se.")
     tg("sendMessage", text=msg)
     for i, s in enumerate(p.get("flow_shots", [])[:6], 1):
