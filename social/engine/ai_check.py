@@ -5,7 +5,7 @@ Gemini free key looks at 3 frames (video) or the image. Unsure or error -> AI (s
 import json, os, subprocess, sys, tempfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-Q = ("Look at these frame(s) from one clip/photo sent by the owners of VAJRA (grey PP hollow shuttering sheets, India). "
+Q = ("Most clips the owners send are made in Google Flow (Veo); real phone clips are shakier, noisier, with imperfect light. Look at these frame(s) from one clip/photo sent by the owners of VAJRA (grey PP hollow shuttering sheets, India). "
      "Decide if it is AI-generated (Google Flow / Veo / Gemini image: too-perfect light, waxy faces, odd hands, melting details, "
      "smooth fake motion, impossible text) or REAL phone footage of a real site. JSON only: "
      '{"ai": true/false, "sure": true/false, "desc": "one line: what it shows (brown ply / grey VAJRA sheet / column / slab / labour / contractor ...)"}')

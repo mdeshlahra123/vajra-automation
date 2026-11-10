@@ -248,15 +248,15 @@
  },
  "tg-1111-0037-1.mp4": {
   "who": "MrBeast",
-  "note": "REAL: slab construction site with labour and props",
-  "flow": false,
+  "note": "AI (Flow, long-1111 shots 1-5): slab construction site with labour and props",
+  "flow": true,
   "secs": 33.9,
   "added": "2026-11-11"
  },
  "tg-1111-0037-2.mp4": {
   "who": "MrBeast",
-  "note": "REAL: labour installing grey VAJRA sheet on site",
-  "flow": false,
+  "note": "AI (Flow, long-1111 shots 1-5): labour installing grey VAJRA sheet on site",
+  "flow": true,
   "secs": 15.7,
   "added": "2026-11-11"
  }
