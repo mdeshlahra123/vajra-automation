@@ -612,6 +612,17 @@
       "status": "approved",
       "by": "auto",
       "publish": "todo"
+    },
+    {
+      "id": "reel-ai-1110-0702",
+      "title": "AI reel: Wash and reuse sheet (16s)",
+      "file": "social/media/reel-ai-1110-0702.mp4",
+      "caption": "captions/reel-ai-1110-0702.txt",
+      "position": "end",
+      "ai": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "todo"
     }
   ]
 }

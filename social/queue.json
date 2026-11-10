@@ -422,6 +422,14 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1110-0410.mp4",
       "real": true
+    },
+    {
+      "id": "reel-ai-1110-0702",
+      "caption": "captions/reel-ai-1110-0702.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-ai-1110-0702.mp4",
+      "ai": true,
+      "evening": true
     }
   ],
   "hold": [

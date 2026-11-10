@@ -1,0 +1,33 @@
+{
+  "hook": "Paani maro aur sheet agli dhalai ke liye ready!",
+  "title": "Wash and reuse sheet",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Vertical video, handheld smartphone footage on an Indian RCC construction site. An Indian construction worker holding a water hose pipe sprays water onto a plain light-grey plastic shuttering sheet lying on the ground. Wet concrete slurry washes off instantly, revealing a clean, smooth light-grey face. The sheet is 8 x 4 ft, 12 mm thick, plain light-grey with small round hollow core holes visible on the edge, no text, no logos, natural daylight.",
+      "shows_vajra": true,
+      "vo": "Paani maro aur sheet agli dhalai ke liye ready!",
+      "text1": "Paani se dho lo",
+      "text2": "Sheet turant ready"
+    },
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": false,
+      "vo": "Ply paani lagte hi phoolne aur sadne lagti hai.",
+      "text1": "Ply paani lagte hi",
+      "text2": "Sadne lagti hai"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical smartphone video on an Indian building site. An Indian mistri effortlessly picks up a single clean, washed light-grey 8x4 ft plastic shuttering sheet and stacks it neatly onto a pile of identical grey sheets. The sheet is lightweight, 12 mm thick with staggered hollow round holes along the edge, completely plain light-grey without any printing or branding. Bright sunny day, dusty construction site background.",
+      "shows_vajra": true,
+      "vo": "Apne thekedar ko bhejo, sahi handling se sheet hamesha ready.",
+      "text1": "Sahi handling se",
+      "text2": "Sheet hamesha ready"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Dhalai ke baad sirf paani se dhoiye aur agle slab ke liye use kijiye!\n\nVAJRA PP shuttering sheet waterproof hai aur paani se bilkul nahi phoolti. Sahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha kam karti hai. Pan-India dispatch Raipur, Chhattisgarh se.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Ply baar-baar khareedna aur todna band, VAJRA PP shuttering sheet use kijiye aur kharcha bachaiye"
+}
