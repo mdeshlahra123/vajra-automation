@@ -217,5 +217,33 @@
   "flow": false,
   "secs": 7.9,
   "added": "2026-11-09"
+ },
+ "tg-1110-0847-1.mp4": {
+  "who": "MrBeast",
+  "note": "REAL: grey VAJRA sheet being tested with concrete flowability",
+  "flow": false,
+  "secs": 7.9,
+  "added": "2026-11-10"
+ },
+ "tg-1110-0847-2.mp4": {
+  "who": "MrBeast",
+  "note": "REAL: contractor sitting at a table with bills and papers",
+  "flow": false,
+  "secs": 7.9,
+  "added": "2026-11-10"
+ },
+ "tg-1110-0847-3.mp4": {
+  "who": "MrBeast",
+  "note": "REAL: labour working on a construction site slab",
+  "flow": false,
+  "secs": 7.9,
+  "added": "2026-11-10"
+ },
+ "tg-1110-0847-4.mp4": {
+  "who": "MrBeast",
+  "note": "AI: AI-generated video showing labour handling grey VAJRA PP hollow shuttering sheets with garbled text",
+  "flow": true,
+  "secs": 16.1,
+  "added": "2026-11-10"
  }
 }
