@@ -1,4 +1,4 @@
-﻿name: fbcheck
+name: fbcheck
 on: { workflow_dispatch: {} }
 jobs:
   c:
