@@ -85,7 +85,7 @@ Return JSON only:
     print("script words:", sum(len(c["vo"].split()) for c in p["chapters"]))
     for c in p["chapters"]:   # claims guard, sentence by sentence
         c["vo"] = " ".join(claims.fix_line(s) for s in re.split(r"(?<=[.?!])\s+", c["vo"]) if s.strip())
-        c["name"] = re.sub(r"[^A-Za-z0-9 .,!?'+:/&-]", "", c["name"])[:34]
+        c["name"] = re.sub(r"[^A-Za-z0-9 .,!?'+:/&-]", "", re.sub(r"(?i)^\s*chapter\s*\d+\s*[:.-]\s*", "", c["name"]))[:34].strip()
     p["thumb"] = [re.sub(r"[^A-Za-z0-9 .,!?'+-]", "", t)[:18].upper() for t in p.get("thumb", [])][:2] or ["SITE KI", "BADI GALTI"]
     if re.search(r"(?i)₹|rs\.? ?\d|3[, ]?500|per sheet", json.dumps(p, ensure_ascii=False)):
         raise SystemExit("plan mentioned a price; rejected")
