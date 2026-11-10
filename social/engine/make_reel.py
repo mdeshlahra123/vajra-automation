@@ -69,6 +69,18 @@ def growth_note(past):
         ideas = " | ".join(g.get("hook_ideas", [])[:5])
     except Exception:
         angle, ideas = "", ""
+    # owner 11 Nov: 3-4 non-sales posts a week for monetization. AI reels run Mon/Wed/Fri: Wed = educational, Fri = entertainment.
+    day = (datetime.datetime.utcnow() + datetime.timedelta(hours=5.5)).strftime("%A")
+    if day == "Wednesday":
+        return ("TYPE: EDUCATIONAL (not an advert). One genuinely useful construction site tip for contractors / house owners "
+                "(curing, cover blocks, de-shuttering time, rain precautions, concrete check, common mistakes). Hook = the mistake or question. "
+                "VAJRA is NOT the topic: no VAJRA scene; it appears only on the end card. Say 'engineer se confirm karein' for structural numbers.\n"
+                "The hook must NOT resemble any of these recent hooks: " + " | ".join(h for h in avoid[:20] if h))
+    if day == "Friday":
+        return ("TYPE: ENTERTAINMENT (not an advert). A relatable, light, funny site-life moment (mazdoor bhai, contractor, chai break, "
+                "owner visiting the site, monsoon chaos). Respectful humour, nobody mocked. At most one scene may show the grey VAJRA sheet "
+                "naturally in the background. No selling lines.\n"
+                "The hook must NOT resemble any of these recent hooks: " + " | ".join(h for h in avoid[:20] if h))
     out = (f"ANGLE for this reel (from our performance data, follow it): {angle}.\n" if angle else "")
     if angle and "ply" not in angle.lower():
         out += "Ply problems may appear at most in ONE scene, never as the hook.\n"
