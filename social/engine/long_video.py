@@ -61,9 +61,9 @@ Brand / claim rules (strict): {rules}
 Extra rules: no prices, no exact number of uses, no invented statistics, no safety-critical numbers you are not sure of
 (say "engineer se confirm karein" for structural specifics). Spoken natural Hinglish, like an experienced site engineer.
 Structure (retention): chapter 1 = hook (25-35 s): the costly mistake / question, promise what they will learn.
-Then 4-5 teaching chapters (each 50-80 s, one clear point each, a small open loop to the next chapter).
+Teaching chapters: one clear point each, a small open loop to the next chapter.
 Last chapter (30-40 s): summary + soft VAJRA mention + "comment mein apna sawal likhiye, follow kijiye".
-Speaking pace ~2.3 words/second, so a 60 s chapter is ~140 words. Total 5-7 minutes.
+Then 5 teaching chapters, each 170-220 words (about 80 s spoken). The whole script MUST be at least 1,100 words (about 6 minutes; the voice reads ~3 words/second). Count carefully. Use examples from real sites to fill time usefully.
 Also write 4-6 Google Flow shot prompts (16:9, realistic Indian construction site, no text/logos, no famous faces) that illustrate
 the teaching chapters; each will be made 8 s and extended 2-3 times in Flow.
 Return JSON only:
@@ -73,6 +73,16 @@ Return JSON only:
  "description": "3-4 line Hinglish summary", "tags": ["10 search tags"],
  "shorts": [{{"chapter": 1, "hook": "first line for the short caption"}}, {{"chapter": 2, "hook": "..."}}]}}"""
     p = gem.text(TEXT, q, json_mode=True)
+    for _ in range(2):   # 11 Nov test: 3.3 min came out; FB in-stream needs 3+ min, aim 5+
+        words = sum(len(c["vo"].split()) for c in p["chapters"])
+        if words >= 950:
+            break
+        x = gem.text(TEXT, "Expand every chapter's 'vo' of this video script so the total is at least 1,150 words. Add useful site "
+                     "examples and explanations, keep the same rules and tone, keep VAJRA only in the last chapter. Return the same JSON "
+                     "shape.\n" + json.dumps(p, ensure_ascii=False), json_mode=True)
+        if x.get("chapters"):
+            p["chapters"] = x["chapters"]
+    print("script words:", sum(len(c["vo"].split()) for c in p["chapters"]))
     for c in p["chapters"]:   # claims guard, sentence by sentence
         c["vo"] = " ".join(claims.fix_line(s) for s in re.split(r"(?<=[.?!])\s+", c["vo"]) if s.strip())
         c["name"] = re.sub(r"[^A-Za-z0-9 .,!?'+:/&-]", "", c["name"])[:34]
@@ -192,7 +202,7 @@ def build(lid, publish):
     vol = subprocess.run(["ffmpeg", "-i", final, "-af", "volumedetect", "-f", "null", "-"], capture_output=True, text=True).stderr
     mx = float(vol.split("max_volume:")[1].split("dB")[0]) if "max_volume:" in vol else -99
     print(f"LONG {lid} {total/60:.1f} min, max_volume {mx} dB, {os.path.getsize(final)/1e6:.0f} MB")
-    if mx < -60 or total < 180:
+    if mx < -60 or total < 200:
         raise SystemExit("long video failed checks (silent or under 3 min)")
     thumb = os.path.join(work, "thumb.jpg"); thumbnail(next((x for x in parts if "_0." in x), parts[0]), p["thumb"], thumb)
     chapters = "\n".join(f"{int(s // 60):02d}:{int(s % 60):02d} {c['name']}" for s, c in zip(chap_t, p["chapters"]))
