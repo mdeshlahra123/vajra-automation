@@ -21,7 +21,7 @@ NOW = datetime.datetime.now(datetime.timezone.utc)
 IST = NOW + datetime.timedelta(hours=5, minutes=30)
 ANGLES = ["ply problem (breaks/swells/waste)", "money / repeat ply cost", "one man lifts / light", "wash and reuse",
           "smooth finish (column/slab)", "site use demo (column/beam/slab)", "contractor story / skit", "question / myth-buster",
-          "before vs after", "offer / sample / call to action"]
+          "before vs after", "offer / sample / call to action", "VAJRA in rain / mud / tough site (shown working, not asked as a question)"]
 norm = lambda s: re.sub(r"[^a-z0-9 ]", "", (s or "").lower()).strip()
 def sim(a, b):
     wa, wb = set(norm(a).split()), set(norm(b).split())
@@ -122,7 +122,7 @@ Last plan: {json.dumps(plan_old, ensure_ascii=False)[:600]}
 Decide, returning JSON only:
 {{"angles": {{"<hook of each posted reel>": "<one angle from the list>"}},
  "diagnosis": "2-3 short sentences: what is working, what is falling and why (specific)",
- "next_angles": ["3 angles for the next 3 new reels: best performer first, never the same angle as the last 2 posts, include 1 under-tried angle"],
+ "next_angles": ["3 angles for the next 3 new reels. RULE: the angle of the best reel of the last 7 days (most plays) goes first unless one of the last 2 posts already used it; never the same angle as the last 2 posts; include 1 under-tried angle. Prefer SHOWING VAJRA doing the job over asking a question"],
  "avoid_hooks": ["first lines from the last 10 posts that new reels must not resemble"],
  "hook_ideas": ["5 fresh Hinglish hooks (max 9 words, sentence case). Claims allowed ONLY: lighter than ply, one man can lift, waterproof / does not swell, washable and reusable, sahi handling ke saath ply se 2-3 guna zyada chalti hai. No price, no number of uses, no years/saalo saal, no guarantees"],
  "evening_pick": "id of the pending reel whose angle fits next_angles[0] best for 19:30 tonight, or null",
@@ -182,7 +182,7 @@ def main():
     # 1 plan for the reel builders
     plan = {"made": IST.strftime("%Y-%m-%d %H:%M"), "src": src, "next_angles": d.get("next_angles", [])[:3],
             "avoid_hooks": [h for h in (d.get("avoid_hooks") or [])][:12] or [r["hook"] for r in fb[:10]],
-            "hook_ideas": [h for h in (d.get("hook_ideas") or []) if not re.search(r"(?i)saal|guarantee|\d", h)][:6], "diagnosis": d.get("diagnosis", ""), "median_plays": median}
+            "hook_ideas": [h for h in (d.get("hook_ideas") or []) if not re.search(r"(?i)saal|guarantee|\d|ply (bhi )?nahi (phool|sad|toot)", h) and max([sim(h, x) for x in [r["hook"] for r in fb[:15]]] or [0]) < 0.5][:6], "diagnosis": d.get("diagnosis", ""), "median_plays": median}
     for r in fb[:10]:   # always include the real last 10 hooks
         if r["hook"] not in plan["avoid_hooks"]:
             plan["avoid_hooks"].append(r["hook"])
