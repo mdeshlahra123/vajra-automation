@@ -1,7 +1,6 @@
 {
- "n": 22,
+ "n": 23,
  "photos": [
-  "warehouse",
   "sheet-thin",
   "v5-cage",
   "v6-close",
@@ -20,7 +19,8 @@
   "sheet-cut",
   "in-20261027-201151",
   "finish-column",
-  "in-20261030-200852"
+  "in-20261030-200852",
+  "sheet-thin"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
@@ -44,6 +44,7 @@
   "Aapki site par kitni ply waste ho rahi hai?",
   "Log kehte hain plastic formwork mud jaata hai. Sach: VAJRA heavy site load araam se uthati hai.",
   "Column ki dhalai ke baad sheet ko paani se dho kar rakho.",
-  "Aaj site par slab ki casting ke liye ready hai solid VAJRA sheet."
+  "Aaj site par slab ki casting ke liye ready hai solid VAJRA sheet.",
+  "Patli sheet lagti hai par load poora uthati hai, ply ya PP? Reply karo?"
  ]
 }
