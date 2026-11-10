@@ -1,10 +1,12 @@
 name: fbcheck
-on: { workflow_dispatch: {} }
+on:
+  workflow_dispatch:
 jobs:
   c:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    env: { META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }} }
+    env:
+      META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - run: python3 social/fbcheck.py
