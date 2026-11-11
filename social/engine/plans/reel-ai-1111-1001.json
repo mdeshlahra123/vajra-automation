@@ -1,0 +1,38 @@
+{
+  "hook": "Slab dhalai mein cover block miss kiya toh saria sadega!",
+  "title": "Cover Block Mistake in RCC Slab",
+  "scenes": [
+    {
+      "type": "ai",
+      "video_prompt": "Vertical handheld phone footage on an Indian RCC roof construction site. Close-up of steel rebar mesh resting flat on shuttering boards without any clearance. A site supervisor wearing a yellow hardhat points his finger directly at the touching steel bar to highlight the mistake. Natural daytime sunlight, dusty realistic jobsite.",
+      "shows_vajra": false,
+      "vo": "Slab dhalai mein cover block miss kiya toh saria sadega.",
+      "text1": "Cover block miss?",
+      "text2": "Saria sadh jayega"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical close-up shot on an Indian building slab under construction. A construction worker wearing gloves slides a square concrete cover block firmly beneath the rebar mesh, elevating the steel reinforcement cleanly off the formwork. Realistic, sunny daylight, crisp focus.",
+      "shows_vajra": false,
+      "vo": "Hamesha sahi spacing par block lagayein, engineer se confirm karein.",
+      "text1": "Sahi cover lagayein",
+      "text2": "Engineer se puchiye"
+    },
+    {
+      "type": "photo",
+      "photo": "v6-close",
+      "shows_vajra": false,
+      "vo": "Apne thekedar ko bhejo taaki cover block na bhoolein.",
+      "text1": "Shandar RCC finish",
+      "text2": "Mistri ko bhejo"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Slab dhalai mein cover block miss mat kijiye! Sahi cover aur PP shuttering sheet se milti hai majboot finish.\n\nCover block steel ko zang lagne se bachata hai. Slab aur beam ke sahi cover ke liye hamesha structural engineer se confirm karein.\n\nApne thekedar aur mistri ke saath zaroor share karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "",
+  "build_log": [
+    "scene 0 ai attempt 1: ok=True Frames show normal hands, authentic brown wooden plywood, and no text or glitches.",
+    "scene 1 ai attempt 1: ok=True The frames depict brown wooden plywood formwork properly without noticeable glitches, deformations, or visible text."
+  ],
+  "seconds": 16.2
+}
