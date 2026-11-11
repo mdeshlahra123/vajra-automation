@@ -1,0 +1,41 @@
+{
+  "hook": "Dhalai ke turant baad shuttering hatane ki galti mat karna.",
+  "title": "De-shuttering mistake site tip",
+  "scenes": [
+    {
+      "type": "photo",
+      "video_prompt": "Handheld vertical shot on an active Indian building construction site. A construction worker hits a wooden shuttering support prop with a hammer under a freshly poured ceiling slab, dust falling, dynamic action.",
+      "shows_vajra": false,
+      "vo": "Dhalai ke turant baad shuttering hatane ki galti mat karna.",
+      "text1": "Jaldi de-shuttering",
+      "text2": "Badi galti hai",
+      "photo": "godown"
+    },
+    {
+      "type": "photo",
+      "photo": "v1-lean",
+      "shows_vajra": false,
+      "vo": "Jaldbaazi se shuttering toot-ti hai aur concrete mein crack aate hain.",
+      "text1": "Formwork tootega",
+      "text2": "Cracks aayenge"
+    },
+    {
+      "type": "ai",
+      "video_prompt": "Vertical shot of an Indian site engineer in a white hardhat and safety vest reviewing a blueprint drawing near cured concrete columns on site, natural daytime light.",
+      "shows_vajra": false,
+      "vo": "Engineer se confirm karein, apne thekedar ko bhejo taaki galti na ho.",
+      "text1": "Engineer se poochein",
+      "text2": "Thekedar ko bhejo"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Slab dhalai ke baad jaldi de-shuttering karne se concrete kamzor ho sakta hai. Sahi time par hi shuttering kholein.\n\nFormwork aur PP shuttering sheet ki lambi life aur mazboot RCC ke liye de-shuttering hamesha engineer se confirm karein.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Ply baar-baar khareedna band, contractor ka profit bachaane ke liye VAJRA PP shuttering sheet, sahi handling ke saath ply se 2-3 guna zyada chalti hai",
+  "build_log": [
+    "scene 0 ai attempt 1: ok=False Visible printed stamps/text on the wooden plywood sheet and shirt.",
+    "scene 0 ai attempt 2: ok=False Visible printed stamps and logos appear on the plywood sheets, and frame 3 exhibits glitchy AI debris artifacts.",
+    "scene 0: AI clip failed check twice, using photo instead",
+    "scene 2 ai attempt 1: ok=True The frames depict natural anatomy, brown wooden plywood boards as required, and no prominent readable text or glitches."
+  ],
+  "seconds": 16.6
+}
