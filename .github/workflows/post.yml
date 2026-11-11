@@ -24,7 +24,7 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: (sudo apt-get install -y -qq ffmpeg >/dev/null || true); python3 social/publish_site.py
+        run: (timeout 240 sudo apt-get install -y -qq ffmpeg >/dev/null || true); python3 social/publish_site.py
       - name: Post
         shell: pwsh
         run: |
@@ -56,7 +56,7 @@ jobs:
           GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-        run: (which ffmpeg >/dev/null || sudo apt-get install -y -qq ffmpeg >/dev/null); python3 social/story.py
+        run: (which ffmpeg >/dev/null || timeout 240 sudo apt-get install -y -qq ffmpeg >/dev/null || true); python3 social/story.py
       - name: Save state
         if: always()
         run: |
