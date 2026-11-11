@@ -655,7 +655,7 @@
       "ai": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     },
     {
       "id": "long-1111-s1",
@@ -666,7 +666,7 @@
       "ai": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     },
     {
       "id": "long-1111-s2",
@@ -677,7 +677,7 @@
       "ai": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     }
   ]
 }

@@ -413,11 +413,13 @@
     {
       "id": "reel-real-1109-2225",
       "caption": "captions/reel-real-1109-2225.txt",
-      "posted": "",
+      "posted": "2026-11-11",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1109-2225.mp4",
       "real": true,
       "evening": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-real-1109-2225-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1109-2225-cover.jpg",
+      "slot": "evening",
+      "yt": "WokF-voT3Dg"
     },
     {
       "id": "reel-real-1110-0410",
