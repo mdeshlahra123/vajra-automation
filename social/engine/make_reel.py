@@ -107,7 +107,7 @@ Real photos you can use for proof scenes (use the key):
 Idea / brief: {brief or "Pick a strong idea that makes a contractor stop scrolling."}
 {growth_note(past)}
 
-Make exactly 3 scenes. At most 2 scenes may be type "ai" (generated video); the rest are type "photo".
+Make exactly 3 scenes, ALL type "photo" (owner 11 Nov: free credits almost used up, no AI video generation).
 The first scene is the hook: it grabs a contractor in 1 second and follows the ANGLE above (it does NOT have to be a ply problem).
 Each scene: one voiceover line in Hinglish, max 12 words, natural spoken style; and on-screen text in 2 short lines
 (normal sentence case, not all capitals; each max 20 characters, plain ASCII letters/numbers/basic punctuation only, no emoji, no Devanagari).
@@ -229,6 +229,8 @@ def build(p, rid, res):
     parts, starts, t = [], [], 0.0
     for i, s in enumerate(p["scenes"]):
         seconds = max(2.6, vo_lens[i] + 0.5)
+        if s["type"] == "ai":   # 11 Nov money guard: never generate AI video; use a matching photo
+            s.update(type="photo", photo=s.get("photo") or ("ply-pile" if not s.get("shows_vajra", True) else "godown"))
         if s["type"] == "ai":
             clip = os.path.join(work, f"ai{i}.mp4")
             for attempt in range(2):
