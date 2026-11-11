@@ -633,7 +633,7 @@
       "ai": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     },
     {
       "id": "reel-ai-1111-0703",
@@ -644,7 +644,7 @@
       "ai": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     }
   ]
 }

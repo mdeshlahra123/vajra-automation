@@ -431,10 +431,11 @@
     {
       "id": "reel-ai-1110-0702",
       "caption": "captions/reel-ai-1110-0702.txt",
-      "posted": "",
+      "posted": "2026-11-11",
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1110-0702.mp4",
       "ai": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1110-0702-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1110-0702-cover.jpg",
+      "yt": "ErGH6CuHX1A"
     },
     {
       "id": "reel-ai-1111-0314",
@@ -442,7 +443,8 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1111-0314.mp4",
       "ai": true,
-      "evening": true
+      "evening": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1111-0314-cover.jpg"
     },
     {
       "id": "reel-ai-1111-0703",
@@ -450,7 +452,8 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1111-0703.mp4",
       "ai": true,
-      "evening": true
+      "evening": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1111-0703-cover.jpg"
     }
   ],
   "hold": [
