@@ -171,19 +171,58 @@ def thumbnail(frame_src, lines, out):
            "-frames:v", "1", "-q:v", "2", out)   # frame already carries the logo
 
 
+def cap_chunks(text, t0, dur):
+    """sentences + their word counts + caption lines (~7 words) timed by word share of the voice line."""
+    sents = [x for x in re.split(r"(?<=[.?!\u0964])\s+", text) if x.strip()] or [text]
+    wc = [max(1, len(x.split())) for x in sents]; tot = sum(wc)
+    out, t = [], t0
+    for x, w in zip(sents, wc):
+        d = dur * w / tot; ws = x.split(); n = max(1, round(len(ws) / 7)); per = len(ws) / n
+        for k in range(n):
+            out.append((t + d * k / n, t + d * (k + 1) / n, " ".join(ws[int(k * per):int((k + 1) * per)])))
+        t += d
+    return sents, wc, out
+
+
+def write_srt(caps, path):
+    f = lambda v: f"{int(v // 3600):02d}:{int(v % 3600 // 60):02d}:{int(v % 60):02d},{int(v * 1000 % 1000):03d}"
+    open(path, "w", encoding="utf-8").write("".join(f"{i}\n{f(a)} --> {f(b)}\n{txt}\n\n" for i, (a, b, txt) in enumerate(caps, 1)))
+
+
+def burn_captions(src, srt, dst):
+    """white bold captions on a dark box near the bottom (libass, our Archivo font)."""
+    style = ("FontName=Archivo,FontSize=17,Bold=1,PrimaryColour=&H00FFFFFF,BackColour=&H99000000,BorderStyle=3,"
+             "Outline=2,Shadow=0,MarginV=22,Alignment=2")
+    fd = A("assets", "brand").replace("\\", "/").replace(":", "\\:")
+    sp = srt.replace("\\", "/").replace(":", "\\:")
+    try:
+        ffmpeg("-i", src, "-vf", f"subtitles='{sp}':fontsdir='{fd}':force_style='{style}'", "-c:v", "libx264", "-crf", "23",
+               "-preset", "veryfast", "-c:a", "copy", "-movflags", "+faststart", dst)
+    except Exception as e:
+        print("captions failed, publishing without:", str(e)[:150]); import shutil; shutil.copy(src, dst)
+
+
 def build(lid, publish):
     p = json.load(open(os.path.join(LDIR, lid + ".json"), encoding="utf-8"))
     work = A("work", lid); os.makedirs(work, exist_ok=True)
     items = library(p.get("made", "2000-01-01")[:10])
     picks = assign(p, items)
     vo_files, starts, parts, chap_t, t = [], [], [], [], 0.0
+    captions = []
     for ci, c in enumerate(p["chapters"]):
         f = os.path.join(work, f"vo{ci}.wav"); L = tts(c["vo"], f)
         vo_files.append(f); starts.append(t); chap_t.append(t)
         seconds = L + 0.8
-        sel = picks[ci]; each = seconds / len(sel)
-        for j, x in enumerate(sel):
-            out = os.path.join(work, f"c{ci}_{j}.mp4"); render_item(x, each, out, c["name"] if j == 0 else "", x["ai"]); parts.append(out)
+        sel = picks[ci]
+        sents, wc, cc = cap_chunks(c["vo"], t + 0.15, L); captions += cc
+        # 11 Nov: cut pictures at sentence boundaries (not equal slices), so the shot changes when the point changes
+        n = max(1, min(len(sel), len(sents))); tot = sum(wc); groups = [0.0] * n; acc = 0
+        for w in wc:
+            groups[min(n - 1, int(acc / tot * n))] += L * w / tot; acc += w
+        groups = [g for g in groups if g > 0.05]; groups[-1] += 0.8
+        for j, gd in enumerate(groups):
+            x = sel[j % len(sel)]
+            out = os.path.join(work, f"c{ci}_{j}.mp4"); render_item(x, gd, out, c["name"] if j == 0 else "", x["ai"]); parts.append(out)
         t += seconds
     card = os.path.join(work, "end.mp4"); end_card(6.0, card); parts.append(card); total = t + 6.0
     lst = os.path.join(work, "list.txt"); open(lst, "w").write("".join(f"file '{x}'\n" for x in parts))
@@ -196,8 +235,9 @@ def build(lid, publish):
         ffmpeg("-stream_loop", "-1", "-i", music, "-t", f"{total:.2f}", "-af", "volume=0.55", loop)
     except Exception as e:
         print("music failed:", str(e)[:150]); loop = None
-    final = os.path.join(work, f"{lid}.mp4")
-    mix(video, vo_files, starts, total, loop, final)
+    final = os.path.join(work, f"{lid}.mp4"); raw = os.path.join(work, "raw.mp4")
+    mix(video, vo_files, starts, total, loop, raw)
+    srt = os.path.join(work, "captions.srt"); write_srt(captions, srt); burn_captions(raw, srt, final)
     # check: sound and length
     vol = subprocess.run(["ffmpeg", "-i", final, "-af", "volumedetect", "-f", "null", "-"], capture_output=True, text=True).stderr
     mx = float(vol.split("max_volume:")[1].split("dB")[0]) if "max_volume:" in vol else -99
