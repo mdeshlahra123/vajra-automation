@@ -1,0 +1,17 @@
+name: polish-test
+on:
+  workflow_dispatch:
+    inputs:
+      id: { description: "reel id in social/media", required: true }
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - run: (timeout 240 sudo apt-get install -y -qq ffmpeg libgl1 libegl1 libgles2 >/dev/null || true); pip install -q faster-whisper mediapipe pillow numpy || true
+      - run: |
+          cp social/media/${{ github.event.inputs.id }}.mp4 /tmp/t.mp4
+          python3 -c "import sys,json;sys.path.insert(0,'social/engine');import polish;p=json.load(open('social/engine/plans/${{ github.event.inputs.id }}.json'));print(polish.polish('/tmp/t.mp4',[s['vo'] for s in p['segments']]+[p.get('end_vo','')],[]))"
+      - uses: actions/upload-artifact@v4
+        with: { name: polished, path: /tmp/t.mp4 }

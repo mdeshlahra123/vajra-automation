@@ -17,6 +17,13 @@ def dur(p):
                                 capture_output=True, text=True).stdout.strip() or 0)
 
 
+def load_wav(path):
+    """16 kHz mono float32 via ffmpeg pipe (avoids PyAV version clashes on GitHub runners)."""
+    import numpy as np, subprocess
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-f", "s16le", "-ac", "1", "-ar", "16000", "-"], capture_output=True, check=True).stdout
+    return np.frombuffer(raw, np.int16).astype(np.float32) / 32768.0
+
+
 def fx_pass(src, dst, total, segs):
     plan = []
     s0 = max(0.0, total - 7.5)   # comment box over the last real scene, before the end card
@@ -38,7 +45,7 @@ def caption_pass(src, dst, lines):
         _WM = WhisperModel("small", device="cpu", compute_type="int8")
     wav = os.path.join(tempfile.mkdtemp(), "a.wav")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-vn", "-ac", "1", "-ar", "16000", wav], check=True)
-    segs, _ = _WM.transcribe(wav, word_timestamps=True, language="hi")
+    segs, _ = _WM.transcribe(load_wav(wav), word_timestamps=True, language="hi")
     hw = [(float(w.start), float(w.end)) for sg in segs for w in sg.words]
     sw = " ".join(lines).split()
     if len(hw) < 3 or not sw:

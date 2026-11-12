@@ -184,6 +184,13 @@ def cap_chunks(text, t0, dur):
     return sents, wc, out
 
 
+def load_wav(path):
+    """16 kHz mono float32 via ffmpeg pipe (avoids PyAV version clashes on GitHub runners)."""
+    import numpy as np, subprocess
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-f", "s16le", "-ac", "1", "-ar", "16000", "-"], capture_output=True, check=True).stdout
+    return np.frombuffer(raw, np.int16).astype(np.float32) / 32768.0
+
+
 _WM = None
 def word_caps(wav, text, t0, dur):
     """11 Nov: captions timed to the real voice. faster-whisper gives word times; we keep the script's Hinglish words
@@ -193,7 +200,7 @@ def word_caps(wav, text, t0, dur):
         from faster_whisper import WhisperModel
         if _WM is None:
             _WM = WhisperModel("small", device="cpu", compute_type="int8")
-        segs, _ = _WM.transcribe(wav, word_timestamps=True, language="hi")
+        segs, _ = _WM.transcribe(load_wav(wav), word_timestamps=True, language="hi")
         hw = [(float(w.start), float(w.end)) for sg in segs for w in sg.words]
         sw = text.split()
         if len(hw) < 3 or not sw:
