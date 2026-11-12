@@ -314,10 +314,10 @@ def ig_long(final, caption, publish=True):
     import time
     T = os.environ["META_TOKEN"]; IG = "17841424780649708"; V = "https://graph.facebook.com/v24.0/"
     size = os.path.getsize(final)
-    def post(url, data, headers=None):
+    def post(url, data, headers=None, timeout=240):
         req = urllib.request.Request(url, data=data, headers=headers or {}, method="POST")
         try:
-            return json.load(urllib.request.urlopen(req, timeout=1800))
+            return json.load(urllib.request.urlopen(req, timeout=timeout))
         except urllib.error.HTTPError as e:
             return {"error": e.read().decode("utf-8", "replace")[:300]}
     for attempt in range(4):
@@ -325,10 +325,15 @@ def ig_long(final, caption, publish=True):
                  "share_to_feed": "true", "access_token": T}).encode())
         if "id" not in c or "uri" not in c:
             print("IG container failed:", c); time.sleep(30); continue
-        up = post(c["uri"], open(final, "rb").read(), {"Authorization": "OAuth " + T, "offset": "0", "file_size": str(size)})
-        print("IG upload:", str(up)[:150])
+        print("IG container", c["id"], "uploading", size // 1000000, "MB", flush=True)
+        try:
+            up = post(c["uri"], open(final, "rb").read(), {"Authorization": "OAuth " + T, "offset": "0", "file_size": str(size),
+                      "Content-Type": "application/octet-stream"}, timeout=600)
+        except Exception as e:
+            up = {"error": "upload exception: " + str(e)[:150]}
+        print("IG upload:", str(up)[:200], flush=True)
         st = {}
-        for _ in range(60):
+        for _ in range(40):
             st = json.load(urllib.request.urlopen(V + f"{c['id']}?fields=status_code,status&access_token={T}", timeout=60))
             if st.get("status_code") in ("FINISHED", "ERROR", "EXPIRED"):
                 break

@@ -4,9 +4,9 @@ on:
 jobs:
   t:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       META_TOKEN: ${{ secrets.META_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - run: python3 social/tmp/ig_long_test.py
+      - run: python3 -u social/tmp/ig_long_test.py
