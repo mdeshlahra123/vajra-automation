@@ -699,7 +699,7 @@
       "ai": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     },
     {
       "id": "reel-text-1112-1148",
@@ -710,7 +710,7 @@
       "real": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     },
     {
       "id": "reel-text-1112-1330",
@@ -721,7 +721,7 @@
       "real": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     }
   ]
 }

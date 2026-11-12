@@ -451,11 +451,13 @@
     {
       "id": "reel-ai-1111-0314",
       "caption": "captions/reel-ai-1111-0314.txt",
-      "posted": "",
+      "posted": "2026-11-12",
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1111-0314.mp4",
       "ai": true,
       "evening": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1111-0314-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1111-0314-cover.jpg",
+      "slot": "evening",
+      "yt": "rZBpe2e6bCs"
     },
     {
       "id": "reel-real-1112-1101",
@@ -463,7 +465,8 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1112-1101.mp4",
       "ai": true,
-      "evening": true
+      "evening": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1112-1101-cover.jpg"
     },
     {
       "id": "reel-ai-1111-0703",
