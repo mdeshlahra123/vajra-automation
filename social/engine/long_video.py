@@ -309,45 +309,46 @@ def build(lid, publish):
 
 
 def ig_long(final, caption, publish=True):
-    """Instagram long reel via the resumable upload (no public URL needed). 12 Nov test: Meta accepted a 6 min video; error 2207076
-    is transient, so up to 4 fresh containers. Returns the media id (or 'ready:<container>' when publish=False)."""
-    import time
+    """Instagram long reel. 12 Nov findings: Meta accepts a 6 min reel from a video_url; the resumable upload is broken on Meta's side
+    (ProcessingFailedError); error 2207076 is transient. So: host the file as a TEMPORARY GitHub release asset (our own account,
+    no repo bloat), up to 4 fresh containers, then delete the release. Returns the media id ('ready:<id>' when publish=False)."""
+    import shutil, tempfile, time
     T = os.environ["META_TOKEN"]; IG = "17841424780649708"; V = "https://graph.facebook.com/v24.0/"
-    size = os.path.getsize(final)
-    def post(url, data, headers=None, timeout=240):
-        req = urllib.request.Request(url, data=data, headers=headers or {}, method="POST")
+    repo = os.environ.get("GITHUB_REPOSITORY", "mdeshlahra123/vajra-automation"); tag = "tmp-iglong-" + ist().strftime("%m%d%H%M")
+    d = tempfile.mkdtemp(); f = os.path.join(d, "long.mp4"); shutil.copy(final, f)
+    url = f"https://github.com/{repo}/releases/download/{tag}/long.mp4"
+    def call(path, data=None):
+        req = urllib.request.Request(V + path, data=urllib.parse.urlencode(data).encode() if data else None)
         try:
-            return json.load(urllib.request.urlopen(req, timeout=timeout))
+            return json.load(urllib.request.urlopen(req, timeout=120))
         except urllib.error.HTTPError as e:
             return {"error": e.read().decode("utf-8", "replace")[:300]}
-    for attempt in range(4):
-        c = post(V + f"{IG}/media", urllib.parse.urlencode({"media_type": "REELS", "upload_type": "resumable", "caption": caption[:2150],
-                 "share_to_feed": "true", "access_token": T}).encode())
-        if "id" not in c or "uri" not in c:
-            print("IG container failed:", c); time.sleep(30); continue
-        print("IG container", c["id"], "uploading", size // 1000000, "MB", flush=True)
-        try:
-            up = post(c["uri"], open(final, "rb").read(), {"Authorization": "OAuth " + T, "offset": "0", "file_size": str(size),
-                      "Content-Type": "application/octet-stream"}, timeout=600)
-        except Exception as e:
-            up = {"error": "upload exception: " + str(e)[:150]}
-        print("IG upload:", str(up)[:200], flush=True)
-        st = {}
-        for _ in range(40):
-            st = json.load(urllib.request.urlopen(V + f"{c['id']}?fields=status_code,status&access_token={T}", timeout=60))
-            if st.get("status_code") in ("FINISHED", "ERROR", "EXPIRED"):
-                break
-            time.sleep(15)
-        print("IG status:", st.get("status_code"), st.get("status", "")[:100])
-        if st.get("status_code") == "FINISHED":
-            if not publish:
-                return "ready:" + c["id"]
-            r = post(V + f"{IG}/media_publish", urllib.parse.urlencode({"creation_id": c["id"], "access_token": T}).encode())
-            print("IG publish:", r)
-            return r.get("id")
-        time.sleep(60)
-    return None
-
+    r = subprocess.run(["gh", "release", "create", tag, f, "--repo", repo, "--title", "tmp", "--notes", "temporary: Instagram upload, deleted after use"],
+                       capture_output=True, text=True)
+    if r.returncode:
+        print("release create failed:", r.stderr[:200]); return None
+    try:
+        for attempt in range(4):
+            c = call(f"{IG}/media", {"media_type": "REELS", "video_url": url, "caption": caption[:2150], "share_to_feed": "true", "access_token": T})
+            if "id" not in c:
+                print("IG container failed:", c, flush=True); time.sleep(30); continue
+            st = {}
+            for _ in range(40):
+                st = call(f"{c['id']}?fields=status_code,status&access_token={T}")
+                if st.get("status_code") in ("FINISHED", "ERROR", "EXPIRED"):
+                    break
+                time.sleep(15)
+            print("IG attempt", attempt + 1, st.get("status_code"), str(st.get("status", ""))[:100], flush=True)
+            if st.get("status_code") == "FINISHED":
+                if not publish:
+                    return "ready:" + c["id"]
+                pr = call(f"{IG}/media_publish", {"creation_id": c["id"], "access_token": T})
+                print("IG publish:", pr, flush=True)
+                return pr.get("id")
+            time.sleep(45)
+        return None
+    finally:
+        subprocess.run(["gh", "release", "delete", tag, "-y", "--cleanup-tag", "--repo", repo], capture_output=True)
 
 def make_shorts(lid, p, final, chap_t, total, work):
     """2 vertical cut-downs (blurred-background 9:16) from chapters chosen by the plan, max 58 s each."""
