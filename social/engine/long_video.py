@@ -290,14 +290,58 @@ def build(lid, publish):
     if publish:
         res["yt"] = yt_long(final, thumb, p, desc)
         res["fb"] = fb_long(final, thumb, p, desc)
+        try:
+            sys.path.insert(0, A("social")); import caption_fix
+            igcap = caption_fix.fix(claims.fix_caption(p["title"] + "\n\n" + p.get("description", "") + "\n\nPoora video YouTube par bhi: https://youtu.be/" + str(res["yt"])
+                    + "\n\nComment mein apna sawal likhiye. Follow kijiye @vajraformwork\n?? 83050 70160\n#PPFormwork #PlasticShuttering #Shuttering #Formwork "
+                    "#Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai")).strip()
+            res["ig"] = ig_long(final, igcap, True)
+        except Exception as e:
+            print("IG long failed:", str(e)[:200]); res["ig"] = None
         queue_shorts(lid, shorts)
         tg("sendMessage", text=f"📺 Long video live: \"{p['title']}\" ({total/60:.1f} min)\nYouTube: https://youtu.be/{res['yt']}\n"
-           f"Facebook video: {res['fb']}\n+ {len(shorts)} shorts queue mein (IG/FB/YT Shorts).")
+           f"Facebook video: {res['fb']}\nInstagram: {'posted' if res.get('ig') else 'failed (retry later)'}\n+ {len(shorts)} shorts queue mein (IG/FB/YT Shorts).")
     else:
         tg("sendDocument", files={"document": thumb}, caption=f"Long video ready (not published): {p['title']} ({total/60:.1f} min)")
     p["result"] = res; p["built"] = ist().strftime("%Y-%m-%d %H:%M")
     json.dump(p, open(os.path.join(LDIR, lid + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return res
+
+
+def ig_long(final, caption, publish=True):
+    """Instagram long reel via the resumable upload (no public URL needed). 12 Nov test: Meta accepted a 6 min video; error 2207076
+    is transient, so up to 4 fresh containers. Returns the media id (or 'ready:<container>' when publish=False)."""
+    import time
+    T = os.environ["META_TOKEN"]; IG = "17841424780649708"; V = "https://graph.facebook.com/v24.0/"
+    size = os.path.getsize(final)
+    def post(url, data, headers=None):
+        req = urllib.request.Request(url, data=data, headers=headers or {}, method="POST")
+        try:
+            return json.load(urllib.request.urlopen(req, timeout=1800))
+        except urllib.error.HTTPError as e:
+            return {"error": e.read().decode("utf-8", "replace")[:300]}
+    for attempt in range(4):
+        c = post(V + f"{IG}/media", urllib.parse.urlencode({"media_type": "REELS", "upload_type": "resumable", "caption": caption[:2150],
+                 "share_to_feed": "true", "access_token": T}).encode())
+        if "id" not in c or "uri" not in c:
+            print("IG container failed:", c); time.sleep(30); continue
+        up = post(c["uri"], open(final, "rb").read(), {"Authorization": "OAuth " + T, "offset": "0", "file_size": str(size)})
+        print("IG upload:", str(up)[:150])
+        st = {}
+        for _ in range(60):
+            st = json.load(urllib.request.urlopen(V + f"{c['id']}?fields=status_code,status&access_token={T}", timeout=60))
+            if st.get("status_code") in ("FINISHED", "ERROR", "EXPIRED"):
+                break
+            time.sleep(15)
+        print("IG status:", st.get("status_code"), st.get("status", "")[:100])
+        if st.get("status_code") == "FINISHED":
+            if not publish:
+                return "ready:" + c["id"]
+            r = post(V + f"{IG}/media_publish", urllib.parse.urlencode({"creation_id": c["id"], "access_token": T}).encode())
+            print("IG publish:", r)
+            return r.get("id")
+        time.sleep(60)
+    return None
 
 
 def make_shorts(lid, p, final, chap_t, total, work):
