@@ -26,8 +26,8 @@ def load_wav(path):
 
 def fx_pass(src, dst, total, segs):
     plan = []
-    s0 = max(0.0, total - 7.5)   # comment box over the last real scene, before the end card
-    plan.append({"fx": "comment-box", "start": round(s0, 2), "end": round(min(total, s0 + 3.6), 2), "text": "PP",
+    s0 = max(0.0, total - 3.6)   # 12 Nov: on the end card, never over a scene headline
+    plan.append({"fx": "comment-box", "start": round(s0, 2), "end": round(total, 2), "text": "PP",
                  "handle": "vajraformwork", "reply": "Rate aapke DM mein bhej diya", "chip": "PP shuttering"})
     for a, b, ply in segs:
         if ply and b - a > 1.6:
@@ -38,7 +38,7 @@ def fx_pass(src, dst, total, segs):
         raise RuntimeError("fx failed: " + " | ".join((r.stderr or r.stdout).strip().splitlines()[-3:])[-300:])
 
 
-def caption_pass(src, dst, lines):
+def whisper_chunks(src, lines):
     global _WM
     from faster_whisper import WhisperModel
     if _WM is None:
@@ -51,17 +51,43 @@ def caption_pass(src, dst, lines):
     if len(hw) < 3 or not sw:
         raise RuntimeError("no words heard")
     st = [hw[min(len(hw) - 1, int(i * len(hw) / len(sw)))][0] for i in range(len(sw))]
+    out, k = [], 0
+    for sent in [x for l in lines for x in re.split(r"(?<=[.?!])\s+", l) if x.strip()]:
+        n = len(sent.split())
+        for j in range(0, n, 3):
+            a, e = k + j, min(k + j + 3, k + n)
+            out.append((st[min(a, len(st) - 1)], st[e] if e < len(st) else hw[-1][1] + 0.3, " ".join(sw[a:e])))
+        k += n
+    return out
+
+def timed_chunks(lines, timing):
+    """Exact sync (12 Nov fix): each voice line starts where the builder placed it (start + 0.15 s mix delay) and lasts its
+    TTS length. Inside a line, words are spaced by their length. Chunks of max 3 words, never across a sentence."""
+    out = []
+    for line, (st, ln) in zip(lines, timing):
+        if not line or not line.strip():
+            continue
+        st += 0.15; ln = max(0.6, ln - 0.25)
+        ws = line.split(); tot = sum(len(w) + 1 for w in ws); acc = 0; tw = []
+        for w in ws:
+            tw.append(st + ln * acc / tot); acc += len(w) + 1
+        tw.append(st + ln)
+        i = 0
+        for sent in [x for x in re.split(r"(?<=[.?!,])\s+", line) if x.strip()]:
+            n = len(sent.split())
+            for j in range(0, n, 3):
+                a, b = i + j, min(i + j + 3, i + n)
+                out.append((tw[a], tw[b], " ".join(ws[a:b])))
+            i += n
+    return out
+
+
+def caption_pass(src, dst, lines, timing=None):
     f = lambda v: f"{int(v // 3600):02d}:{int(v % 3600 // 60):02d}:{int(v % 60):02d},{int(v * 1000 % 1000):03d}"
-    srt, n, groups, k = [], 0, [], 0
-    for sent in [x for l in lines for x in re.split(r"(?<=[.?!])\s+", l) if x.strip()]:   # chunks never cross a sentence
-        ws = sent.split()
-        for j in range(0, len(ws), 3):
-            groups.append((k + j, min(k + j + 3, k + len(ws))))
-        k += len(ws)
-    for gi, (i, e) in enumerate(groups):
-        a = st[min(i, len(st) - 1)]; b = st[e] if e < len(st) else hw[-1][1] + 0.3
-        n += 1; srt.append(f"{n}\n{f(a)} --> {f(max(b, a + 0.35))}\n{' '.join(sw[i:e])}\n\n")
-    sp = os.path.join(tempfile.mkdtemp(), "c.srt"); open(sp, "w", encoding="utf-8").write("".join(srt))
+    lines = list(lines)[:-1] if len(lines) > 1 else lines   # last line = end card voice; the card already shows it
+    caps = timed_chunks(lines, timing) if timing else whisper_chunks(src, lines)
+    srt = "".join(f"{n}\n{f(a)} --> {f(max(b, a + 0.3))}\n{t}\n\n" for n, (a, b, t) in enumerate(caps, 1))
+    sp = os.path.join(tempfile.mkdtemp(), "c.srt"); open(sp, "w", encoding="utf-8").write(srt)
     style = ("FontName=Archivo,FontSize=15,Bold=1,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,"
              "Outline=3,Shadow=0,MarginV=70,Alignment=2")
     esc = lambda p: p.replace("\\", "/").replace(":", "\\:")
@@ -69,7 +95,7 @@ def caption_pass(src, dst, lines):
                     "-c:v", "libx264", "-crf", "20", "-preset", "veryfast", "-c:a", "copy", "-movflags", "+faststart", dst], check=True)
 
 
-def polish(mp4, lines, segs=()):
+def polish(mp4, lines, segs=(), timing=None):
     """in place. Returns a short log line."""
     log = []
     total = dur(mp4); work = tempfile.mkdtemp(); cur = mp4
@@ -78,7 +104,7 @@ def polish(mp4, lines, segs=()):
     except Exception as e:
         log.append("fx skipped: " + str(e)[:120])
     try:
-        b = os.path.join(work, "cap.mp4"); caption_pass(cur, b, [l for l in lines if l]); cur = b; log.append("captions ok")
+        b = os.path.join(work, "cap.mp4"); caption_pass(cur, b, lines, timing); cur = b; log.append("captions ok")
     except Exception as e:
         log.append("captions skipped: " + str(e)[:120])
     if cur != mp4 and dur(cur) > total * 0.9:
