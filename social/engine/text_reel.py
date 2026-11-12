@@ -35,6 +35,25 @@ def ease(x):
     x = max(0.0, min(1.0, x)); return 1 - (1 - x) ** 3
 
 
+def spring(x, z=0.5, w=16.0):
+    """closed-form underdamped spring step response (0 -> 1 with a little overshoot): pure function of time, no state."""
+    if x <= 0: return 0.0
+    wd = w * math.sqrt(1 - z * z)
+    return 1 - math.exp(-z * w * x) * (math.cos(wd * x) + z * w / wd * math.sin(wd * x))
+
+
+def clamp(x): return max(0.0, min(1.0, x))
+
+
+def mix(a, b, k): return tuple(int(a[i] + (b[i] - a[i]) * k) for i in range(3))
+
+
+class Beat:
+    """beat grid of the music bed: every move starts on a beat (12 Nov: from the Opus 5.5 prompt collection, 'something happens on every beat')."""
+    def __init__(self, bpm, off): self.bpm, self.off, self.d = bpm, off, 60.0 / bpm
+    def at(self, n): return self.off + n * self.d
+
+
 def content(fmt):
     if fmt == "myth":   # approved claims only, rotate least recently used
         st = A("social", "text-reel-state.json"); used = json.load(open(st)) if os.path.exists(st) else {}
@@ -70,66 +89,109 @@ def wrap(d, text, f, maxw):
     return lines + ([cur] if cur else [])
 
 
-def frame_galtiyan(c, t, T):
+def bal(d, text, f, maxw):
+    """wrap, then rebalance so the last line is never a single orphan word."""
+    ls = wrap(d, text, f, maxw)
+    if len(ls) == 2 and len(ls[1].split()) == 1 and len(ls[0].split()) > 1:
+        ws = text.split(); h = (len(ws) + 1) // 2; ls = [" ".join(ws[:h]), " ".join(ws[h:])]
+    return ls
+
+
+def frame_galtiyan(c, t, B):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    k = ease(t / 0.5); tsz = 92
+    n = len(c["items"]); tfix = B.at(6 + 4 * n + 1)
+    # title: pops on beat 1 with a spring
+    t1 = B.at(1); k = spring(t - t1); al = int(255 * clamp((t - t1) / 0.15)); tsz = 92
     while True:
         ft = font(tsz); lines = wrap(d, c["title"], ft, W - 200)
-        if len(lines) == 2 and len(lines[1].split()) == 1 and len(lines[0].split()) > 1:   # move a word down: no orphan
+        if len(lines) == 2 and len(lines[1].split()) == 1 and len(lines[0].split()) > 1:
             ws = c["title"].split(); h = (len(ws) + 1) // 2; lines = [" ".join(ws[:h]), " ".join(ws[h:])]
         if len(lines) <= 2 or tsz <= 64: break
         tsz -= 6
-    y = 300 - (1 - k) * 80
+    ft = font(tsz * (0.85 + 0.15 * k)); y = 300 + (1 - k) * 40
     for ln in lines:
         tw = d.textlength(ln, font=ft)
-        d.rounded_rectangle([80 - 10, y - 14, 80 + tw + 28, y + 108], 14, fill=GOLD + (int(255 * k),))
-        d.text((90, y), ln, font=ft, fill=NAVY + (int(255 * k),)); y += 130
+        d.rounded_rectangle([80 - 10, y - 14, 80 + tw + 28, y + 108], 14, fill=GOLD + (al,)); d.text((90, y), ln, font=ft, fill=NAVY + (al,)); y += 130
     y += 50; fi = font(62)
+    grey = ease((t - tfix) / 0.35)   # once the fix lands, the mistakes go quiet (roles by meaning)
     for i, it in enumerate(c["items"]):
-        t0 = 1.6 + i * 2.6; kk = ease((t - t0) / 0.35)
-        if kk <= 0: break
-        x0 = 80 + (1 - kk) * 120; a = int(255 * kk)
-        d.rounded_rectangle([x0, y, W - 80, y + 120], 22, fill=(255, 255, 255, int(235 * kk)))
-        d.text((x0 + 40, y + 28), f"{i + 1}.", font=fi, fill=NAVY + (a,))
+        t0 = B.at(6 + 4 * i); kk = spring(t - t0)
+        if t < t0: break
+        x0 = 80 + (1 - kk) * 200; a = int(255 * clamp((t - t0) / 0.12) * (1 - 0.55 * grey))
+        d.rounded_rectangle([x0, y, W - 80, y + 120], 22, fill=(255, 255, 255, int(235 * clamp((t - t0) / 0.12) * (1 - 0.5 * grey))))
+        col = mix(NAVY, (130, 140, 160), grey) + (a,)
+        d.text((x0 + 40, y + 28), f"{i + 1}.", font=fi, fill=col)
         sz = 62
         while sz > 40 and d.textlength(it, font=font(sz)) > (W - 80 - 200) - (x0 + 120): sz -= 2
-        fz = font(sz); d.text((x0 + 120, y + 60), it, font=fz, fill=NAVY + (a,), anchor="lm")
-        kx = ease((t - t0 - 1.0) / 0.25)   # red X mark draws in
-        if kx > 0:
+        d.text((x0 + 120, y + 60), it, font=font(sz), fill=col, anchor="lm")
+        tx = B.at(8 + 4 * i); kx = spring(t - tx, 0.42, 20.0)   # the red X hits two beats after the item, with an impact ring
+        if t >= tx:
             cx, cy, r = W - 150, y + 60, 34 * kx
             d.line([cx - r, cy - r, cx + r, cy + r], fill=RED + (255,), width=12); d.line([cx - r, cy + r, cx + r, cy - r], fill=RED + (255,), width=12)
+            e = clamp((t - tx) / 0.35)
+            if e < 1: d.ellipse([cx - 34 - 60 * e, cy - 34 - 60 * e, cx + 34 + 60 * e, cy + 34 + 60 * e], outline=RED + (int(220 * (1 - e)),), width=6)
         y += 150
-    tf = 1.6 + len(c["items"]) * 2.6 + 0.4; kf = ease((t - tf) / 0.4)
-    if kf > 0:
-        ff = font(66); ls = wrap(d, c["fix"], ff, W - 200); yy = H - 520 + (1 - kf) * 60
-        for ln in ls:
-            tw = d.textlength(ln, font=ff); d.rounded_rectangle([(W - tw) / 2 - 30, yy - 12, (W + tw) / 2 + 30, yy + 90], 18, fill=GREEN + (int(240 * kf),))
-            d.text(((W - tw) / 2, yy), ln, font=ff, fill=WHITE + (int(255 * kf),)); yy += 110
+    kf = spring(t - tfix)
+    if t >= tfix:
+        ff = font(66); yy = H - 520 + (1 - kf) * 90
+        for ln in bal(d, c["fix"], ff, W - 200):
+            tw = d.textlength(ln, font=ff) * (0.9 + 0.1 * kf)
+            d.rounded_rectangle([(W - tw) / 2 - 30, yy - 12, (W + tw) / 2 + 30, yy + 90], 18, fill=GREEN + (int(245 * clamp((t - tfix) / 0.12)),))
+            d.text((W / 2, yy + 39), ln, font=ff, fill=WHITE + (int(255 * clamp((t - tfix) / 0.12)),), anchor="mm"); yy += 110
     return im
 
 
-def frame_myth(c, t, T):
+def frame_myth(c, t, B):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    fl, fm, ff = font(60), font(84), font(72)
-    k = ease(t / 0.4); d.rounded_rectangle([80, 330, 330, 430], 16, fill=RED + (int(255 * k),)); d.text((112, 342), "MYTH", font=fl, fill=WHITE + (int(255 * k),))
-    y = 480
-    lines = wrap(d, c["myth"], fm, W - 180); ks = ease((t - 2.6) / 0.5)
-    for ln in lines:
-        d.text((90, y), ln, font=fm, fill=WHITE + (int(255 * k),)); tw = d.textlength(ln, font=fm)
-        if ks > 0: d.line([90, y + 52, 90 + tw * ks, y + 52], fill=RED + (255,), width=14)
-        y += 110
-    kf = ease((t - 4.2) / 0.45)
-    if kf > 0:
-        y += 90; d.rounded_rectangle([80, y, 320, y + 100], 16, fill=GREEN + (int(255 * kf),)); d.text((112, y + 12), "FACT", font=fl, fill=WHITE + (int(255 * kf),))
-        y += 150
-        for ln in wrap(d, c["fact"], ff, W - 180):
-            d.text((90, y + (1 - kf) * 40), ln, font=ff, fill=GOLD + (int(255 * kf),)); y += 100
+    fl = font(60); ff = font(72)
+    m = ease((t - B.at(11)) / B.d)   # beat 11: the myth shrinks upward and greys out (it TRANSFORMS, no cut)
+    k = spring(t - B.at(1), 0.45, 18.0)
+    if t >= B.at(1):
+        cx, cy, w, h = 205, 380, 250 * (0.6 + 0.4 * k), 100 * (0.6 + 0.4 * k)
+        d.rounded_rectangle([cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2], 16, fill=mix(RED, (110, 110, 120), m) + (255,))
+        d.text((cx, cy), "MYTH", font=font(60 * (0.6 + 0.4 * k)), fill=WHITE + (255,), anchor="mm")
+    t2 = B.at(2); k2 = spring(t - t2); msz = 84 - 34 * m; fm = font(msz); y = 470 - 10 * m + (1 - k2) * 60
+    lines = bal(d, c["myth"], fm, W - 180); ks = ease((t - B.at(8)) / (1.5 * B.d))
+    if t >= t2:
+        col = mix(WHITE, (150, 150, 160), m) + (int(255 * clamp((t - t2) / 0.12)),)
+        for ln in lines:
+            d.text((90, y), ln, font=fm, fill=col); tw = d.textlength(ln, font=fm)
+            if ks > 0: d.line([90, y + msz * 0.62, 90 + tw * ks, y + msz * 0.62], fill=RED + (255,), width=int(14 - 6 * m))
+            y += msz * 1.3
+    tf = B.at(12)
+    if t >= tf:
+        kf = spring(t - tf, 0.45, 18.0); cx, cy, w, h = 200, 640, 240 * (0.6 + 0.4 * kf), 100 * (0.6 + 0.4 * kf)
+        d.rounded_rectangle([cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2], 16, fill=GREEN + (255,))
+        d.text((cx, cy), "FACT", font=font(60 * (0.6 + 0.4 * kf)), fill=WHITE + (255,), anchor="mm")
+        fw = bal(d, c["fact"], ff, W - 180); words = []; yy = 740
+        for ln in fw:
+            x = 90
+            for w_ in ln.split():
+                words.append((x, yy, w_)); x += d.textlength(w_ + " ", font=ff)
+            yy += 100
+        for j, (x, yy, w_) in enumerate(words):   # one word per beat
+            tj = B.at(13 + j); kj = spring(t - tj)
+            if t >= tj: d.text((x, yy + (1 - kj) * 36), w_, font=ff, fill=GOLD + (int(255 * clamp((t - tj) / 0.1)),))
     return im
 
 
 def build(fmt, out):
     c = content(fmt)
-    T = (1.6 + len(c["items"]) * 2.6 + 3.2) if fmt == "galtiyan" else 9.5
+    os.makedirs(A("assets", "music"), exist_ok=True)
+    music = sorted(f for f in os.listdir(A("assets", "music")) if f.endswith(".mp3"))
+    if not music:   # one-time: a 60 s bed, kept and reused by every text reel (no more credits after this)
+        import gem
+        from make_reel import MUSIC_MODEL
+        r = gem.interact(MUSIC_MODEL, "60 second upbeat modern Indian instrumental for a motion-graphics construction reel, punchy "
+                         "percussion and light synth, confident, clear beat, no vocals", response_format={"type": "audio"})
+        gem.save_first(r, "audio", A("assets", "music", "text-bed-1.mp3")); music = ["text-bed-1.mp3"]
+    m = A("assets", "music", random.choice(music))
+    import beats
+    bpm, off = beats.beat_grid(m); B = Beat(bpm, off); print(f"beat grid: {bpm} bpm, first beat {off}s")
+    if fmt == "galtiyan":
+        T = B.at(6 + 4 * len(c["items"]) + 1 + 8)
+    else:
+        T = B.at(13 + len(c["fact"].split()) + 4)
     work = A("work", "text-" + fmt); os.makedirs(work, exist_ok=True)
     lib = json.load(open(A("assets", "clips", "library.json"), encoding="utf-8"))
     clips = [n for n in lib if os.path.exists(A("assets", "clips", n)) and lib[n].get("secs", 0) >= 6]
@@ -142,7 +204,7 @@ def build(fmt, out):
     fn = frame_galtiyan if fmt == "galtiyan" else frame_myth
     n = int(T * FPS)
     for i in range(n):
-        fn(c, i / FPS, T).save(os.path.join(fd, f"{i:05d}.png"))
+        fn(c, i / FPS, B).save(os.path.join(fd, f"{i:05d}.png"))
     ov = os.path.join(work, "ov.mov")
     sh("ffmpeg", "-v", "error", "-y", "-framerate", str(FPS), "-i", os.path.join(fd, "%05d.png"), "-c:v", "qtrle", ov)
     body = os.path.join(work, "body.mp4")
@@ -155,15 +217,6 @@ def build(fmt, out):
     lst = os.path.join(work, "l.txt"); open(lst, "w").write(f"file '{body}'\nfile '{card}'\n")
     vid = os.path.join(work, "v.mp4"); sh("ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", vid)
     total = dur(vid)
-    os.makedirs(A("assets", "music"), exist_ok=True)
-    music = sorted(f for f in os.listdir(A("assets", "music")) if f.endswith(".mp3"))
-    if not music:   # one-time: a 60 s bed, kept and reused by every text reel (no more credits after this)
-        import gem
-        from make_reel import MUSIC_MODEL
-        r = gem.interact(MUSIC_MODEL, "60 second upbeat modern Indian instrumental for a motion-graphics construction reel, punchy "
-                         "percussion and light synth, confident, clear beat, no vocals", response_format={"type": "audio"})
-        gem.save_first(r, "audio", A("assets", "music", "text-bed-1.mp3")); music = ["text-bed-1.mp3"]
-    m = A("assets", "music", random.choice(music))
     sh("ffmpeg", "-v", "error", "-y", "-i", vid, "-stream_loop", "-1", "-i", m, "-filter_complex",
        f"[1:a]atrim=0:{total:.2f},volume=0.8,afade=t=in:d=0.4,afade=t=out:st={total - 1.5:.2f}:d=1.5[a]", "-map", "0:v", "-map", "[a]",
        "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-t", f"{total:.2f}", "-movflags", "+faststart", out)
