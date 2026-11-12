@@ -22,11 +22,11 @@ Earlier asks that are still open:
 | # | Item | Status |
 |---|---|---|
 | 1a | Reel captions | DONE 12 Nov. social/engine/polish.py, timing from the builder (line start + TTS length), max 3 words, never across a sentence, none on the end card. Verified by an 8-frame audit on reel-real-1112-1101. |
-| 1b | Long-video captions | NEEDS FIX before Thu 20 Nov: still whisper position-mapping (word_caps in long_video.py). Switch to builder timing per sentence, like polish.timed_chunks. Then frame-audit the build. |
+| 1b | Long-video captions | DONE 12 Nov. Voice is made one sentence at a time; captions from polish.timed_chunks. Offline test (2 chapters, 19 sentences, beep voice): caption starts within 0.001 s of each sentence's sound; picture cuts 0.15 s before the words. First real build Thu 20 Nov: frame-audit it. |
 | 2 | Effects | PARTLY. social/fx (fx.py copied with LICENSE). Used: comment-box on the end card (VAJRA reply), reject-stamp "PLY" only on brown-ply scenes. Not tried yet: headline-box hook, swipe before/after, checklist, countdown-flip. Each needs a frame audit. |
 | 3 | Animated text reels | NOT STARTED. Plan: social/engine/text_reel.py, 9:16, 15-25 s, formats "N galtiyan" checklist, myth vs fact strike-through, before/after; voice optional (credits low: prefer no voice + music from library, or one TTS line). One a week (Sat). |
 | 4 | Reviewer step | Each new build: extract 8 frames at voice-line times + check captions vs voice. Automate: add to review_reel.py. |
-| 5 | Long-video picture sync | Partly (cuts at sentence boundaries). Better: pick a clip per sentence by meaning. |
+| 5 | Long-video picture sync | Better: cuts land exactly on sentence starts (frame-rounded). Still to do: pick the clip per sentence by meaning (assign() works per chapter). |
 | 6 | IG long-video test | NOT DONE. |
 
 ## Known facts / traps

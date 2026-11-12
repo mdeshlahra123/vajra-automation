@@ -147,7 +147,7 @@ def render_item(x, seconds, out, title, ai_tag):
     txt = []
     if title:
         tf = out + ".t.txt"; open(tf, "w", encoding="utf-8").write(title)
-        txt.append(f"drawtext=fontfile='{font}':textfile='{tf}':fontsize=46:fontcolor=0x13213A:box=1:boxcolor=0xF2B33D@0.96:boxborderw=16:x=48:y=48:enable='lt(t,4.5)'")
+        txt.append(f"drawtext=fontfile='{font}':textfile='{tf.replace(chr(92), '/').replace(':', chr(92) + ':')}':fontsize=46:fontcolor=0x13213A:box=1:boxcolor=0xF2B33D@0.96:boxborderw=16:x=48:y=48:enable='lt(t,4.5)'")
     if ai_tag:
         txt.append(f"drawtext=fontfile='{font}':text='AI visuals':fontsize=22:fontcolor=white@0.85:box=1:boxcolor=black@0.35:boxborderw=8:x=48:y=h-60")
     vf = vf + ("," + ",".join(txt) if txt else "")
@@ -241,21 +241,24 @@ def build(lid, publish):
     picks = assign(p, items)
     vo_files, starts, parts, chap_t, t = [], [], [], [], 0.0
     captions = []
+    import polish
     for ci, c in enumerate(p["chapters"]):
-        f = os.path.join(work, f"vo{ci}.wav"); L = tts(c["vo"], f)
-        vo_files.append(f); starts.append(t); chap_t.append(t)
-        seconds = L + 0.8
-        sel = picks[ci]
-        sents, wc, _ = cap_chunks(c["vo"], t + 0.15, L); captions += word_caps(f, c["vo"], t + 0.15, L)
-        # 11 Nov: cut pictures at sentence boundaries (not equal slices), so the shot changes when the point changes
-        n = max(1, min(len(sel), len(sents))); tot = sum(wc); groups = [0.0] * n; acc = 0
-        for w in wc:
-            groups[min(n - 1, int(acc / tot * n))] += L * w / tot; acc += w
-        groups = [g for g in groups if g > 0.05]; groups[-1] += 0.8
-        for j, gd in enumerate(groups):
+        # 12 Nov: voice made ONE SENTENCE AT A TIME, so every sentence start is exact. Captions and picture cuts follow it.
+        chap_t.append(t)
+        sents = [x for x in re.split(r"(?<=[.?!\u0964])\s+", c["vo"]) if x.strip()] or [c["vo"]]
+        sel = picks[ci]; tim = []
+        for si, sent in enumerate(sents):
+            f = os.path.join(work, f"vo{ci}_{si}.wav"); L = tts(sent, f)
+            vo_files.append(f); starts.append(t); tim.append((t, L)); t += L + 0.25
+        t += 0.6
+        captions += polish.timed_chunks(sents, tim)
+        n = max(1, min(len(sel), len(sents)))   # n picture groups, each a run of whole sentences
+        for j in range(n):
+            a = tim[j * len(sents) // n][0]; b = tim[(j + 1) * len(sents) // n][0] if j + 1 < n else t
             x = sel[j % len(sel)]
-            out = os.path.join(work, f"c{ci}_{j}.mp4"); render_item(x, gd, out, c["name"] if j == 0 else "", x["ai"]); parts.append(out)
-        t += seconds
+            d = (round(b * FPS) - round(a * FPS)) / FPS   # frame-exact boundaries: no drift over many pieces
+            out = os.path.join(work, f"c{ci}_{j}.mp4"); render_item(x, d, out, c["name"] if j == 0 else "", x["ai"]); parts.append(out)
+    t = round(t * FPS) / FPS
     card = os.path.join(work, "end.mp4"); end_card(6.0, card); parts.append(card); total = t + 6.0
     lst = os.path.join(work, "list.txt"); open(lst, "w").write("".join(f"file '{x}'\n" for x in parts))
     video = os.path.join(work, "video.mp4"); ffmpeg("-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", video)
@@ -270,6 +273,7 @@ def build(lid, publish):
     final = os.path.join(work, f"{lid}.mp4"); raw = os.path.join(work, "raw.mp4")
     mix(video, vo_files, starts, total, loop, raw)
     srt = os.path.join(work, "captions.srt"); write_srt(captions, srt); burn_captions(raw, srt, final)
+    p["_captions"] = captions[:400]; p["_voice"] = list(zip(starts, [os.path.basename(v) for v in vo_files]))
     # check: sound and length
     vol = subprocess.run(["ffmpeg", "-i", final, "-af", "volumedetect", "-f", "null", "-"], capture_output=True, text=True).stderr
     mx = float(vol.split("max_volume:")[1].split("dB")[0]) if "max_volume:" in vol else -99
@@ -307,7 +311,7 @@ def make_shorts(lid, p, final, chap_t, total, work):
         tf = os.path.join(work, f"sh{k}.txt"); open(tf, "w", encoding="utf-8").write(p["chapters"][ci]["name"])
         ffmpeg("-ss", f"{st:.2f}", "-t", f"{en - st:.2f}", "-i", final, "-filter_complex",
                "[0:v]split[a][b];[a]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:3[bg];"
-               f"[b]scale=1080:-2[fg];[bg][fg]overlay=0:(H-h)/2,drawtext=fontfile='{font}':textfile='{tf}':fontsize=70:fontcolor=0x13213A:box=1:boxcolor=0xF2B33D:boxborderw=20:x=60:y=260,format=yuv420p[v]",
+               f"[b]scale=1080:-2[fg];[bg][fg]overlay=0:(H-h)/2,drawtext=fontfile='{font}':textfile='{tf.replace(chr(92), '/').replace(':', chr(92) + ':')}':fontsize=70:fontcolor=0x13213A:box=1:boxcolor=0xF2B33D:boxborderw=20:x=60:y=260,format=yuv420p[v]",
                "-map", "[v]", "-map", "0:a", "-c:v", "libx264", "-crf", "23", "-preset", "veryfast", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", dst)
         cap = (s.get("hook") or p["chapters"][ci]["name"]) + "\n\nPoora video YouTube / Facebook par: " + p["title"] + \
               "\n\nComment mein apna sawal likhiye. Follow kijiye @vajraformwork\n📞 83050 70160\n" \
