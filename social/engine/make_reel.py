@@ -263,7 +263,7 @@ def build(p, rid, res):
     mix(video, vo_files, starts, total, music if has_music else None, final)
     try:   # 12 Nov: free polish (comment-box, PLY stamp on brown-ply scenes, voice-timed captions)
         import polish
-        segs = [(starts[i], starts[i] + max(2.6, vo_lens[i] + 0.5), not s.get("shows_vajra", True)) for i, s in enumerate(p["scenes"])]
+        segs = [(starts[i], starts[i] + max(2.6, vo_lens[i] + 0.5), not s.get("shows_vajra", True), s.get("vo", "")) for i, s in enumerate(p["scenes"])]
         log.append(polish.polish(final, lines, segs, list(zip(starts, vo_lens))))
     except Exception as e:
         log.append(f"polish skipped: {str(e)[:120]}")

@@ -24,18 +24,35 @@ def load_wav(path):
     return np.frombuffer(raw, np.int16).astype(np.float32) / 32768.0
 
 
+TAPE = [(r"waterproof|paani", "WATERPROOF"), (r"halk|utha|light", "HALKI SHEET"), (r"nail|kil\b", "KIL PAKADTI"),
+        (r"cut|kat", "CUTTER SE KATTI"), (r"dho|wash|reuse", "DHO KAR REUSE"), (r"smooth|finish", "SMOOTH FINISH"),
+        (r"ek aadmi|one man", "EK AADMI KAAFI")]
+
+
 def fx_pass(src, dst, total, segs):
-    plan = []
-    s0 = max(0.0, total - 3.6)   # 12 Nov: on the end card, never over a scene headline
+    """12 Nov: effects from claude-video-effects, placed by scene meaning and away from our own text:
+    huge-strike 'PLY' on the first brown-ply scene; tape-label with the claim of up to two VAJRA scenes (lower-middle,
+    above the captions, below the headline boxes); comment-box on the end card. segs = (start, end, is_ply[, voice line])."""
+    plan, tapes, struck = [], 0, False
+    for sg in segs:
+        a, b, ply = sg[0], sg[1], sg[2]; vo = (sg[3] if len(sg) > 3 else "").lower()
+        if b - a < 2.0:
+            continue
+        st, en = round(a + 0.7, 2), round(min(b - 0.2, a + 2.9), 2)
+        if ply and not struck:
+            plan.append({"fx": "huge-strike", "start": st, "end": en, "text": "PLY"}); struck = True
+        elif not ply and tapes < 2:
+            word = next((w for rx, w in TAPE if re.search(rx, vo)), None)
+            if word:
+                plan.append({"fx": "tape-label", "start": st, "end": en, "text": word}); tapes += 1
+    s0 = max(0.0, total - 3.6)   # comment box on the end card, never over a scene headline
     plan.append({"fx": "comment-box", "start": round(s0, 2), "end": round(total, 2), "text": "PP",
                  "handle": "vajraformwork", "reply": "Rate aapke DM mein bhej diya", "chip": "PP shuttering"})
-    for a, b, ply in segs:
-        if ply and b - a > 1.6:
-            plan.append({"fx": "reject-stamp", "start": round(a + 0.6, 2), "end": round(min(b, a + 2.2), 2), "text": "PLY"}); break
     pf = os.path.join(tempfile.mkdtemp(), "plan.json"); json.dump(plan, open(pf, "w"))
     r = subprocess.run([sys.executable, FX, "--plan", pf, src, dst], capture_output=True, text=True, timeout=1500)
     if r.returncode or not os.path.exists(dst):
         raise RuntimeError("fx failed: " + " | ".join((r.stderr or r.stdout).strip().splitlines()[-3:])[-300:])
+    return [d["fx"] for d in plan]
 
 
 def whisper_chunks(src, lines):
@@ -107,7 +124,7 @@ def polish(mp4, lines, segs=(), timing=None):
     log = []
     total = dur(mp4); work = tempfile.mkdtemp(); cur = mp4
     try:
-        a = os.path.join(work, "fx.mp4"); fx_pass(cur, a, total, segs); cur = a; log.append("fx ok")
+        a = os.path.join(work, "fx.mp4"); used = fx_pass(cur, a, total, segs); cur = a; log.append("fx ok: " + ",".join(used))
     except Exception as e:
         log.append("fx skipped: " + str(e)[:120])
     try:

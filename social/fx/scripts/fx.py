@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """45 starter video effects for Claude, by @vibha.in.progress
+(github.com/Vibha-Ramprakash/claude-video-effects, MIT licence, see ../LICENSE). VAJRA changes: default texts rebranded, nothing else.
 
 One effect:    python fx.py orbit in.mp4 out.mp4 --start 3.2 --end 6
 Many effects:  python fx.py --plan plan.json in.mp4 out.mp4
@@ -301,7 +302,7 @@ def fx_lean_in(c, e):
 
 @effect('backdrop-word', 'a giant word drops in behind you')
 def fx_backdrop_word(c, e):
-    word = e.o.get('text', 'CLAUDE')
+    word = e.o.get('text', 'VAJRA')
     im = cached(e, 'w', lambda: fit_text(word, c.W * 0.94, e.o.get('font', 'bold'), fill=rgb(e.o.get('color'), CREAM), shadow=10))
     k = ease_back(c.lt / 0.42)
     y_end = c.fy - c.fw * 1.05
@@ -398,7 +399,7 @@ def fx_swipe(c, e):
 
 @effect('todo', 'a checklist card beside your head that ticks off as you talk')
 def fx_todo(c, e):
-    items = e.o.get('text', 'drop your video into Claude|install the skill|type /effects').split('|')
+    items = e.o.get('text', 'Halki sheet|Waterproof|Kil pakadti').split('|')
     # ticks = video seconds when each item gets ticked (e.g. when you say it); default is evenly spaced
     ticks = [float(t) - e.start for t in str(e.o['ticks']).split('|')] if e.o.get('ticks') else [e.d * (i + 1) / (len(items) + 1) for i in range(len(items))]
     cw = int(c.W * 0.5); lh = int(cw * 0.13); pad = int(cw * 0.07)
@@ -804,7 +805,7 @@ def glass_widgets_v1(c, e):
     gd = float(e.o.get('dark', 0.2))
     a = glass(c, S, S, S * 0.2, mg + S / 2, y_top + S / 2, amt=0.14, dark=gd); d = ImageDraw.Draw(a)
     d.ellipse([S * 0.1, S * 0.115, S * 0.1 + S * 0.06, S * 0.115 + S * 0.06], fill=ORANGE + (255,))
-    d.text((S * 0.2, S * 0.145), e.o.get('title', 'Claude'), font=font('uim', S * 0.085), fill=(255, 255, 255, 235), anchor='lm')
+    d.text((S * 0.2, S * 0.145), e.o.get('title', 'VAJRA'), font=font('uim', S * 0.085), fill=(255, 255, 255, 235), anchor='lm')
     d.text((S * 0.08, S * 0.2), e.o.get('text', '22'), font=font('uib', S * 0.44), fill=(255, 255, 255, 255))
     for j, ln in enumerate(e.o.get('sub', 'effects|one clip').split('|')):
         d.text((S * 0.1, S * (0.7 + 0.11 * j)), ln, font=font('uim', S * 0.085), fill=(255, 255, 255, 235))
@@ -821,11 +822,11 @@ def glass_widgets_v1(c, e):
     cy2 = y_top + bh + mg * 0.45 + bh / 2
     g = glass(c, bw, bh, bh * 0.28, bx, cy2, amt=0.14, dark=gd); d = ImageDraw.Draw(g)
     av = face_chip(c, e, bh * 0.62); g.alpha_composite(av, (int(bw - bh * 0.19 - av.width), int((bh - av.height) / 2)))
-    d.text((bh * 0.2, bh * 0.36), e.o.get('name', 'Vibha'), font=font('uib', bh * 0.22), fill=(255, 255, 255, 255), anchor='lm')
-    d.text((bh * 0.2, bh * 0.66), e.o.get('handle', '@vibha.in.progress'), font=font('uim', bh * 0.14), fill=(255, 255, 255, 215), anchor='lm')
+    d.text((bh * 0.2, bh * 0.36), e.o.get('name', 'VAJRA'), font=font('uib', bh * 0.22), fill=(255, 255, 255, 255), anchor='lm')
+    d.text((bh * 0.2, bh * 0.66), e.o.get('handle', '@vajraformwork'), font=font('uim', bh * 0.14), fill=(255, 255, 255, 215), anchor='lm')
     place(c, g, bx, cy2, 0.6 + 0.4 * pop(c, 0.24), 0, al * clamp((c.lt - 0.24) / 0.1), behind=True)
     f1, f2 = font('uim', W * 0.045), font('uib', W * 0.045)
-    pre, hi = e.o.get('pill', 'Edited by |Claude').split('|') if '|' in e.o.get('pill', 'Edited by |Claude') else (e.o['pill'], '')
+    pre, hi = e.o.get('pill', 'Made by |VAJRA').split('|') if '|' in e.o.get('pill', 'Made by |VAJRA') else (e.o['pill'], '')
     tw = f1.getlength(pre) + f2.getlength(hi); ph = W * 0.105; pw = tw + ph * 0.9; py = c.H * 0.865
     q = glass(c, pw, ph, ph / 2, W / 2, py, amt=0.16, tint=(70, 70, 76)); d = ImageDraw.Draw(q)
     d.text(((pw - tw) / 2, ph / 2), pre, font=f1, fill=(255, 255, 255, 255), anchor='lm')
@@ -865,7 +866,7 @@ def fx_split_headline(c, e):
     shift(c, ch * float(e.o.get('push', 0.72)) * k)
     top = ch * k; W = c.W; col = rgb(e.o.get('color'), GREEN)
     lay = Image.new('RGBA', (W, int(ch)), (244, 242, 236, 255)); d = ImageDraw.Draw(lay)
-    lines = e.o.get('text', 'Claude|edits my|reels.').split('|'); hl = e.o.get('hl', 'edits')
+    lines = e.o.get('text', 'Ply ya PP?|Sahi faisla|aapka.').split('|'); hl = e.o.get('hl', 'edits')
     S = cached(e, 'sz', lambda: lines_fit(lines, W * 0.84, 'uib', int(W * 0.135))); f = font('uib', S)
     x0, y0 = W * 0.07, ch * 0.13
     for j, ln in enumerate(lines):
@@ -908,8 +909,8 @@ def fx_pastel_word(c, e):
     cw, chh = W * 0.86, W * 0.15; cy = H * 0.865 + (1 - ease_out((c.lt - 0.15) / 0.35)) * H * 0.2
     card_ = rrect(cw, chh, chh * 0.3, (255, 255, 255, 248)); d = ImageDraw.Draw(card_)
     av = face_chip(c, e, chh * 0.64); card_.alpha_composite(av, (int(chh * 0.18), int((chh - av.height) / 2)))
-    d.text((chh * 0.98, chh * 0.38), e.o.get('name', 'Vibha'), font=font('uib', chh * 0.22), fill=(20, 20, 22, 255), anchor='lm')
-    h1 = e.o.get('handle', '@vibha.in.progress  ·  '); f = font('uim', chh * 0.15)
+    d.text((chh * 0.98, chh * 0.38), e.o.get('name', 'VAJRA'), font=font('uib', chh * 0.22), fill=(20, 20, 22, 255), anchor='lm')
+    h1 = e.o.get('handle', '@vajraformwork  ·  '); f = font('uim', chh * 0.15)
     d.text((chh * 0.98, chh * 0.66), h1, font=f, fill=(140, 140, 150, 255), anchor='lm')
     d.text((chh * 0.98 + f.getlength(h1), chh * 0.66), e.o.get('role', 'creator'), font=f, fill=PURPLE + (255,), anchor='lm')
     at = e.d * 0.6; on = c.lt >= at
@@ -940,7 +941,7 @@ def fx_check_pills(c, e):
         d.text((bw * 0.19, bw * 0.1), title, font=font('uib', bw * 0.06), fill=(20, 20, 22, 255), anchor='lm')
         gr = thumb_grid(e.cards, 3, 3, int(bw * 0.28), int(bw * 0.025), i0=i * 3)
         im.alpha_composite(gr, ((bw - gr.width) // 2, int(bw * 0.2))); return shadowed(im, 16, 8, 70)
-    b1 = cached(e, 'b1', lambda: board(0, e.o.get('handle', '@vibha.in.progress')))
+    b1 = cached(e, 'b1', lambda: board(0, e.o.get('handle', '@vajraformwork')))
     b2 = cached(e, 'b2', lambda: board(1, e.o.get('board', 'Reels  ·  22 effects')))
     by = max(H * 0.17, c.fy - c.fw * 0.9)
     place(c, b1, W * 0.25, by, 0.6 + 0.4 * pop(c, 0.0), 8, al * clamp(c.lt / 0.1), behind=True)
@@ -982,7 +983,7 @@ def red_timeline(c, e):
     comp(c, rec, W * 0.065 + dot.width * 1.4 - sl, H * 0.075, tb, guard=True)
     ti = cached(e, 'ti', lambda: text_img(e.o.get('text', 'AUTO-EDIT'), W * 0.13, 'uib', (255, 255, 255), shadow=10))
     comp(c, ti, W * 0.055 - sl, H * 0.075 + rec.height * 0.85, tb, guard=True)
-    su = cached(e, 'su', lambda: text_img(e.o.get('sub', 'timeline by Claude'), W * 0.037, 'uim', red))
+    su = cached(e, 'su', lambda: text_img(e.o.get('sub', 'VAJRA PP sheet'), W * 0.037, 'uim', red))
     comp(c, su, W * 0.065 - sl, H * 0.075 + rec.height * 0.85 + ti.height * 0.88, tb, guard=True)
     pw, phh = int(W * 0.9), int(H * 0.19); py = H * 0.755 + (1 - ease_out((c.lt - 0.1) / 0.35)) * H * 0.3
     lay = rrect(pw, phh, W * 0.03, (14, 10, 10, 215), (255, 70, 60, 90), 2); d = ImageDraw.Draw(lay)
@@ -1005,7 +1006,7 @@ def red_timeline(c, e):
 @effect('headline-box', 'a punch-in with a clean two-line headline, the second line in a white box')
 def fx_headline_box(c, e):
     face_cam(c, 1 + (float(e.o.get('zoom', 1.2)) - 1) * ease_out(c.lt / 0.22), 0.45)
-    W = c.W; al = fade(c, e); lines = e.o.get('text', 'How I got Claude|to edit my reels.').split('|')
+    W = c.W; al = fade(c, e); lines = e.o.get('text', 'Ply ya PP sheet?|Faisla aapka.').split('|')
     S = cached(e, 'sz', lambda: lines_fit(lines, W * 0.84, 'uib', int(W * 0.085)))
     y = max(c.H * 0.06, c.fy - c.fw * 1.3 - S * 1.3 * len(lines))
     for j, ln in enumerate(lines):
@@ -1041,7 +1042,7 @@ def fx_profile_wall(c, e):
     if swap < 1: d.text((cw / 2, chh * 0.33), f'{n:,}', font=font('uib', chh * 0.3), fill=(255, 255, 255, int(255 * (1 - swap))), anchor='mm')
     if swap > 0: d.text((cw / 2, chh * 0.33), e.o.get('label', 'views'), font=font('uib', chh * 0.3), fill=(255, 255, 255, int(255 * swap)), anchor='mm')
     av = face_chip(c, e, chh * 0.3); g.alpha_composite(av, (int(chh * 0.14), int(chh * 0.58)))
-    d.text((chh * 0.52, chh * 0.68), e.o.get('name', 'vibha.in.progress'), font=font('uib', chh * 0.09), fill=(255, 255, 255, 255), anchor='lm')
+    d.text((chh * 0.52, chh * 0.68), e.o.get('name', 'vajraformwork'), font=font('uib', chh * 0.09), fill=(255, 255, 255, 255), anchor='lm')
     d.text((chh * 0.52, chh * 0.8), e.o.get('sub', 'top reel'), font=font('uim', chh * 0.075), fill=(170, 170, 176, 255), anchor='lm')
     on = c.lt >= e.d * 0.7
     d.rounded_rectangle([cw - chh * 0.95, chh * 0.62, cw - chh * 0.14, chh * 0.86], chh * 0.12, fill=((60, 60, 66, 255) if on else (255, 255, 255, 255)))
@@ -1074,7 +1075,7 @@ def fx_tier_list(c, e):
     k = ease_back(c.lt / 0.35); bx, by = W / 2, top + bd.height / 2 + (1 - k) * H * 0.15
     place(c, bd, bx, by, 1, 0, al * clamp(c.lt / 0.12), guard=True)
     tile = cached(e, 'tile', lambda: shadowed(rrect(int(rh * 2.6), int(rh * 0.8), rh * 0.16, ORANGE + (255,)), 8, 4, 100))
-    tx = cached(e, 'tx', lambda: text_img(e.o.get('item', 'Claude'), rh * 0.36, 'uib', (255, 255, 255)))
+    tx = cached(e, 'tx', lambda: text_img(e.o.get('item', 'VAJRA'), rh * 0.36, 'uib', (255, 255, 255)))
     tl = tile.copy(); tl.alpha_composite(tx, ((tl.width - tx.width) // 2, (tl.height - tx.height) // 2 - 3))
     sx, sy = W * 0.86, c.fy + c.fw * 0.4
     ex = bx - bd.width / 2 + 18 + pad * 3 + rh + tile.width / 2 - 10; ey = by - bd.height / 2 + 18 + pad + rh / 2
@@ -1200,7 +1201,7 @@ def fx_headline_wall(c, e):
         for j, ln in enumerate(lines): d.text((cw * 0.08, cw * 0.07 + j * lh), ln, font=f, fill=fg + (255,))
         my = chh - cw * 0.085; s = cw * 0.04
         d.polygon([(cw * 0.08, my - s / 2), (cw * 0.08, my + s / 2), (cw * 0.08 + s * 0.9, my)], fill=(255, 48, 64, 255))
-        d.text((cw * 0.08 + s * 1.5, my), ('@vibha.in.progress  ·  ' + meta) if meta else '@vibha.in.progress', font=font('uim', cw * 0.045), fill=fg + (170,), anchor='lm')
+        d.text((cw * 0.08 + s * 1.5, my), ('@vajraformwork  ·  ' + meta) if meta else '@vajraformwork', font=font('uim', cw * 0.045), fill=fg + (170,), anchor='lm')
         return shadowed(im, 14, 8, 110)
     N = int(e.o.get('count', 13))
     cards = cached(e, 'cards', lambda: [hcard(i) for i in range(N)])
@@ -1234,7 +1235,7 @@ def fx_checklist(c, e):
         ang = a * math.pi / 2 + math.pi / 4
         d.line([(sx, sy), (sx + 18 * u * math.cos(ang), sy + 18 * u * math.sin(ang))], fill=(217, 119, 87, 255), width=int(7 * u))
         d.line([(sx, sy), (sx + 18 * u * math.cos(ang + math.pi / 4), sy + 18 * u * math.sin(ang + math.pi / 4))], fill=(217, 119, 87, 255), width=int(5 * u))
-    d.text((80 * u, hh / 2), e.o.get('title', 'Claude is editing your clip'), font=font('uib', 42 * u), fill=(255, 255, 255, 255), anchor='lm')
+    d.text((80 * u, hh / 2), e.o.get('title', 'VAJRA sheet ke fayde'), font=font('uib', 42 * u), fill=(255, 255, 255, 255), anchor='lm')
     nd = sum(c.lt >= t for t in done_at)
     d.text((cw - 36 * u, hh / 2), f'{nd} of {n}', font=font('uim', 28 * u), fill=(170, 170, 176, 255), anchor='rm')
     d.line([(30 * u, hh), (cw - 30 * u, hh)], fill=(255, 255, 255, 30), width=max(1, int(2 * u)))
@@ -1302,7 +1303,7 @@ def glass_widgets_v2(c, e):
     S = 300 * u; ax, ay = 50 * u + S / 2, 118 * u + S / 2
     a = G(S, S, ax, ay); d = ImageDraw.Draw(a)
     d.ellipse([S * 0.1, S * 0.115, S * 0.16, S * 0.175], fill=ORANGE + (255,))
-    d.text((S * 0.2, S * 0.145), e.o.get('title', 'Claude'), font=font('uim', S * 0.085), fill=white + (235,), anchor='lm')
+    d.text((S * 0.2, S * 0.145), e.o.get('title', 'VAJRA'), font=font('uim', S * 0.085), fill=white + (235,), anchor='lm')
     d.text((S * 0.08, S * 0.2), e.o.get('text', '38'), font=font('uib', S * 0.44), fill=white + (255,))
     for j, ln in enumerate(e.o.get('sub', 'effects|one clip').split('|')): d.text((S * 0.1, S * (0.7 + 0.11 * j)), ln, font=font('uim', S * 0.085), fill=white + (235,))
     show(a, ax, ay, 0)
@@ -1319,8 +1320,8 @@ def glass_widgets_v2(c, e):
     cy3 = by + bh / 2 + 22 * u + bh / 2
     g = G(bw, bh, bx, cy3, bh * 0.28); d = ImageDraw.Draw(g)
     av = face_chip(c, e, bh * 0.62); g.alpha_composite(av, (int(bw - bh * 0.19 - av.width), int((bh - av.height) / 2)))
-    d.text((bh * 0.2, bh * 0.36), e.o.get('name', 'Vibha'), font=font('uib', bh * 0.22), fill=white + (255,), anchor='lm')
-    d.text((bh * 0.2, bh * 0.66), e.o.get('handle', '@vibha.in.progress'), font=font('uim', bh * 0.14), fill=white + (215,), anchor='lm')
+    d.text((bh * 0.2, bh * 0.36), e.o.get('name', 'VAJRA'), font=font('uib', bh * 0.22), fill=white + (255,), anchor='lm')
+    d.text((bh * 0.2, bh * 0.66), e.o.get('handle', '@vajraformwork'), font=font('uim', bh * 0.14), fill=white + (215,), anchor='lm')
     show(g, bx, cy3, 2)
     # 4 · views artifact (a mini page inside the glass)
     aw, ah = 330 * u, 330 * u; dx, dy = 50 * u + aw / 2, ay + S / 2 + 26 * u + ah / 2
@@ -1375,7 +1376,7 @@ def glass_widgets_v2(c, e):
     d.text((R / 2, R - 26 * u), 'render', font=font('uim', 20 * u), fill=white + (210,), anchor='mm')
     show(rg, rx, ry, 6)
     # 8 · Edited by Claude pill (in front)
-    f1, f2 = font('uim', W * 0.045), font('uib', W * 0.045); pre, hi = 'Edited by ', 'Claude'
+    f1, f2 = font('uim', W * 0.045), font('uib', W * 0.045); pre, hi = 'Edited by ', 'VAJRA'
     tw = f1.getlength(pre) + f2.getlength(hi); ph = W * 0.105; pw = tw + ph * 0.9; py = H * 0.875
     q = glass(c, pw, ph, ph / 2, W / 2, py, amt=0.16, tint=(70, 70, 76)); d = ImageDraw.Draw(q)
     d.text(((pw - tw) / 2, ph / 2), pre, font=f1, fill=white + (255,), anchor='lm')
@@ -1412,7 +1413,7 @@ def comment_sheet(c, e):
     """Reels 1021 + VOX look: an Instagram Comments sheet above your head (your hair in front). The word types in, posts,
     gets a heart, then your reply drops in with a link chip."""
     W, H = c.W, c.H; u = W / 1080; al = fade(c, e)
-    word = e.o.get('text', 'EFFECTS'); handle = e.o.get('handle', 'vibha.in.progress')
+    word = e.o.get('text', 'EFFECTS'); handle = e.o.get('handle', 'vajraformwork')
     reply = e.o.get('reply', 'Sent you the pack'); chip = e.o.get('chip', '22 effects')
     sw, sh = 740 * u, 450 * u
     t_post = 0.3 + 0.06 * len(word) + 0.1; t_heart, t_rep = t_post + 0.25, t_post + 0.4
@@ -1575,7 +1576,7 @@ def match_page(c, e, j, wx, wy):
     paper = [(246, 243, 236), (236, 229, 212), (251, 251, 250), (241, 236, 228), (232, 232, 230), (248, 240, 228)][j % 6]
     kind = ['serif', 'mont', 'ui', 'serif', 'anton', 'monts'][j % 6]
     size = W * [0.085, 0.07, 0.072, 0.095, 0.08, 0.068][j % 6]; f = font(kind, size); lh = size * 1.22
-    word = e.o.get('text', 'Claude'); red = rgb(e.o.get('color'), (214, 40, 40))
+    word = e.o.get('text', 'VAJRA'); red = rgb(e.o.get('color'), (214, 40, 40))
     im = Image.new('RGB', (W, H), paper); d = ImageDraw.Draw(im); ink = (40, 38, 36)
     base = f.getbbox('Ag'); asc = -base[1]
     ww = f.getlength(word); bx0 = wx - ww / 2
@@ -1659,7 +1660,7 @@ def fx_apple_toggles(c, e):
 def fx_led_sign(c, e):
     k = ramp(c, e, 0.2, 0.2)
     face_cam(c, 1 + (float(e.o.get('push', 1.08)) - 1) * ease_inout(c.lt / e.d), 0.42)
-    lines = e.o.get('text', 'CLAUDE').upper().split('|'); col = np.float32(rgb(e.o.get('color'), (255, 146, 48))) / 255
+    lines = e.o.get('text', 'VAJRA').upper().split('|'); col = np.float32(rgb(e.o.get('color'), (255, 146, 48))) / 255
     def setup():
         mats = []
         for s in lines:
@@ -1746,7 +1747,7 @@ def spotlight_sparkle(c, e):
     rays = cv2.resize(rays.astype(np.float32), (W, H), interpolation=cv2.INTER_LINEAR)
     halo = np.clip(cv2.GaussianBlur(c.m, (0, 0), W * 0.012) * 1.6 - c.m, 0, 1)
     c.img += (rays * 0.32 + halo * 0.7)[..., None] * gold * k * (1 - c.m[..., None])
-    word = e.o.get('text', 'CLAUDE')
+    word = e.o.get('text', 'VAJRA')
     def wimg():
         size = int(H * 0.2)
         while size > 20 and font('didonei', size).getlength(word) > W * 0.86: size = int(size * 0.94)

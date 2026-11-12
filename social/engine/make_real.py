@@ -243,7 +243,7 @@ def main():
         segs, tt = [], 0.0
         for s in p["segments"]:
             ln = s.get("_len", 0) or 3.0
-            segs.append((tt, tt + ln, "ply" in (s.get("_promised", "") + s.get("vo", "")).lower() and "pp" not in s.get("vo", "").lower())); tt += ln
+            segs.append((tt, tt + ln, "ply" in (s.get("_promised", "") + s.get("vo", "")).lower() and "pp" not in s.get("vo", "").lower(), s.get("vo", ""))); tt += ln
         log.append(polish.polish(final, lines, segs, list(zip(starts, vo_lens))))
     except Exception as e:
         log.append(f"polish skipped: {str(e)[:120]}")
