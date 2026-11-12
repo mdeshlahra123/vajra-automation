@@ -171,6 +171,7 @@ def f_poll(theme, item):
 
 def f_faq(theme, item, ans, photo=None):
     q, a = item
+    if photo: theme = {**theme, "accent": GOLD, "ink": NAVY, "fg": WHITE}   # readable on any photo
     im = base(theme, photo); d = ImageDraw.Draw(im)
     fg = WHITE if photo else theme["fg"]
     d.text((W / 2, 480), "AAPNE POOCHA" if not ans else "JAWAB", font=F(58), fill=theme["accent"], anchor="ma")
@@ -205,6 +206,7 @@ def f_myth(theme, item, fact):
 
 
 def f_tip(theme, tip, photo):
+    theme = {**theme, "accent": GOLD, "ink": NAVY, "fg": WHITE}
     im = base(theme, photo); d = ImageDraw.Draw(im)
     pill(d, W / 2, 520, "AAJ KI TIP", F(58), theme["accent"], theme["ink"] if theme["accent"] != theme["bg"] else WHITE)
     f, ls, _ = fit(d, tip, W - 170, 640, 78, 50); centered(d, ls, f, 700, WHITE, 1.3)
@@ -214,7 +216,7 @@ def f_tip(theme, tip, photo):
 
 def f_teaser(theme, hook, slot):
     im = base(theme); d = ImageDraw.Draw(im)
-    pill(d, W / 2, 520, "AAJ RAAT 7:30" if slot == "evening" else "AAJ SUBAH 9:30", F(66), RED, WHITE)
+    pill(d, W / 2, 520, "AAJ RAAT 7:30" if slot == "morning" else "KAL SUBAH 9:30", F(66), RED, WHITE)
     d.text((W / 2, 760), "NAYI REEL", font=F(120), fill=theme["fg"], anchor="ma")
     d.text((W / 2, 900), "aa rahi hai", font=F(70), fill=theme["accent"], anchor="ma")
     f, ls, _ = fit(d, "\u201c" + hook + "\u201d", W - 180, 460, 70, 46); centered(d, ls, f, 1080, theme["fg"], 1.3)
@@ -264,11 +266,13 @@ def lru(bank, key, s, name):
     d = s["used"].setdefault(name, {}); i = min(range(len(bank)), key=lambda k: (d.get(str(k), ""), k)); d[str(i)] = datetime.date.today().isoformat(); return bank[i]
 
 
-def next_hook():
+def next_hook(slot="morning"):
     try:
         sys.path.insert(0, os.path.join(BASE, "engine")); import claims
         q = json.load(open(os.path.join(BASE, "queue.json"), encoding="utf-8"))
-        it = next((p for p in q["posts"] if not p.get("posted") and p.get("video")), None)
+        pend = [p for p in q["posts"] if not p.get("posted") and p.get("video")]
+        want_ev = slot == "morning"   # this story is posted AFTER the post of its slot: announce the next one
+        it = next((p for p in pend if bool(p.get("evening")) == want_ev), None) or (pend[0] if pend else None)
         if it:
             h = open(os.path.join(BASE, it["caption"]), encoding="utf-8").read().strip().split("\n")[0]
             h = claims.fix_line(h, short=False)
@@ -302,7 +306,7 @@ def build(fmt, s, out_dir, slot):
         tip = lru(TIPS, 0, s, "tip"); ph = usage.pick(PHOTOS); p = os.path.join(out_dir, "f0.png"); f_tip(th(), tip, ph).save(p); frames.append(("image", p))
         s["photos"] = (s["photos"] + [ph])[-20:]; usage.mark(ph)
     elif fmt == "teaser":
-        h = next_hook()
+        h = next_hook(slot)
         if not h:
             return build("poll", s, out_dir, slot)
         p = os.path.join(out_dir, "f0.png"); f_teaser(th(), h, slot).save(p); frames.append(("image", p))
