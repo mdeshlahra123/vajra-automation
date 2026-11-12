@@ -1,7 +1,6 @@
 {
- "n": 25,
+ "n": 26,
  "photos": [
-  "v6-close",
   "in-20261026-082817",
   "in-20261026-082952",
   "in-20261027-201151",
@@ -20,7 +19,8 @@
   "in-20261030-200852",
   "sheet-thin",
   "beam-box",
-  "v5-cage"
+  "v5-cage",
+  "in-20261026-082817"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
@@ -47,6 +47,7 @@
   "Aaj site par slab ki casting ke liye ready hai solid VAJRA sheet.",
   "Patli sheet lagti hai par load poora uthati hai, ply ya PP? Reply karo?",
   "Site par quality check ke liye 1x1 ft sample mangwayiye, reply karo SAMPLE.",
-  "Shuttering mein sabse bada sar-dard kya hai?"
+  "Shuttering mein sabse bada sar-dard kya hai?",
+  "Log kehte hain: plastic sheet kamzor hoti hai. Sach: VAJRA sheet site ki maar jhel leti hai."
  ]
 }

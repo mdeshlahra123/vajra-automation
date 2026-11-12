@@ -244,3 +244,8 @@
 2026-11-11 14:28    IG OK https://www.instagram.com/reel/DfmsiygE2by/
 2026-11-11 14:28    FB OK video 1880662469592133
 2026-11-11 14:28    DONE. 9 posts left in queue.
+2026-11-12 04:14  POSTING long-1111-s1
+2026-11-12 04:14    TRIAL reel (non-followers first, auto-share if it performs)
+2026-11-12 04:15    IG OK https://www.instagram.com/reel/DfoLELdAPgW/
+2026-11-12 04:15    FB OK video 1889422299041990
+2026-11-12 04:15    DONE. 9 posts left in queue.
