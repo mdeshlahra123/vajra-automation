@@ -17,8 +17,13 @@ BANK = {
                   "Jaldi de-shuttering", "Curing mein kanjoosi"], "fix": "Sahi shuttering, mazboot dhalai"},
                  {"title": "Monsoon dhalai ki 4 galtiyan", "items": ["Barish mein concrete daalna", "Sheet ko dhakna bhoolna",
                   "Paani bharne dena", "Props check na karna"], "fix": "Mausam dekho, phir dhalai"}],
-    "myth": [{"myth": "Plastic shuttering kamzor hoti hai", "fact": "PP sheet concrete ka load uthati hai, sahi support ke saath"},
-             {"myth": "PP sheet mein kil nahi lagti", "fact": "Kil (nail) achhe se pakadti hai, ply ki tarah"}],
+    # myth facts = approved claims only (brand.md); never generated
+    "myth": [{"myth": "PP sheet mein kil nahi lagti", "fact": "Kil (nail) achhe se pakadti hai, ply ki tarah"},
+             {"myth": "Plastic sheet paani mein phool jaati hai", "fact": "PP sheet waterproof hai, phoolti nahi"},
+             {"myth": "PP sheet bahut bhaari hoti hai", "fact": "Halki hai, ek aadmi aaram se utha leta hai"},
+             {"myth": "Ek baar use ke baad bekaar", "fact": "Dho kar dobara use karo. Sahi handling ke saath ply se 2-3 guna zyada chalti hai"},
+             {"myth": "PP sheet kaatna mushkil hai", "fact": "Normal cutter se ply ki tarah kat jaati hai"},
+             {"myth": "Plastic se finish kharab aati hai", "fact": "Concrete finish smooth aati hai, column ekdum saaf"}],
 }
 
 
@@ -31,6 +36,11 @@ def ease(x):
 
 
 def content(fmt):
+    if fmt == "myth":   # approved claims only, rotate least recently used
+        st = A("social", "text-reel-state.json"); used = json.load(open(st)) if os.path.exists(st) else {}
+        c = min(BANK["myth"], key=lambda x: used.get(x["myth"], ""))
+        used[c["myth"]] = datetime.date.today().isoformat(); json.dump(used, open(st, "w"), indent=1)
+        return c
     try:
         import gem
         q = ("Write one short Hinglish motion-graphics reel for Indian contractors (VAJRA PP shuttering brand, but the reel is "

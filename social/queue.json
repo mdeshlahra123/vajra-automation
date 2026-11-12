@@ -500,14 +500,6 @@
       "ai": true,
       "evening": true,
       "cover": "https://vajraformwork.vercel.app/social/reel-ai-1112-0701-cover.jpg"
-    },
-    {
-      "id": "reel-text-1112-1148",
-      "caption": "captions/reel-text-1112-1148.txt",
-      "posted": "",
-      "video": "https://vajraformwork.vercel.app/social/reel-text-1112-1148.mp4",
-      "real": true,
-      "evening": true
     }
   ],
   "hold": [
