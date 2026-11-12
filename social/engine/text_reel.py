@@ -13,10 +13,15 @@ import claims
 W, H, FPS = 1080, 1920, 30
 NAVY, GOLD, WHITE, RED, GREEN = (19, 33, 58), (242, 179, 61), (255, 255, 255), (220, 53, 53), (52, 199, 89)
 BANK = {
+    # galtiyan = general site knowledge, REVIEWED by hand; never AI-written (a wrong tip would hurt the brand)
     "galtiyan": [{"title": "Shuttering ki 4 galtiyan", "items": ["Gila ply dobara lagana", "Cover block bhool jaana",
                   "Jaldi de-shuttering", "Curing mein kanjoosi"], "fix": "Sahi shuttering, mazboot dhalai"},
                  {"title": "Monsoon dhalai ki 4 galtiyan", "items": ["Barish mein concrete daalna", "Sheet ko dhakna bhoolna",
-                  "Paani bharne dena", "Props check na karna"], "fix": "Mausam dekho, phir dhalai"}],
+                  "Paani bharne dena", "Props check na karna"], "fix": "Mausam dekho, phir dhalai"},
+                 {"title": "De-shuttering ki 4 galtiyan", "items": ["Props jaldi hatana", "Sheet ko patakna",
+                  "Dhone mein der karna", "Sheet gandi hi rakhna"], "fix": "Dhyan se kholo, dho kar rakho"},
+                 {"title": "Column dhalai ki 4 galtiyan", "items": ["Plumb check na karna", "Clamp dheela chhodna",
+                  "Cover block bhoolna", "Ek saath bhari concrete"], "fix": "Check karo, phir dhalai karo"}],
     # myth facts = approved claims only (brand.md); never generated
     "myth": [{"myth": "PP sheet mein kil nahi lagti", "fact": "Kil (nail) achhe se pakadti hai, ply ki tarah"},
              {"myth": "Plastic sheet paani mein phool jaati hai", "fact": "PP sheet waterproof hai, phoolti nahi"},
@@ -55,10 +60,11 @@ class Beat:
 
 
 def content(fmt):
-    if fmt == "myth":   # approved claims only, rotate least recently used
+    if fmt in ("myth", "galtiyan"):   # fixed, reviewed lists only; rotate least recently used
+        key = "myth" if fmt == "myth" else "title"
         st = A("social", "text-reel-state.json"); used = json.load(open(st)) if os.path.exists(st) else {}
-        c = min(BANK["myth"], key=lambda x: used.get(x["myth"], ""))
-        used[c["myth"]] = datetime.date.today().isoformat(); json.dump(used, open(st, "w"), indent=1)
+        c = min(BANK[fmt], key=lambda x: used.get(x[key], ""))
+        used[c[key]] = datetime.date.today().isoformat(); json.dump(used, open(st, "w"), indent=1)
         return c
     try:
         import gem
