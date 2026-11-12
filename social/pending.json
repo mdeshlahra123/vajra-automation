@@ -711,6 +711,17 @@
       "status": "approved",
       "by": "auto",
       "publish": "todo"
+    },
+    {
+      "id": "reel-text-1112-1330",
+      "title": "Text reel (galtiyan): Site Mistakes to Avoid (18s)\n✅ Reviewer: text reel (no voice)",
+      "file": "social/media/reel-text-1112-1330.mp4",
+      "caption": "captions/reel-text-1112-1330.txt",
+      "position": "end",
+      "real": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "todo"
     }
   ]
 }
