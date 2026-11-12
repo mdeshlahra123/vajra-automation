@@ -1,31 +1,31 @@
 name: story
-# Manual: make + post one unique Story now (dry=true: image only, sent to Telegram for a look).
+# Manual: make + post one Story now to Instagram AND Facebook (dry=true: render only, frames sent to Telegram).
+# format: quiz / poll / faq / myth / tip / teaser / clip (blank = next in rotation)
 on:
   workflow_dispatch:
     inputs:
-      dry: { description: "true = don't post", required: false, default: "true" }
+      dry: { description: "true = don't post", required: false, default: "false" }
+      format: { description: "story format (blank = rotate)", required: false, default: "" }
 concurrency: { group: state, cancel-in-progress: false }
 permissions: { contents: write }
 jobs:
   story:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     env:
       META_TOKEN: ${{ secrets.META_TOKEN }}
       WEBSITE_TOKEN: ${{ secrets.WEBSITE_TOKEN }}
-      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: (which ffmpeg >/dev/null || timeout 240 sudo apt-get install -y -qq ffmpeg >/dev/null || true); pip install -q pillow numpy
       - run: |
-          if [ "${{ github.event.inputs.dry }}" = "true" ]; then python3 social/story.py --dry; else python3 social/story.py; fi
-          curl -s -F chat_id=$TELEGRAM_CHAT_ID -F photo=@work/story.jpg -F caption="Story preview (auto)" https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendPhoto >/dev/null
+          F="${{ github.event.inputs.format }}"; D=""; [ "${{ github.event.inputs.dry }}" = "true" ] && D="--dry"
+          python3 social/story.py $D ${F:+--format $F}
       - uses: actions/upload-artifact@v4
-        with: { name: story, path: work/story.jpg }
+        if: always()
+        with: { name: story, path: work/stories, if-no-files-found: ignore }
       - run: |
           git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
           git add social/story-state.json social/media-usage.json 2>/dev/null || true; git diff --cached --quiet && exit 0
