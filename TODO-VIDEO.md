@@ -27,7 +27,7 @@ Earlier asks that are still open:
 | 3 | Animated text reels | DONE 12 Nov. social/engine/text_reel.py + text-reel.yml (Sat 10:00 IST GitHub schedule). Formats: galtiyan (title, 4 items slide in, red X each, green fix line) and myth (MYTH, strike-through, FACT). No voice; music bed assets/music/text-bed-1.mp3 (made once). Frame-audited locally (text fits, no orphans). GitHub run OK. Myth facts = approved claims only (an AI-written fact broke the rules and was removed from the queue). Next: before/after format. |
 | 4 | Reviewer step | PARTLY 12 Nov: polish.py checks every caption sits inside its voice line, none on the end card, no overlaps; any failure = CHECK -> reel goes for approval, not auto-queue. Still to add: frame audit image sent with each new reel's FYI. |
 | 5 | Long-video picture sync | Better: cuts land exactly on sentence starts (frame-rounded). Still to do: pick the clip per sentence by meaning (assign() works per chapter). |
-| 6 | IG long-video test | NOT DONE. |
+| 6 | IG long-video | DONE 12 Nov. Tested: Meta accepts a 6 min reel from video_url (error 2207076 is transient, retried up to 4x). Resumable upload is broken at Meta (ProcessingFailedError). long_video.ig_long hosts the file as a TEMPORARY GitHub release asset, creates the container, publishes, deletes the release. First live use Thu 20 Nov. (A 52 MB test file remains in git history under social/tmp.) |
 
 ## Known facts / traps
 - Gemini free credits nearly gone (about Rs 345 on 11 Nov). AI video generation disabled in make_reel.py. Owner must set the spend cap to Rs 1,600 in AI Studio.
