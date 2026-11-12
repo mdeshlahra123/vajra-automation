@@ -22,7 +22,7 @@ jobs:
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
-      - run: pip install -q faster-whisper mediapipe opencv-python-headless pillow numpy || true
+      - run: (timeout 240 sudo apt-get install -y -qq libgl1 libegl1 libgles2 >/dev/null || true); pip install -q faster-whisper mediapipe pillow numpy || true
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
       - name: Self-test (no API)
         run: ffmpeg -version | head -1 && python3 social/engine/make_reel.py --selftest

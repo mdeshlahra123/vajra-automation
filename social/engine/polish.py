@@ -28,7 +28,7 @@ def fx_pass(src, dst, total, segs):
     pf = os.path.join(tempfile.mkdtemp(), "plan.json"); json.dump(plan, open(pf, "w"))
     r = subprocess.run([sys.executable, FX, "--plan", pf, src, dst], capture_output=True, text=True, timeout=1500)
     if r.returncode or not os.path.exists(dst):
-        raise RuntimeError("fx failed: " + (r.stderr or r.stdout)[-300:])
+        raise RuntimeError("fx failed: " + " | ".join((r.stderr or r.stdout).strip().splitlines()[-3:])[-300:])
 
 
 def caption_pass(src, dst, lines):

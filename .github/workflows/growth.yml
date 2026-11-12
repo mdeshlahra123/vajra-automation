@@ -23,7 +23,7 @@ jobs:
       NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
     steps:
       - uses: actions/checkout@v4
-      - run: pip install -q faster-whisper mediapipe opencv-python-headless pillow numpy || true
+      - run: (timeout 240 sudo apt-get install -y -qq libgl1 libegl1 libgles2 >/dev/null || true); pip install -q faster-whisper mediapipe pillow numpy || true
       - run: timeout 300 sh -c 'sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null' || echo 'ffmpeg install skipped (no re-cut today)'
       - run: python3 social/growth.py ${{ github.event.inputs.dry == 'true' && '--dry' || '' }}
       - name: Save
