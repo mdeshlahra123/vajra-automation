@@ -1,9 +1,9 @@
 # VAJRA media library
-_Auto-updated 11 Nov 2026 00:38 IST by social/build_library.py._
+_Auto-updated 12 Nov 2026 09:10 IST by social/build_library.py._
 
 One place that lists every photo and clip in the library. Reels are built from the clips below (library_reel.py / make_real.py). Telegram media the owners send is added here automatically (save-photo / make-real workflows). Web view: https://vajraformwork.vercel.app/social/library/
 
-## Clips (39)  — reels are made from these
+## Clips (41)  — reels are made from these
 | File | Type | Status | Note |
 |---|---|---|---|
 | `assets/clips/ai-carry-heavy-ply.mp4` | AI/Flow | 7.9s ✅ usable | AI/Flow: two labourers struggle to carry a heavy brown plywood board ( |
@@ -43,8 +43,10 @@ One place that lists every photo and clip in the library. Reels are built from t
 | `assets/clips/tg-1110-0847-2.mp4` | clip | 7.9s ✅ usable | REAL: contractor sitting at a table with bills and papers |
 | `assets/clips/tg-1110-0847-3.mp4` | clip | 7.9s ✅ usable | REAL: labour working on a construction site slab |
 | `assets/clips/tg-1110-0847-4.mp4` | AI/Flow | 16.1s ✅ usable | AI: AI-generated video showing labour handling grey VAJRA PP hollow sh |
-| `assets/clips/tg-1111-0037-1.mp4` | clip | 33.9s ✅ usable | REAL: slab construction site with labour and props |
-| `assets/clips/tg-1111-0037-2.mp4` | clip | 15.7s ✅ usable | REAL: labour installing grey VAJRA sheet on site |
+| `assets/clips/tg-1111-0037-1.mp4` | AI/Flow | 33.9s ✅ usable | AI (Flow, long-1111 shots 1-5): slab construction site with labour and |
+| `assets/clips/tg-1111-0037-2.mp4` | AI/Flow | 15.7s ✅ usable | AI (Flow, long-1111 shots 1-5): labour installing grey VAJRA sheet on  |
+| `assets/clips/tg-1112-0909-1.mp4` | clip | 7.9s ✅ usable | REAL: column rebar cage on construction site |
+| `assets/clips/tg-1112-0909-2.mp4` | clip | 7.9s ✅ usable | REAL: grey VAJRA sheet slab reinforcement with rebar mesh |
 
 ## Photos (25)
 | File | Type | Status | Note |
