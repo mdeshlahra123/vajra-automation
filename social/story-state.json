@@ -1,5 +1,5 @@
 {
- "n": 27,
+ "n": 28,
  "photos": [
   "in-20261026-082952",
   "in-20261027-201151",
@@ -50,5 +50,11 @@
   "Shuttering mein sabse bada sar-dard kya hai?",
   "Log kehte hain: plastic sheet kamzor hoti hai. Sach: VAJRA sheet site ki maar jhel leti hai.",
   "Dhalai ke baad sheet ko saaf paani se dho kar dhoop mein sukhao."
- ]
+ ],
+ "used": {
+  "quiz": {
+   "0": "2026-11-12"
+  }
+ },
+ "last": "quiz"
 }
