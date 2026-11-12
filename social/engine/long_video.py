@@ -234,30 +234,64 @@ def burn_captions(src, srt, dst):
         print("captions failed, publishing without:", str(e)[:150]); import shutil; shutil.copy(src, dst)
 
 
+def assign_sentences(sents_by_ch, items):
+    """12 Nov: one library item per SENTENCE, by meaning (pain -> brown ply; washing -> water; column -> column ...).
+    Falls back to a rotation per chapter. Returns [[item per sentence] per chapter]."""
+    flat = [(ci, si, x) for ci, ss in enumerate(sents_by_ch) for si, x in enumerate(ss)]
+    try:
+        lst = "\n".join(f"{i}. [{x['kind']}{' AI' if x['ai'] else ''}{' NEW' if x['new'] else ''}] {x['desc']}" for i, x in enumerate(items))
+        sen = "\n".join(f"{k}. {x[:140]}" for k, (_, _, x) in enumerate(flat))
+        q = ("For a construction education video, choose ONE library item to show while each sentence is spoken. Match the meaning "
+             "(ply problems -> brown ply item; washing -> water; column/slab/beam work -> matching item; VAJRA sheet only when the sentence "
+             "is about VAJRA/PP sheet). Prefer NEW items. Use an item at most 3 times in the whole video. Change the item when the topic "
+             "changes; keep it when the same idea continues.\nLibrary:\n" + lst + "\nSentences:\n" + sen +
+             f'\nReturn JSON only: {{"pick": [{len(flat)} item numbers, one per sentence, in order]}}')
+        pick = gem.text(TEXT, q, json_mode=True)["pick"]
+        if len(pick) != len(flat):
+            raise ValueError("pick length")
+        uses = {}
+        out = [[] for _ in sents_by_ch]
+        for (ci, si, _), n in zip(flat, pick):
+            n = int(n)
+            if not 0 <= n < len(items) or uses.get(n, 0) >= 3:
+                n = min(range(len(items)), key=lambda i: (uses.get(i, 0), -items[i]["new"], i))
+            uses[n] = uses.get(n, 0) + 1; out[ci].append(items[n])
+        return out
+    except Exception as e:
+        print("assign_sentences fallback:", str(e)[:120])
+        out = []
+        for ci, ss in enumerate(sents_by_ch):
+            sel = [items[(ci * 3 + j) % len(items)] for j in range(max(1, min(4, len(ss))))]
+            out.append([sel[min(len(sel) - 1, k * len(sel) // max(1, len(ss)))] for k in range(len(ss))])
+        return out
+
+
 def build(lid, publish):
     p = json.load(open(os.path.join(LDIR, lid + ".json"), encoding="utf-8"))
     work = A("work", lid); os.makedirs(work, exist_ok=True)
     items = library(p.get("made", "2000-01-01")[:10])
-    picks = assign(p, items)
+    sbc = [[x for x in re.split(r"(?<=[.?!\u0964])\s+", c["vo"]) if x.strip()] or [c["vo"]] for c in p["chapters"]]
+    picks = assign_sentences(sbc, items)
     vo_files, starts, parts, chap_t, t = [], [], [], [], 0.0
     captions = []
     import polish
     for ci, c in enumerate(p["chapters"]):
-        # 12 Nov: voice made ONE SENTENCE AT A TIME, so every sentence start is exact. Captions and picture cuts follow it.
+        # 12 Nov: voice ONE SENTENCE AT A TIME (exact starts) + one picture chosen per sentence by meaning.
         chap_t.append(t)
-        sents = [x for x in re.split(r"(?<=[.?!\u0964])\s+", c["vo"]) if x.strip()] or [c["vo"]]
-        sel = picks[ci]; tim = []
+        sents = sbc[ci]; sel = picks[ci]; tim = []
         for si, sent in enumerate(sents):
             f = os.path.join(work, f"vo{ci}_{si}.wav"); L = tts(sent, f)
             vo_files.append(f); starts.append(t); tim.append((t, L)); t += L + 0.25
         t += 0.6
         captions += polish.timed_chunks(sents, tim)
-        n = max(1, min(len(sel), len(sents)))   # n picture groups, each a run of whole sentences
-        for j in range(n):
-            a = tim[j * len(sents) // n][0]; b = tim[(j + 1) * len(sents) // n][0] if j + 1 < n else t
-            x = sel[j % len(sel)]
-            d = (round(b * FPS) - round(a * FPS)) / FPS   # frame-exact boundaries: no drift over many pieces
-            out = os.path.join(work, f"c{ci}_{j}.mp4"); render_item(x, d, out, c["name"] if j == 0 else "", x["ai"]); parts.append(out)
+        # group consecutive sentences with the same item; a shot lasts at least 3 s (merge into the previous one)
+        segs = []   # [item, start_time]
+        for si in range(len(sents)):
+            if not segs or (sel[si] is not segs[-1][0] and tim[si][0] - segs[-1][1] >= 3.0):
+                segs.append([sel[si], tim[si][0]])
+        for j, (x, a0) in enumerate(segs):
+            b0 = segs[j + 1][1] if j + 1 < len(segs) else t
+            out = os.path.join(work, f"c{ci}_{j}.mp4"); render_item(x, round(b0 * FPS) / FPS - round(a0 * FPS) / FPS, out, c["name"] if j == 0 else "", x["ai"]); parts.append(out)
     t = round(t * FPS) / FPS
     card = os.path.join(work, "end.mp4"); end_card(6.0, card); parts.append(card); total = t + 6.0
     lst = os.path.join(work, "list.txt"); open(lst, "w").write("".join(f"file '{x}'\n" for x in parts))
