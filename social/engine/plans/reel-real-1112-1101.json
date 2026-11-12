@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "VAJRA sheet working in rain and tough site",
+  "ai": true,
+  "segments": [
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Waterproof sheet paani mein bilkul nahi phoolti, aaram se cut kijiye.",
+      "text1": "Waterproof sheet",
+      "text2": "Bilkul nahi phoolti",
+      "_len": 4.38,
+      "_promised": "REAL VAJRA photo: REAL hand cutting a VAJRA sheet with a normal circular cutter (cuts easily, like wood)"
+    },
+    {
+      "clip": 2,
+      "start": 18.0,
+      "end": 22.0,
+      "vo": "Barish aur keechad mein bhi site ka kaam chalu rakhiye.",
+      "text1": "Barish me bhi kaam",
+      "text2": "Work non stop",
+      "_len": 4.0,
+      "_promised": "AI clip tg-1111-0037-1.mp4 18.0-22.0s: Barish aur keechad mein bhi site ka kaam chalu rakhiye."
+    },
+    {
+      "clip": 3,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Halki sheet ko aaram se uthakar slab par lagaiye.",
+      "text1": "Halki plastic sheet",
+      "text2": "Easy slab fitting",
+      "_len": 4.0,
+      "_promised": "AI clip tg-1111-0037-2.mp4 0.0-4.0s: Halki sheet ko aaram se uthakar slab par lagaiye."
+    },
+    {
+      "clip": 3,
+      "start": 6.0,
+      "end": 10.0,
+      "vo": "Nails hold hoti hain, apne mistri ko waterproof sheet bhejo.",
+      "text1": "Nails hold strong",
+      "text2": "Share with mistri",
+      "_len": 4.54,
+      "_promised": "AI clip tg-1111-0037-2.mp4 6.0-10.0s: Nails hold hoti hain, apne mistri ko waterproof sheet bhejo."
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Waterproof PP shuttering sheet se barish aur keechad mein bhi site ka kaam chalu rakhiye.\n\nPaani lagne par yeh sheet bilkul nahi phoolti aur nails bhi mazbooti se hold karti hai.\nSahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha kam karti hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork | Call / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Hand cutting a light grey sheet using a circular saw cutter.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Workers in hardhats working on a wet, rain-soaked concrete foundation site.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Workers lifting a lightweight hollow plastic sheet to install under the slab.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Workers securing and holding the grey sheet against the overhead slab framework.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "polish: fx skipped: fx failed: lf._load_library(name, mode, handle, winmode)\n                   ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^, captions skipped: open() got an unexpected keyword argument 'metadata_errors'",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 20.9,
+  "note": "recipe: real photos then AI clips. items: in-20261026-082952.jpg; sheet-cut.jpg; AI (Flow, long-1111 shots 1-5): slab construction site with labour and props; AI (Flow, long-1111 shots 1-5): labour installing grey VAJRA sheet on site",
+  "who": "library"
+}

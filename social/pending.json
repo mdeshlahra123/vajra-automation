@@ -689,6 +689,17 @@
       "status": "approved",
       "by": "auto",
       "publish": "done"
+    },
+    {
+      "id": "reel-real-1112-1101",
+      "title": "AI + real reel from library: VAJRA sheet working in rain and tough site (21s)\n✅ Reviewer: script aur video match karte hain.",
+      "file": "social/media/reel-real-1112-1101.mp4",
+      "caption": "captions/reel-real-1112-1101.txt",
+      "position": "alternate",
+      "ai": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "todo"
     }
   ]
 }
