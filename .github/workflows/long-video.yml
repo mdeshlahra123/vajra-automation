@@ -30,6 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: timeout 400 sh -c 'sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null'
+      - run: pip install -q faster-whisper || true
       - name: Run
         run: |
           MODE="${{ github.event.inputs.mode }}"

@@ -184,6 +184,31 @@ def cap_chunks(text, t0, dur):
     return sents, wc, out
 
 
+_WM = None
+def word_caps(wav, text, t0, dur):
+    """11 Nov: captions timed to the real voice. faster-whisper gives word times; we keep the script's Hinglish words
+    and map them onto the heard words by position. 4 words per caption. Falls back to cap_chunks on any error."""
+    global _WM
+    try:
+        from faster_whisper import WhisperModel
+        if _WM is None:
+            _WM = WhisperModel("small", device="cpu", compute_type="int8")
+        segs, _ = _WM.transcribe(wav, word_timestamps=True, language="hi")
+        hw = [(float(w.start), float(w.end)) for sg in segs for w in sg.words]
+        sw = text.split()
+        if len(hw) < 3 or not sw:
+            raise ValueError("no words heard")
+        st = [hw[min(len(hw) - 1, int(i * len(hw) / len(sw)))][0] for i in range(len(sw))]
+        caps = []
+        for i in range(0, len(sw), 4):
+            a = st[i]; b = st[i + 4] if i + 4 < len(sw) else min(dur, hw[-1][1] + 0.3)
+            caps.append((t0 + a, t0 + max(b, a + 0.4), " ".join(sw[i:i + 4])))
+        return caps
+    except Exception as e:
+        print("whisper timing fallback:", str(e)[:120])
+        return cap_chunks(text, t0, dur)[2]
+
+
 def write_srt(caps, path):
     f = lambda v: f"{int(v // 3600):02d}:{int(v % 3600 // 60):02d}:{int(v % 60):02d},{int(v * 1000 % 1000):03d}"
     open(path, "w", encoding="utf-8").write("".join(f"{i}\n{f(a)} --> {f(b)}\n{txt}\n\n" for i, (a, b, txt) in enumerate(caps, 1)))
@@ -191,7 +216,7 @@ def write_srt(caps, path):
 
 def burn_captions(src, srt, dst):
     """white bold captions on a dark box near the bottom (libass, our Archivo font)."""
-    style = ("FontName=Archivo,FontSize=17,Bold=1,PrimaryColour=&H00FFFFFF,BackColour=&H99000000,BorderStyle=3,"
+    style = ("FontName=Archivo,FontSize=22,Bold=1,PrimaryColour=&H00FFFFFF,BackColour=&H99000000,BorderStyle=3,"
              "Outline=2,Shadow=0,MarginV=22,Alignment=2")
     fd = A("assets", "brand").replace("\\", "/").replace(":", "\\:")
     sp = srt.replace("\\", "/").replace(":", "\\:")
@@ -214,7 +239,7 @@ def build(lid, publish):
         vo_files.append(f); starts.append(t); chap_t.append(t)
         seconds = L + 0.8
         sel = picks[ci]
-        sents, wc, cc = cap_chunks(c["vo"], t + 0.15, L); captions += cc
+        sents, wc, _ = cap_chunks(c["vo"], t + 0.15, L); captions += word_caps(f, c["vo"], t + 0.15, L)
         # 11 Nov: cut pictures at sentence boundaries (not equal slices), so the shot changes when the point changes
         n = max(1, min(len(sel), len(sents))); tot = sum(wc); groups = [0.0] * n; acc = 0
         for w in wc:
