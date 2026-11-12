@@ -11,7 +11,11 @@ for c in convs:
         if m.get("from", {}).get("id") != P and m.get("message"):
             dm.append(mask(m["message"]))
 for v in tools.g(f"{P}/videos", fields="id", limit=25, access_token=pt).get("data", []):
-    for x in tools.g(f"{v['id']}/comments", fields="message,from", limit=100, access_token=pt).get("data", []):
+    try:
+        xs = tools.g(f"{v['id']}/comments", fields="message,from", limit=100, access_token=pt).get("data", [])
+    except Exception:
+        continue
+    for x in xs:
         if x.get("from", {}).get("id") != P and x.get("message"):
             cm.append(mask(x["message"]))
 print("DM_COUNT", len(dm), "COMMENT_COUNT", len(cm))
