@@ -13,7 +13,8 @@ jobs:
     env: { META_TOKEN: "${{ secrets.META_TOKEN }}", TELEGRAM_BOT_TOKEN: "${{ secrets.TELEGRAM_BOT_TOKEN }}", TELEGRAM_CHAT_ID: "${{ secrets.TELEGRAM_CHAT_ID }}" }
     steps:
       - uses: actions/checkout@v4
-      - run: python3 social/messenger_reply.py
+      # DM auto-reply OFF since 12 Nov: Meta business AI answers Messenger (avoid duplicates)
+      # - run: python3 social/messenger_reply.py
       - run: python3 social/leads_bot.py
         continue-on-error: true
       - run: python3 social/comment_reply.py

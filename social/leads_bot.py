@@ -66,7 +66,8 @@ def main():
         # 2. one follow-up: our offer is newer than their last message, no reply since, 18-22 h old
         last = cmsgs[0]; age = (now - ts(last)).total_seconds() / 3600
         offer_after = any(m["from"]["id"] == PAGE and OFFER_MARK in (m.get("message") or "") and ts(m) >= ts(last) for m in msgs)
-        if offer_after and 18 <= age <= 22 and psid not in fu:
+        # DMs are answered by Meta business AI since 12 Nov: no DM follow-ups (avoid duplicate messages)
+        if os.environ.get("DM_FOLLOWUP") == "1" and offer_after and 18 <= age <= 22 and psid not in fu:
             print("follow-up to", name, f"({age:.1f} h)")
             if not dry:
                 try:
