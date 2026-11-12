@@ -23,6 +23,7 @@ jobs:
       RECIPE: ${{ github.event.inputs.recipe }}
     steps:
       - uses: actions/checkout@v4
+      - run: pip install -q faster-whisper mediapipe opencv-python-headless pillow numpy || true
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
       - run: python3 social/engine/library_reel.py ${{ github.event.inputs.force == 'true' && '--force' || '' }}
       - name: Save

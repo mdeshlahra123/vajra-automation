@@ -238,6 +238,15 @@ def main():
         log.append(f"music failed: {str(e)[:200]}"); music = None
     final = A("social", "media", f"{rid}.mp4"); os.makedirs(os.path.dirname(final), exist_ok=True)
     mix(video, vo_files, starts, total, music, final, bed=True)
+    try:   # 12 Nov: free polish (comment-box effect, PLY stamp on ply scenes, voice-timed captions)
+        import polish
+        segs, tt = [], 0.0
+        for s in p["segments"]:
+            ln = s.get("_len", 0) or 3.0
+            segs.append((tt, tt + ln, "ply" in (s.get("_promised", "") + s.get("vo", "")).lower() and "pp" not in s.get("vo", "").lower())); tt += ln
+        log.append(polish.polish(final, lines, segs))
+    except Exception as e:
+        log.append(f"polish skipped: {str(e)[:120]}")
     try:  # delivery review: finished video vs the plan
         import review_reel
         sc, tt = [], 0.0
