@@ -86,6 +86,13 @@ def caption_pass(src, dst, lines, timing=None):
     f = lambda v: f"{int(v // 3600):02d}:{int(v % 3600 // 60):02d}:{int(v % 60):02d},{int(v * 1000 % 1000):03d}"
     lines = list(lines)[:-1] if len(lines) > 1 else lines   # last line = end card voice; the card already shows it
     caps = timed_chunks(lines, timing) if timing else whisper_chunks(src, lines)
+    if timing:   # self-review: each caption inside its own voice line, nothing on the end card, no overlaps
+        wins = [(st + 0.1, st + 0.15 + ln + 0.05) for (st, ln), l in zip(timing, lines) if l and l.strip()]
+        card = timing[len(lines)][0] if len(timing) > len(lines) else 1e9
+        bad = [c for c in caps if not any(w0 <= c[0] and c[1] <= w1 for w0, w1 in wins) or c[1] > card]
+        bad += [b for a, b in zip(caps, caps[1:]) if b[0] < a[1] - 0.01]
+        if bad:
+            raise RuntimeError(f"CHECK: captions out of sync ({len(bad)}): {bad[0]}")
     srt = "".join(f"{n}\n{f(a)} --> {f(max(b, a + 0.3))}\n{t}\n\n" for n, (a, b, t) in enumerate(caps, 1))
     sp = os.path.join(tempfile.mkdtemp(), "c.srt"); open(sp, "w", encoding="utf-8").write(srt)
     style = ("FontName=Archivo,FontSize=15,Bold=1,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,"
@@ -106,7 +113,7 @@ def polish(mp4, lines, segs=(), timing=None):
     try:
         b = os.path.join(work, "cap.mp4"); caption_pass(cur, b, lines, timing); cur = b; log.append("captions ok")
     except Exception as e:
-        log.append("captions skipped: " + str(e)[:120])
+        log.append(("CHECK: " if "CHECK:" in str(e) else "") + "captions skipped: " + str(e)[:120])
     if cur != mp4 and dur(cur) > total * 0.9:
         shutil.copy(cur, mp4)
     return "polish: " + ", ".join(log)

@@ -264,6 +264,8 @@ def main():
     p.update(build_log=log, seconds=round(total, 1), note=a.note, who=a.who)
     json.dump(p, open(A("social", "engine", "plans", f"{rid}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     sys.path.insert(0, A("social")); import caption_fix; p["caption"] = caption_fix.fix(p["caption"]); open(A("social", "captions", f"{rid}.txt"), "w", encoding="utf-8").write(p["caption"].strip())
+    if any("CHECK:" in l for l in log):   # polish self-review failed: owner must look before it posts
+        p["ok"] = False; p.setdefault("issues", []).append("captions out of sync")
     warn = "" if p.get("ok", True) else " ⚠️ CHECK: " + "; ".join(p.get("issues", []))[:300]
     pend_path = A("social", "pending.json")
     pend = json.load(open(pend_path, encoding="utf-8")) if os.path.exists(pend_path) else {"items": []}
