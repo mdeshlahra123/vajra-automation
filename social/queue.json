@@ -462,12 +462,12 @@
     {
       "id": "skit-1113-1210",
       "caption": "captions/skit-1113-1210.txt",
-      "posted": "",
+      "posted": "2026-11-13",
       "video": "https://vajraformwork.vercel.app/social/skit-1113-1210.mp4",
       "ai": true,
       "evening": true,
-      "pin": true,
-      "cover": "https://vajraformwork.vercel.app/social/skit-1113-1210-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/skit-1113-1210-cover.jpg",
+      "slot": "evening"
     },
     {
       "id": "reel-real-1112-1101",
