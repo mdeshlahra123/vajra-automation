@@ -24,7 +24,7 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: (timeout 240 sudo apt-get install -y -qq ffmpeg >/dev/null || true); python3 social/publish_site.py
+        run: (timeout 240 sudo apt-get install -y -qq ffmpeg >/dev/null || true); python3 -u social/publish_site.py
       - name: Post
         shell: pwsh
         run: |
@@ -40,7 +40,7 @@ jobs:
           last=$(awk -v d="$(TZ=Asia/Kolkata date +%F)" 'index($0,d)==1' social/post-log.txt | tail -n 6)
           if echo "$last" | grep -q "NOT marked posted\|IG ERR\|QUEUE EMPTY"; then
             curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" --data-urlencode chat_id="$TELEGRAM_CHAT_ID" \
-              --data-urlencode text="⚠️ Aaj ka ${{ github.event.inputs.type }} post Instagram pe nahi gaya. Kiro check karega. Log: $(echo "$last" | grep -m1 "ERR" | cut -c1-200)" >/dev/null
+              --data-urlencode text="âš ï¸ Aaj ka ${{ github.event.inputs.type }} post Instagram pe nahi gaya. Kiro check karega. Log: $(echo "$last" | grep -m1 "ERR" | cut -c1-200)" >/dev/null
           fi
       - name: YouTube Shorts upload (own channel; audit passed 28 Oct)
         if: github.event.inputs.dryrun != 'true'
