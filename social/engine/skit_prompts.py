@@ -249,8 +249,9 @@ if __name__ == "__main__":
         parts = SCENARIOS[0]["parts"]
         angle = SCENARIOS[0]["title"]
     
-    head = f"🎬🗣️ SKIT PROMPT – {angle}\n\n3 parts (extend each to 10 sec in Flow, total ~30 sec). Paste karo ek-ek karke:\n"
-    msgs = [head] + [f"Part {i+1}/3:\n{p}\n" for i, p in enumerate(parts[:3])]
+    # one Telegram message per part, prompt text only, so it can be copied in one tap
+    head = f"🎬 Skit: {angle}. 3 alag prompt aa rahe hain, ek-ek Flow mein daalo, teeno videos yahin bhejo. End card main laga dunga."
+    msgs = [head] + [p for p in parts[:3]]
     
     if "--show" in sys.argv:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -265,15 +266,13 @@ if __name__ == "__main__":
     
     # Send to Telegram
     api = f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/sendMessage"
-    full_msg = "\n".join(msgs)
-    req = urllib.request.Request(
-        api,
-        data=json.dumps({"chat_id": os.environ["TELEGRAM_CHAT_ID"], "text": full_msg}).encode(),
-        headers={"Content-Type": "application/json"}
-    )
-    try:
-        result = json.load(urllib.request.urlopen(req, timeout=30))
-        print(f"Sent skit prompt: {angle}")
-        print(f"Telegram response: {result.get('ok')}")
-    except Exception as e:
-        print(f"Failed to send: {str(e)[:200]}")
+    for m in msgs:
+        req = urllib.request.Request(
+            api,
+            data=json.dumps({"chat_id": os.environ["TELEGRAM_CHAT_ID"], "text": m}).encode(),
+            headers={"Content-Type": "application/json"}
+        )
+        try:
+            print("sent:", json.load(urllib.request.urlopen(req, timeout=30)).get("ok"))
+        except Exception as e:
+            print(f"Failed to send: {str(e)[:200]}")

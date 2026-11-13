@@ -1,10 +1,7 @@
 {
   "used_angles": {
-    "Contractor ka budget tension": "2026-11-13"
+    "Contractor ka budget tension": "2026-11-13",
+    "labour tired carrying heavy plywood vs easy PP sheet": "2026-11-13"
   },
-  "recent_prompts": [
-    "Indian contractor at a dusty site table, looking stressed at a thick bill book and calculator, brown plywood stacked behind. Dialogue: 'Yaar shuttering ka kharcha dekho, har mahine nayi ply... khatam hi nahi hota'",
-    "His engineer sits next to him, also worried, flipping through papers. Dialogue: 'Aur jo tooti hui ply hai, wo sab waste. Labour ka time bhi ja raha'",
-    "Same contractor now smiling, pointing at a neat stack of grey PP sheets in the godown. Dialogue: 'Ab ye dekho! Ek baar le lo, baar-baar chalti hai, paisa bach gaya'"
-  ]
+  "recent_prompts": []
 }

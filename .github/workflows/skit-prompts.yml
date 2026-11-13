@@ -6,7 +6,7 @@ on:
   schedule:
     - cron: "30 3 * * *"  # 09:00 IST daily (after flow-brief at 08:00)
   workflow_dispatch: {}
-permissions: { contents: read }
+permissions: { contents: write }
 jobs:
   send:
     runs-on: ubuntu-latest
