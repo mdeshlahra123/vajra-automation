@@ -758,6 +758,20 @@
       "skit": true,
       "msg_id": 1001,
       "sent_at": "2026-11-13 12:04"
+    },
+    {
+      "id": "skit-1113-1210",
+      "file": "social/media/skit-1113-1210.mp4",
+      "caption": "captions/skit-1113-1210.txt",
+      "title": "🗣️ Skit: site meeting discussing material costs (34s, end card with voice)",
+      "position": "end",
+      "status": "sent",
+      "by": "owner",
+      "at": "2026-11-13 12:10",
+      "ai": true,
+      "skit": true,
+      "msg_id": 1002,
+      "sent_at": "2026-11-13 12:11"
     }
   ]
 }
