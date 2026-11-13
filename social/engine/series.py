@@ -161,7 +161,11 @@ def main():
     for m in msgs:
         req = urllib.request.Request(api, data=json.dumps({"chat_id": os.environ["TELEGRAM_CHAT_ID"], "text": m[:4000]}).encode(),
                                      headers={"Content-Type": "application/json"})
-        print(json.load(urllib.request.urlopen(req, timeout=30)).get("ok"), m[:50])
+        for k in range(4):   # Telegram sometimes resets the connection
+            try:
+                print(json.load(urllib.request.urlopen(req, timeout=30)).get("ok"), m[:50]); break
+            except Exception as e:
+                print("send retry", k + 1, str(e)[:80]); import time; time.sleep(3 + 3 * k)
 
 
 if __name__ == "__main__":
