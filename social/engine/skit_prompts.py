@@ -283,6 +283,8 @@ if __name__ == "__main__":
     
     # Save state
     st.setdefault("used_angles", {})[angle] = d.isoformat()
+    # the skit the owner is now making; skit_match.py builds the reel when its 3 clips come back (3 days)
+    st["open"] = {"angle": angle, "parts": parts[:3], "sent": d.isoformat(), "clips": {}}
     st.setdefault("recent_prompts", []).extend(parts[:3])
     st["recent_prompts"] = st["recent_prompts"][-90:]  # keep last 30 skits
     json.dump(st, open(STATE, "w", encoding="utf-8"), ensure_ascii=False, indent=2)

@@ -26,7 +26,8 @@ def library():
         lib = json.load(open(os.path.join(CLIPS, "library.json"), encoding="utf-8"))
     except Exception:
         pass
-    names = [f for f in os.listdir(CLIPS) if f.endswith(".mp4")]
+    # skit parts (skit_match.py) belong to their skit reel, never reused as b-roll
+    names = [f for f in os.listdir(CLIPS) if f.endswith(".mp4") and not lib.get(f, {}).get("skit")]
     return names, lib
 
 

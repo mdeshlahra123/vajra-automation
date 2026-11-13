@@ -5,8 +5,18 @@
     "site meeting discussing material costs": "2026-11-13"
   },
   "recent_prompts": [
-    "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, shaky cam. Characters: Contractor and Mason looking at damaged brown plywood. Dialogue: Contractor: 'Arre bhai, ye ply fir se paani se kharab ho gaya, budget double ho raha hai.' Mason: 'Haan sahab, wazan bhi zyada hai aur do baar use karke tut jata hai.' Setting: Busy Indian construction site with scaffolding and dust. Sound: Hammering sounds, distant traffic.",
+    "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, shaky cam. Characters: Contractor and Mason looking at cracked, damaged brown plywood. Dialogue: Contractor: 'Arre bhai, ye ply fir se kharab ho gaya, budget double ho raha hai.' Mason: 'Haan sahab, wazan bhi zyada hai aur jaldi tut jaata hai.' Setting: Busy Indian construction site with scaffolding and dust. Sound: Hammering sounds, distant traffic.",
     "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, close-up pan. Characters: Engineer and Contractor looking stressed over broken edges of old plywood. Dialogue: Engineer: 'Finish bhi smooth nahi aati, plaster me extra cost lag rahi hai.' Contractor: 'Iska kuch permanent solution nikalna padega warna loss pakka hai.' Setting: Indian construction site with half-built concrete walls. Sound: Electric drill buzzing, birds chirping.",
-    "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, stable close shot. Characters: Client, Engineer, and Contractor smiling while touching smooth grey PP hollow plastic sheets. Dialogue: Engineer: 'Ye grey PP hollow sheets lagao, waterproof hain, 50+ times use hongi aur finish ekdum mast aayegi.' Contractor: 'Wah, paisa bhi bachega aur kaam bhi fast!' Setting: Indian construction site with neatly stacked grey sheets. Sound: Wind blowing, cheerful ambient site chatter."
-  ]
+    "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, stable close shot. Characters: Client, Engineer, and Contractor smiling while touching smooth plain grey PP hollow plastic sheets with no text or logo. Dialogue: Engineer: 'Ye grey PP sheets lagao, sahi handling ke saath ply se 2-3 guna zyada chalti hai, aur finish ekdum mast aayegi.' Contractor: 'Wah, paisa bhi bachega aur kaam bhi fast!' Setting: Indian construction site with neatly stacked grey sheets. Sound: Wind blowing, cheerful ambient site chatter."
+  ],
+  "open": {
+    "angle": "site meeting discussing material costs",
+    "parts": [
+      "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, shaky cam. Characters: Contractor and Mason looking at cracked, damaged brown plywood. Dialogue: Contractor: 'Arre bhai, ye ply fir se kharab ho gaya, budget double ho raha hai.' Mason: 'Haan sahab, wazan bhi zyada hai aur jaldi tut jaata hai.' Setting: Busy Indian construction site with scaffolding and dust. Sound: Hammering sounds, distant traffic.",
+      "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, close-up pan. Characters: Engineer and Contractor looking stressed over broken edges of old plywood. Dialogue: Engineer: 'Finish bhi smooth nahi aati, plaster me extra cost lag rahi hai.' Contractor: 'Iska kuch permanent solution nikalna padega warna loss pakka hai.' Setting: Indian construction site with half-built concrete walls. Sound: Electric drill buzzing, birds chirping.",
+      "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, stable close shot. Characters: Client, Engineer, and Contractor smiling while touching smooth plain grey PP hollow plastic sheets with no text or logo. Dialogue: Engineer: 'Ye grey PP sheets lagao, sahi handling ke saath ply se 2-3 guna zyada chalti hai, aur finish ekdum mast aayegi.' Contractor: 'Wah, paisa bhi bachega aur kaam bhi fast!' Setting: Indian construction site with neatly stacked grey sheets. Sound: Wind blowing, cheerful ambient site chatter."
+    ],
+    "sent": "2026-11-13",
+    "clips": {}
+  }
 }

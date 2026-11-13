@@ -34,6 +34,7 @@ def main():
     print("SAVED", saved)
     with open(os.environ.get("GITHUB_OUTPUT", os.devnull), "a") as f:
         f.write(f"n={len(saved)}\n")
+        f.write(f"names={' '.join(saved)}\n")   # for skit_match.py
 
 
 if __name__ == "__main__":
