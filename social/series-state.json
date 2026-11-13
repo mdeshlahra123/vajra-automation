@@ -1,5 +1,5 @@
 {
- "next_code": 4,
+ "next_code": 5,
  "open": {
   "S1": {
    "title": "Jaldi Kholne Ki Galti",
@@ -17,17 +17,25 @@
    "sent": "2026-11-13",
    "clips": []
   },
-  "S3": {
-   "title": "Shuttering jaldi kholi to kya hoga?",
-   "hook": "Shuttering jaldi kholne ki galti 😱",
-   "topic": "Shuttering jaldi kholne ki galti: concrete ko set hone ka time chahiye (exact din engineer bataye)",
+  "S4": {
+   "title": "Sariya Ko Bachao",
+   "hook": "Sariya ke neeche gap nahi toh jung tay hai!",
+   "topic": "Cover block kyun zaroori hai: sariya ke neeche gap nahi to jung",
    "n": 5,
    "sent": "2026-11-13",
-   "clips": []
+   "clips": [],
+   "prompts": [
+    "Single continuous 8-second shot, vertical 9:16, high-quality 3D animated cartoon (Pixar-like), expressive faces with big eyes and moving mouths, warm golden light, half-built Indian house construction site background, lip-synced Hindi dialogue. No text, no letters, no logos, no subtitles anywhere in the frame. Characters: SARIYA USTAD: a wise old steel rebar bar with a grey moustache and round spectacles, ribbed texture, deep calm teacher voice. CHHOTU: a tiny round grey concrete cover block, cheerful child voice, often ignored. Scene: Sariya character screams in pain as dark rust spots appear on its belly. Close-up on the missing gap. Dialogue (Hindi): SARIYA: 'Arey chhotu, mere neeche cover block nahi lagaya toh jung lag jayegi!' Sound: the dialogue, light construction site ambience, soft playful background music.",
+    "Single continuous 8-second shot, vertical 9:16, high-quality 3D animated cartoon (Pixar-like), expressive faces with big eyes and moving mouths, warm golden light, half-built Indian house construction site background, lip-synced Hindi dialogue. No text, no letters, no logos, no subtitles anywhere in the frame. Characters: CHHOTU: a tiny round grey concrete cover block, cheerful child voice, often ignored. SARIYA USTAD: a wise old steel rebar bar with a grey moustache and round spectacles, ribbed texture, deep calm teacher voice. Scene: Chhotu contractor scratches his head, looking worried at the rusting iron bars. Dialogue (Hindi): CHHOTU: 'Arre sariya bhai, gap ki kya zaroorat hai? Main toh bhool hi gaya!' Sound: the dialogue, light construction site ambience, soft playful background music.",
+    "Single continuous 8-second shot, vertical 9:16, high-quality 3D animated cartoon (Pixar-like), expressive faces with big eyes and moving mouths, warm golden light, half-built Indian house construction site background, lip-synced Hindi dialogue. No text, no letters, no logos, no subtitles anywhere in the frame. Characters: PLY BHAIYA: an old brown wooden plywood board with a tired grumpy face, swollen chipped edges, a few cracks, a small bandage on one corner; deep tired voice. VAJRA SHEET: a clean smooth light-grey hollow plastic shuttering sheet with a calm confident smiling face and a friendly clear voice; completely plain, no printing. Scene: Ply and Vajra Sheet lean in to explain the technical mistake to Chhotu. Dialogue (Hindi): PLY BHAIYA: 'Sariya aur casting ke beech proper gap ke liye engineer se confirm karein.' Sound: the dialogue, light construction site ambience, soft playful background music.",
+    "Single continuous 8-second shot, vertical 9:16, high-quality 3D animated cartoon (Pixar-like), expressive faces with big eyes and moving mouths, warm golden light, half-built Indian house construction site background, lip-synced Hindi dialogue. No text, no letters, no logos, no subtitles anywhere in the frame. Characters: VAJRA SHEET: a clean smooth light-grey hollow plastic shuttering sheet with a calm confident smiling face and a friendly clear voice; completely plain, no printing. SARIYA USTAD: a wise old steel rebar bar with a grey moustache and round spectacles, ribbed texture, deep calm teacher voice. Scene: Vajra Sheet smiles proudly next to a solid grey shuttering setup supporting proper cover blocks. Dialogue (Hindi): VAJRA SHEET: 'Sariya ko bachana hai toh sahi cover block lagana zaroori hai dost.' Sound: the dialogue, light construction site ambience, soft playful background music.",
+    "Single continuous 8-second shot, vertical 9:16, high-quality 3D animated cartoon (Pixar-like), expressive faces with big eyes and moving mouths, warm golden light, half-built Indian house construction site background, lip-synced Hindi dialogue. No text, no letters, no logos, no subtitles anywhere in the frame. Characters: CHHOTU: a tiny round grey concrete cover block, cheerful child voice, often ignored. VAJRA SHEET: a clean smooth light-grey hollow plastic shuttering sheet with a calm confident smiling face and a friendly clear voice; completely plain, no printing. Scene: Chhotu gives a thumbs up, placing a cover block correctly under the sariya. End screen pop. Dialogue (Hindi): CHHOTU: 'Samajh gaya! Follow karo Shuttering Ki Duniya ke liye.' Sound: the dialogue, light construction site ambience, soft playful background music."
+   ]
   }
  },
  "topics": {
   "Shuttering jaldi kholne ki galti: concrete ko set hone ka time chahiye (exact din engineer bataye)": "2026-11-13",
-  "Honeycombing: column mein chhed kyun aate hain (vibration kam, gap se slurry bah gayi)": "2026-11-13"
+  "Honeycombing: column mein chhed kyun aate hain (vibration kam, gap se slurry bah gayi)": "2026-11-13",
+  "Cover block kyun zaroori hai: sariya ke neeche gap nahi to jung": "2026-11-13"
  }
 }
