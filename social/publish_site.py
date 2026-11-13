@@ -70,16 +70,22 @@ if _sh.which("ffmpeg"):
             continue
         name = os.path.basename(p["video"]).replace(".mp4", "-cover.jpg")
         dst = os.path.join(sdir, name)
-        if not p.get("cover"):   # no cover at all -> grab a frame ~1s in
+        if not p.get("cover"):   # no cover (Gemini down) -> brand-style cover with the caption's hook, raw frame only as last resort
             vf = os.path.join(sdir, os.path.basename(p["video"]))
             if os.path.exists(vf):
                 try:
-                    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", "1", "-i", vf,
-                                    "-frames:v", "1", "-q:v", "3", dst], check=True, timeout=60)
-                    p["cover"] = "https://vajraformwork.vercel.app/social/" + name
-                    keep.add(name); changed = True; print("fallback cover:", name)
+                    sys.path.insert(0, os.path.join(BASE, "engine")); import cover as _cv
+                    _cv.plain(vf, open(os.path.join(BASE, p["caption"]), encoding="utf-8").read(), dst)
+                    print("fallback cover (brand style, no Gemini):", name)
                 except Exception as e:
-                    print("fallback cover failed", p["id"], e)
+                    print("brand fallback failed, raw frame:", p["id"], e)
+                    try:
+                        subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", "1", "-i", vf,
+                                        "-frames:v", "1", "-q:v", "3", dst], check=True, timeout=60)
+                    except Exception as e2:
+                        print("fallback cover failed", p["id"], e2); continue
+                p["cover"] = "https://vajraformwork.vercel.app/social/" + name
+                keep.add(name); changed = True
         elif not os.path.exists(dst):   # cover set but file missing on site -> copy it from the engine media dir
             src = os.path.join(BASE, "media", name)
             if os.path.exists(src):

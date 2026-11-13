@@ -71,6 +71,30 @@ def smart(video, caption, out, model="gemini-3.8-flash"):
     return f"frame {f}: {hook.replace('|', ' / ')} ({j.get('why', '')})"
 
 
+def hook_from(caption):
+    """No-Gemini hook: the caption's first sentence, split into 2 lines of <=16 characters."""
+    import re
+    first = re.split(r"[.!?\n]", (caption or "").strip())[0]
+    words = re.sub(r"#\w+|[^\w\s'?-]", " ", first).split()
+    lines, cur = [], ""
+    for w in words:
+        if len(cur) + len(w) + (1 if cur else 0) <= 16:
+            cur = (cur + " " + w).strip()
+        else:
+            if cur: lines.append(cur)
+            cur = w[:16]
+            if len(lines) == 2: break
+    if cur and len(lines) < 2: lines.append(cur)
+    hook = "|".join(lines[:2]) or "VAJRA PP|panel."
+    import claims
+    return "Ply se 2-3 guna|zyada chale." if claims.bad(hook) else hook
+
+
+def plain(video, caption, out):
+    """Branded cover without Gemini (used when Gemini is down): hook from the caption, frame at ~1/3."""
+    return make(video, hook_from(caption), out)
+
+
 def text_card(hook, out, sub="VAJRA PP panel"):
     d = tempfile.mkdtemp(); fs = []
     for i, l in enumerate(hook.split("|")[:3]):
