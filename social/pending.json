@@ -744,6 +744,20 @@
       "status": "approved",
       "by": "auto",
       "publish": "todo"
+    },
+    {
+      "id": "skit-1113-1203",
+      "file": "social/media/skit-1113-1203.mp4",
+      "caption": "captions/skit-1113-1203.txt",
+      "title": "🗣️ Skit: site meeting discussing material costs (33s, end card added)",
+      "position": "end",
+      "status": "sent",
+      "by": "owner",
+      "at": "2026-11-13 12:03",
+      "ai": true,
+      "skit": true,
+      "msg_id": 1001,
+      "sent_at": "2026-11-13 12:04"
     }
   ]
 }
