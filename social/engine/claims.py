@@ -11,6 +11,11 @@ BAD = re.compile(
     r"|\d(?:\.\d)?\s*lakh\s*/?\s*(?:saal|year)|kharcha aadha|\d+\s*ply sheet ka kaam|1 vajra\s*=\s*\d",
     re.I)
 OK = re.compile(r"2\s*[-–]\s*3\s*guna", re.I)
+# 13 Nov: Hindi number words also count as a use number ("do baar use karke tut jata", "dus baar chala lo")
+WORDNUM = re.compile(
+    r"\b(?:do|teen|char|chaar|paanch|panch|chhe|saat|aath|nau|das|dus|bees|tees|chalis|chaalis|pachas|pachaas|sau|hazaar|"
+    r"two|three|four|five|ten|twenty|forty|fifty|hundred|sainkdon)\s*(?:-|se|to)?\s*\w{0,8}\s*"
+    r"(?:baar|bar|times|uses?|pours?|dhalai|repeats?|cycles?)\b", re.I)
 
 # Words that get overused (owner complaint 13 Nov 2026): paani paani paani every reel
 OVERUSED_WORDS = [
@@ -25,7 +30,8 @@ OVERUSED = [(re.compile(pat, re.I), word, limit) for pat, word, limit in OVERUSE
 
 def bad(text):
     """True if the text promises a use count or use-count money maths."""
-    return bool(text) and bool(BAD.search(OK.sub("", text)))
+    t = OK.sub("", text or "")
+    return bool(text) and bool(BAD.search(t) or WORDNUM.search(t))
 
 
 def _recent_captions(n=3):

@@ -43,7 +43,7 @@ SCENARIOS = [
         "parts": [
             "Indian contractor inspecting a broken cracked brown plywood board on the ground, shaking his head. Dialogue: 'Yaar ye phir se toot gayi? Abhi toh do din pehle nayi li thi'",
             "Labour nearby shrugging, looking helpless. Dialogue: 'Saab dekho khud, de-shuttering mein hi crack ho gayi. Dubara nahi chalegi'",
-            "Same contractor now calm, holding a grey PP sheet, tapping it. Dialogue: 'Ye plastic sheet strong hai bhai, dus baar bhi chala lo... tootti nahi'"
+            "Same contractor now calm, holding a grey PP sheet, tapping it. Dialogue: 'Ye plastic sheet strong hai bhai, sahi handling ke saath ply se 2-3 guna zyada chalti hai'"
         ]
     },
     {
@@ -97,9 +97,9 @@ SCENARIOS = [
     {
         "title": "Junior engineer training",
         "parts": [
-            "Senior Indian engineer showing a junior engineer around a site, pointing at stacked brown plywood. Dialogue: 'Ye ply hai, cost zyada lagta... 8-10 baar hi chalti maximum'",
+            "Senior Indian engineer showing a junior engineer around a site, pointing at stacked brown plywood. Dialogue: 'Ye ply hai, cost zyada lagta... aur jaldi kharab ho jaati hai'",
             "Junior engineer nodding, taking notes on a clipboard. Dialogue: 'Toh fir better option kya hai sir?'",
-            "Senior engineer holding a grey PP sheet, explaining. Dialogue: 'Ye plastic sheet, bahut baar chalti hai... smooth finish bhi aati. Modern technique hai'"
+            "Senior engineer holding a grey PP sheet, explaining. Dialogue: 'Ye plastic sheet ply se 2-3 guna zyada chalti hai... smooth finish bhi aati. Modern technique hai'"
         ]
     },
     # More scenarios (rotate daily, never repeat within 30 days)
@@ -156,6 +156,12 @@ CHARACTERS (Indian construction site):
 - Engineer (25-50 age, shirt with hard hat, technical guy)
 - Client (well-dressed, checks work quality)
 
+BANNED (hard rules, any break = prompt rejected):
+- NEVER say how many times anything can be used: no numbers with baar/times/use/pour/dhalai (no "50+ times", "do baar",
+  "dus baar", "8-10 baar"), not for the PP sheet and not for ply. Allowed only: "ply se 2-3 guna zyada chalti hai".
+- NO price or rupee amounts. NO words: waterproof, paani, barish, rain, phool, keechad (water angle is resting this week).
+- NO brand name, NO text/logo on the sheet.
+
 DIALOGUE RULES:
 - Hinglish (Hindi + English mix, like real site talk)
 - 1-2 short lines per part, natural conversation
@@ -208,15 +214,35 @@ def pick_angle(st):
     return angles_sorted[0]
 
 
+import re, claims
+# water angle resting (growth-plan, 13 Nov) + no price + no brand on the sheet
+BANNED_WORDS = re.compile(r"waterproof|paani|pani\b|barish|baarish|\brain\b|phool|keechad|₹|\brs\.?\s*\d|rupe|vajra", re.I)
+
+
+def problems(text):
+    """Why a prompt breaks the rules (empty list = OK)."""
+    out = []
+    if claims.bad(text):
+        out.append("use-count number")
+    m = BANNED_WORDS.search(text or "")
+    if m:
+        out.append(f"banned word '{m.group(0)}'")
+    return out
+
+
 def generate(angle, st):
-    """Generate 3-part skit prompt."""
-    r = gem.text(MODEL, GEN_PROMPT.format(angle=angle), json_mode=True)
-    parts = []
-    for p in r.get("parts", [])[:3]:
-        prompt = (p.get("prompt") or "").strip()
-        if 40 <= len(prompt.split()) <= 150:  # longer than Flow b-roll, has dialogue
-            parts.append(prompt)
-    return parts
+    """Generate a 3-part skit; every part must pass the claim guard. Up to 3 tries."""
+    extra = ""
+    for attempt in range(3):
+        r = gem.text(MODEL, GEN_PROMPT.format(angle=angle) + extra, json_mode=True)
+        parts = [(p.get("prompt") or "").strip() for p in r.get("parts", [])[:3]]
+        parts = [p for p in parts if 40 <= len(p.split()) <= 150]
+        bad = [f"part {i + 1}: {', '.join(problems(p))}" for i, p in enumerate(parts) if problems(p)]
+        if len(parts) == 3 and not bad:
+            return parts
+        print(f"try {attempt + 1} rejected:", bad or f"{len(parts)} parts")
+        extra = "\n\nYour last answer broke the rules (" + "; ".join(bad) + "). Rewrite without any use numbers or banned words."
+    return []
 
 
 def today():
@@ -233,21 +259,18 @@ if __name__ == "__main__":
         parts = generate(angle, st)
     except Exception as e:
         print(f"Generate failed: {str(e)[:200]}")
-        # Fallback to first unused scenario from the bank
-        used_scenarios = set(st.get("used_angles", {}).keys())
-        unused = [s for s in SCENARIOS if s["title"] not in used_scenarios]
-        if unused:
-            scenario = unused[0]
-            parts = scenario["parts"]
-            angle = scenario["title"]
-        else:
-            parts = SCENARIOS[0]["parts"]
-            angle = SCENARIOS[0]["title"]
-    
-    if not parts or len(parts) < 3:
-        print("Not enough parts generated, using bank fallback")
-        parts = SCENARIOS[0]["parts"]
-        angle = SCENARIOS[0]["title"]
+        parts = []
+    if len(parts) < 3:
+        # bank fallback: only skits where every line passes the guard, least recently used first
+        used = st.get("used_angles", {})
+        clean = [s for s in SCENARIOS if not any(problems(p) for p in s["parts"])]
+        if not clean:
+            sys.exit("no skit passed the claim guard; nothing sent")
+        s = sorted(clean, key=lambda s: used.get(s["title"], "0000-00-00"))[0]
+        parts, angle = s["parts"], s["title"]
+    # final gate: nothing that breaks the rules is ever sent
+    if any(problems(p) for p in parts):
+        sys.exit("BLOCKED by claim guard: " + str([problems(p) for p in parts]))
     
     # one Telegram message per part, prompt text only, so it can be copied in one tap
     head = f"🎬 Skit: {angle}. 3 alag prompt aa rahe hain, ek-ek Flow mein daalo, teeno videos yahin bhejo. End card main laga dunga."
