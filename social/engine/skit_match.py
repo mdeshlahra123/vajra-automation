@@ -49,7 +49,7 @@ def main(names):
     st = load(STATE, {})
     sk = st.get("open")
     now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)
-    if not sk or sk.get("built"):
+    if not sk or (sk.get("built") and not ORDER):   # manual --order may rebuild
         print("no open skit"); return
     if (now.date() - datetime.date.fromisoformat(sk["sent"])).days > 3:
         print("open skit older than 3 days, ignored"); return

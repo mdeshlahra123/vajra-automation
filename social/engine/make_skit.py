@@ -13,6 +13,17 @@ import argparse, datetime, json, os, re, subprocess, sys, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, HERE)
 END_CARD = os.path.join(ROOT, "assets", "brand", "cta-card.mp4")
+# owner 13 Nov: the end card needs the voiceover too (same line + Charon voice as the other reels).
+# Made once with Gemini TTS and kept in the repo, so every skit reuses it.
+END_VO_LINE = "Comment mein PP likhiye, follow kijiye, rate aapke DM mein."
+END_VO = os.path.join(ROOT, "assets", "brand", "cta-vo.wav")
+
+
+def end_vo():
+    if not os.path.exists(END_VO):
+        from make_reel import tts
+        tts(END_VO_LINE, END_VO)
+    return END_VO
 TAGS = "#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai"
 
 
@@ -31,14 +42,22 @@ def has_audio(p):
                                 "-of", "csv=p=0", p], capture_output=True, text=True).stdout.strip())
 
 
-def join(parts, out):
-    """parts + end card -> one 1080x1920 30 fps reel, each part's own sound kept."""
+def join(parts, out, vo=None):
+    """parts + end card -> one 1080x1920 30 fps reel, each part's own sound kept; end card carries the voiceover."""
     files = parts + [END_CARD]
     cmd = ["ffmpeg", "-y", "-v", "error"]
     for f in files:
         cmd += ["-i", f]
     flt, n = [], len(files)
+    if vo:
+        cmd += ["-i", vo]
+        card_len = max(dur(END_CARD), dur(vo) + 0.5)   # card held (last frame) until the voice ends
     for i, f in enumerate(files):
+        if vo and i == n - 1:   # end card: clone last frame to fit the voice, voice starts 0.2 s in
+            flt.append(f"[{i}:v]scale=1080:1920,tpad=stop_mode=clone:stop_duration=10,trim=0:{card_len:.3f},setpts=PTS-STARTPTS,"
+                       f"fps=30,setsar=1,format=yuv420p[v{i}]")
+            flt.append(f"[{n}:a]aresample=48000,aformat=channel_layouts=stereo,adelay=200|200,apad,atrim=0:{card_len:.3f}[a{i}]")
+            continue
         # fit the clip, fill the rest with a blurred zoomed copy of itself (no black bars if Flow made 16:9)
         flt.append(f"[{i}:v]split[f{i}][b{i}];"
                    f"[b{i}]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:2,eq=brightness=-0.08[bg{i}];"
@@ -99,7 +118,11 @@ def main():
     if len(parts) != 3:
         sys.exit(f"need exactly 3 parts, got {len(parts)}")
     out = os.path.join(media, sid + ".mp4")
-    join(parts, out)
+    try:
+        vo = end_vo()
+    except Exception as e:   # no voice possible right now: still build, but say so on the approval card
+        print("END VO FAILED, end card without voice:", str(e)[:150]); vo = None
+    join(parts, out, vo)
     mv = max_volume(out)
     if mv <= -60:
         sys.exit(f"NO AUDIO (max_volume {mv} dB): not sent (owner rule: never queue a reel without sound)")
@@ -108,7 +131,7 @@ def main():
     pend_p = os.path.join(ROOT, "social", "pending.json")
     pend = json.load(open(pend_p, encoding="utf-8")) if os.path.exists(pend_p) else {"items": []}
     pend["items"].append({"id": sid, "file": f"social/media/{sid}.mp4", "caption": f"captions/{sid}.txt",
-                          "title": f"🗣️ Skit: {a.title} ({dur(out):.0f}s, end card added)", "position": "end", "status": "draft",
+                          "title": f"🗣️ Skit: {a.title} ({dur(out):.0f}s, end card {'with voice' if vo else 'WITHOUT voice'})", "position": "end", "status": "draft",
                           "by": a.who, "at": now.strftime("%Y-%m-%d %H:%M"), "ai": True, "skit": True})
     json.dump(pend, open(pend_p, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     if not a.files:   # downloaded copies only; library clips are never deleted

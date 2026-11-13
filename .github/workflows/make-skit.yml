@@ -30,7 +30,7 @@ jobs:
         run: |
           python3 social/engine/migrate_library.py >/dev/null || true
           git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
-          git add assets/clips/library.json social/library.json social/skit-prompts-state.json social/media social/captions social/pending.json
+          git add assets/clips/library.json assets/brand social/library.json social/skit-prompts-state.json social/media social/captions social/pending.json
           git diff --cached --quiet && exit 0
           git commit -qm "skit built"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
