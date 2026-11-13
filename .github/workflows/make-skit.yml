@@ -5,6 +5,8 @@ on:
   workflow_dispatch:
     inputs:
       files: { description: "3 clip names in assets/clips, parts 1,2,3 in order (comma separated)", required: true }
+      title: { description: "set = build these clips as a series episode with this title (not the daily skit)", required: false, default: "" }
+      hook: { description: "caption hook (with title)", required: false, default: "" }
 concurrency: { group: state, cancel-in-progress: false }
 permissions: { contents: write }
 jobs:
@@ -21,7 +23,13 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
       - id: skit
-        run: python3 social/engine/skit_match.py --order "${{ github.event.inputs.files }}"
+        env: { FILES: "${{ github.event.inputs.files }}", TITLE: "${{ github.event.inputs.title }}", HOOK: "${{ github.event.inputs.hook }}" }
+        run: |
+          if [ -n "$TITLE" ]; then
+            F=$(echo "$FILES" | tr "," "\n" | sed "s#^#assets/clips/#" | paste -sd, -)
+            python3 social/engine/make_skit.py --files "$F" --title "$TITLE" --hook "$HOOK" | tee out.txt
+            echo "skit_id=$(grep ^SKIT_ID= out.txt | tail -1 | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+          else python3 social/engine/skit_match.py --order "$FILES"; fi
       - name: Send for approval
         if: steps.skit.outputs.skit_id != ''
         run: python3 social/tg.py send "${{ steps.skit.outputs.skit_id }}"

@@ -17,7 +17,7 @@ PER_DAY = 3
 
 STYLE = ("Single continuous 8-second shot, vertical 9:16, high-quality 3D animated cartoon (Pixar-like), "
          "expressive faces with big eyes and moving mouths, warm golden light, half-built Indian house construction site background, "
-         "lip-synced Hindi dialogue. No text, no letters, no logos, no subtitles anywhere in the frame.")
+         "lip-synced Hindi dialogue. No text, no letters, no logos, no subtitles, no character name tags, no title cards anywhere in the frame. No humans: only the listed talking objects.")
 CHARS = {
     "ply": "PLY BHAIYA: an old brown wooden plywood board with a tired grumpy face, swollen chipped edges, a few cracks, a small bandage on one corner; deep tired voice.",
     "vajra": "VAJRA SHEET: a tall rectangular light-grey hollow plastic shuttering sheet (thin edge shows small hollow channels), standing upright, calm confident smiling face, two thin grey arms, friendly clear voice; completely plain surface with NO words, letters or logo on it.",
