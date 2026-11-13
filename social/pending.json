@@ -743,7 +743,7 @@
       "ai": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     },
     {
       "id": "skit-1113-1203",
@@ -772,7 +772,7 @@
       "skit": true,
       "msg_id": 1002,
       "sent_at": "2026-11-13 12:11",
-      "publish": "todo"
+      "publish": "done"
     }
   ]
 }
