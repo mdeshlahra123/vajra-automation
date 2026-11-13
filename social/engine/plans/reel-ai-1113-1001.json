@@ -1,0 +1,37 @@
+{
+  "hook": "Site par chai thandi ho jaye toh poori dhalai ruk jati hai!",
+  "title": "Site Chai Break Humour",
+  "scenes": [
+    {
+      "type": "photo",
+      "photo": "slab-underside",
+      "shows_vajra": false,
+      "vo": "Site par chai thandi ho jaye toh poori dhalai ruk jati hai!",
+      "text1": "Chai thandi hui to",
+      "text2": "dhalai ruk gayi"
+    },
+    {
+      "type": "photo",
+      "photo": "column-smooth2",
+      "shows_vajra": false,
+      "vo": "Bina do cup chai ke mistri ji ko level hi nahi dikhta.",
+      "text1": "Bina garam chai ke",
+      "text2": "level nahi dikhta"
+    },
+    {
+      "type": "photo",
+      "photo": "in-20261030-200852",
+      "shows_vajra": true,
+      "vo": "Apne thekedar aur mistri bhai ko bhejo, unki chai ready hai!",
+      "text1": "Bhejo apne",
+      "text2": "thekedar bhai ko"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Site par chahe kitni bhi jaldi ho, garam chai ke bina kaam shuru nahi hota!\n\nHar site ka sabse pyara moment yahi hota hai. Mazboot slab aur beam work ke liye update kijiye modern PP shuttering sheet par.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "",
+  "build_log": [
+    "polish: fx ok: huge-strike,comment-box, captions ok"
+  ],
+  "seconds": 16.9
+}

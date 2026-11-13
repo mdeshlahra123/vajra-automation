@@ -733,6 +733,17 @@
       "status": "approved",
       "by": "auto",
       "publish": "done"
+    },
+    {
+      "id": "reel-ai-1113-1001",
+      "title": "AI reel: Site Chai Break Humour (17s)",
+      "file": "social/media/reel-ai-1113-1001.mp4",
+      "caption": "captions/reel-ai-1113-1001.txt",
+      "position": "end",
+      "ai": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "todo"
     }
   ]
 }
