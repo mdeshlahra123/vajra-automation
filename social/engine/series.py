@@ -20,7 +20,7 @@ STYLE = ("Single continuous 8-second shot, vertical 9:16, high-quality 3D animat
          "lip-synced Hindi dialogue. No text, no letters, no logos, no subtitles anywhere in the frame.")
 CHARS = {
     "ply": "PLY BHAIYA: an old brown wooden plywood board with a tired grumpy face, swollen chipped edges, a few cracks, a small bandage on one corner; deep tired voice.",
-    "vajra": "VAJRA SHEET: a clean smooth light-grey hollow plastic shuttering sheet with a calm confident smiling face and a friendly clear voice; completely plain, no printing.",
+    "vajra": "VAJRA SHEET: a tall rectangular light-grey hollow plastic shuttering sheet (thin edge shows small hollow channels), standing upright, calm confident smiling face, two thin grey arms, friendly clear voice; completely plain surface with NO words, letters or logo on it.",
     "balli": "BALLI: a tall thin bamboo prop pole with a skinny face and a nervous shaky voice.",
     "sariya": "SARIYA USTAD: a wise old steel rebar bar with a grey moustache and round spectacles, ribbed texture, deep calm teacher voice.",
     "chhotu": "CHHOTU: a tiny round grey concrete cover block, cheerful child voice, often ignored.",
@@ -105,9 +105,24 @@ def problems(text):
     return out
 
 
-def prompt_of(part):
-    looks = " ".join(CHARS[c] for c in part.get("chars", []) if c in CHARS)
-    return f"{STYLE} Characters: {looks} Scene: {part['shot'].strip()} Dialogue (Hindi): {part['dialogue'].strip()} Sound: the dialogue, light construction site ambience, soft playful background music."
+# 13 Nov (first live episode S1): every clip came out in a different place, with one character alone and the VAJRA sheet
+# looking different each time, so the 5 clips did not feel like one story. Fix: ONE fixed set per episode, the whole cast in
+# every part, parts 2+ say "continue the same scene", and the owner makes parts 2+ with Flow's Extend on the previous clip.
+SETS = [
+    "SET (keep identical in every shot): the ground floor of a half-built two-storey Indian brick house, a freshly cast concrete slab overhead held up by bamboo props, red brick walls, a steel ladder on the left, afternoon golden sunlight from the right, camera at waist height facing the back wall.",
+    "SET (keep identical in every shot): an open rooftop of an Indian house under construction, rebar mesh laid for a slab, a row of grey and brown shuttering boards stacked on the right, a blue water drum on the left, soft morning light, camera at waist height facing the stack.",
+    "SET (keep identical in every shot): a construction site yard in an Indian town, a concrete mixer in the back, a tall column box standing in the middle with bamboo supports, sand pile on the left, warm late-afternoon light, camera at waist height facing the column.",
+]
+
+
+def prompt_of(part, cast, setting, first):
+    looks = " ".join(CHARS[c] for c in cast if c in CHARS)
+    lead = ("Part 1 of a continuous scene." if first else
+            "CONTINUE the exact same scene from the previous clip: same place, same camera spot, same light, same characters "
+            "in the same places and looks. Nothing new appears.")
+    return (f"{STYLE} {lead} {setting} Characters, all of them visible together in the frame the whole time: {looks} "
+            f"Action: {part['shot'].strip()} Dialogue (Hindi): {part['dialogue'].strip()} "
+            "Sound: only the dialogue, light construction site ambience, soft playful background music.")
 
 
 def write(topic, n=5):
@@ -130,8 +145,10 @@ def main():
     used = st.setdefault("topics", {})
     rep = sys.argv[sys.argv.index("--replace") + 1] if "--replace" in sys.argv else None
     if rep:   # cancel a bad episode code and send one new episode instead
-        st.get("open", {}).pop(rep, None)
-    topics = sorted(TOPICS, key=lambda t: used.get(t, "0000"))[:1 if rep else PER_DAY]
+        old = st.get("open", {}).pop(rep, None) or {}
+    # replace keeps the same topic (new prompts only) unless --new-topic
+    topics = ([old["topic"]] if rep and old.get("topic") and "--new-topic" not in sys.argv
+              else sorted(TOPICS, key=lambda t: used.get(t, "0000"))[:1 if rep else PER_DAY])
     eps = []
     for t in topics:
         ep = None
@@ -141,14 +158,20 @@ def main():
             print("write failed:", str(e)[:150])
         if not ep:
             # fallback only if its topic is not already covered today (13 Nov: bank episode repeated S1 as S3)
-            ep = next((b for b in BANK if used.get(b["topic"], "0000") < d and all(b["topic"] != e["topic"] for e in eps)), None)
+            ep = next((b for b in BANK if (b["topic"] == t if rep else used.get(b["topic"], "0000") < d) and all(b["topic"] != e["topic"] for e in eps)), None)
         if ep and not any(problems(p["dialogue"] + p["shot"]) for p in ep["parts"]):
             eps.append(ep)
     msgs = []
     for ep in eps:
         code = f"S{st['next_code']}"; st["next_code"] += 1
-        prompts = [prompt_of(p) for p in ep["parts"]]
-        msgs.append((f"♻️ {rep} cancel. Uski jagah ye naya episode:\n" if rep else "") + f"🎬 {code} · Shuttering Ki Duniya: {ep['title']}\n{len(prompts)} prompt neeche (har ek 8 sec). Teeno/saare clips ek saath, isi order mein bhejo, kisi ek clip ke caption mein likho: {code}\nEnd card + awaaz main laga dunga.")
+        cast = list(dict.fromkeys(c for p in ep["parts"] for c in p.get("chars", []) if c in CHARS))[:4]
+        setting = SETS[st["next_code"] % len(SETS)]
+        prompts = [prompt_of(p, cast, setting, i == 0) for i, p in enumerate(ep["parts"])]
+        msgs.append((f"♻️ {rep} cancel. Uski jagah ye naya episode:\n" if rep else "") +
+                    f"🎬 {code} · Shuttering Ki Duniya: {ep['title']}\n{len(prompts)} prompt neeche (har ek 8 sec).\n"
+                    f"1) Prompt 1 se pehla clip banao.\n2) Baaki ke liye usi clip pe Flow ka EXTEND dabao aur agla prompt daalo "
+                    f"(naya clip mat banao), taaki jagah aur characters same rahein.\n"
+                    f"3) Poora video (ya saare clips order mein) yahin bhejo, caption mein likho: {code}\nEnd card + awaaz main laga dunga.")
         msgs += prompts
         st["open"][code] = {"title": ep["title"], "hook": ep["hook"], "topic": ep["topic"], "n": len(prompts), "sent": d, "clips": [], "prompts": prompts}
         used[ep["topic"]] = d

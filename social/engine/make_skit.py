@@ -119,8 +119,8 @@ def main():
         parts = []
         for i, fid in enumerate((c.strip() for c in (a.clips or "").split(",") if c.strip()), 1):
             p = os.path.join(media, f"{sid}-part{i}.mp4"); download(fid, p); parts.append(p)
-    if not 2 <= len(parts) <= 12:
-        sys.exit(f"need 2-12 parts, got {len(parts)}")
+    if not 1 <= len(parts) <= 12:
+        sys.exit(f"need 1-12 parts, got {len(parts)}")
     out = os.path.join(media, sid + ".mp4")
     try:
         vo = end_vo()

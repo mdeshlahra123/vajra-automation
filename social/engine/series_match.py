@@ -23,12 +23,18 @@ def main(names):
         code = "S" + m.group(1); ep = st.get("open", {}).get(code)
         if not ep or ep.get("built"):
             print(n, "-> code", code, "not open"); continue
-        if n not in ep["clips"] and len(ep["clips"]) < ep["n"]:
-            ep["clips"].append(n); lib.setdefault(n, {})["series"] = code; lib[n]["skit"] = code
+        if n in ep["clips"]:
+            continue
+        lib.setdefault(n, {})["series"] = code; lib[n]["skit"] = code
+        if float(lib[n].get("secs") or 0) >= ep["n"] * 8 * 0.75:   # one long video made with Flow Extend = whole episode
+            ep["clips"] = [n]; ep["whole"] = True
+            print(n, "->", code, "whole episode in one video"); continue
+        if not ep.get("whole") and len(ep["clips"]) < ep["n"]:
+            ep["clips"].append(n)
             print(n, "->", code, f"part {len(ep['clips'])}/{ep['n']}")
     json.dump(lib, open(LIB, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for code, ep in st.get("open", {}).items():
-        if ep.get("built") or len(ep["clips"]) < ep["n"]:
+        if ep.get("built") or (len(ep["clips"]) < ep["n"] and not ep.get("whole")):
             continue
         files = ",".join(os.path.join("assets", "clips", c) for c in ep["clips"])
         r = subprocess.run([sys.executable, os.path.join(HERE, "make_skit.py"), "--files", files,
