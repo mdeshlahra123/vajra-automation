@@ -1,0 +1,46 @@
+name: make-skit
+# Owner sends 3 Flow videos (skit parts) to Telegram, Apps Script triggers this.
+# Downloads the 3 videos, joins them, adds brand end card, creates pending item for approval.
+on:
+  workflow_dispatch:
+    inputs:
+      clips:
+        description: "3 Telegram file_ids (comma-separated)"
+        required: true
+      title:
+        description: "Skit title (e.g., Labour ke liye halka)"
+        required: true
+      who:
+        description: "Who sent the clips"
+        required: false
+        default: "owner"
+concurrency: { group: state, cancel-in-progress: false }
+permissions: { contents: write }
+jobs:
+  make:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      CLIPS: ${{ github.event.inputs.clips }}
+      TITLE: ${{ github.event.inputs.title }}
+      WHO: ${{ github.event.inputs.who }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - id: make
+        run: python3 social/engine/make_skit.py --clips "$CLIPS" --title "$TITLE" --who "$WHO"
+      - name: Send for approval
+        run: |
+          SKIT_ID=$(ls social/media/skit-*.mp4 | tail -1 | xargs basename | sed 's/.mp4//')
+          python3 social/tg.py send "$SKIT_ID"
+      - name: Save
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social/media social/captions social/pending.json
+          git diff --cached --quiet && exit 0
+          git commit -qm "skit: $TITLE"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1

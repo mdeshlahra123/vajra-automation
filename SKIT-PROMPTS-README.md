@@ -53,14 +53,22 @@ Each day = **3 prompts** that tell ONE story:
 
 ## How It Runs:
 
-**Daily automation** (GitHub Actions):
-- **09:00 IST**: Flow b-roll prompts (existing, flow-brief.yml)
-- **09:30 IST**: SKIT prompts (NEW, skit-prompts.yml) - 3 parts sent to Telegram
+**Daily prompts** (09:30 IST):
+- GitHub Actions sends 3-part skit prompts to Telegram
+- You make the 3 videos in Flow (extend each to ~10 sec)
 
-**Manual test**:
-```bash
-python social/engine/skit_prompts.py --show
-```
+**After you make videos**:
+- Send all 3 videos to Telegram
+- Reply with: `make skit: Labour ke liye halka` (or whatever the title is)
+- Apps Script triggers `make-skit.yml` workflow
+- **I automatically**:
+  - Download 3 videos
+  - Join them in sequence
+  - Add brand end card (cta-card.mp4, 3.5 sec)
+  - Generate Instagram caption
+  - Send finished reel to Telegram for approval
+  
+**Total reel**: ~33.5 seconds (30 sec dialogue + 3.5 sec end card)
 
 ## Example Output (Telegram message):
 
