@@ -500,5 +500,38 @@
     "who": "MrBeast",
     "added": "2026-11-12",
     "secs": 7.9
+  },
+  "cl-tg-1113-1200-1": {
+    "type": "video",
+    "path": "assets/clips/tg-1113-1200-1.mp4",
+    "inbox": "",
+    "desc": "AI: labour carrying ply and contractor with clipboard at construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-13",
+    "secs": 9.9
+  },
+  "cl-tg-1113-1200-2": {
+    "type": "video",
+    "path": "assets/clips/tg-1113-1200-2.mp4",
+    "inbox": "",
+    "desc": "AI: labour and contractor discussing old brown plywood formwork at a construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-13",
+    "secs": 9.9
+  },
+  "cl-tg-1113-1200-3": {
+    "type": "video",
+    "path": "assets/clips/tg-1113-1200-3.mp4",
+    "inbox": "",
+    "desc": "AI: contractors and worker inspecting grey VAJRA sheet stack at a construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-13",
+    "secs": 9.9
   }
 }

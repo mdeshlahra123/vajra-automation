@@ -273,5 +273,28 @@
   "flow": false,
   "secs": 7.9,
   "added": "2026-11-12"
+ },
+ "tg-1113-1200-1.mp4": {
+  "who": "MrBeast",
+  "note": "AI: labour carrying ply and contractor with clipboard at construction site",
+  "flow": true,
+  "secs": 9.9,
+  "added": "2026-11-13",
+  "skit": "site meeting discussing material costs"
+ },
+ "tg-1113-1200-2.mp4": {
+  "who": "MrBeast",
+  "note": "AI: labour and contractor discussing old brown plywood formwork at a construction site",
+  "flow": true,
+  "secs": 9.9,
+  "added": "2026-11-13"
+ },
+ "tg-1113-1200-3.mp4": {
+  "who": "MrBeast",
+  "note": "AI: contractors and worker inspecting grey VAJRA sheet stack at a construction site",
+  "flow": true,
+  "secs": 9.9,
+  "added": "2026-11-13",
+  "skit": "site meeting discussing material costs"
  }
 }
