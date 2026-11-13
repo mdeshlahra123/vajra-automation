@@ -773,6 +773,20 @@
       "msg_id": 1002,
       "sent_at": "2026-11-13 12:11",
       "publish": "done"
+    },
+    {
+      "id": "skit-1113-2233",
+      "file": "social/media/skit-1113-2233.mp4",
+      "caption": "captions/skit-1113-2233.txt",
+      "title": "🗣️ Skit: Shuttering Ki Duniya S6: Column mein chhed kyun? (42s, end card with voice)",
+      "position": "end",
+      "status": "sent",
+      "by": "owner",
+      "at": "2026-11-13 22:33",
+      "ai": true,
+      "skit": true,
+      "msg_id": 1083,
+      "sent_at": "2026-11-13 22:34"
     }
   ]
 }
