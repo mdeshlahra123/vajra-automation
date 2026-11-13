@@ -5,7 +5,10 @@ token (AppData) and the local Google sheet token. Prints only names and results,
 import json, os, secrets, sys, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-AUTH = os.path.join(os.environ["APPDATA"], "com.vercel.cli", "Data", "auth.json")
+# the CLI moved its login file (Nov 2026): use the newest one that exists
+_cands = [os.path.join(os.environ["APPDATA"], "xdg.data", "com.vercel.cli", "auth.json"),
+          os.path.join(os.environ["APPDATA"], "com.vercel.cli", "Data", "auth.json")]
+AUTH = max((p for p in _cands if os.path.exists(p)), key=os.path.getmtime)
 TOK = json.load(open(AUTH, encoding="utf-8"))["token"]
 API = "https://api.vercel.com"
 
@@ -20,8 +23,16 @@ def call(method, path, body=None):
         return e.code, json.loads(e.read() or b"{}")
 
 
+def team_q():
+    """the project lives in the user's team: every call needs ?teamId=..."""
+    code, j = call("GET", "/v2/user")
+    tid = (j.get("user") or {}).get("defaultTeamId") or ""
+    return f"teamId={tid}" if tid else ""
+
+
 def project():
-    code, j = call("GET", "/v9/projects?limit=50")
+    tq = team_q()
+    code, j = call("GET", "/v9/projects?limit=50" + ("&" + tq if tq else ""))
     if code != 200:
         sys.exit(f"Vercel login not valid ({code}): {j.get('error', {}).get('message', '')}")
     for p in j.get("projects", []):
@@ -32,7 +43,7 @@ def project():
 
 def main():
     p = project(); pid = p["id"]
-    team = f"?teamId={p['accountId']}" if p.get("accountId", "").startswith("team_") else ""
+    team = f"?teamId={p['accountId']}" if str(p.get("accountId", "")).startswith("team_") else ""
     print("project:", p["name"])
     want = {}
     if "--pin" in sys.argv:
