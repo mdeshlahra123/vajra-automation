@@ -60,3 +60,9 @@ Earlier asks that are still open:
 - GitHub apt installs can hang: always wrap in `timeout 240`.
 - mediapipe on GitHub needs libgl1 libegl1 libgles2; faster-whisper audio is loaded via an ffmpeg pipe (load_wav) to avoid PyAV clashes.
 - Test helpers: .github/workflows/polish-test.yml (input id), long-video.yml (mode=build publish=false).
+
+## SKITS (13 Nov)
+- skit_prompts.py (09:30 IST): 3 dialogue prompts, one Telegram message each, claim guard (use numbers incl. Hindi words, water words, price, brand) + 3 Gemini retries + clean bank fallback. Stores the sent skit as "open" in social/skit-prompts-state.json.
+- make-real.yml -> save_clips.py -> skit_match.py: Gemini compares 3 frames of each new clip with the open skit's prompts (unsure = normal clip). Parts can arrive in any order / batches within 3 days. All 3 matched -> make_skit.py: 1080x1920 30 fps, blurred fill for 16:9 clips, own dialogue kept, cta-card end card, caption via claims guard, max_volume check, ai=True, sent for approval. Caption "skit" forces a clip into the skit. Skit parts tagged in assets/clips/library.json so library_reel skips them.
+- Tested offline: join (35.0 s = parts + 3.5 s card, frame strip OK), matcher logic (out of order, 2 batches, no double build). NOT yet tested live: Gemini frame matching (local key refused). First live: when the owner sends the 13 Nov skit clips.
+- Library fix: the 13 Nov "unified library" change wrote only social/library.json, which no reader uses. Reverted the save workflows; social/library.json is now a combined search index rebuilt after each save.
