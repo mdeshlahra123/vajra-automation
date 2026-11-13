@@ -1,0 +1,19 @@
+name: sheets-auto
+# Orders sheet autopilot (social/sheets_auto.py): fills the month on new rows, sets "📦 Sent" when a tracking ID is
+# added to a Pending / Not sent row, keeps the 💬 Ask button message right for sent vs not-sent rows.
+on:
+  schedule:
+    - cron: "20 * * * *"   # every hour
+  workflow_dispatch: {}
+permissions: { contents: read }
+concurrency: { group: sheets, cancel-in-progress: false }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SHEETS_TOKEN: ${{ secrets.SHEETS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q google-api-python-client==2.201.0 google-auth-oauthlib==1.2.1 google-auth==2.62.0
+      - run: python3 social/sheets_auto.py
