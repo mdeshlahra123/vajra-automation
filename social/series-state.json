@@ -1,0 +1,33 @@
+{
+ "next_code": 4,
+ "open": {
+  "S1": {
+   "title": "Jaldi Kholne Ki Galti",
+   "hook": "Jaldi shuttering kholi toh slab baith jayegi!",
+   "topic": "Shuttering jaldi kholne ki galti: concrete ko set hone ka time chahiye (exact din engineer bataye)",
+   "n": 5,
+   "sent": "2026-11-13",
+   "clips": []
+  },
+  "S2": {
+   "title": "Column Me Chhed Kyun?",
+   "hook": "Column me chhed aur slurry leakage ka raaz!",
+   "topic": "Honeycombing: column mein chhed kyun aate hain (vibration kam, gap se slurry bah gayi)",
+   "n": 5,
+   "sent": "2026-11-13",
+   "clips": []
+  },
+  "S3": {
+   "title": "Shuttering jaldi kholi to kya hoga?",
+   "hook": "Shuttering jaldi kholne ki galti 😱",
+   "topic": "Shuttering jaldi kholne ki galti: concrete ko set hone ka time chahiye (exact din engineer bataye)",
+   "n": 5,
+   "sent": "2026-11-13",
+   "clips": []
+  }
+ },
+ "topics": {
+  "Shuttering jaldi kholne ki galti: concrete ko set hone ka time chahiye (exact din engineer bataye)": "2026-11-13",
+  "Honeycombing: column mein chhed kyun aate hain (vibration kam, gap se slurry bah gayi)": "2026-11-13"
+ }
+}
