@@ -533,5 +533,60 @@
     "who": "MrBeast",
     "added": "2026-11-13",
     "secs": 9.9
+  },
+  "cl-tg-1113-2148-1": {
+    "type": "video",
+    "path": "assets/clips/tg-1113-2148-1.mp4",
+    "inbox": "",
+    "desc": "AI: animated cartoon characters representing construction materials like rebar and bamboo supporting a concrete slab",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-13",
+    "secs": 7.9
+  },
+  "cl-tg-1113-2148-2": {
+    "type": "video",
+    "path": "assets/clips/tg-1113-2148-2.mp4",
+    "inbox": "",
+    "desc": "AI: animated wooden plywood sheet and concrete ball characters at construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-13",
+    "secs": 7.9
+  },
+  "cl-tg-1113-2148-3": {
+    "type": "video",
+    "path": "assets/clips/tg-1113-2148-3.mp4",
+    "inbox": "",
+    "desc": "AI: anthropomorphic grey VAJRA sheet character on a construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-13",
+    "secs": 7.9
+  },
+  "cl-tg-1113-2148-4": {
+    "type": "video",
+    "path": "assets/clips/tg-1113-2148-4.mp4",
+    "inbox": "",
+    "desc": "AI: AI-generated animated characters made of concrete/VAJRA sheet on a construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-13",
+    "secs": 7.9
+  },
+  "cl-tg-1113-2148-5": {
+    "type": "video",
+    "path": "assets/clips/tg-1113-2148-5.mp4",
+    "inbox": "",
+    "desc": "AI: animated grey VAJRA hollow shuttering sheet character with eyes and arms giving a thumbs up at a construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-13",
+    "secs": 7.9
   }
 }
