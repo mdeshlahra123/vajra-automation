@@ -61,6 +61,7 @@ def main(names):
             lib.setdefault(n, {})["skit"] = sk["angle"]
         names = []
     hits = []                                 # (clip, part) for skit clips in this batch, in the order sent
+    names = [n for n in names if not lib.get(n, {}).get("series")]   # series_match.py owns these
     for n in names:
         forced = "skit" in (lib.get(n, {}).get("note") or "").lower()
         try:

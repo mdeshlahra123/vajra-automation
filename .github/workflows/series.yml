@@ -1,0 +1,27 @@
+name: series
+# Shuttering Ki Duniya: 3 cartoon episodes a day as copy-ready Flow prompts (social/engine/series.py)
+on:
+  schedule:
+    - cron: "15 3 * * *"   # 08:45 IST
+  workflow_dispatch: {}
+permissions: { contents: write }
+concurrency: { group: state, cancel-in-progress: false }
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 social/engine/series.py
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social/series-state.json; git diff --cached --quiet && exit 0
+          git commit -qm "series: episodes sent"; for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 4; done; exit 1

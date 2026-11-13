@@ -84,13 +84,13 @@ def max_volume(p):
     return float(m.group(1)) if m else -99.0
 
 
-def caption(title):
+def caption(title, hook=""):
     import claims
     text = ""
     try:
         import gem
         text = gem.text("gemini-3.5-flash-lite", f"""Write an Instagram caption in casual Hinglish for a short VAJRA PP shuttering
-skit reel: "{title}" (site people talking: contractor / labour / engineer; brown ply problem, grey PP sheet answer).
+reel: "{title}" (hook idea: {hook}). Talking characters or site people teach one lesson.
 2-3 short lines, first line a hook. Last line: "Follow kijiye, comment mein likhiye PP".
 Never give a number of uses, never a price, never the words waterproof/paani/barish. No hashtags. Plain text only.""").strip()
     except Exception as e:
@@ -105,18 +105,22 @@ def main():
     ap.add_argument("--clips", help="3 Telegram file_ids, parts 1,2,3 in order")
     ap.add_argument("--title", required=True)
     ap.add_argument("--who", default="owner")
+    ap.add_argument("--hook", default="")
     a = ap.parse_args()
     now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)
     sid = "skit-" + now.strftime("%m%d-%H%M")
     media = os.path.join(ROOT, "social", "media"); os.makedirs(media, exist_ok=True)
+    k = 1
+    while os.path.exists(os.path.join(media, sid + ".mp4")):   # several episodes built in the same minute
+        k += 1; sid = "skit-" + now.strftime("%m%d-%H%M") + f"-{k}"
     if a.files:
         parts = [os.path.join(ROOT, f.strip()) for f in a.files.split(",") if f.strip()]
     else:
         parts = []
         for i, fid in enumerate((c.strip() for c in (a.clips or "").split(",") if c.strip()), 1):
             p = os.path.join(media, f"{sid}-part{i}.mp4"); download(fid, p); parts.append(p)
-    if len(parts) != 3:
-        sys.exit(f"need exactly 3 parts, got {len(parts)}")
+    if not 2 <= len(parts) <= 12:
+        sys.exit(f"need 2-12 parts, got {len(parts)}")
     out = os.path.join(media, sid + ".mp4")
     try:
         vo = end_vo()
@@ -127,7 +131,7 @@ def main():
     if mv <= -60:
         sys.exit(f"NO AUDIO (max_volume {mv} dB): not sent (owner rule: never queue a reel without sound)")
     capf = os.path.join(ROOT, "social", "captions", sid + ".txt")
-    open(capf, "w", encoding="utf-8").write(caption(a.title))
+    open(capf, "w", encoding="utf-8").write(caption(a.title, a.hook))
     pend_p = os.path.join(ROOT, "social", "pending.json")
     pend = json.load(open(pend_p, encoding="utf-8")) if os.path.exists(pend_p) else {"items": []}
     pend["items"].append({"id": sid, "file": f"social/media/{sid}.mp4", "caption": f"captions/{sid}.txt",

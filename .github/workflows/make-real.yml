@@ -29,6 +29,13 @@ jobs:
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
       - id: save
         run: python3 social/engine/save_clips.py --clips "$CLIPS" --note "$NOTE" --who "$WHO"
+      # 13 Nov: clips with "S<n>" in a caption = a Shuttering Ki Duniya episode
+      - id: series
+        continue-on-error: true
+        run: python3 social/engine/series_match.py ${{ steps.save.outputs.names }}
+      - name: Send finished episodes for approval
+        if: steps.series.outputs.series_ids != ''
+        run: for i in ${{ steps.series.outputs.series_ids }}; do python3 social/tg.py send "$i"; done
       # 13 Nov: are these the 3 parts of today's skit? (Gemini compares frames with the open skit prompts; no caption needed)
       - id: skit
         continue-on-error: true
@@ -37,14 +44,15 @@ jobs:
         if: steps.skit.outputs.skit_id != ''
         run: python3 social/tg.py send "${{ steps.skit.outputs.skit_id }}"
       - run: |
-          if [ -n "${{ steps.skit.outputs.skit_id }}" ]; then MSG="🗣️ Skit ke 3 part mil gaye. Reel ban gayi (end card ke saath), upar approval ke liye bheji hai."
+          if [ -n "${{ steps.series.outputs.series_ids }}" ]; then MSG="🎬 Episode ban gaya (end card + awaaz ke saath), upar approval ke liye bheja hai."
+          elif [ -n "${{ steps.skit.outputs.skit_id }}" ]; then MSG="🗣️ Skit ke 3 part mil gaye. Reel ban gayi (end card ke saath), upar approval ke liye bheji hai."
           else MSG="📁 ${{ steps.save.outputs.n }} clip library mein save ho gaye. Abhi reel nahi banegi; jab zarurat hogi tab library se reel banke queue mein jayegi."; fi
           curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" -d chat_id="$TELEGRAM_CHAT_ID" --data-urlencode text="$MSG" >/dev/null
       - name: Save
         run: |
           python3 social/engine/migrate_library.py >/dev/null || true   # refresh the one combined search list social/library.json
           git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
-          git add assets/clips assets/brand social/library.json social/skit-prompts-state.json social/media social/captions social/pending.json; git diff --cached --quiet && exit 0
+          git add assets/clips assets/brand social/library.json social/skit-prompts-state.json social/series-state.json social/media social/captions social/pending.json; git diff --cached --quiet && exit 0
           git commit -qm "library: clips from $WHO"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
       - name: Rebuild media library gallery
