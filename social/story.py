@@ -30,7 +30,7 @@ THEMES = [
     {"bg": INK, "fg": WHITE, "accent": GREEN, "ink": INK, "logo": "logo.png"},
     {"bg": GOLD, "fg": NAVY, "accent": NAVY, "ink": GOLD, "logo": "logo-onlight.png"},
 ]
-PHOTOS = ["slab-underside", "beam-box", "sheet-cut", "column-smooth2", "finish-column", "godown", "warehouse", "sheet-thin", "v5-cage", "v6-close", "v6-done", "p2-column"]
+PHOTOS = ["slab-underside", "beam-box", "sheet-cut", "column-smooth2", "finish-column", "godown", "warehouse", "sheet-thin", "v5-cage", "v6-close", "v6-done", "p2-column", "v4-point", "v1-lean", "r-throw"]
 try:
     import add_photo as _ap; PHOTOS += list(_ap.extra())
 except Exception:

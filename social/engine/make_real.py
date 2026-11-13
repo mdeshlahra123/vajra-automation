@@ -31,17 +31,38 @@ def has_audio(path):
 
 
 # real VAJRA reveal after AI problem clips: (photo key, text1, text2, voice). Allowed claims only.
+# EXPANDED (13 Nov 2026): 15 pairs instead of 5 to avoid repeating same photos every 3 days
 REVEALS = [
     [("slab-underside", "Poora slab", "VAJRA sheet par", "Ye hai VAJRA PP shuttering sheet, poora slab isi par."),
      ("column-smooth2", "Shuttering khula", "Column smooth", "Shuttering khula, aur column ekdum smooth.")],
     [("beam-box", "Beam bhi", "PP sheet se", "Beam box bhi VAJRA PP sheet se, seedha aur mazboot."),
      ("sheet-cut", "Ply ki tarah", "aaram se kat-ti hai", "Normal cutter se ply ki tarah kat jaati hai.")],
     [("p2-column", "Ye hai VAJRA", "PP shuttering sheet", "Ye hai VAJRA PP shuttering sheet, column ke liye ready."),
-     ("v6-done", "Column ready", "Smooth finish", "Paani se kharab nahi hoti, aur concrete finish ekdum smooth.")],
+     ("v6-done", "Column ready", "Smooth finish", "Dhalai ke baad bas dho lo, aur concrete finish ekdum smooth.")],
     [("godown", "VAJRA PP sheet", "Ready stock", "Iska jawab: VAJRA PP shuttering sheet, ready stock mein."),
      ("slab-underside", "Slab ke liye bhi", "VAJRA PP sheet", "Slab ho ya column, sahi handling ke saath ply se 2-3 guna zyada chalti hai.")],
     [("beam-box", "VAJRA PP sheet", "Beam box ready", "VAJRA PP shuttering sheet se beam box bhi seedha aur mazboot."),
      ("finish-column", "Dho ke dobara use", "Smooth column", "Dhalai ke baad bas dho lo, aur column ekdum smooth.")],
+    [("v5-cage", "Saria cage ready", "Shuttering lagegi", "Saria cage ready hai, ab VAJRA PP shuttering lagegi."),
+     ("sheet-thin", "Patli lagti hai", "Mazboot hai", "Patli lagti hai par load poora uthati hai.")],
+    [("v6-close", "Column ke liye", "Ekdum fit", "VAJRA sheet column ke liye ekdum fit aur aasan hai."),
+     ("warehouse", "Stock ready", "Dispatch fast", "Raipur godown se stock ready, pan-India dispatch.")],
+    [("slab-underside", "Ek aadmi", "Aaram se lagaye", "Halki sheet hai, ek aadmi aaram se laga sakta hai."),
+     ("beam-box", "Beam dhalai", "Bhi PP se", "Beam ki dhalai bhi VAJRA PP sheet se, finish smooth.")],
+    [("column-smooth2", "Finish dekho", "Bilkul smooth", "Column khula to finish dekho, bilkul smooth aur sahi."),
+     ("p2-column", "Sheet tayar hai", "Column ke liye", "VAJRA sheet tayar hai, column dhalai ke liye ready.")],
+    [("sheet-cut", "Normal cutter se", "Ply ki tarah", "Normal cutter se VAJRA PP sheet bhi ply ki tarah kat jaati hai."),
+     ("v6-done", "Dho kar", "Dobara use karo", "Dhalai ke baad dho kar dobara use karo, finish smooth aayegi.")],
+    [("v5-cage", "Column ka setup", "Almost ready", "Saria cage aur shuttering setup, dhalai ke liye ready."),
+     ("finish-column", "Column tayar", "Site pe", "Column ki dhalai ke baad finish ekdum solid aur smooth.")],
+    [("godown", "Yahi solution", "VAJRA PP sheet", "Ply ke jhamele ka yahi solution: VAJRA PP shuttering sheet."),
+     ("warehouse", "Chhattisgarh se", "Pan-India", "Raipur, Durg, Bhilai se poore India mein dispatch.")],
+    [("beam-box", "Beam shuttering", "VAJRA se", "Beam shuttering bhi VAJRA PP sheet se, setup aasan hai."),
+     ("column-smooth2", "Column smooth", "Concrete perfect", "Column khula, dekho kitna smooth concrete finish.")],
+    [("slab-underside", "Slab ka kaam", "Chal raha hai", "Ye dekho, poore slab ka kaam VAJRA sheet par chal raha hai."),
+     ("sheet-thin", "Halki hai", "Mazboot hai", "Dekho kitni halki hai, par load lene mein mazboot.")],
+    [("p2-column", "Column setup", "Site pe ready", "Column ka shuttering setup site pe ready, VAJRA PP sheet se."),
+     ("v6-close", "Fit hone mein", "Aasan hai", "VAJRA sheet column mein fit hone mein ekdum aasan hai.")],
 ]
 
 

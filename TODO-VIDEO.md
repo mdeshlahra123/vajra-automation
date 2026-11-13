@@ -3,6 +3,23 @@
 Read this first in every session. Update it after every change. Owner rules: act without asking, report afterwards,
 no money spent, review the real output (frames + timing) before saying "done".
 
+## FIXED 13 Nov 2026 - Owner complaint: "paani paani everywhere"
+**Problem**: Variety DEAD. Last 10 reels (Nov 2-12):
+- "waterproof" x16, "paani" x14, "phool/phoolti" x13 times
+- REVEALS photos: only 8 photos cycling (slab-underside, beam-box, column-smooth2, godown, finish-column...)
+- Growth loop stuck on "waterproof / rain / mud" angle because it won once
+
+**Fixed NOW (13 Nov 21:30)**:
+1. ✅ **claims.py**: Added OVERUSED word blocker - rejects waterproof/paani/phool/barish/keechad if used in last 3 reels
+2. ✅ **growth-plan.json**: RESET - NO water mentions for 7 days. New angles: one-man lift, smooth finish, easy cutting, wash-reuse, cost, beam/wall
+3. ✅ **make_real.py REVEALS**: Expanded from 5 pairs (10 photos) to 15 pairs (30 photos) - lasts 3+ weeks without repeating
+4. ✅ **story.py PHOTOS**: Added v4-point, v1-lean, r-throw
+5. ✅ **brand.md**: Added VARIETY RULE - waterproof/paani BANNED for 7 days
+
+Owner deleted tonight's 21:30 reel (had paani again). Tomorrow's reels will follow the new angles.
+
+---
+
 ## The owner's asks (12 Nov 2026, from the Antigravity guide + 2 GitHub repos)
 Owner: "do everything you can" for:
 1. Captions timed to the voice: long videos AND normal reels.

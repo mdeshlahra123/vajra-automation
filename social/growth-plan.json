@@ -1,12 +1,16 @@
 {
- "made": "2026-11-12 01:19",
- "src": "llm",
+ "made": "2026-11-13 21:30",
+ "src": "manual_reset",
  "next_angles": [
-  "VAJRA in rain / mud / tough site (shown working, not asked as a question)",
-  "one man lifts / light",
-  "wash and reuse"
+  "One man easily lifts full sheet (action shot, not told)",
+  "Smooth column finish after de-shuttering (visual proof)",
+  "Normal cutter easily cuts like ply (demo)",
+  "Wash and reuse multiple times (real washing action)",
+  "Cost savings per dhalai without exact numbers",
+  "Beam box or wall shuttering in action"
  ],
  "avoid_hooks": [
+  "waterproof / paani / phool / barish BANNED for next 7 days (overused 13 Nov)",
   "VAJRA PP shuttering sheet se de-shuttering aasan aur slab ka finish ekdum smooth milta hai",
   "Har dhalai mein tooti aur phooli ply ka nuksan kab tak jheloge?",
   "Beam shuttering ke liye VAJRA PP shuttering sheet se bana mould use karein.",
@@ -29,12 +33,15 @@
   "Barish aur keechad mein bhi zero tension deti hai VAJRA PP shuttering sheet!"
  ],
  "hook_ideas": [
-  "Keechad aur barish mein bhi seedhe kaam chalu rakhiye",
-  "Bhari ply ko chhodiye, ek aadmi aaram se uthaye",
-  "Paani se dhoiye aur turant dobara use kijiye",
-  "Sahi handling se ply se zyada chalta hai",
-  "Paani lagne par bhi bilkul nahi phoolti hai"
+  "Ek aadmi akele utha le full sheet",
+  "Column khula to finish ekdum smooth",
+  "Normal cutter se kat jaati hai ply ki tarah",
+  "Dho kar turant dobara lagao",
+  "Har dhalai ka kharcha kam karo",
+  "Mistri ko seekhna aasan hai",
+  "Beam box bhi PP se banana",
+  "Props kam lagte hain halki hone se"
  ],
- "diagnosis": "Tough site reels like mud and rain working best due to high watch time. Water and ply problem angles are driving comments. Avoid boring text-only intros to improve retention.",
+ "diagnosis": "RESET (owner complaint 13 Nov): paani/waterproof/phool mentioned in 14/20 reels, variety dead. New focus: light weight, smooth finish, easy cutting, reuse, cost. NO water angle for 7 days.",
  "median_plays": 47169
 }
