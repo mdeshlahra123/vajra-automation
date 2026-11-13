@@ -55,15 +55,30 @@ def main(names):
         print("open skit older than 3 days, ignored"); return
     lib = load(LIB, {})
     got = sk.setdefault("clips", {})          # "1"/"2"/"3" -> clip file name
+    if ORDER:   # manual: these clips ARE parts 1,2,3 in this order
+        got.clear(); got.update({str(i + 1): n for i, n in enumerate(ORDER[:3])})
+        for n in ORDER[:3]:
+            lib.setdefault(n, {})["skit"] = sk["angle"]
+        names = []
+    hits = []                                 # (clip, part) for skit clips in this batch, in the order sent
     for n in names:
         forced = "skit" in (lib.get(n, {}).get("note") or "").lower()
         try:
             part, why = match(os.path.join(ROOT, "assets", "clips", n), sk["parts"], forced)
         except Exception as e:
             print("match failed", n, str(e)[:120]); continue
-        if forced and not part:
-            part = next((i for i in (1, 2, 3) if str(i) not in got), 0)
         print(n, "-> part", part, why)
+        if part or forced:
+            hits.append([n, part])
+    # 13 Nov live test: Flow kept the same 2 people in part 1 and 2, Gemini called both "part 1".
+    # If parts in one batch collide (or are missing), the owner sent them in order: give the free parts by send order.
+    free = [str(i) for i in (1, 2, 3) if str(i) not in got]
+    parts_seen = [p for _, p in hits if p]
+    if hits and (len(set(parts_seen)) < len(parts_seen) or len(parts_seen) < len(hits)) and len(hits) <= len(free):
+        print("parts collide/unsure in this batch -> using send order", free[:len(hits)])
+        for h, p in zip(hits, free):
+            h[1] = int(p)
+    for n, part in hits:
         if part and str(part) not in got:
             got[str(part)] = n
             lib.setdefault(n, {})["skit"] = sk["angle"]   # library_reel skips skit parts
@@ -85,5 +100,11 @@ def main(names):
     json.dump(st, open(STATE, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
 
+ORDER = []
+
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    args = sys.argv[1:]
+    if args and args[0] == "--order":   # skit_match.py --order a.mp4,b.mp4,c.mp4  (manual: parts 1,2,3)
+        ORDER = [x.strip() for x in args[1].split(",") if x.strip()]
+        args = []
+    main(args)

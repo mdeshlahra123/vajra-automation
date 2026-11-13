@@ -1,4 +1,4 @@
-﻿{
+{
     "_comment":  "Daily post queue. \u0027posted\u0027 is set automatically after a successful post. image = public URL (photo) or video = public URL (Reel), caption = path to a UTF-8 .txt file. Make images with social/studio (render.ps1), reels with make-reels.ps1.",
     "posts":  [
                   {

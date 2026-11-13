@@ -18,6 +18,8 @@ $pageTok = (Invoke-RestMethod "$v/$pageId`?fields=access_token&access_token=$t")
 
 function E($e){ $r=$e.Exception.Response; if($r){ (New-Object IO.StreamReader($r.GetResponseStream())).ReadToEnd() } else { $e.Exception.Message } }
 function PostUtf8($url,$fields){ $pairs=foreach($k in $fields.Keys){[uri]::EscapeDataString($k)+"="+[uri]::EscapeDataString([string]$fields[$k])}; $b=[Text.Encoding]::UTF8.GetBytes(($pairs -join "&")); $wc=New-Object Net.WebClient; $wc.Headers["Content-Type"]="application/x-www-form-urlencoded; charset=utf-8"; [Text.Encoding]::UTF8.GetString($wc.UploadData($url,"POST",$b))|ConvertFrom-Json }
+# 13 Nov: Windows PowerShell 5 "Set-Content -Encoding UTF8" writes a BOM, which breaks every Python reader of queue.json
+function SaveQ($obj){ [IO.File]::WriteAllText("$base/queue.json", ($obj | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding $false)) }
 function GetUtf8($url){ $wc=New-Object Net.WebClient; $wc.Encoding=[Text.Encoding]::UTF8; $wc.DownloadString($url)|ConvertFrom-Json }
 
 $q = Get-Content "$base/queue.json" -Raw | ConvertFrom-Json
@@ -62,7 +64,7 @@ if (($Type -eq "reel" -or $morning) -and -not $DryRun -and $q.stories) {
       $s.posted = $todayS; Log "  STORY (scheduled) OK $($s.id)"
     } catch { Log ("  STORY (scheduled) ERR $($s.id) " + (E $_)) }
   }
-  ($q | ConvertTo-Json -Depth 6) | Set-Content "$base/queue.json" -Encoding UTF8
+  SaveQ $q
 }
 # Guard: max one reel and one image per IST day (GitHub cron can run late or after a manual post)
 # Skip guards when force-posting with -Id
@@ -161,7 +163,7 @@ try {
 if ($igOk) {
   $item.posted = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
 if ($Type -eq "image") { $item | Add-Member -NotePropertyName slot -NotePropertyValue "evening" -Force }
-  ($q | ConvertTo-Json -Depth 6) | Set-Content "$base/queue.json" -Encoding UTF8
+  SaveQ $q
   $left = ($q.posts | Where-Object { -not $_.posted }).Count
   Log "  DONE. $left posts left in queue."
   if ($left -le 2) { Log "  LOW QUEUE WARNING: add more posts soon." }
