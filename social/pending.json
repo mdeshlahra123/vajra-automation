@@ -765,13 +765,14 @@
       "caption": "captions/skit-1113-1210.txt",
       "title": "🗣️ Skit: site meeting discussing material costs (34s, end card with voice)",
       "position": "end",
-      "status": "sent",
-      "by": "owner",
-      "at": "2026-11-13 12:10",
+      "status": "approved",
+      "by": "MrBeast",
+      "at": "2026-11-13 12:14",
       "ai": true,
       "skit": true,
       "msg_id": 1002,
-      "sent_at": "2026-11-13 12:11"
+      "sent_at": "2026-11-13 12:11",
+      "publish": "todo"
     }
   ]
 }
