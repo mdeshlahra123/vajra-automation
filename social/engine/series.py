@@ -63,8 +63,8 @@ GEN = """You write ONE episode of "Shuttering Ki Duniya", a Hindi 3D-cartoon Ins
 Chhattisgarh). Like KaarigarX "Talking Tools": construction objects with faces talk and teach one useful, correct lesson.
 Topic: {topic}
 Characters (use 2-4, by id): {chars}
-Write {n} parts of 8 seconds each (total about {secs} s). Part 1 = a strong hook in the first 2 seconds (a mistake, shock or question).
-Last part = the takeaway + "Follow karo Shuttering Ki Duniya ke liye". VAJRA Sheet appears only if natural (not every episode sells).
+Write exactly {n} parts of 8 seconds each (total about {secs} s, must fit one 30-second video). Part 1 = the hook in the first 2 seconds
+(a mistake, shock or question). Part 2 = why it goes wrong. Part 3 = the right way + "Follow karo Shuttering Ki Duniya ke liye". VAJRA Sheet appears only if natural (not every episode sells).
 Rules (any break = rejected):
 - Dialogue in simple spoken Hindi (Devanagari or Hinglish), max 2 short lines per part, max ~18 words per part.
 - NEVER a number of uses/times (no "50 baar", "do baar use"), NEVER a price. Only allowed: "ply se 2-3 guna zyada chalti hai".
@@ -77,16 +77,12 @@ BANK = [{
     "title": "Shuttering jaldi kholi to kya hoga?", "hook": "Shuttering jaldi kholne ki galti 😱",
     "topic": TOPICS[0],
     "parts": [
-        {"chars": ["balli", "ply"], "shot": "Close-up: Balli trembling under a fresh concrete slab, Ply Bhaiya pressed against its underside, both sweating.",
-         "dialogue": "BALLI: 'Thekedar kal hi shuttering kholne wala hai!' PLY BHAIYA: 'Kal? Abhi to concrete kachcha hai!'"},
-        {"chars": ["mami"], "shot": "Concrete Mami on top of the slab, wobbling, holding her cheeks in shock, camera slowly pushes in.",
-         "dialogue": "CONCRETE MAMI: 'Arre mujhe set hone ka time to do! Jaldi khologe to main gir jaungi!'"},
-        {"chars": ["sariya", "chhotu"], "shot": "Sariya Ustad steps forward like a teacher, Chhotu peeks out from under him.",
-         "dialogue": "SARIYA USTAD: 'Shuttering kab kholni hai, ye engineer batata hai. Andaze se nahi!'"},
-        {"chars": ["ply", "vajra"], "shot": "Ply Bhaiya groans as he is pulled off the slab and cracks; VAJRA Sheet slides off smoothly next to him.",
-         "dialogue": "PLY BHAIYA: 'Aah, phir toot gaya!' VAJRA SHEET: 'Sahi time pe kholo, aur aaram se. Main to aaram se nikal aati hoon.'"},
-        {"chars": ["sariya", "vajra", "mami"], "shot": "All characters stand together in front of a finished smooth slab, smiling at the camera.",
-         "dialogue": "SARIYA USTAD: 'Sabak: jaldi nahi, sahi time.' VAJRA SHEET: 'Follow karo Shuttering Ki Duniya ke liye!'"},
+        {"chars": ["balli", "ply", "mami"], "shot": "Balli trembles under a fresh slab, Ply Bhaiya pressed against its underside, Concrete Mami on top wobbles in shock.",
+         "dialogue": "BALLI: 'Thekedar kal hi shuttering kholne wala hai!' CONCRETE MAMI: 'Kal? Main to abhi kachchi hoon!'"},
+        {"chars": ["sariya", "ply", "mami"], "shot": "Sariya Ustad steps forward like a teacher and points at Concrete Mami; Ply Bhaiya nods, worried.",
+         "dialogue": "SARIYA USTAD: 'Concrete ko set hone ka time chahiye. Kab kholna hai, engineer batata hai, andaze se nahi.'"},
+        {"chars": ["vajra", "ply", "sariya"], "shot": "VAJRA Sheet slides off the slab smoothly while Ply Bhaiya cracks a little; everyone smiles at the camera.",
+         "dialogue": "VAJRA SHEET: 'Sahi time pe, aaram se kholo.' SARIYA USTAD: 'Follow karo Shuttering Ki Duniya ke liye!'"},
     ]}]
 
 
@@ -125,16 +121,16 @@ def prompt_of(part, cast, setting, first):
             "Sound: only the dialogue, light construction site ambience, soft playful background music.")
 
 
-def write(topic, n=5):
+def write(topic, n=3):   # owner 13 Nov: a Flow Extend video is max 30 s -> 3 parts x 8 s
     import gem
     extra = ""
     for _ in range(3):
         r = gem.text(MODEL, GEN.format(topic=topic, n=n, secs=n * 8, chars=", ".join(CHARS)) + extra, json_mode=True)
         if isinstance(r, list):   # model sometimes wraps the episode in a list
             r = r[0] if r and isinstance(r[0], dict) else {}
-        parts = [p for p in r.get("parts", []) if p.get("shot") and p.get("dialogue")][:7]
+        parts = [p for p in r.get("parts", []) if p.get("shot") and p.get("dialogue")][:n]
         bad = [f"part {i + 1}: {problems(p['dialogue'] + ' ' + p['shot'])}" for i, p in enumerate(parts) if problems(p["dialogue"] + " " + p["shot"])]
-        if len(parts) >= 4 and not bad and r.get("title"):
+        if len(parts) == n and not bad and r.get("title"):
             return {"title": r["title"].strip()[:70], "hook": (r.get("hook") or r["title"]).strip()[:90], "topic": topic, "parts": parts}
         extra = "\n\nYour last answer broke rules: " + "; ".join(bad or ["too few parts"]) + ". Rewrite."
     return None
@@ -171,7 +167,7 @@ def main():
                     f"🎬 {code} · Shuttering Ki Duniya: {ep['title']}\n{len(prompts)} prompt neeche (har ek 8 sec).\n"
                     f"1) Prompt 1 se pehla clip banao.\n2) Baaki ke liye usi clip pe Flow ka EXTEND dabao aur agla prompt daalo "
                     f"(naya clip mat banao), taaki jagah aur characters same rahein.\n"
-                    f"3) Poora video (ya saare clips order mein) yahin bhejo, caption mein likho: {code}\nEnd card + awaaz main laga dunga.")
+                    f"3) Poora video (max 30 sec) yahin bhejo, caption mein likho: {code}\nEnd card + awaaz main laga dunga.")
         msgs += prompts
         st["open"][code] = {"title": ep["title"], "hook": ep["hook"], "topic": ep["topic"], "n": len(prompts), "sent": d, "clips": [], "prompts": prompts}
         used[ep["topic"]] = d
