@@ -273,3 +273,4 @@
 2026-11-13 10:37    DONE. 9 posts left in queue.
 2026-11-13 14:49  POSTING skit-1113-1210
 2026-11-13 14:51    DRYRUN: IG upload OK (container 18132224125826022), not published. Next: skit-1113-1210
+2026-11-13 14:54  SKIP: image already posted today (2026-11-13 IST): car-p2-site
