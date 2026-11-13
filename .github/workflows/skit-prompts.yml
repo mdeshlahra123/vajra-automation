@@ -1,0 +1,28 @@
+name: skit-prompts
+# Daily skit/dialogue prompts for Gemini Flow (no voiceover needed)
+# Sends 3-part conversation scenarios: contractor-labour-engineer talking
+# Each part = 10 sec (extend in Flow), total ~30 sec reel
+on:
+  schedule:
+    - cron: "30 3 * * *"  # 09:00 IST daily (after flow-brief at 08:00)
+  workflow_dispatch: {}
+permissions: { contents: read }
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 social/engine/skit_prompts.py
+      - name: Save state
+        if: always()
+        continue-on-error: true
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social/skit-prompts-state.json; git diff --cached --quiet && exit 0
+          git commit -qm "skit prompts state"; for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 4; done
