@@ -258,3 +258,16 @@
 2026-11-13 04:09    IG OK https://www.instagram.com/reel/DfqvNsQDhsH/
 2026-11-13 04:09    FB OK video 2292415678216925
 2026-11-13 04:09    DONE. 9 posts left in queue.
+2026-11-13 10:21  POSTING car-p2-site
+2026-11-13 10:21    IG OK https://www.instagram.com/p/Dfq0JUklhWj/
+2026-11-13 10:22    FB OK post 1296793536861294_122116613583509427
+2026-11-13 10:22    DONE. 11 posts left in queue.
+2026-11-13 10:22  POSTING v-p-bend
+2026-11-13 10:22    IG OK https://www.instagram.com/p/Dfq0N-5FuHv/
+2026-11-13 10:22    FB OK post 1296793536861294_122116613811509427
+2026-11-13 10:22    DONE. 10 posts left in queue.
+2026-11-13 10:36  FORCE-POST: tg-1110-0847-4 (ignoring queue order)
+2026-11-13 10:36  POSTING tg-1110-0847-4
+2026-11-13 10:37    IG OK https://www.instagram.com/reel/Dfq12WDHZx3/
+2026-11-13 10:37    FB OK video 2072731736708179
+2026-11-13 10:37    DONE. 9 posts left in queue.

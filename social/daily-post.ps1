@@ -1,6 +1,7 @@
-﻿param([ValidateSet("any","reel","image","trial")][string]$Type = "any", [switch]$DryRun)
+﻿param([ValidateSet("any","reel","image","trial")][string]$Type = "any", [string]$Id = "", [switch]$DryRun)
 # VAJRA daily poster: Instagram + Facebook together, from social\queue.json.
 # -Type reel  = next unposted reel (morning task), -Type image = next unposted post (night task).
+# -Id xyz    = force-post specific item by id, ignoring queue order.
 # Picks the first post with empty "posted", publishes to both, verifies IG caption,
 # marks it posted, logs to social\post-log.txt. Safe to run once a day.
 $ErrorActionPreference = "Stop"
@@ -21,26 +22,34 @@ function GetUtf8($url){ $wc=New-Object Net.WebClient; $wc.Encoding=[Text.Encodin
 
 $q = Get-Content "$base/queue.json" -Raw | ConvertFrom-Json
 $pending = $q.posts | Where-Object { -not $_.posted }
-# Evening slot (owner, 30 Oct): Mon-Sat IST the 19:30 run posts the next reel tagged "evening": true; Sunday a photo/carousel.
-# Morning never takes evening-tagged reels. If no evening reel is left, the evening run falls back to a photo.
-$istDay = [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek
-# 1 Nov (owner): ONE main reel a day at 19:30, every day incl. Sunday; evening photo only if no reel at all. Morning = Trial Reel (non-followers first).
-$evDay = ($Type -eq "image")
-if ($Type -eq "reel" -and @($q.trials | Where-Object { -not $_.posted -and $_.video }).Count) { $morning = $true; $Type = "trial" }   # morning: trial pool first, else a queue reel posted as trial
-if ($Type -eq "trial") { $pending = @($q.trials | Where-Object { -not $_.posted -and $_.video }) }   # extra daily Trial Reel from the trial pool (owner 31 Oct)
-$all = $pending
-if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video -and -not $_.evening } }
-if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
-$item = $pending | Select-Object -First 1
-# only items whose media is really live on the website (an approved reel can still be waiting for upload)
-function Live($x) {   # waits up to ~4 min: the website (Vercel) may still be deploying a file pushed a moment ago
-  if (-not (Test-Path "$base/$($x.caption)")) { Log "  SKIP (caption file missing): $($x.id) -> $($x.caption)"; return $false }  # 2 Nov: a missing caption used to crash the whole run (line 66)
-  $u = if ($x.video) { $x.video } else { $x.image }
-  for ($k = 0; $k -lt 16; $k++) { try { if ((Invoke-WebRequest $u -Method Head -UseBasicParsing -TimeoutSec 30).StatusCode -eq 200) { return $true } } catch {}; Start-Sleep 15 }
-  Log "  SKIP (file not live after 4 min): $($x.id)"; $false }
-$item = $pending | Where-Object { Live $_ } | Select-Object -First 1
-if (-not $item -and $Type -eq "reel") { $item = $all | Where-Object { $_.video } | Where-Object { Live $_ } | Select-Object -First 1 }  # never skip a morning: use an evening-tagged reel if needed
-if ($evDay) { $ev = $all | Where-Object { $_.video -and $_.evening } | Where-Object { Live $_ } | Select-Object -First 1; if ($ev) { $item = $ev } elseif (-not ($item -and $item.video)) { $any = $all | Where-Object { $_.video } | Where-Object { Live $_ } | Select-Object -First 1; if ($any) { $item = $any } } }
+# Force-post specific item if -Id is given
+if ($Id) {
+  $item = $q.posts | Where-Object { $_.id -eq $Id } | Select-Object -First 1
+  if (-not $item) { Log "ERROR: Item $Id not found in queue.json"; exit 1 }
+  if ($item.posted) { Log "ERROR: Item $Id already posted on $($item.posted)"; exit 1 }
+  Log "FORCE-POST: $Id (ignoring queue order)"
+} else {
+  # Evening slot (owner, 30 Oct): Mon-Sat IST the 19:30 run posts the next reel tagged "evening": true; Sunday a photo/carousel.
+  # Morning never takes evening-tagged reels. If no evening reel is left, the evening run falls back to a photo.
+  $istDay = [string][DateTime]::UtcNow.AddHours(5.5).DayOfWeek
+  # 1 Nov (owner): ONE main reel a day at 19:30, every day incl. Sunday; evening photo only if no reel at all. Morning = Trial Reel (non-followers first).
+  $evDay = ($Type -eq "image")
+  if ($Type -eq "reel" -and @($q.trials | Where-Object { -not $_.posted -and $_.video }).Count) { $morning = $true; $Type = "trial" }   # morning: trial pool first, else a queue reel posted as trial
+  if ($Type -eq "trial") { $pending = @($q.trials | Where-Object { -not $_.posted -and $_.video }) }   # extra daily Trial Reel from the trial pool (owner 31 Oct)
+  $all = $pending
+  if ($Type -eq "reel")  { $pending = $pending | Where-Object { $_.video -and -not $_.evening } }
+  if ($Type -eq "image") { $pending = $pending | Where-Object { -not $_.video } }
+  $item = $pending | Select-Object -First 1
+  # only items whose media is really live on the website (an approved reel can still be waiting for upload)
+  function Live($x) {   # waits up to ~4 min: the website (Vercel) may still be deploying a file pushed a moment ago
+    if (-not (Test-Path "$base/$($x.caption)")) { Log "  SKIP (caption file missing): $($x.id) -> $($x.caption)"; return $false }  # 2 Nov: a missing caption used to crash the whole run (line 66)
+    $u = if ($x.video) { $x.video } else { $x.image }
+    for ($k = 0; $k -lt 16; $k++) { try { if ((Invoke-WebRequest $u -Method Head -UseBasicParsing -TimeoutSec 30).StatusCode -eq 200) { return $true } } catch {}; Start-Sleep 15 }
+    Log "  SKIP (file not live after 4 min): $($x.id)"; $false }
+  $item = $pending | Where-Object { Live $_ } | Select-Object -First 1
+  if (-not $item -and $Type -eq "reel") { $item = $all | Where-Object { $_.video } | Where-Object { Live $_ } | Select-Object -First 1 }  # never skip a morning: use an evening-tagged reel if needed
+  if ($evDay) { $ev = $all | Where-Object { $_.video -and $_.evening } | Where-Object { Live $_ } | Select-Object -First 1; if ($ev) { $item = $ev } elseif (-not ($item -and $item.video)) { $any = $all | Where-Object { $_.video } | Where-Object { Live $_ } | Select-Object -First 1; if ($any) { $item = $any } } }
+}
 # Scheduled stand-alone Stories (queue.json "stories": [{id, image|video, date, posted}]) go out with the morning run
 if (($Type -eq "reel" -or $morning) -and -not $DryRun -and $q.stories) {
   $todayS = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
@@ -56,11 +65,14 @@ if (($Type -eq "reel" -or $morning) -and -not $DryRun -and $q.stories) {
   ($q | ConvertTo-Json -Depth 6) | Set-Content "$base/queue.json" -Encoding UTF8
 }
 # Guard: max one reel and one image per IST day (GitHub cron can run late or after a manual post)
-if ($Type -eq "trial" -and -not $DryRun -and $item) { $td = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd"); if (@($q.trials | Where-Object { [string]$_.posted -eq $td }).Count) { Log "SKIP: trial already posted today"; exit 0 } }
-if ($Type -ne "any" -and $Type -ne "trial" -and -not $DryRun -and $item) {
-  $today = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
-  $done = $q.posts | Where-Object { $_.posted -and ([string]$_.posted -eq $today) -and $(if ($Type -eq "reel") { $_.video -and $_.slot -ne "evening" } else { (-not $_.video) -or $_.slot -eq "evening" }) }
-  if ($done) { Log "SKIP: $Type already posted today ($today IST): $($done[0].id)"; exit 0 }
+# Skip guards when force-posting with -Id
+if (-not $Id) {
+  if ($Type -eq "trial" -and -not $DryRun -and $item) { $td = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd"); if (@($q.trials | Where-Object { [string]$_.posted -eq $td }).Count) { Log "SKIP: trial already posted today"; exit 0 } }
+  if ($Type -ne "any" -and $Type -ne "trial" -and -not $DryRun -and $item) {
+    $today = [DateTime]::UtcNow.AddHours(5.5).ToString("yyyy-MM-dd")
+    $done = $q.posts | Where-Object { $_.posted -and ([string]$_.posted -eq $today) -and $(if ($Type -eq "reel") { $_.video -and $_.slot -ne "evening" } else { (-not $_.video) -or $_.slot -eq "evening" }) }
+    if ($done) { Log "SKIP: $Type already posted today ($today IST): $($done[0].id)"; exit 0 }
+  }
 }
 if (-not $item) { Log "QUEUE EMPTY ($Type) - nothing to post. Add more items to queue.json."; exit 0 }
 
