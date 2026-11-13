@@ -1,9 +1,9 @@
 # VAJRA media library
-_Auto-updated 13 Nov 2026 20:39 IST by social/build_library.py._
+_Auto-updated 13 Nov 2026 21:49 IST by social/build_library.py._
 
 One place that lists every photo and clip in the library. Reels are built from the clips below (library_reel.py / make_real.py). Telegram media the owners send is added here automatically (save-photo / make-real workflows). Web view: https://vajraformwork.vercel.app/social/library/
 
-## Clips (44)  — reels are made from these
+## Clips (49)  — reels are made from these
 | File | Type | Status | Note |
 |---|---|---|---|
 | `assets/clips/ai-carry-heavy-ply.mp4` | AI/Flow | 7.9s ✅ usable | AI/Flow: two labourers struggle to carry a heavy brown plywood board ( |
@@ -50,6 +50,11 @@ One place that lists every photo and clip in the library. Reels are built from t
 | `assets/clips/tg-1113-1200-1.mp4` | AI/Flow | 9.9s ✅ usable | AI: labour carrying ply and contractor with clipboard at construction  |
 | `assets/clips/tg-1113-1200-2.mp4` | AI/Flow | 9.9s ✅ usable | AI: labour and contractor discussing old brown plywood formwork at a c |
 | `assets/clips/tg-1113-1200-3.mp4` | AI/Flow | 9.9s ✅ usable | AI: contractors and worker inspecting grey VAJRA sheet stack at a cons |
+| `assets/clips/tg-1113-2148-1.mp4` | AI/Flow | 7.9s ✅ usable | AI: animated cartoon characters representing construction materials li |
+| `assets/clips/tg-1113-2148-2.mp4` | AI/Flow | 7.9s ✅ usable | AI: animated wooden plywood sheet and concrete ball characters at cons |
+| `assets/clips/tg-1113-2148-3.mp4` | AI/Flow | 7.9s ✅ usable | AI: anthropomorphic grey VAJRA sheet character on a construction site |
+| `assets/clips/tg-1113-2148-4.mp4` | AI/Flow | 7.9s ✅ usable | AI: AI-generated animated characters made of concrete/VAJRA sheet on a |
+| `assets/clips/tg-1113-2148-5.mp4` | AI/Flow | 7.9s ✅ usable | AI: animated grey VAJRA hollow shuttering sheet character with eyes an |
 
 ## Photos (25)
 | File | Type | Status | Note |
