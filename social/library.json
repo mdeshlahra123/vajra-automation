@@ -588,5 +588,16 @@
     "who": "MrBeast",
     "added": "2026-11-13",
     "secs": 7.9
+  },
+  "cl-tg-1113-2228-1": {
+    "type": "video",
+    "path": "assets/clips/tg-1113-2228-1.mp4",
+    "inbox": "",
+    "desc": "s6",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-13",
+    "secs": 37.9
   }
 }
