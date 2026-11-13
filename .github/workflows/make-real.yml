@@ -1,5 +1,6 @@
 name: make-real
 # Started by the Apps Script when clips are sent in the Telegram group.
+# Downloads clips to social/inbox/ then processes with unified library (add_media.py).
 # Owner rule (30 Oct): clips are only SAVED to the library here. No reel is made now;
 # library-reel.yml builds reels later from the whole library and adds them to the queue.
 on:
@@ -27,15 +28,32 @@ jobs:
       - uses: actions/checkout@v4
       - run: (timeout 240 sudo apt-get install -y -qq libgl1 libegl1 libgles2 >/dev/null || true); pip install -q faster-whisper mediapipe pillow numpy || true
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
-      - id: save
-        run: python3 social/engine/save_clips.py --clips "$CLIPS" --note "$NOTE" --who "$WHO"
+      - name: Download clips to inbox
+        run: |
+          python3 - <<'PY'
+          import json, os, time, urllib.request
+          api = f"https://api.telegram.org/bot{os.environ['TELEGRAM_BOT_TOKEN']}/"
+          os.makedirs("social/inbox", exist_ok=True)
+          for i, fid in enumerate(os.environ["CLIPS"].split(",")):
+            fid = fid.strip()
+            if not fid: continue
+            path = json.load(urllib.request.urlopen(api + "getFile?file_id=" + fid))["result"]["file_path"]
+            name = time.strftime("%Y%m%d-%H%M%S", time.gmtime(time.time() + 19800)) + f"-{i+1}-" + (os.environ["WHO"] or "x").replace(" ", "")[:12] + os.path.splitext(path)[1]
+            urllib.request.urlretrieve(f"https://api.telegram.org/file/bot{os.environ['TELEGRAM_BOT_TOKEN']}/{path}", "social/inbox/" + name)
+            if os.environ.get("NOTE"):
+              open("social/inbox/" + name + ".txt", "w").write((os.environ["WHO"] + ": " + os.environ["NOTE"]).strip())
+            print("downloaded", name)
+          PY
+      - id: process
+        name: Process with unified media library
+        run: python3 social/engine/add_media.py
       - run: |
           curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" -d chat_id="$TELEGRAM_CHAT_ID" \
-            --data-urlencode text="📁 ${{ steps.save.outputs.n }} clip library mein save ho gaye. Abhi reel nahi banegi; jab zarurat hogi tab library se reel banke queue mein jayegi." >/dev/null
+            --data-urlencode text="📁 Clip library mein save ho gaye. Abhi reel nahi banegi; jab zarurat hogi tab library se reel banke queue mein jayegi." >/dev/null
       - name: Save
         run: |
           git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
-          git add assets/clips; git diff --cached --quiet && exit 0
+          git add social/inbox social/library.json assets/clips; git diff --cached --quiet && exit 0
           git commit -qm "library: clips from $WHO"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
       - name: Rebuild media library gallery
