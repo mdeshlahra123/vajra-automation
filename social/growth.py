@@ -193,6 +193,9 @@ def main():
     # 2 tonight's 19:30 pick (only before 19:00 IST, only a real pending reel whose file is live)
     ep = d.get("evening_pick")
     first_ev = next((p for p in pend if p.get("evening")), None)
+    # 13 Nov: a reel pinned for tonight (owner-approved new content, e.g. the first skit) is never swapped out
+    if first_ev and first_ev.get("pin"):
+        ep = None
     if ep and IST.hour < 19 and any(p["id"] == ep for p in pend) and (not first_ev or first_ev["id"] != ep):
         try:
             urllib.request.urlopen(urllib.request.Request(next(p for p in pend if p["id"] == ep)["video"], method="HEAD"), timeout=30)
