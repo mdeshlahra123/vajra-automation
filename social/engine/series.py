@@ -115,6 +115,8 @@ def write(topic, n=5):
     extra = ""
     for _ in range(3):
         r = gem.text(MODEL, GEN.format(topic=topic, n=n, secs=n * 8, chars=", ".join(CHARS)) + extra, json_mode=True)
+        if isinstance(r, list):   # model sometimes wraps the episode in a list
+            r = r[0] if r and isinstance(r[0], dict) else {}
         parts = [p for p in r.get("parts", []) if p.get("shot") and p.get("dialogue")][:7]
         bad = [f"part {i + 1}: {problems(p['dialogue'] + ' ' + p['shot'])}" for i, p in enumerate(parts) if problems(p["dialogue"] + " " + p["shot"])]
         if len(parts) >= 4 and not bad and r.get("title"):
@@ -126,7 +128,10 @@ def write(topic, n=5):
 def main():
     st = load(); d = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)).date().isoformat()
     used = st.setdefault("topics", {})
-    topics = sorted(TOPICS, key=lambda t: used.get(t, "0000"))[:PER_DAY]
+    rep = sys.argv[sys.argv.index("--replace") + 1] if "--replace" in sys.argv else None
+    if rep:   # cancel a bad episode code and send one new episode instead
+        st.get("open", {}).pop(rep, None)
+    topics = sorted(TOPICS, key=lambda t: used.get(t, "0000"))[:1 if rep else PER_DAY]
     eps = []
     for t in topics:
         ep = None
@@ -135,16 +140,17 @@ def main():
         except Exception as e:
             print("write failed:", str(e)[:150])
         if not ep:
-            ep = next((b for b in BANK if used.get(b["topic"], "0000") < d), None)
+            # fallback only if its topic is not already covered today (13 Nov: bank episode repeated S1 as S3)
+            ep = next((b for b in BANK if used.get(b["topic"], "0000") < d and all(b["topic"] != e["topic"] for e in eps)), None)
         if ep and not any(problems(p["dialogue"] + p["shot"]) for p in ep["parts"]):
             eps.append(ep)
     msgs = []
     for ep in eps:
         code = f"S{st['next_code']}"; st["next_code"] += 1
         prompts = [prompt_of(p) for p in ep["parts"]]
-        msgs.append(f"🎬 {code} · Shuttering Ki Duniya: {ep['title']}\n{len(prompts)} prompt neeche (har ek 8 sec). Teeno/saare clips ek saath, isi order mein bhejo, kisi ek clip ke caption mein likho: {code}\nEnd card + awaaz main laga dunga.")
+        msgs.append((f"♻️ {rep} cancel. Uski jagah ye naya episode:\n" if rep else "") + f"🎬 {code} · Shuttering Ki Duniya: {ep['title']}\n{len(prompts)} prompt neeche (har ek 8 sec). Teeno/saare clips ek saath, isi order mein bhejo, kisi ek clip ke caption mein likho: {code}\nEnd card + awaaz main laga dunga.")
         msgs += prompts
-        st["open"][code] = {"title": ep["title"], "hook": ep["hook"], "topic": ep["topic"], "n": len(prompts), "sent": d, "clips": []}
+        st["open"][code] = {"title": ep["title"], "hook": ep["hook"], "topic": ep["topic"], "n": len(prompts), "sent": d, "clips": [], "prompts": prompts}
         used[ep["topic"]] = d
     if not msgs:
         sys.exit("no episode passed the rules; nothing sent")

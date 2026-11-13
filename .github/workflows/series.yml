@@ -3,7 +3,9 @@ name: series
 on:
   schedule:
     - cron: "15 3 * * *"   # 08:45 IST
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      replace: { description: "episode code to cancel and replace (e.g. S3)", required: false, default: "" }
 permissions: { contents: write }
 concurrency: { group: state, cancel-in-progress: false }
 jobs:
@@ -18,7 +20,8 @@ jobs:
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
-      - run: python3 social/engine/series.py
+      - env: { REPLACE: "${{ github.event.inputs.replace }}" }
+        run: if [ -n "$REPLACE" ]; then python3 social/engine/series.py --replace "$REPLACE"; else python3 social/engine/series.py; fi
       - name: Save state
         if: always()
         run: |
