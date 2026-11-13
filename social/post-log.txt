@@ -271,3 +271,5 @@
 2026-11-13 10:37    IG OK https://www.instagram.com/reel/Dfq12WDHZx3/
 2026-11-13 10:37    FB OK video 2072731736708179
 2026-11-13 10:37    DONE. 9 posts left in queue.
+2026-11-13 14:49  POSTING skit-1113-1210
+2026-11-13 14:51    DRYRUN: IG upload OK (container 18132224125826022), not published. Next: skit-1113-1210
