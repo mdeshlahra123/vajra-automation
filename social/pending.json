@@ -722,6 +722,17 @@
       "status": "approved",
       "by": "auto",
       "publish": "done"
+    },
+    {
+      "id": "reel-ai-1113-0702",
+      "title": "AI reel: Chai Break Site Hisaab (18s)",
+      "file": "social/media/reel-ai-1113-0702.mp4",
+      "caption": "captions/reel-ai-1113-0702.txt",
+      "position": "end",
+      "ai": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "done"
     }
   ]
 }

@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
  "made": "2026-11-13 21:30",
  "src": "manual_reset",
  "next_angles": [
@@ -13,6 +14,16 @@
   "waterproof / paani / phool / barish BANNED for next 7 days (overused 13 Nov)",
   "VAJRA PP shuttering sheet se de-shuttering aasan aur slab ka finish ekdum smooth milta hai",
   "Har dhalai mein tooti aur phooli ply ka nuksan kab tak jheloge?",
+=======
+ "made": "2026-11-13 01:51",
+ "src": "llm",
+ "next_angles": [
+  "VAJRA in rain / mud / tough site (shown working, not asked as a question)",
+  "wash and reuse",
+  "one man lifts / light"
+ ],
+ "avoid_hooks": [
+>>>>>>> 7d4cbb86cc64c2ceffe9b84991087389cfede03f
   "Beam shuttering ke liye VAJRA PP shuttering sheet se bana mould use karein.",
   "VAJRA PP shuttering sheet ko site pe normal cutter se aaram se kaat sakte hain, bilkul ply",
   "Slab, beam aur column dhalai ke liye best hai VAJRA PP shuttering sheet.",
@@ -21,6 +32,10 @@
   "Har baar naya ply khareedne se pareshan hain? Dekhiye RCC slab aur column ka naya solution",
   "Every great skyline begins with a single spark of vision—and a rock-solid foundation. 🪔✨",
   "Har slab par naya ply khareedna band kijiye aur apna kharcha bachaiye!",
+  "Barish aur keechad mein bhi zero tension deti hai VAJRA PP shuttering sheet!",
+  "Ply har baar khareedne se pareshan? Switch kijiye VAJRA PP shuttering sheet pe jo chalti h",
+  "Slab dhalai se pehle cover block check kiya kya?",
+  "Monsoon mein slab dhalai ki sabse badi galti!",
   "Bhari ply chhodho aur switch kijiye lightweight PP shuttering sheet par jo paani se bilkul",
   "Monsoon mein ghar ka construction kaise karein? Slab dhalai, curing, shuttering aur site s",
   "Dhalai ke baad sirf paani se dhoiye aur agle slab ke liye use kijiye!",
@@ -28,11 +43,10 @@
   "Kya construction site par har baar ply ka nuksan hona lazmi hai? Bilkul nahi!",
   "Column dhalai mein sahi handling ke saath PP shuttering sheet ply se 2-3 guna zyada chalti",
   "Kya ply sach mein waterproof hoti hai? Paani lagte hi ply phool kar kharab ho jati hai.",
-  "Column dhalai ke baad smooth finish chahiye to VAJRA PP shuttering sheet apnaiye.",
-  "Ply har baar khareedne se pareshan? Switch kijiye VAJRA PP shuttering sheet pe jo chalti h",
-  "Barish aur keechad mein bhi zero tension deti hai VAJRA PP shuttering sheet!"
+  "Column dhalai ke baad smooth finish chahiye to VAJRA PP shuttering sheet apnaiye."
  ],
  "hook_ideas": [
+<<<<<<< HEAD
   "Ek aadmi akele utha le full sheet",
   "Column khula to finish ekdum smooth",
   "Normal cutter se kat jaati hai ply ki tarah",
@@ -44,4 +58,14 @@
  ],
  "diagnosis": "RESET (owner complaint 13 Nov): paani/waterproof/phool mentioned in 14/20 reels, variety dead. New focus: light weight, smooth finish, easy cutting, reuse, cost. NO water angle for 7 days.",
  "median_plays": 47169
+=======
+  "Keechad aur barish mein bhi site par chalti hai sheet",
+  "Paani se dho kar dobara use karein ye sheet",
+  "Bhari ply chhodo, ek aadmi uthata hai ye sheet",
+  "Paani lagne par bhi nahi phoolti hai ye sheet",
+  "Sahi handling se ply se zyada chalti sheet"
+ ],
+ "diagnosis": "Harsh weather and site demos like 'VAJRA in rain' are driving massive engagement and watch time because they show real utility. Pure text or weak AI questions are stalling out under 3k views. Keep focusing on boots-on-the-ground work rather than theoretical queries.",
+ "median_plays": 27456
+>>>>>>> 7d4cbb86cc64c2ceffe9b84991087389cfede03f
 }

@@ -1,0 +1,33 @@
+{
+  "hook": "Chai thandi ho gayi par tooti ply ka hisaab nahi juda!",
+  "title": "Chai Break Site Hisaab",
+  "scenes": [
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": false,
+      "vo": "Chai thandi ho gayi par tooti ply ka hisaab nahi juda!",
+      "text1": "Chai thandi ho gayi",
+      "text2": "Ply hisaab baki hai"
+    },
+    {
+      "type": "photo",
+      "photo": "finish-column",
+      "shows_vajra": false,
+      "vo": "Thekedar saab har dhalai baad bas naya bill dekh rahe hain.",
+      "text1": "Har dhalai naya bill",
+      "text2": "Purana hisaab gayab"
+    },
+    {
+      "type": "photo",
+      "photo": "r-workers",
+      "shows_vajra": true,
+      "vo": "Apne thekedar ya mistri ko bhejo, ab sukoon ki chai piyo!",
+      "text1": "Smart site work",
+      "text2": "Thekedar ko bhejo"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Site pe chai thandi ho jaye par ply ka kharcha khatam nahi hota! Upgrade kijiye PP shuttering sheet par.\n\nBaar-baar tooti ply ka tension chhodho aur smart kaam shuru karo.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Ply baar-baar khareedna band, VAJRA PP shuttering sheet lagao aur kharcha bachao"
+}
