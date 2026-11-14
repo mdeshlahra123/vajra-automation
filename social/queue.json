@@ -544,9 +544,11 @@
     {
       "id": "skit-1113-2233",
       "caption": "captions/skit-1113-2233.txt",
-      "posted": "",
+      "posted": "2026-11-14",
       "video": "https://vajraformwork.vercel.app/social/skit-1113-2233.mp4",
-      "ai": true
+      "ai": true,
+      "cover": "https://vajraformwork.vercel.app/social/skit-1113-2233-cover.jpg",
+      "yt": "BidVmv7RBxo"
     }
   ],
   "hold": [
