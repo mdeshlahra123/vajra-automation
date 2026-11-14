@@ -632,5 +632,16 @@
     "who": "MrBeast",
     "added": "2026-11-14",
     "secs": 9.9
+  },
+  "cl-tg-1114-2224-1": {
+    "type": "video",
+    "path": "assets/clips/tg-1114-2224-1.mp4",
+    "inbox": "",
+    "desc": "AI: animated cartoon characters at a construction site including a VAJRA shuttering sheet",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-14",
+    "secs": 29.9
   }
 }
