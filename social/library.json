@@ -599,5 +599,38 @@
     "who": "MrBeast",
     "added": "2026-11-13",
     "secs": 37.9
+  },
+  "cl-tg-1114-0839-1": {
+    "type": "video",
+    "path": "assets/clips/tg-1114-0839-1.mp4",
+    "inbox": "",
+    "desc": "AI: contractor and labour carrying grey VAJRA sheet on construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-14",
+    "secs": 9.9
+  },
+  "cl-tg-1114-0839-2": {
+    "type": "video",
+    "path": "assets/clips/tg-1114-0839-2.mp4",
+    "inbox": "",
+    "desc": "REAL: Labour washing grey VAJRA sheet with water hose at construction site",
+    "ai": false,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-14",
+    "secs": 9.9
+  },
+  "cl-tg-1114-0839-3": {
+    "type": "video",
+    "path": "assets/clips/tg-1114-0839-3.mp4",
+    "inbox": "",
+    "desc": "REAL: grey VAJRA sheet with bamboo bundles and construction tools on dirt ground",
+    "ai": false,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-14",
+    "secs": 9.9
   }
 }
