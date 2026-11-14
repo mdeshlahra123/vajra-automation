@@ -2,27 +2,25 @@
   "used_angles": {
     "Contractor ka budget tension": "2026-11-13",
     "labour tired carrying heavy plywood vs easy PP sheet": "2026-11-13",
-    "site meeting discussing material costs": "2026-11-13"
+    "site meeting discussing material costs": "2026-11-13",
+    "government inspector checking quality standards": "2026-11-14"
   },
   "recent_prompts": [
     "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, shaky cam. Characters: Contractor and Mason looking at cracked, damaged brown plywood. Dialogue: Contractor: 'Arre bhai, ye ply fir se kharab ho gaya, budget double ho raha hai.' Mason: 'Haan sahab, wazan bhi zyada hai aur jaldi tut jaata hai.' Setting: Busy Indian construction site with scaffolding and dust. Sound: Hammering sounds, distant traffic.",
     "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, close-up pan. Characters: Engineer and Contractor looking stressed over broken edges of old plywood. Dialogue: Engineer: 'Finish bhi smooth nahi aati, plaster me extra cost lag rahi hai.' Contractor: 'Iska kuch permanent solution nikalna padega warna loss pakka hai.' Setting: Indian construction site with half-built concrete walls. Sound: Electric drill buzzing, birds chirping.",
-    "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, stable close shot. Characters: Client, Engineer, and Contractor smiling while touching smooth plain grey PP hollow plastic sheets with no text or logo. Dialogue: Engineer: 'Ye grey PP sheets lagao, sahi handling ke saath ply se 2-3 guna zyada chalti hai, aur finish ekdum mast aayegi.' Contractor: 'Wah, paisa bhi bachega aur kaam bhi fast!' Setting: Indian construction site with neatly stacked grey sheets. Sound: Wind blowing, cheerful ambient site chatter."
+    "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, stable close shot. Characters: Client, Engineer, and Contractor smiling while touching smooth plain grey PP hollow plastic sheets with no text or logo. Dialogue: Engineer: 'Ye grey PP sheets lagao, sahi handling ke saath ply se 2-3 guna zyada chalti hai, aur finish ekdum mast aayegi.' Contractor: 'Wah, paisa bhi bachega aur kaam bhi fast!' Setting: Indian construction site with neatly stacked grey sheets. Sound: Wind blowing, cheerful ambient site chatter.",
+    "Shot: Vertical 9:16 handheld phone video, continuous eye-level shot. Characters: Contractor looking stressed at brown plywood sheets. Dialogue: Contractor: 'Har project mein plywood kharab ho raha hai, budget bigad raha hai!' Setting: Dusty Indian construction site with scaffolding in background. Sound: Clanging of iron rods and distant traffic.",
+    "Shot: Vertical 9:16 handheld phone video, continuous close-up pan. Characters: Engineer and Contractor inspecting damaged plywood edges. Dialogue: Engineer: 'Sahi bol rahe ho, yeh ply se finish bhi smooth nahi aa rahi.' Setting: Active construction site with concrete pillars. Sound: Workers hammering and background site noise.",
+    "Shot: Vertical 9:16 handheld phone video, continuous tracking shot. Characters: Contractor and Mason smiling while touching grey PP hollow plastic sheets. Dialogue: Contractor: 'Ab tension khatam, yeh nayi sheet ply se 2-3 guna zyada chalti hai aur finish bhi mast deti hai!' Setting: Bright construction site floor stacked with grey sheets. Sound: Birds chirping and light tool shuffling."
   ],
   "open": {
-    "angle": "site meeting discussing material costs",
+    "angle": "government inspector checking quality standards",
     "parts": [
-      "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, shaky cam. Characters: Contractor and Mason looking at cracked, damaged brown plywood. Dialogue: Contractor: 'Arre bhai, ye ply fir se kharab ho gaya, budget double ho raha hai.' Mason: 'Haan sahab, wazan bhi zyada hai aur jaldi tut jaata hai.' Setting: Busy Indian construction site with scaffolding and dust. Sound: Hammering sounds, distant traffic.",
-      "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, close-up pan. Characters: Engineer and Contractor looking stressed over broken edges of old plywood. Dialogue: Engineer: 'Finish bhi smooth nahi aati, plaster me extra cost lag rahi hai.' Contractor: 'Iska kuch permanent solution nikalna padega warna loss pakka hai.' Setting: Indian construction site with half-built concrete walls. Sound: Electric drill buzzing, birds chirping.",
-      "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, stable close shot. Characters: Client, Engineer, and Contractor smiling while touching smooth plain grey PP hollow plastic sheets with no text or logo. Dialogue: Engineer: 'Ye grey PP sheets lagao, sahi handling ke saath ply se 2-3 guna zyada chalti hai, aur finish ekdum mast aayegi.' Contractor: 'Wah, paisa bhi bachega aur kaam bhi fast!' Setting: Indian construction site with neatly stacked grey sheets. Sound: Wind blowing, cheerful ambient site chatter."
+      "Shot: Vertical 9:16 handheld phone video, continuous eye-level shot. Characters: Contractor looking stressed at brown plywood sheets. Dialogue: Contractor: 'Har project mein plywood kharab ho raha hai, budget bigad raha hai!' Setting: Dusty Indian construction site with scaffolding in background. Sound: Clanging of iron rods and distant traffic.",
+      "Shot: Vertical 9:16 handheld phone video, continuous close-up pan. Characters: Engineer and Contractor inspecting damaged plywood edges. Dialogue: Engineer: 'Sahi bol rahe ho, yeh ply se finish bhi smooth nahi aa rahi.' Setting: Active construction site with concrete pillars. Sound: Workers hammering and background site noise.",
+      "Shot: Vertical 9:16 handheld phone video, continuous tracking shot. Characters: Contractor and Mason smiling while touching grey PP hollow plastic sheets. Dialogue: Contractor: 'Ab tension khatam, yeh nayi sheet ply se 2-3 guna zyada chalti hai aur finish bhi mast deti hai!' Setting: Bright construction site floor stacked with grey sheets. Sound: Birds chirping and light tool shuffling."
     ],
-    "sent": "2026-11-13",
-    "clips": {
-      "1": "tg-1113-1200-1.mp4",
-      "2": "tg-1113-1200-2.mp4",
-      "3": "tg-1113-1200-3.mp4"
-    },
-    "built": "2026-11-13 12:10",
-    "id": "skit-1113-1210"
+    "sent": "2026-11-14",
+    "clips": {}
   }
 }
