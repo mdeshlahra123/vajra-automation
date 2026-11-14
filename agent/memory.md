@@ -245,5 +245,10 @@
 - Queue pending reels is 7 (healthy, >= 6, no new AI reel needed).
 - Sent daily report and shoot request to Shobhit for real column deshuttering/water wash video clips via Telegram.
 
+- 14 Nov 2026 (evening review):
+  - Checked queue slots: retagged `reel-ai-1111-0703` to morning slot (evening off) to leave at least 1 untagged pending reel for the 09:30 morning slot (5 evening pending remain).
+  - Today's posts reach: 164 & 123 (normal day, below median).
+  - Active WhatsApp ads (L15, L14, L9) running. Sent evening Telegram update.
+
 
 
