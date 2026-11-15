@@ -484,10 +484,11 @@
     {
       "id": "reel-ai-1111-0703",
       "caption": "captions/reel-ai-1111-0703.txt",
-      "posted": "",
+      "posted": "2026-11-15",
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1111-0703.mp4",
       "ai": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1111-0703-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1111-0703-cover.jpg",
+      "yt": "KrNvzqLUBu4"
     },
     {
       "id": "reel-ai-1111-1001",
