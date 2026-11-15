@@ -82,7 +82,7 @@ def main():
             print(bid, "clips not in checkout yet"); continue
         rid = "reel-" + bid
         r = subprocess.run([sys.executable, os.path.join(HERE, "make_skit.py"), "--files", ",".join(clips), "--id", rid,
-                            "--title", b.get("hook") or b.get("title", bid), "--hook", b.get("hook", ""), "--subs", json.dumps(b.get("lines", []), ensure_ascii=False)],
+                            "--title", b.get("hook") or b.get("title", bid), "--hook", b.get("hook", ""), "--subs", json.dumps(b.get("lines", []), ensure_ascii=False), "--crop-bottom", "0.12"],
                            capture_output=True, text=True)
         print(r.stdout[-600:], r.stderr[-600:])
         if r.returncode != 0:

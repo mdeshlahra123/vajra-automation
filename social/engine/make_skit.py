@@ -50,10 +50,10 @@ def wrap(s, n=22):
             lines.append(cur); cur = w
         else:
             cur = (cur + " " + w).strip()
-    return "\n".join((lines + [cur])[:3])
+    return (lines + [cur])[:3]
 
 
-def join(parts, out, vo=None, subs=None):
+def join(parts, out, vo=None, subs=None, crop_bottom=0.0):
     """parts + end card -> one 1080x1920 30 fps reel, each part's own sound kept; end card carries the voiceover.
     subs: optional spoken line per part, burned in as a caption (lower third) while that part plays."""
     import tempfile
@@ -67,10 +67,14 @@ def join(parts, out, vo=None, subs=None):
     def cap(i, f):
         if not subs or i >= len(subs) or not (subs[i] or "").strip():
             return ""
-        tf = os.path.join(tmp, f"s{i}.txt"); open(tf, "w", encoding="utf-8").write(wrap(subs[i].strip()))
-        tf = tf.replace("\\", "/").replace(":", "\\:")
-        return (f",drawtext=fontfile='{FONT}':textfile='{tf}':fontsize=62:fontcolor=white:line_spacing=-6:"
-                f"box=1:boxcolor=black@0.55:boxborderw=22:x=(w-text_w)/2:y=1310:enable='between(t,0.3,{max(0.5, dur(f) - 0.2):.2f})'")
+        rows, out = wrap(subs[i].strip()), ""
+        for r, row in enumerate(rows):
+            tf = os.path.join(tmp, f"s{i}_{r}.txt"); open(tf, "w", encoding="utf-8").write(row)
+            tf = tf.replace("\\", "/").replace(":", "\\:")
+            out += (f",drawtext=fontfile='{FONT}':textfile='{tf}':fontsize=62:fontcolor=white:"
+                    f"box=1:boxcolor=black@0.55:boxborderw=18:x=(w-text_w)/2:y={1300 + r * 96}:"
+                    f"enable='between(t,0.3,{max(0.5, dur(f) - 0.2):.2f})'")
+        return out
     if vo:
         cmd += ["-i", vo]
         card_len = max(dur(END_CARD), dur(vo) + 0.5)   # card held (last frame) until the voice ends
@@ -81,7 +85,8 @@ def join(parts, out, vo=None, subs=None):
             flt.append(f"[{n}:a]aresample=48000,aformat=channel_layouts=stereo,adelay=200|200,apad,atrim=0:{card_len:.3f}[a{i}]")
             continue
         # fit the clip, fill the rest with a blurred zoomed copy of itself (no black bars if Flow made 16:9)
-        flt.append(f"[{i}:v]split[f{i}][b{i}];"
+        trim = f"crop=iw:ih*{1 - crop_bottom:.3f}:0:0," if crop_bottom else ""
+        flt.append(f"[{i}:v]{trim}split[f{i}][b{i}];"
                    f"[b{i}]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:2,eq=brightness=-0.08[bg{i}];"
                    f"[f{i}]scale=1080:1920:force_original_aspect_ratio=decrease[fg{i}];"
                    f"[bg{i}][fg{i}]overlay=(W-w)/2:(H-h)/2{cap(i, f)},fps=30,setsar=1,format=yuv420p[v{i}]")
@@ -130,6 +135,7 @@ def main():
     ap.add_argument("--hook", default="")
     ap.add_argument("--subs", default="", help="JSON list: spoken line per part, burned in as captions")
     ap.add_argument("--id", default="", help="reel id to use (default skit-<time>)")
+    ap.add_argument("--crop-bottom", type=float, default=0.0, help="cut this share off the bottom of each part (AI subtitles)")
     a = ap.parse_args()
     now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)
     sid = a.id or ("skit-" + now.strftime("%m%d-%H%M"))
@@ -150,7 +156,7 @@ def main():
         vo = end_vo()
     except Exception as e:   # no voice possible right now: still build, but say so on the approval card
         print("END VO FAILED, end card without voice:", str(e)[:150]); vo = None
-    join(parts, out, vo, json.loads(a.subs) if a.subs else None)
+    join(parts, out, vo, json.loads(a.subs) if a.subs else None, a.crop_bottom)
     mv = max_volume(out)
     if mv <= -60:
         sys.exit(f"NO AUDIO (max_volume {mv} dB): not sent (owner rule: never queue a reel without sound)")

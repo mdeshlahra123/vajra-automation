@@ -30,8 +30,8 @@ ANSWER = {
     "finish-column": "a finished concrete column just after VAJRA shuttering was removed",
     "v5-cage": "a column steel cage with plain grey VAJRA panels being placed",
 }
-REF_PATH = {**{k: f"assets/photos/{k}.jpg" for k in list(PROBLEM) + list(ANSWER)},
-            "godown": "assets/refs/godown.jpg"}
+# 9:16 crops of the real photos (16 Nov: Muse copies the start photo's shape; 3:4 photos gave 3:4 clips)
+REF_PATH = {k: f"assets/gen-start/{k}.jpg" for k in list(PROBLEM) + list(ANSWER)}
 
 PROMPT = """You write a 3-clip Instagram reel for VAJRA (plain light-grey hollow PP plastic shuttering sheets, Chhattisgarh, India).
 Each clip is one 10-second realistic phone video made by an AI video model that STARTS from a real photo (described below)
@@ -72,7 +72,7 @@ def muse_prompt(photo_desc, action, line):
     return (f"Realistic vertical 9:16 phone video, 10 seconds, natural light, steady handheld camera. Start exactly from this photo "
             f"({photo_desc}) and continue it: {action} A person in the clip says \"{line}\" in clear Hindi. "
             "Any shuttering sheet that is grey must stay plain light grey with no text, letters or logo. "
-            "Plywood is brown wood. No subtitles, no on-screen text, no watermarks.")
+            "Plywood is brown wood. Do NOT add subtitles, captions or any on-screen text; no watermarks.")
 
 
 def need():
