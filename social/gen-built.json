@@ -8,5 +8,10 @@
   "status": "built",
   "reel": "reel-gen-1116-0211",
   "gate": "ok"
+ },
+ "ep-1116-0230": {
+  "status": "built",
+  "reel": "reel-ep-1116-0230",
+  "gate": "ok"
  }
 }
