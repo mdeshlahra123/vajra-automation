@@ -22,7 +22,8 @@ jobs:
       - uses: actions/checkout@v4
       - run: python3 social/ads_manager.py
       - name: Daily Google Flow brief (what to make with free credits)
-        if: github.event.inputs.dry != 'true'
+        # off since 16 Nov: Flow is parked; reels and episodes are made automatically on Muse (A2/A3)
+        if: false
         continue-on-error: true
         timeout-minutes: 6
         run: python3 social/flow_brief.py

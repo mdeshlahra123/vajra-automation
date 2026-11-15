@@ -14,7 +14,8 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.pat
 sys.path.insert(0, HERE)
 JOBS = os.environ.get("GEN_JOBS") or os.path.join(ROOT, "social", "gen-jobs.json")   # server: ~/vajra-gen/gen-jobs.json
 QUEUE = os.path.join(ROOT, "social", "queue.json")
-TARGET, MAX_PER_DAY = 4, 3        # reels waiting; batches started per day (3 clips each -> 9 of Muse's 15 daily videos)
+TARGET, MAX_PER_DAY = 4, 4        # reels waiting; batches started per day (3 clips each -> 12 of Muse's 15 daily videos)
+SERIES_PER_DAY = 3                # owner 13 Nov: 3 Shuttering Ki Duniya episodes a day (A3)
 IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
 
 # start frames: real photos. Problem clips start from brown ply; answer clips from real VAJRA sheets / results.
@@ -80,9 +81,17 @@ def need():
     pend = sum(1 for p in q["posts"] if p.get("video") and not p.get("posted"))
     gen = sum(1 for b in jb["batches"].values() if b.get("status") == "waiting")
     today = datetime.datetime.now(IST).date().isoformat()
-    started = sum(1 for b in jb["batches"].values() if b.get("created", "").startswith(today))
-    print(f"pending reels {pend}, generating {gen}, started today {started}")
-    return pend + gen < TARGET and started < MAX_PER_DAY
+    started = [b for b in jb["batches"].values() if b.get("created", "").startswith(today)]
+    print(f"pending reels {pend}, generating {gen}, started today {len(started)}")
+    return pend + gen < TARGET and len(started) < MAX_PER_DAY
+
+
+def next_kind():
+    """Episodes first (up to 3 a day), a VAJRA reel after the first two episodes."""
+    jb = load(JOBS, {"jobs": [], "batches": {}}); today = datetime.datetime.now(IST).date().isoformat()
+    s = sum(1 for b in jb["batches"].values() if b.get("created", "").startswith(today) and b.get("kind") == "series")
+    r = sum(1 for b in jb["batches"].values() if b.get("created", "").startswith(today) and b.get("kind", "reel") == "reel")
+    return "series" if s < SERIES_PER_DAY and not (s >= 2 and r == 0) else "reel"
 
 
 def llm(prompt):
@@ -130,9 +139,37 @@ def plan():
     return None
 
 
+def plan_series(now):
+    """A3: one episode = 1 Muse image (cast on the set) + 3 clips that start from it."""
+    import series_gen
+    jb = load(JOBS, {"jobs": [], "batches": {}})
+    used = {b["topic"]: b.get("created", "") for b in jb["batches"].values() if b.get("kind") == "series" and b.get("topic")}
+    ep = series_gen.plan_episode(used, llm, problems)
+    if not ep:
+        return None, None
+    bid = "ep-" + now.strftime("%m%d-%H%M")
+    jobs = [{"id": f"{bid}-0", "batch": bid, "kind": "image", "size": "9:16", "prompt": series_gen.image_prompt(ep), "status": "todo", "tries": 0}]
+    jobs += [{"id": f"{bid}-{i + 1}", "batch": bid, "kind": "video", "size": "9:16", "start_image": f"@{bid}-0",
+              "prompt": series_gen.video_prompt(ep, prt, i), "line": prt["line"], "status": "todo", "tries": 0}
+             for i, prt in enumerate(ep["parts"])]
+    batch = {"kind": "series", "status": "waiting", "created": now.isoformat(timespec="minutes"), "title": ep["title"],
+             "hook": ep["hook"], "topic": ep["topic"], "cast": ep["cast"], "lines": [prt["line"] for prt in ep["parts"]]}
+    return bid, (batch, jobs)
+
+
 def main():
     if "--force" not in sys.argv and "--show" not in sys.argv and not need():
         print("queue is full enough; nothing planned"); return
+    kind = sys.argv[sys.argv.index("--kind") + 1] if "--kind" in sys.argv else next_kind()
+    if kind == "series":
+        now = datetime.datetime.now(IST); bid, bj = plan_series(now)
+        if not bid:
+            sys.exit("no episode passed the rules")
+        if "--show" in sys.argv:
+            sys.stdout.reconfigure(encoding="utf-8"); print(json.dumps({"batch": bj[0], "jobs": bj[1]}, ensure_ascii=False, indent=1)); return
+        jb = load(JOBS, {"jobs": [], "batches": {}}); jb["jobs"] += bj[1]; jb["batches"][bid] = bj[0]
+        json.dump(jb, open(JOBS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print("PLANNED", bid, "| episode |", bj[0]["hook"]); return
     p = plan()
     if not p:
         sys.exit("no plan passed the rules")
@@ -145,7 +182,7 @@ def main():
         sys.stdout.reconfigure(encoding="utf-8"); print(json.dumps({"batch": p, "jobs": jobs}, ensure_ascii=False, indent=1)); return
     jb = load(JOBS, {"jobs": [], "batches": {}})
     jb["jobs"] += jobs
-    jb["batches"][bid] = {"status": "waiting", "created": now.isoformat(timespec="minutes"), "title": p["title"], "hook": p["hook"],
+    jb["batches"][bid] = {"kind": "reel", "status": "waiting", "created": now.isoformat(timespec="minutes"), "title": p["title"], "hook": p["hook"],
                           "angle": p["angle"], "photos": p["photos"], "lines": [c["line"] for c in p["clips"]]}
     json.dump(jb, open(JOBS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("PLANNED", bid, "|", p["hook"])

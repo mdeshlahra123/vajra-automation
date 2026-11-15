@@ -24,6 +24,14 @@ bodies; the scene is unsafe (no helmet is fine) or not an Indian construction/wa
 JSON only: {{"ok": true/false, "issues": "short reason or empty"}}"""
 
 
+GATE_SERIES = """These frames come from one episode of a 3D cartoon series about construction objects that talk
+(brown plywood board, plain light-grey plastic sheet, bamboo prop, steel bar, small concrete block, concrete blob).
+Fail the episode if ANY of these is clearly true: the characters change look or the set changes between frames (it must
+feel like one continuous scene); readable or garbled text, letters, logos, name tags or subtitles in the picture;
+humans appear; badly broken or melted shapes/faces; scary or unsafe content.
+JSON only: {{"ok": true/false, "issues": "short reason or empty"}}"""
+
+
 def frames(path, n, work, tag):
     d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path],
                              capture_output=True, text=True).stdout.strip() or 10)
@@ -36,14 +44,14 @@ def frames(path, n, work, tag):
     return out
 
 
-def gate(clips):
+def gate(clips, kind="reel"):
     """(ok, note). If no vision model answers, the reel is not auto-queued."""
     import gem
     work = tempfile.mkdtemp(); imgs = []
     for i, c in enumerate(clips):
         imgs += frames(c, 2, work, f"c{i}")
     probs = "1-2"
-    inp = [{"type": "text", "text": GATE.format(probs=probs)}]
+    inp = [{"type": "text", "text": GATE_SERIES.format() if kind == "series" else GATE.format(probs=probs)}]
     for k, f in enumerate(imgs):
         inp += [{"type": "text", "text": f"Frame {k + 1}:"}, gem.img_part(f)]
     try:
@@ -77,21 +85,23 @@ def main():
             done[bid] = {"status": "failed-reported"}
         if b.get("status") != "waiting" or not jobs or any(j["status"] != "done" for j in jobs):
             continue
-        clips = [os.path.join(DROP, j["out"]) for j in sorted(jobs, key=lambda j: j["id"])]
+        clips = [os.path.join(DROP, j["out"]) for j in sorted(jobs, key=lambda j: j["id"]) if j.get("kind", "video") == "video"]
+        series = b.get("kind") == "series"
         if not all(os.path.exists(c) for c in clips):
             print(bid, "clips not in checkout yet"); continue
-        rid = "reel-" + bid
+        rid = ("reel-" if not bid.startswith("reel-") else "") + bid
         r = subprocess.run([sys.executable, os.path.join(HERE, "make_skit.py"), "--files", ",".join(clips), "--id", rid,
-                            "--title", b.get("hook") or b.get("title", bid), "--hook", b.get("hook", ""), "--subs", json.dumps(b.get("lines", []), ensure_ascii=False), "--crop-bottom", "0.12"],
+                            "--title", (f"Shuttering Ki Duniya: {b.get('title')}. {b.get('hook', '')}" if b.get("kind") == "series" else (b.get("hook") or b.get("title", bid))), "--hook", b.get("hook", ""), "--subs", json.dumps(b.get("lines", []), ensure_ascii=False), "--crop-bottom", "0.12"],
                            capture_output=True, text=True)
         print(r.stdout[-600:], r.stderr[-600:])
         if r.returncode != 0:
             err = (r.stdout + r.stderr)[-300:]; done[bid] = {"status": "build-failed", "error": err}
             tg(f"⚠️ Muse reel {bid} build fail hua: {err[-150:]}"); continue
-        ok, note = gate(clips)
+        ok, note = gate(clips, "series" if series else "reel")
         pend = json.load(open(PEND, encoding="utf-8"))
         it = next(i for i in pend["items"] if i["id"] == rid)
-        it["title"] = (f"🎬 Muse reel: {b.get('title')} · ✅ auto-check" if ok else f"CHECK: {note} · Muse reel: {b.get('title')}")
+        label = "Shuttering Ki Duniya" if series else "Muse reel"
+        it["title"] = (f"🎬 {label}: {b.get('title')} · ✅ auto-check" if ok else f"CHECK: {note} · {label}: {b.get('title')}")
         json.dump(pend, open(PEND, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
         done[bid] = {"status": "built", "reel": rid, "gate": "ok" if ok else note}
         json.dump(done, open(BUILT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

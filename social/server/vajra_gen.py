@@ -6,7 +6,7 @@
 3. generate up to 3 waiting clips on the Muse bridge (127.0.0.1:20240), each starting from its real VAJRA photo
 4. save to ~/vajra-gen/clips/, mark done in ~/vajra-gen/gen-jobs.json, push
    -> gen-build.yml in vajra-automation (every 15 min) builds the reel once its batch is complete.
-Daily Muse budget for VAJRA: VAJRA_VIDEO_CAP (default 9 of the bridge's 15).
+Daily Muse budget for VAJRA: VAJRA_VIDEO_CAP (default 13 of the bridge's 15) shared by reels and episodes.
   python3 social/server/vajra_gen.py          normal run
   python3 social/server/vajra_gen.py --once   one clip only (testing)
 """
@@ -17,7 +17,7 @@ DROP = os.path.expanduser(os.environ.get("VAJRA_DROP", "~/vajra-gen"))
 JOBS = os.path.join(DROP, "gen-jobs.json")
 BRIDGE = "http://127.0.0.1:20240"
 KEY = open(os.path.expanduser("~/musebridge/key.txt")).read().strip()
-CAP = int(os.environ.get("VAJRA_VIDEO_CAP", "9"))
+CAP = int(os.environ.get("VAJRA_VIDEO_CAP", "13"))
 IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
 LOG = os.path.expanduser("~/vajragen.log")
 
@@ -54,10 +54,25 @@ def load(p, d):
         return d
 
 
+def start_path(ref, jb):
+    """'@<job id>' = the output of an earlier job in the drop repo (A3 episode reference image); else a repo photo."""
+    if ref and ref.startswith("@"):
+        dep = next((x for x in jb["jobs"] if x["id"] == ref[1:]), None)
+        return os.path.join(DROP, dep["out"]) if dep and dep.get("status") == "done" else None
+    return os.path.join(REPO, ref) if ref else ""
+
+
+def muse_image(prompt, size):
+    req = urllib.request.Request(BRIDGE + "/v1/images/generations", method="POST",
+                                 data=json.dumps({"prompt": prompt, "size": size}).encode(),
+                                 headers={"Authorization": "Bearer " + KEY, "Content-Type": "application/json"})
+    return json.load(urllib.request.urlopen(req, timeout=420))["data"][0]["file"]
+
+
 def muse_video(prompt, image_path, size):
     body = {"prompt": prompt, "size": size}
     if image_path:
-        body["image_b64"] = base64.b64encode(open(os.path.join(REPO, image_path), "rb").read()).decode()
+        body["image_b64"] = base64.b64encode(open(image_path, "rb").read()).decode()
     req = urllib.request.Request(BRIDGE + "/v1/videos", method="POST", data=json.dumps(body).encode(),
                                  headers={"Authorization": "Bearer " + KEY, "Content-Type": "application/json"})
     return json.load(urllib.request.urlopen(req, timeout=660))["file"]
@@ -87,25 +102,37 @@ def main():
     today = datetime.datetime.now(IST).date().isoformat()
     used = sum(1 for j in jb["jobs"] if (j.get("done_at") or "").startswith(today) and j.get("kind") == "video")
     todo = [j for j in jb["jobs"] if j["status"] == "todo" and jb["batches"].get(j["batch"], {}).get("status") == "waiting"]
+    # a clip that starts from an episode image waits until that image exists (images come first in the list)
     if not todo:
         return
     h = health()
     if not h.get("ok") or not h.get("loggedIn", True):
         log("muse not ready:", h); return
     left = min(CAP - used, h["caps"]["video"] - h["usage"]["video"] if h.get("usage", {}).get("day") == today else CAP)
-    for j in todo[: max(0, min(3, left)) if "--once" not in sys.argv else 1]:
+    n = 0
+    for j in todo:
+        if n >= (1 if "--once" in sys.argv else 4) or (j.get("kind") == "video" and left <= 0):
+            break
         t = time.time()
         try:
-            src = muse_video(j["prompt"], j.get("start_image"), j.get("size", "9:16"))
-            dst = os.path.join(DROP, "clips", j["id"] + ".mp4"); os.makedirs(os.path.dirname(dst), exist_ok=True)
+            if j.get("kind") == "image":
+                src = muse_image(j["prompt"], j.get("size", "9:16"))
+            else:
+                img = start_path(j.get("start_image"), load(JOBS, jb))
+                if img is None:
+                    continue   # its reference image is not ready yet
+                src = muse_video(j["prompt"], img, j.get("size", "9:16")); left -= 1
+            n += 1
+            ext = os.path.splitext(src)[1] or ".mp4"
+            dst = os.path.join(DROP, "clips", j["id"] + ext); os.makedirs(os.path.dirname(dst), exist_ok=True)
             with open(src, "rb") as a, open(dst, "wb") as b:
                 b.write(a.read())
             jb = load(JOBS, jb)   # reload: a pull may have changed it
             jj = next(x for x in jb["jobs"] if x["id"] == j["id"])
             jj.update(status="done", done_at=datetime.datetime.now(IST).isoformat(timespec="minutes"), secs=round(time.time() - t),
-                      out="clips/" + j["id"] + ".mp4")
+                      out="clips/" + j["id"] + ext)
             json.dump(jb, open(JOBS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-            push(f"gen: clip {j['id']} (Muse)", ["clips/" + j["id"] + ".mp4", "gen-jobs.json"])
+            push(f"gen: {j.get('kind', 'video')} {j['id']} (Muse)", ["clips/" + j["id"] + ext, "gen-jobs.json"])
             log("clip ok", j["id"], f"{round(time.time() - t)} s")
         except Exception as e:
             jb = load(JOBS, jb); jj = next(x for x in jb["jobs"] if x["id"] == j["id"])

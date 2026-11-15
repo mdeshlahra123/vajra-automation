@@ -1,8 +1,7 @@
 name: series
 # Shuttering Ki Duniya: 3 cartoon episodes a day as copy-ready Flow prompts (social/engine/series.py)
 on:
-  schedule:
-    - cron: "15 3 * * *"   # 08:45 IST
+  # schedule removed 16 Nov: Flow parked; episodes/skits are now made automatically on Muse (A3)
   workflow_dispatch:
     inputs:
       replace: { description: "episode code to cancel and replace (e.g. S3)", required: false, default: "" }

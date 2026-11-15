@@ -3,8 +3,7 @@ name: skit-prompts
 # Sends 3-part conversation scenarios: contractor-labour-engineer talking
 # Each part = 10 sec (extend in Flow), total ~30 sec reel
 on:
-  schedule:
-    - cron: "30 3 * * *"  # 09:00 IST daily (after flow-brief at 08:00)
+  # schedule removed 16 Nov: Flow parked; episodes/skits are now made automatically on Muse (A3)
   workflow_dispatch: {}
 permissions: { contents: write }
 jobs:
