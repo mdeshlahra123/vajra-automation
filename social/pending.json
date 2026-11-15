@@ -812,6 +812,19 @@
       "ai": true,
       "skit": true,
       "publish": "todo"
+    },
+    {
+      "id": "reel-gen-1116-0211",
+      "file": "social/media/reel-gen-1116-0211.mp4",
+      "caption": "captions/reel-gen-1116-0211.txt",
+      "title": "🎬 Muse reel: VAJRA Easy Cutting Demo · ✅ auto-check",
+      "position": "end",
+      "status": "approved",
+      "by": "auto",
+      "at": "2026-11-16 02:17",
+      "ai": true,
+      "skit": true,
+      "publish": "todo"
     }
   ]
 }
