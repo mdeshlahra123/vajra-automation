@@ -493,11 +493,13 @@
     {
       "id": "reel-ai-1111-1001",
       "caption": "captions/reel-ai-1111-1001.txt",
-      "posted": "",
+      "posted": "2026-11-15",
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1111-1001.mp4",
       "ai": true,
       "evening": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1111-1001-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1111-1001-cover.jpg",
+      "slot": "evening",
+      "yt": "IVL1F6bOJek"
     },
     {
       "id": "long-1111-s2",
