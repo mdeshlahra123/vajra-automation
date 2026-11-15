@@ -15,7 +15,7 @@ sys.path.insert(0, HERE)
 JOBS = os.environ.get("GEN_JOBS") or os.path.join(ROOT, "social", "gen-jobs.json")   # server: ~/vajra-gen/gen-jobs.json
 QUEUE = os.path.join(ROOT, "social", "queue.json")
 TARGET, MAX_PER_DAY = 4, 4        # reels waiting; batches started per day (3 clips each -> 12 of Muse's 15 daily videos)
-SERIES_PER_DAY = 3                # owner 13 Nov: 3 Shuttering Ki Duniya episodes a day (A3)
+SERIES_PER_DAY = 2                # owner 16 Nov: 2 Shuttering Ki Duniya episodes a day (fits the 2 post slots)
 IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
 
 # start frames: real photos. Problem clips start from brown ply; answer clips from real VAJRA sheets / results.
@@ -87,7 +87,7 @@ def need():
 
 
 def next_kind():
-    """Episodes first (up to 3 a day), a VAJRA reel after the first two episodes."""
+    """Episodes first (up to SERIES_PER_DAY a day), then VAJRA reels."""
     jb = load(JOBS, {"jobs": [], "batches": {}}); today = datetime.datetime.now(IST).date().isoformat()
     s = sum(1 for b in jb["batches"].values() if b.get("created", "").startswith(today) and b.get("kind") == "series")
     r = sum(1 for b in jb["batches"].values() if b.get("created", "").startswith(today) and b.get("kind", "reel") == "reel")

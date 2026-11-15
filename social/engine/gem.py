@@ -57,10 +57,99 @@ def img_part(path):
 
 
 def interact(model, inp, response_format=None, generation_config=None):
+    """Media models (voice/video/music/image): Gemini billed key only.
+    Text/vision models, free stack first (A4):
+      server (OmniRoute key present): OmniRoute -> Gemini -> NVIDIA -> Groq
+      GitHub / laptop:                Gemini (free key, then billed) -> NVIDIA -> Groq (text only)
+    Fallback answers come back in the same Interactions shape, so callers don't change."""
     body = {"model": model, "input": inp}
     if response_format: body["response_format"] = response_format
     if generation_config: body["generation_config"] = generation_config
-    return _req("interactions", body)
+    if any(m in model for m in MEDIA):
+        return _req("interactions", body)
+    want_json = bool(response_format and "json" in str(response_format.get("mime_type", "")))
+    content, has_img = _oa_content(inp)
+    chain = []
+    if _omni_key():
+        chain.append(("omniroute", lambda: _omni(content, has_img, want_json)))
+    chain.append(("gemini", lambda: _req("interactions", body)))
+    chain.append(("nvidia", lambda: _oa_call("https://integrate.api.nvidia.com/v1/chat/completions", os.environ.get("NVIDIA_API_KEY"),
+                                             "nvidia/nemotron-3.5-super-vl-120b-a12b", content, want_json)))
+    if not has_img:
+        chain.append(("groq", lambda: _oa_call("https://api.groq.com/openai/v1/chat/completions", os.environ.get("GROQ_API_KEY"),
+                                               "llama-3.3-70b-versatile", content, want_json)))
+    errs = []
+    for name, fn in chain:
+        try:
+            r = fn()
+            if name != "gemini":
+                r = _as_interaction(r, want_json)
+            if name != chain[0][0]:
+                print(f"[gem] answered by {name} (earlier failed: {'; '.join(errs)[:200]})", flush=True)
+            return r
+        except Exception as e:
+            errs.append(f"{name}: {str(e)[:90]}")
+    raise RuntimeError("all text/vision providers failed: " + " | ".join(errs))
+
+
+def _omni_key():
+    k = os.environ.get("OMNIROUTE_KEY")
+    if k:
+        return k
+    p = os.path.expanduser("~/.omniroute-vajra.key")
+    return open(p).read().strip() if os.path.exists(p) else ""
+
+
+def _oa_content(inp):
+    """Interactions input (str or list of text/image parts) -> OpenAI chat content."""
+    if isinstance(inp, str):
+        return inp, False
+    out, img = [], False
+    for p in inp:
+        if p.get("type") == "image" and p.get("data"):
+            out.append({"type": "image_url", "image_url": {"url": f"data:{p.get('mime_type', 'image/jpeg')};base64,{p['data']}"}}); img = True
+        elif p.get("type") == "text":
+            out.append({"type": "text", "text": p.get("text", "")})
+        elif p.get("type") == "user_input":   # nested form
+            c, i = _oa_content(p.get("content", [])); img = img or i
+            out += c if isinstance(c, list) else [{"type": "text", "text": c}]
+    return out, img
+
+
+def _oa_call(url, key, model, content, want_json, timeout=180):
+    if not key:
+        raise RuntimeError("no key")
+    if want_json:
+        tail = "\n\nReturn ONLY valid JSON, no other text."
+        content = content + tail if isinstance(content, str) else content + [{"type": "text", "text": tail}]
+    body = {"model": model, "messages": [{"role": "user", "content": content}], "max_tokens": 4000, "temperature": 0.4}
+    req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={
+        "Content-Type": "application/json", "Authorization": f"Bearer {key}", "User-Agent": "vajra-bot/1.0"})
+    out = (json.load(urllib.request.urlopen(req, timeout=timeout))["choices"][0]["message"].get("content") or "").strip()
+    if not out:
+        raise RuntimeError("empty answer")
+    return out
+
+
+def _omni(content, has_img, want_json):
+    """OmniRoute on the server: vision -> Gemini flash-lite (via OmniRoute), NVIDIA VL, then the claude-free combo."""
+    url = os.environ.get("OMNIROUTE_URL", "http://127.0.0.1:20128") + "/v1/chat/completions"
+    models = ["gemini/gemini-3.1-flash-lite", "nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b", "claude-free"] if has_img else ["claude-free"]
+    last = None
+    for m in models:
+        try:
+            return _oa_call(url, _omni_key(), m, content, want_json)
+        except Exception as e:
+            last = e
+    raise last
+
+
+def _as_interaction(text, want_json):
+    if want_json:
+        m = re.search(r"\{.*\}|\[.*\]", text, re.S)
+        text = m.group(0) if m else text
+        json.loads(text)   # bad JSON -> next provider
+    return {"steps": [{"type": "model_output", "content": [{"type": "text", "text": text}]}]}
 
 
 def outputs(r):

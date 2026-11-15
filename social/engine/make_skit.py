@@ -113,8 +113,11 @@ def max_volume(p):
     return float(m.group(1)) if m else -99.0
 
 
-def caption(title, hook=""):
+def caption(title, hook="", ready=""):
+    """ready = caption already written on the server (OmniRoute); otherwise written here (gem chain)."""
     import claims
+    if ready.strip():
+        return claims.fix_caption(ready).strip() + "\n\n" + TAGS
     text = ""
     try:
         import gem
@@ -137,6 +140,7 @@ def main():
     ap.add_argument("--hook", default="")
     ap.add_argument("--subs", default="", help="JSON list: spoken line per part, burned in as captions")
     ap.add_argument("--id", default="", help="reel id to use (default skit-<time>)")
+    ap.add_argument("--caption", default="", help="ready caption text (no hashtags); claim guard still runs")
     ap.add_argument("--crop-bottom", type=float, default=0.0, help="cut this share off the bottom of each part (AI subtitles)")
     a = ap.parse_args()
     now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)
@@ -163,7 +167,7 @@ def main():
     if mv <= -60:
         sys.exit(f"NO AUDIO (max_volume {mv} dB): not sent (owner rule: never queue a reel without sound)")
     capf = os.path.join(ROOT, "social", "captions", sid + ".txt")
-    open(capf, "w", encoding="utf-8").write(caption(a.title, a.hook))
+    open(capf, "w", encoding="utf-8").write(caption(a.title, a.hook, a.caption))
     pend_p = os.path.join(ROOT, "social", "pending.json")
     pend = json.load(open(pend_p, encoding="utf-8")) if os.path.exists(pend_p) else {"items": []}
     pend["items"].append({"id": sid, "file": f"social/media/{sid}.mp4", "caption": f"captions/{sid}.txt",

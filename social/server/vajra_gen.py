@@ -78,6 +78,29 @@ def muse_video(prompt, image_path, size):
     return json.load(urllib.request.urlopen(req, timeout=660))["file"]
 
 
+def finish(jb, bid):
+    """A4: when every clip of a batch is done, check it with OmniRoute vision and write the caption on this server.
+    Saved on the batch as "gate" and "caption"; gen_build.py on GitHub uses them (and checks itself only if missing)."""
+    b = jb["batches"].get(bid, {})
+    vids = sorted((x for x in jb["jobs"] if x["batch"] == bid and x.get("kind", "video") == "video"), key=lambda x: x["id"])
+    if "gate" in b or not vids or any(x["status"] != "done" for x in vids):
+        return
+    sys.path.insert(0, os.path.join(REPO, "social", "engine"))
+    try:
+        import gen_build, make_skit
+        series = b.get("kind") == "series"
+        ok, note = gen_build.gate([os.path.join(DROP, x["out"]) for x in vids], "series" if series else "reel")
+        if not note.startswith("auto-check could not run"):
+            b["gate"] = {"ok": ok, "issues": note, "by": "server"}
+        title = f"Shuttering Ki Duniya: {b.get('title')}. {b.get('hook', '')}" if series else (b.get("hook") or b.get("title", bid))
+        cap = make_skit.caption(title, b.get("hook", "")).rsplit("\n\n" + make_skit.TAGS, 1)[0].strip()
+        if cap:
+            b["caption"] = cap
+        log("checked", bid, "ok" if ok else "FAIL", note[:100])
+    except Exception as e:
+        log("check error", bid, str(e)[:200])
+
+
 def health():
     try:
         return json.load(urllib.request.urlopen(BRIDGE + "/health", timeout=15))
@@ -131,6 +154,7 @@ def main():
             jj = next(x for x in jb["jobs"] if x["id"] == j["id"])
             jj.update(status="done", done_at=datetime.datetime.now(IST).isoformat(timespec="minutes"), secs=round(time.time() - t),
                       out="clips/" + j["id"] + ext)
+            finish(jb, j["batch"])   # last clip of the batch -> quality check + caption here, in the same push
             json.dump(jb, open(JOBS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
             push(f"gen: {j.get('kind', 'video')} {j['id']} (Muse)", ["clips/" + j["id"] + ext, "gen-jobs.json"])
             log("clip ok", j["id"], f"{round(time.time() - t)} s")

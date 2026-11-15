@@ -3,7 +3,8 @@
 Reads the drop repo MehulDeshlahra/vajra-gen (written only by the server worker). For each batch with status
 "waiting" whose clips are all done and that is not in social/gen-built.json yet:
   make_skit.py --files <clips> --subs <spoken lines> (blurred 9:16 fill, captions, voiced end card, AI label, audio check)
-  -> quality gate: 2 frames per clip checked by a vision model against the VAJRA look rules
+  -> quality gate: 2 frames per clip checked by a vision model against the VAJRA look rules (normally already done on
+     the server with OmniRoute and saved as batch "gate"; done here only when that is missing)
   -> library_reel.queue_or_send: passes go straight into the queue (19:30 line); fails get "CHECK:" and go to Telegram
 Failed batches (a clip failed 3 times) are reported once on Telegram.
 """
@@ -26,8 +27,9 @@ JSON only: {{"ok": true/false, "issues": "short reason or empty"}}"""
 
 GATE_SERIES = """These frames come from one episode of a 3D cartoon series about construction objects that talk
 (brown plywood board, plain light-grey plastic sheet, bamboo prop, steel bar, small concrete block, concrete blob).
-Fail the episode if ANY of these is clearly true: the characters change look or the set changes between frames (it must
-feel like one continuous scene); readable or garbled text, letters, logos, name tags or subtitles in the picture;
+Frames come in pairs from 3 separate 10 s clips, so poses, camera angle and small props (tools, debris) may change
+between clips; that is fine. Fail the episode if ANY of these is clearly true: a main character's own look changes
+(colour, material, face style) or the location changes to a different place; readable or garbled text, letters, logos, name tags or subtitles in the picture;
 humans appear; badly broken or melted shapes/faces; scary or unsafe content.
 JSON only: {{"ok": true/false, "issues": "short reason or empty"}}"""
 
@@ -38,7 +40,7 @@ def frames(path, n, work, tag):
     out = []
     for k, t in enumerate([d * (k + 1) / (n + 1) for k in range(n)]):
         f = os.path.join(work, f"{tag}{k}.jpg")
-        subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t:.2f}", "-i", path, "-frames:v", "1", "-vf", "scale=-2:480", f])
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t:.2f}", "-i", path, "-frames:v", "1", "-vf", "crop=iw:ih*0.88:0:0,scale=-2:480", f])   # Muse burns its own subtitles in the bottom 12% (cut from the reel too)
         if os.path.exists(f):
             out.append(f)
     return out
@@ -91,13 +93,14 @@ def main():
             print(bid, "clips not in checkout yet"); continue
         rid = ("reel-" if not bid.startswith("reel-") else "") + bid
         r = subprocess.run([sys.executable, os.path.join(HERE, "make_skit.py"), "--files", ",".join(clips), "--id", rid,
-                            "--title", (f"Shuttering Ki Duniya: {b.get('title')}. {b.get('hook', '')}" if b.get("kind") == "series" else (b.get("hook") or b.get("title", bid))), "--hook", b.get("hook", ""), "--subs", json.dumps(b.get("lines", []), ensure_ascii=False), "--crop-bottom", "0.12"],
+                            "--title", (f"Shuttering Ki Duniya: {b.get('title')}. {b.get('hook', '')}" if b.get("kind") == "series" else (b.get("hook") or b.get("title", bid))), "--hook", b.get("hook", ""), "--subs", json.dumps(b.get("lines", []), ensure_ascii=False), "--crop-bottom", "0.12", "--caption", b.get("caption", "")],
                            capture_output=True, text=True)
         print(r.stdout[-600:], r.stderr[-600:])
         if r.returncode != 0:
             err = (r.stdout + r.stderr)[-300:]; done[bid] = {"status": "build-failed", "error": err}
             tg(f"⚠️ Muse reel {bid} build fail hua: {err[-150:]}"); continue
-        ok, note = gate(clips, "series" if series else "reel")
+        g = b.get("gate")   # A4: the server checks the clips with OmniRoute vision before it pushes the last one
+        ok, note = (bool(g.get("ok")), (g.get("issues") or "")[:150]) if isinstance(g, dict) else gate(clips, "series" if series else "reel")
         pend = json.load(open(PEND, encoding="utf-8"))
         it = next(i for i in pend["items"] if i["id"] == rid)
         label = "Shuttering Ki Duniya" if series else "Muse reel"

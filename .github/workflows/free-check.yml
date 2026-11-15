@@ -1,0 +1,32 @@
+name: free-stack check
+# A4: proves the text/vision fallback works from GitHub. 'skip_gemini' blanks the Gemini keys so NVIDIA/Groq must answer.
+on:
+  workflow_dispatch:
+    inputs:
+      skip_gemini:
+        description: "blank the Gemini keys (test the fallback)"
+        default: "true"
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Text + vision through gem.interact
+        env:
+          GEMINI_FREE_KEY: ${{ inputs.skip_gemini == 'true' && '' || secrets.GEMINI_FREE_KEY }}
+          GEMINI_API_KEY: ${{ inputs.skip_gemini == 'true' && '' || secrets.GEMINI_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          cd social/engine
+          python - <<'EOF'
+          import json, glob, gem
+          r = gem.interact("gemini-3.5-flash-lite", 'Return JSON {"ok": true, "word": "<one Hindi word for wood>"}',
+                           response_format={"type": "text", "mime_type": "application/json"})
+          print("text:", "".join(v for k, _, v in gem.outputs(r) if k == "text"))
+          img = sorted(glob.glob("../../assets/photos/*.jpg"))[0]
+          r = gem.interact("gemini-3.5-flash-lite", [{"type": "text", "text": 'What is in this photo? JSON {"what": "..."}'}, gem.img_part(img)],
+                           response_format={"type": "text", "mime_type": "application/json"})
+          print("vision:", img, "".join(v for k, _, v in gem.outputs(r) if k == "text"))
+          print("caption:", gem.text("gemini-3.5-flash-lite", "One short Hinglish line about shuttering. Plain text."))
+          EOF
