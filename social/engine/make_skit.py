@@ -88,7 +88,9 @@ def join(parts, out, vo=None, subs=None, crop_bottom=0.0):
         trim = f"crop=iw:ih*{1 - crop_bottom:.3f}:0:0," if crop_bottom else ""
         flt.append(f"[{i}:v]{trim}split[f{i}][b{i}];"
                    f"[b{i}]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:2,eq=brightness=-0.08[bg{i}];"
-                   f"[f{i}]scale=1080:1920:force_original_aspect_ratio=decrease[fg{i}];"
+                   # trimmed AI clips are already ~9:16: fill the frame (cuts a little from the sides) instead of thin blur bands
+                   + (f"[f{i}]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920[fg{i}];" if crop_bottom else
+                      f"[f{i}]scale=1080:1920:force_original_aspect_ratio=decrease[fg{i}];") +
                    f"[bg{i}][fg{i}]overlay=(W-w)/2:(H-h)/2{cap(i, f)},fps=30,setsar=1,format=yuv420p[v{i}]")
         if has_audio(f):
             flt.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=stereo[a{i}]")

@@ -1,0 +1,13 @@
+[Unit]
+Description=VAJRA Muse reel worker (A2: plan + generate clips, push to MehulDeshlahra/vajra-gen)
+After=network-online.target jb-musebridge.service jb-omniroute.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu
+Environment=VAJRA_VIDEO_CAP=9
+ExecStart=/usr/bin/python3 /home/ubuntu/vajra-automation/social/server/vajra_gen.py
+Nice=10
+TimeoutStartSec=45min
