@@ -3,7 +3,8 @@
     "Contractor ka budget tension": "2026-11-13",
     "labour tired carrying heavy plywood vs easy PP sheet": "2026-11-13",
     "site meeting discussing material costs": "2026-11-13",
-    "government inspector checking quality standards": "2026-11-14"
+    "government inspector checking quality standards": "2026-11-14",
+    "quality inspection surprise with smooth finish": "2026-11-15"
   },
   "recent_prompts": [
     "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, shaky cam. Characters: Contractor and Mason looking at cracked, damaged brown plywood. Dialogue: Contractor: 'Arre bhai, ye ply fir se kharab ho gaya, budget double ho raha hai.' Mason: 'Haan sahab, wazan bhi zyada hai aur jaldi tut jaata hai.' Setting: Busy Indian construction site with scaffolding and dust. Sound: Hammering sounds, distant traffic.",
@@ -11,18 +12,19 @@
     "Shot: Single continuous vertical 9:16 handheld phone video, realistic site meeting, stable close shot. Characters: Client, Engineer, and Contractor smiling while touching smooth plain grey PP hollow plastic sheets with no text or logo. Dialogue: Engineer: 'Ye grey PP sheets lagao, sahi handling ke saath ply se 2-3 guna zyada chalti hai, aur finish ekdum mast aayegi.' Contractor: 'Wah, paisa bhi bachega aur kaam bhi fast!' Setting: Indian construction site with neatly stacked grey sheets. Sound: Wind blowing, cheerful ambient site chatter.",
     "Shot: Vertical 9:16 handheld phone video, continuous eye-level shot. Characters: Contractor looking stressed at brown plywood sheets. Dialogue: Contractor: 'Har project mein plywood kharab ho raha hai, budget bigad raha hai!' Setting: Dusty Indian construction site with scaffolding in background. Sound: Clanging of iron rods and distant traffic.",
     "Shot: Vertical 9:16 handheld phone video, continuous close-up pan. Characters: Engineer and Contractor inspecting damaged plywood edges. Dialogue: Engineer: 'Sahi bol rahe ho, yeh ply se finish bhi smooth nahi aa rahi.' Setting: Active construction site with concrete pillars. Sound: Workers hammering and background site noise.",
-    "Shot: Vertical 9:16 handheld phone video, continuous tracking shot. Characters: Contractor and Mason smiling while touching grey PP hollow plastic sheets. Dialogue: Contractor: 'Ab tension khatam, yeh nayi sheet ply se 2-3 guna zyada chalti hai aur finish bhi mast deti hai!' Setting: Bright construction site floor stacked with grey sheets. Sound: Birds chirping and light tool shuffling."
+    "Shot: Vertical 9:16 handheld phone video, continuous tracking shot. Characters: Contractor and Mason smiling while touching grey PP hollow plastic sheets. Dialogue: Contractor: 'Ab tension khatam, yeh nayi sheet ply se 2-3 guna zyada chalti hai aur finish bhi mast deti hai!' Setting: Bright construction site floor stacked with grey sheets. Sound: Birds chirping and light tool shuffling.",
+    "Shot: Vertical 9:16 handheld phone video, continuous shot, realistic Indian construction site. Characters: Contractor and Mason looking at old damaged brown plywood stacked on the side, contractor looking stressed. Dialogue: Contractor: 'Har project mein plywood badalte-badalte budget hil gaya hai.' Setting: Dusty rooftop construction site during daytime with exposed rebar. Sound: Ambient construction clatter and distant traffic.",
+    "Shot: Vertical 9:16 handheld phone video, continuous shot, realistic Indian construction site. Characters: Engineer joining the contractor and mason, pointing towards a freshly cast concrete wall showing rough uneven surfaces from old ply. Dialogue: Engineer: 'Finish bhi kharab aati hai, aur kitna paisa barbad karoge.' Setting: Mid-level floor of a residential building under construction. Sound: Workers hammering in the background and birds chirping.",
+    "Shot: Vertical 9:16 handheld phone video, continuous shot, realistic Indian construction site. Characters: Client smiling while touching a freshly stripped, mirror-smooth concrete wall next to a stack of clean grey PP hollow plastic sheets. Dialogue: Client: 'Wah, finishing ekdum mast hai! Yeh kya naya material hai?' Setting: Brightly lit ground floor site area. Sound: Happy site chatter and gentle metallic clinking."
   ],
   "open": {
-    "angle": "government inspector checking quality standards",
+    "angle": "quality inspection surprise with smooth finish",
     "parts": [
-      "Shot: Vertical 9:16 handheld phone video, continuous eye-level shot. Characters: Contractor looking stressed at brown plywood sheets. Dialogue: Contractor: 'Har project mein plywood kharab ho raha hai, budget bigad raha hai!' Setting: Dusty Indian construction site with scaffolding in background. Sound: Clanging of iron rods and distant traffic.",
-      "Shot: Vertical 9:16 handheld phone video, continuous close-up pan. Characters: Engineer and Contractor inspecting damaged plywood edges. Dialogue: Engineer: 'Sahi bol rahe ho, yeh ply se finish bhi smooth nahi aa rahi.' Setting: Active construction site with concrete pillars. Sound: Workers hammering and background site noise.",
-      "Shot: Vertical 9:16 handheld phone video, continuous tracking shot. Characters: Contractor and Mason smiling while touching grey PP hollow plastic sheets. Dialogue: Contractor: 'Ab tension khatam, yeh nayi sheet ply se 2-3 guna zyada chalti hai aur finish bhi mast deti hai!' Setting: Bright construction site floor stacked with grey sheets. Sound: Birds chirping and light tool shuffling."
+      "Shot: Vertical 9:16 handheld phone video, continuous shot, realistic Indian construction site. Characters: Contractor and Mason looking at old damaged brown plywood stacked on the side, contractor looking stressed. Dialogue: Contractor: 'Har project mein plywood badalte-badalte budget hil gaya hai.' Setting: Dusty rooftop construction site during daytime with exposed rebar. Sound: Ambient construction clatter and distant traffic.",
+      "Shot: Vertical 9:16 handheld phone video, continuous shot, realistic Indian construction site. Characters: Engineer joining the contractor and mason, pointing towards a freshly cast concrete wall showing rough uneven surfaces from old ply. Dialogue: Engineer: 'Finish bhi kharab aati hai, aur kitna paisa barbad karoge.' Setting: Mid-level floor of a residential building under construction. Sound: Workers hammering in the background and birds chirping.",
+      "Shot: Vertical 9:16 handheld phone video, continuous shot, realistic Indian construction site. Characters: Client smiling while touching a freshly stripped, mirror-smooth concrete wall next to a stack of clean grey PP hollow plastic sheets. Dialogue: Client: 'Wah, finishing ekdum mast hai! Yeh kya naya material hai?' Setting: Brightly lit ground floor site area. Sound: Happy site chatter and gentle metallic clinking."
     ],
-    "sent": "2026-11-14",
-    "clips": {
-      "2": "tg-1115-0911-2.mp4"
-    }
+    "sent": "2026-11-15",
+    "clips": {}
   }
 }
