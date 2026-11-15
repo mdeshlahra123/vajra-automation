@@ -71,7 +71,10 @@ def health():
 
 
 def main():
-    git("pull", "-q", check=False, repo=REPO); git("pull", "--rebase", "-q", check=False)
+    # read-only copy: always match GitHub exactly (a shallow sparse clone can't "pull" after history moves)
+    git("fetch", "-q", "--depth", "1", "origin", "main", check=False, repo=REPO)
+    git("reset", "-q", "--hard", "origin/main", check=False, repo=REPO)
+    git("pull", "--rebase", "-q", check=False)
     # plan more reels when the queue is low (text through OmniRoute on this server)
     r = subprocess.run([sys.executable, os.path.join(REPO, "social", "engine", "gen_plan.py")], capture_output=True, text=True, cwd=REPO,
                        env={**os.environ, "GEN_JOBS": JOBS})
