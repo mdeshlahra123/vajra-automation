@@ -12,7 +12,7 @@ import datetime, json, os, random, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, HERE)
-JOBS = os.path.join(ROOT, "social", "gen-jobs.json")
+JOBS = os.environ.get("GEN_JOBS") or os.path.join(ROOT, "social", "gen-jobs.json")   # server: ~/vajra-gen/gen-jobs.json
 QUEUE = os.path.join(ROOT, "social", "queue.json")
 TARGET, MAX_PER_DAY = 4, 3        # reels waiting; batches started per day (3 clips each -> 9 of Muse's 15 daily videos)
 IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))

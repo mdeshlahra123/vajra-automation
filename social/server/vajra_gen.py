@@ -1,19 +1,20 @@
 """A2 worker on the Oracle server (systemd timer jb-vajragen, every 5 min). Outbound only, no open ports.
 
-1. git pull the vajra-automation clone (~/vajra-automation, pushes with a repo-only deploy key)
+1. git pull ~/vajra-automation (read only, public https clone) and ~/vajra-gen (the drop repo, pushes with a
+   deploy key that only works for MehulDeshlahra/vajra-gen)
 2. if the reel queue is low: plan a new batch (social/engine/gen_plan.py, text via OmniRoute on this server)
 3. generate up to 3 waiting clips on the Muse bridge (127.0.0.1:20240), each starting from its real VAJRA photo
-4. save to assets/clips/gen/, add to assets/clips/library.json (AI), mark done in social/gen-jobs.json, push
-   -> the push starts gen-build.yml on GitHub, which builds the reel when its batch is complete.
+4. save to ~/vajra-gen/clips/, mark done in ~/vajra-gen/gen-jobs.json, push
+   -> gen-build.yml in vajra-automation (every 15 min) builds the reel once its batch is complete.
 Daily Muse budget for VAJRA: VAJRA_VIDEO_CAP (default 9 of the bridge's 15).
   python3 social/server/vajra_gen.py          normal run
   python3 social/server/vajra_gen.py --once   one clip only (testing)
 """
 import base64, datetime, json, os, subprocess, sys, time, urllib.request
 
-REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
-JOBS = os.path.join(REPO, "social", "gen-jobs.json")
-LIB = os.path.join(REPO, "assets", "clips", "library.json")
+REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # vajra-automation
+DROP = os.path.expanduser(os.environ.get("VAJRA_DROP", "~/vajra-gen"))
+JOBS = os.path.join(DROP, "gen-jobs.json")
 BRIDGE = "http://127.0.0.1:20240"
 KEY = open(os.path.expanduser("~/musebridge/key.txt")).read().strip()
 CAP = int(os.environ.get("VAJRA_VIDEO_CAP", "9"))
@@ -28,20 +29,20 @@ def log(*a):
         f.write(line + "\n")
 
 
-def git(*a, check=True):
-    return subprocess.run(["git", "-C", REPO, *a], capture_output=True, text=True, check=check).stdout.strip()
+def git(*a, check=True, repo=None):
+    return subprocess.run(["git", "-C", repo or DROP, *a], capture_output=True, text=True, check=check).stdout.strip()
 
 
 def push(msg, paths):
     git("add", *paths)
-    if subprocess.run(["git", "-C", REPO, "diff", "--cached", "--quiet"]).returncode == 0:
+    if subprocess.run(["git", "-C", DROP, "diff", "--cached", "--quiet"]).returncode == 0:
         return
     git("commit", "-qm", msg)
     for i in range(5):
-        r = subprocess.run(["git", "-C", REPO, "pull", "--rebase", "-q"], capture_output=True, text=True)
-        if r.returncode == 0 and subprocess.run(["git", "-C", REPO, "push", "-q"], capture_output=True).returncode == 0:
+        r = subprocess.run(["git", "-C", DROP, "pull", "--rebase", "-q"], capture_output=True, text=True)
+        if r.returncode == 0 and subprocess.run(["git", "-C", DROP, "push", "-q"], capture_output=True).returncode == 0:
             return
-        subprocess.run(["git", "-C", REPO, "rebase", "--abort"], capture_output=True)
+        subprocess.run(["git", "-C", DROP, "rebase", "--abort"], capture_output=True)
         time.sleep(5 + 5 * i)
     raise RuntimeError("push failed: " + msg)
 
@@ -70,12 +71,13 @@ def health():
 
 
 def main():
-    git("pull", "--rebase", "-q", check=False)
+    git("pull", "-q", check=False, repo=REPO); git("pull", "--rebase", "-q", check=False)
     # plan more reels when the queue is low (text through OmniRoute on this server)
-    r = subprocess.run([sys.executable, os.path.join(REPO, "social", "engine", "gen_plan.py")], capture_output=True, text=True, cwd=REPO)
+    r = subprocess.run([sys.executable, os.path.join(REPO, "social", "engine", "gen_plan.py")], capture_output=True, text=True, cwd=REPO,
+                       env={**os.environ, "GEN_JOBS": JOBS})
     out = (r.stdout + r.stderr).strip().splitlines()
     if any(l.startswith("PLANNED") for l in out):
-        log(*[l for l in out if l.startswith("PLANNED")]); push("gen: new batch planned (server)", ["social/gen-jobs.json"])
+        log(*[l for l in out if l.startswith("PLANNED")]); push("gen: new batch planned (server)", ["gen-jobs.json"])
     elif r.returncode:
         log("plan error:", " | ".join(out[-3:]))
     jb = load(JOBS, {"jobs": [], "batches": {}})
@@ -92,19 +94,15 @@ def main():
         t = time.time()
         try:
             src = muse_video(j["prompt"], j.get("start_image"), j.get("size", "9:16"))
-            dst = os.path.join(REPO, j["out"]); os.makedirs(os.path.dirname(dst), exist_ok=True)
+            dst = os.path.join(DROP, "clips", j["id"] + ".mp4"); os.makedirs(os.path.dirname(dst), exist_ok=True)
             with open(src, "rb") as a, open(dst, "wb") as b:
                 b.write(a.read())
             jb = load(JOBS, jb)   # reload: a pull may have changed it
             jj = next(x for x in jb["jobs"] if x["id"] == j["id"])
-            jj.update(status="done", done_at=datetime.datetime.now(IST).isoformat(timespec="minutes"), secs=round(time.time() - t))
-            lib = load(LIB, {})
-            lib[os.path.relpath(dst, os.path.join(REPO, "assets", "clips")).replace("\\", "/")] = {
-                "who": "muse", "note": "AI (Muse): " + j["prompt"][170:330], "flow": True, "secs": 10.0,
-                "added": today, "gen": j["batch"]}
+            jj.update(status="done", done_at=datetime.datetime.now(IST).isoformat(timespec="minutes"), secs=round(time.time() - t),
+                      out="clips/" + j["id"] + ".mp4")
             json.dump(jb, open(JOBS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-            json.dump(lib, open(LIB, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-            push(f"gen: clip {j['id']} (Muse)", [j["out"], "social/gen-jobs.json", "assets/clips/library.json"])
+            push(f"gen: clip {j['id']} (Muse)", ["clips/" + j["id"] + ".mp4", "gen-jobs.json"])
             log("clip ok", j["id"], f"{round(time.time() - t)} s")
         except Exception as e:
             jb = load(JOBS, jb); jj = next(x for x in jb["jobs"] if x["id"] == j["id"])
@@ -112,7 +110,7 @@ def main():
             if jj["tries"] >= 3:
                 jj["status"] = "failed"; jb["batches"][j["batch"]]["status"] = "failed"
             json.dump(jb, open(JOBS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-            push(f"gen: clip {j['id']} failed (try {jj['tries']})", ["social/gen-jobs.json"])
+            push(f"gen: clip {j['id']} failed (try {jj['tries']})", ["gen-jobs.json"])
             log("clip FAILED", j["id"], str(e)[:200]); break
 
 
