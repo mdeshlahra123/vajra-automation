@@ -13,6 +13,7 @@ import argparse, datetime, json, os, re, subprocess, sys, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, HERE)
 END_CARD = os.path.join(ROOT, "assets", "brand", "cta-card.mp4")
+FONT = os.path.join(ROOT, "assets", "brand", "Archivo.ttf").replace("\\", "/").replace(":", "\\:")
 # owner 13 Nov: the end card needs the voiceover too (same line + Charon voice as the other reels).
 # Made once with Gemini TTS and kept in the repo, so every skit reuses it.
 END_VO_LINE = "Comment mein PP likhiye, follow kijiye, rate aapke DM mein."
@@ -42,13 +43,34 @@ def has_audio(p):
                                 "-of", "csv=p=0", p], capture_output=True, text=True).stdout.strip())
 
 
-def join(parts, out, vo=None):
-    """parts + end card -> one 1080x1920 30 fps reel, each part's own sound kept; end card carries the voiceover."""
+def wrap(s, n=22):
+    words, lines, cur = s.split(), [], ""
+    for w in words:
+        if len(cur) + len(w) + 1 > n and cur:
+            lines.append(cur); cur = w
+        else:
+            cur = (cur + " " + w).strip()
+    return "\n".join((lines + [cur])[:3])
+
+
+def join(parts, out, vo=None, subs=None):
+    """parts + end card -> one 1080x1920 30 fps reel, each part's own sound kept; end card carries the voiceover.
+    subs: optional spoken line per part, burned in as a caption (lower third) while that part plays."""
+    import tempfile
+    tmp = tempfile.mkdtemp()
     files = parts + [END_CARD]
     cmd = ["ffmpeg", "-y", "-v", "error"]
     for f in files:
         cmd += ["-i", f]
     flt, n = [], len(files)
+
+    def cap(i, f):
+        if not subs or i >= len(subs) or not (subs[i] or "").strip():
+            return ""
+        tf = os.path.join(tmp, f"s{i}.txt"); open(tf, "w", encoding="utf-8").write(wrap(subs[i].strip()))
+        tf = tf.replace("\\", "/").replace(":", "\\:")
+        return (f",drawtext=fontfile='{FONT}':textfile='{tf}':fontsize=62:fontcolor=white:line_spacing=-6:"
+                f"box=1:boxcolor=black@0.55:boxborderw=22:x=(w-text_w)/2:y=1310:enable='between(t,0.3,{max(0.5, dur(f) - 0.2):.2f})'")
     if vo:
         cmd += ["-i", vo]
         card_len = max(dur(END_CARD), dur(vo) + 0.5)   # card held (last frame) until the voice ends
@@ -62,7 +84,7 @@ def join(parts, out, vo=None):
         flt.append(f"[{i}:v]split[f{i}][b{i}];"
                    f"[b{i}]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:2,eq=brightness=-0.08[bg{i}];"
                    f"[f{i}]scale=1080:1920:force_original_aspect_ratio=decrease[fg{i}];"
-                   f"[bg{i}][fg{i}]overlay=(W-w)/2:(H-h)/2,fps=30,setsar=1,format=yuv420p[v{i}]")
+                   f"[bg{i}][fg{i}]overlay=(W-w)/2:(H-h)/2{cap(i, f)},fps=30,setsar=1,format=yuv420p[v{i}]")
         if has_audio(f):
             flt.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=stereo[a{i}]")
         else:   # silent track as long as the clip
@@ -106,9 +128,11 @@ def main():
     ap.add_argument("--title", required=True)
     ap.add_argument("--who", default="owner")
     ap.add_argument("--hook", default="")
+    ap.add_argument("--subs", default="", help="JSON list: spoken line per part, burned in as captions")
+    ap.add_argument("--id", default="", help="reel id to use (default skit-<time>)")
     a = ap.parse_args()
     now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)
-    sid = "skit-" + now.strftime("%m%d-%H%M")
+    sid = a.id or ("skit-" + now.strftime("%m%d-%H%M"))
     media = os.path.join(ROOT, "social", "media"); os.makedirs(media, exist_ok=True)
     k = 1
     while os.path.exists(os.path.join(media, sid + ".mp4")):   # several episodes built in the same minute
@@ -126,7 +150,7 @@ def main():
         vo = end_vo()
     except Exception as e:   # no voice possible right now: still build, but say so on the approval card
         print("END VO FAILED, end card without voice:", str(e)[:150]); vo = None
-    join(parts, out, vo)
+    join(parts, out, vo, json.loads(a.subs) if a.subs else None)
     mv = max_volume(out)
     if mv <= -60:
         sys.exit(f"NO AUDIO (max_volume {mv} dB): not sent (owner rule: never queue a reel without sound)")

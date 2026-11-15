@@ -28,10 +28,14 @@ OVERUSED_WORDS = [
 OVERUSED = [(re.compile(pat, re.I), word, limit) for pat, word, limit in OVERUSED_WORDS]
 
 
+# 16 Nov: "ek baar mein hi tut gaya" = claims ply lasts one use (use-count claim; ply lasts 8-10)
+ONEUSE = re.compile(r"\bek\s+(hi\s+)?baar(\s+(mein|me|main))?(\s+hi)?\s+(\w+\s+){0,2}(tut|toot|tooti|tuti|kharab|khatam|bekaar|bekar|fat|phat)", re.I)
+
+
 def bad(text):
     """True if the text promises a use count or use-count money maths."""
     t = OK.sub("", text or "")
-    return bool(text) and bool(BAD.search(t) or WORDNUM.search(t))
+    return bool(text) and bool(BAD.search(t) or WORDNUM.search(t) or ONEUSE.search(t))
 
 
 def _recent_captions(n=3):

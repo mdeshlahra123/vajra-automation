@@ -1,0 +1,43 @@
+name: gen-build
+# A2: build queued VAJRA reels from Muse clips made by the Oracle server worker (social/server/vajra_gen.py).
+on:
+  push:
+    branches: [main]
+    paths: ["social/gen-jobs.json"]
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch: {}
+permissions: { contents: write }
+concurrency: { group: state, cancel-in-progress: false }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: need
+        run: |
+          python3 - <<'PY'
+          import json, os
+          jb = json.load(open("social/gen-jobs.json"))
+          ready = [b for b, v in jb["batches"].items() if v.get("status") == "waiting" and all(j["status"] == "done" for j in jb["jobs"] if j["batch"] == b)]
+          failed = [b for b, v in jb["batches"].items() if v.get("status") == "failed" and not v.get("reported")]
+          print("ready", ready, "failed", failed)
+          open(os.environ["GITHUB_OUTPUT"], "a").write("go=1\n" if ready or failed else "go=\n")
+          PY
+      - if: steps.need.outputs.go == '1'
+        run: timeout 240 sudo apt-get install -y -qq ffmpeg >/dev/null
+      - if: steps.need.outputs.go == '1'
+        run: python3 -u social/engine/gen_build.py
+      - if: steps.need.outputs.go == '1'
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social assets/clips/library.json; git diff --cached --quiet && exit 0
+          git commit -qm "gen: reel built from Muse clips"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
