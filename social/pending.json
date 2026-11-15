@@ -799,6 +799,19 @@
       "status": "approved",
       "by": "auto",
       "publish": "done"
+    },
+    {
+      "id": "reel-gen-1116-0146",
+      "file": "social/media/reel-gen-1116-0146.mp4",
+      "caption": "captions/reel-gen-1116-0146.txt",
+      "title": "🎬 Muse reel: Easy Cutting Focus Reel · ✅ auto-check",
+      "position": "end",
+      "status": "approved",
+      "by": "auto",
+      "at": "2026-11-16 02:02",
+      "ai": true,
+      "skit": true,
+      "publish": "todo"
     }
   ]
 }
