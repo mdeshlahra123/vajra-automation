@@ -1,9 +1,9 @@
 # VAJRA media library
-_Auto-updated 15 Nov 2026 09:12 IST by social/build_library.py._
+_Auto-updated 15 Nov 2026 17:08 IST by social/build_library.py._
 
 One place that lists every photo and clip in the library. Reels are built from the clips below (library_reel.py / make_real.py). Telegram media the owners send is added here automatically (save-photo / make-real workflows). Web view: https://vajraformwork.vercel.app/social/library/
 
-## Clips (58)  — reels are made from these
+## Clips (59)  — reels are made from these
 | File | Type | Status | Note |
 |---|---|---|---|
 | `assets/clips/ai-carry-heavy-ply.mp4` | AI/Flow | 7.9s ✅ usable | AI/Flow: two labourers struggle to carry a heavy brown plywood board ( |
@@ -64,6 +64,7 @@ One place that lists every photo and clip in the library. Reels are built from t
 | `assets/clips/tg-1115-0911-2.mp4` | AI/Flow | 7.9s ✅ usable | AI: contractor inspecting concrete slab with steel props |
 | `assets/clips/tg-1115-0911-3.mp4` | AI/Flow | 7.9s ✅ usable | AI: contractor and labour resting on site |
 | `assets/clips/tg-1115-0911-4.mp4` | AI/Flow | 29.9s ✅ usable | AI: animated cartoon characters depicting grey VAJRA sheets and bamboo |
+| `assets/clips/tg-1115-1708-1.mp4` | AI/Flow | 29.9s ✅ usable | AI: contractors discussing grey VAJRA sheets and brown ply at a constr |
 
 ## Photos (25)
 | File | Type | Status | Note |
