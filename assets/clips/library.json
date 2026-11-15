@@ -374,5 +374,34 @@
   "flow": true,
   "secs": 29.9,
   "added": "2026-11-14"
+ },
+ "tg-1115-0911-1.mp4": {
+  "who": "MrBeast",
+  "note": "REAL: grey VAJRA sheet with water drops on a construction site",
+  "flow": false,
+  "secs": 7.9,
+  "added": "2026-11-15"
+ },
+ "tg-1115-0911-2.mp4": {
+  "who": "MrBeast",
+  "note": "AI: contractor inspecting concrete slab with steel props",
+  "flow": true,
+  "secs": 7.9,
+  "added": "2026-11-15",
+  "skit": "government inspector checking quality standards"
+ },
+ "tg-1115-0911-3.mp4": {
+  "who": "MrBeast",
+  "note": "AI: contractor and labour resting on site",
+  "flow": true,
+  "secs": 7.9,
+  "added": "2026-11-15"
+ },
+ "tg-1115-0911-4.mp4": {
+  "who": "MrBeast",
+  "note": "AI: animated cartoon characters depicting grey VAJRA sheets and bamboo props on a construction site",
+  "flow": true,
+  "secs": 29.9,
+  "added": "2026-11-15"
  }
 }

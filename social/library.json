@@ -643,5 +643,49 @@
     "who": "MrBeast",
     "added": "2026-11-14",
     "secs": 29.9
+  },
+  "cl-tg-1115-0911-1": {
+    "type": "video",
+    "path": "assets/clips/tg-1115-0911-1.mp4",
+    "inbox": "",
+    "desc": "REAL: grey VAJRA sheet with water drops on a construction site",
+    "ai": false,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-15",
+    "secs": 7.9
+  },
+  "cl-tg-1115-0911-2": {
+    "type": "video",
+    "path": "assets/clips/tg-1115-0911-2.mp4",
+    "inbox": "",
+    "desc": "AI: contractor inspecting concrete slab with steel props",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-15",
+    "secs": 7.9
+  },
+  "cl-tg-1115-0911-3": {
+    "type": "video",
+    "path": "assets/clips/tg-1115-0911-3.mp4",
+    "inbox": "",
+    "desc": "AI: contractor and labour resting on site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-15",
+    "secs": 7.9
+  },
+  "cl-tg-1115-0911-4": {
+    "type": "video",
+    "path": "assets/clips/tg-1115-0911-4.mp4",
+    "inbox": "",
+    "desc": "AI: animated cartoon characters depicting grey VAJRA sheets and bamboo props on a construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-15",
+    "secs": 29.9
   }
 }
