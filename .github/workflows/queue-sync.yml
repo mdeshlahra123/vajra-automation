@@ -1,0 +1,22 @@
+name: queue-sync
+# A1: apply /admin queue commands to social/queue.json and refresh the snapshot the page reads (social/queue_sync.py).
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+permissions: { contents: write }
+concurrency: { group: state, cancel-in-progress: false }
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env: { SHEETS_TOKEN: "${{ secrets.SHEETS_TOKEN }}" }
+    steps:
+      - uses: actions/checkout@v4
+      - id: s
+        run: python3 -u social/queue_sync.py
+      - if: steps.s.outputs.changed == '1'
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social/queue.json; git commit -qm "queue: changes from /admin"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 4; done; exit 1
