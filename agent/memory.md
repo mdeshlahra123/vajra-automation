@@ -256,5 +256,10 @@
 - Queue pending reels is 6 (healthy, >= 6, no new AI reel needed).
 - Sent daily report and shoot request to Shobhit for fresh column deshuttering or water wash real clips via Telegram.
 
+- 15 Nov 2026 (evening review):
+  - Today's 09:30 cover block reel hit 979 reach (~3.2x median), promoted to WhatsApp ad (L16 WA).
+  - Configured queue morning/evening slots (`long-1111-s2` set to morning).
+  - Active ads running stably. Sent evening Telegram update.
+
 
 
