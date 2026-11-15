@@ -687,5 +687,16 @@
     "who": "MrBeast",
     "added": "2026-11-15",
     "secs": 29.9
+  },
+  "cl-tg-1115-1708-1": {
+    "type": "video",
+    "path": "assets/clips/tg-1115-1708-1.mp4",
+    "inbox": "",
+    "desc": "AI: contractors discussing grey VAJRA sheets and brown ply at a construction site",
+    "ai": true,
+    "ok": true,
+    "who": "MrBeast",
+    "added": "2026-11-15",
+    "secs": 29.9
   }
 }
