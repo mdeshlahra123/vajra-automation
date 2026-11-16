@@ -1,0 +1,37 @@
+{
+  "hook": "Deshuttering ke baad plaster ka kharcha?",
+  "title": "Smooth concrete finish column work",
+  "scenes": [
+    {
+      "type": "photo",
+      "photo": "sheet-thin",
+      "shows_vajra": false,
+      "vo": "Deshuttering ke baad plaster ka kharcha badh jata hai?",
+      "text1": "Plaster ka kharcha",
+      "text2": "Har baar zyada?"
+    },
+    {
+      "type": "photo",
+      "photo": "v4-point",
+      "shows_vajra": true,
+      "vo": "VAJRA sheet se concrete finish bilkul smooth milti hai.",
+      "text1": "Smooth finish",
+      "text2": "Zero plaster jhanjhat"
+    },
+    {
+      "type": "photo",
+      "photo": "r-throw",
+      "shows_vajra": true,
+      "vo": "Apne thekedar bhai ko bhejo, plaster ka kharcha bachao.",
+      "text1": "Thekedar ko bhejo",
+      "text2": "Kharcha bachao"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Deshuttering ke baad plaster ka kharcha bachana hai? VAJRA PP shuttering sheet se concrete surface bilkul smooth nikalti hai.\n\nSahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha kam karti hai.\n\nApne thekedar ya mistri ko share kijiye.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\n\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "",
+  "build_log": [
+    "polish: fx ok: huge-strike,tape-label,comment-box, captions ok"
+  ],
+  "seconds": 16.2
+}
