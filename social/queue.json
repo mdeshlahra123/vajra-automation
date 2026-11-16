@@ -524,8 +524,10 @@
       "caption": "captions/reel-ai-1113-0702.txt",
       "ai": true,
       "evening": true,
-      "posted": "",
-      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1113-0702-cover.jpg"
+      "posted": "2026-11-16",
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1113-0702-cover.jpg",
+      "slot": "evening",
+      "yt": "bEMM1y8haQ8"
     },
     {
       "id": "reel-ai-1112-0701",
@@ -587,7 +589,8 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1116-1001.mp4",
       "ai": true,
-      "evening": true
+      "evening": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1116-1001-cover.jpg"
     }
   ],
   "hold": [
