@@ -261,5 +261,14 @@
   - Configured queue morning/evening slots (`long-1111-s2` set to morning).
   - Active ads running stably. Sent evening Telegram update.
 
+## 16 Nov 2026 (Monday Weekly Report & Daily Run)
+- Followers reached 1,042 (+133 this week). Total 7-day post reach ~11k.
+- Best reel: Wash & reuse (`reel-ai-1111-1001`) with 4.1k reach, 4 saves, 8 shares.
+- WhatsApp Ads: Active (L15, L14, L9), but ad balance is ₹0.00 INR (top-up required). Historical WhatsApp CPL ~₹4.5/chat vs ₹16/lead for form.
+- Lead Quality (64 lifetime form leads): 81% contractors/builders, 48% needing 2,000+ sq ft.
+- Queue healthy with 6 pending reels, 2 pending images.
+- Next week 3 reel concepts: Contractor profit margin, Single-man carrying ease, Q&A / myth vs fact. Requested column de-shuttering real video from Shobhit.
+
+
 
 
