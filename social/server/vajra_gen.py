@@ -1,7 +1,7 @@
 """A2 worker on the Oracle server (systemd timer jb-vajragen, every 5 min). Outbound only, no open ports.
 
 1. git pull ~/vajra-automation (read only, public https clone) and ~/vajra-gen (the drop repo, pushes with a
-   deploy key that only works for MehulDeshlahra/vajra-gen)
+   deploy key that only works for offhours-lab/vajra-gen)
 2. if the reel queue is low: plan a new batch (social/engine/gen_plan.py, text via OmniRoute on this server)
 3. generate up to 3 waiting clips on the Muse bridge (127.0.0.1:20240), each starting from its real VAJRA photo
 4. save to ~/vajra-gen/clips/, mark done in ~/vajra-gen/gen-jobs.json, push
