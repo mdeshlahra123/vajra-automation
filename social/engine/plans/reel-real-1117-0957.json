@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "VAJRA Wash Reuse Slab and Column",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "PP sheet ko dhalai baad wash karo, turant agle use ke liye ready.",
+      "text1": "Wash and reuse",
+      "text2": "Turant ready",
+      "_len": 4.18,
+      "_promised": "real site clip tg-1114-0839-2.mp4 0.0-4.0s: PP sheet ko dhalai baad wash karo, turant agle use ke liye ready."
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Slab dhalai par jaali baandho, har baar ka kharcha ply se kam.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.7,
+      "_promised": "real site clip tg-1112-0909-2.mp4 0.0-4.0s: Slab dhalai par jaali baandho, har baar ka kharcha ply se kam."
+    },
+    {
+      "clip": 2,
+      "start": 0.0,
+      "end": 4.5,
+      "vo": "Sahi handling ke saath ply se 2-3 guna zyada chalti hai, share kijiye.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.58,
+      "_promised": "real site clip tg-1112-0909-1.mp4 0.0-4.5s: Sahi handling ke saath ply se 2-3 guna zyada chalti hai, share kijiye."
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Dhalai ke baad aasan wash aur reuse ke liye chuniye VAJRA PP shuttering sheet.\n\nSlab aur column work mein tez fitting aur majbooti. Sahi handling ke saath ply se 2-3 guna zyada chalti hai.\n\nApne thekedar aur mistri doston ke saath share zaroor kijiye.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork | Call / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "A worker washes a light-grey PP shuttering panel with a water hose on a construction site, with the approved on-screen text 'Wash and reuse / Turant ready'.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Rebar mesh (jaali) tied over slab shuttering on a construction site.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Vertical rebar reinforcement cage for a column on an open construction site with workers visible in the background.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "polish: fx ok: comment-box, captions ok",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 17.8,
+  "note": "recipe: full real clips. items: REAL: Labour washing grey VAJRA sheet with water hose at construction site; REAL: grey VAJRA sheet slab reinforcement with rebar mesh; REAL: column rebar cage on construction site",
+  "who": "library"
+}

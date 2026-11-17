@@ -871,6 +871,17 @@
       "status": "approved",
       "by": "auto",
       "publish": "todo"
+    },
+    {
+      "id": "reel-real-1117-0957",
+      "title": "Real reel from library: VAJRA Wash Reuse Slab and Column (18s)\n✅ Reviewer: script aur video match karte hain.",
+      "file": "social/media/reel-real-1117-0957.mp4",
+      "caption": "captions/reel-real-1117-0957.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "todo"
     }
   ]
 }
