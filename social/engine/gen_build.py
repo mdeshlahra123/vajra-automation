@@ -1,6 +1,6 @@
 """A2 builder (GitHub, gen-build.yml): turns a finished Muse batch into a queued VAJRA reel.
 
-Reads the drop repo MehulDeshlahra/vajra-gen (written only by the server worker). For each batch with status
+Reads the drop repo offhours-lab/vajra-gen (written only by the server worker). For each batch with status
 "waiting" whose clips are all done and that is not in social/gen-built.json yet:
   make_skit.py --files <clips> --subs <spoken lines> (blurred 9:16 fill, captions, voiced end card, AI label, audio check)
   -> quality gate: 2 frames per clip checked by a vision model against the VAJRA look rules (normally already done on
@@ -74,7 +74,7 @@ def tg(text):
 
 def main():
     if not os.path.exists(JOBS):
-        subprocess.run(["git", "clone", "-q", "--depth", "1", "https://github.com/MehulDeshlahra/vajra-gen.git", DROP], check=True)
+        subprocess.run(["git", "clone", "-q", "--depth", "1", "https://github.com/offhours-lab/vajra-gen.git", DROP], check=True)
     jb = json.load(open(JOBS, encoding="utf-8"))
     done = json.load(open(BUILT, encoding="utf-8")) if os.path.exists(BUILT) else {}
     built = []
