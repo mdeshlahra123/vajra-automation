@@ -7,7 +7,7 @@
 import datetime, json, os
 
 PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "media-usage.json")
-COOLDOWN = 21  # days before the same photo/clip may appear again
+COOLDOWN = 7   # owner 17 Nov: no photo/clip repeat inside 7 days  # days before the same photo/clip may appear again
 
 
 def _load():

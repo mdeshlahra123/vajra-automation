@@ -110,6 +110,8 @@ Story order: {order}
 - Segment 1 is the hook: the most striking moment, with a voiceover line that makes a contractor stop scrolling.
   The hook names the real site pain or the proof that is ON SCREEN (ply peeling, one man lifting, cutter going through, concrete coming off smooth).
   BANNED openers: chai, jokes, greetings, 'site ka sabse pyara moment', festival/skyline poetry, anything not about shuttering.
+- The hook must make people COMMENT: a direct question or a bold opinion contractors will argue with (e.g. 'Ply ya PP, aap kya use karte ho?', 'Mistri bolta hai plastic nahi chalegi. Sach?'). Frame 1 = action, hook spoken in the first 2 seconds.
+- Past mistakes, never again: chai/joke openers, text that repeats the voice, a big PLY stamp over captions, lines about things not on screen, long end cards, reels with no real sheet shown.
 - Every voiceover line is about the shuttering shown. No filler lines. Speak like a thekedar, short and concrete.
 - Only segment 1 gets on-screen text1/text2 (the hook headline, max 4 words each). For every other segment return empty text1 and text2: the spoken words already appear as captions, never show the same idea twice.
 - Each segment: one Hinglish voiceover line (max 12 words) describing what is really shown; on-screen text in 2 short lines
