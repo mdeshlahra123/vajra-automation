@@ -39,9 +39,9 @@ def fx_pass(src, dst, total, segs):
         if b - a < 2.0:
             continue
         st, en = round(a + 0.7, 2), round(min(b - 0.2, a + 2.9), 2)
-        if ply and not struck:
+        if False and ply and not struck:   # 17 Nov owner: PLY stamp = clutter, off
             plan.append({"fx": "huge-strike", "start": st, "end": en, "text": "PLY"}); struck = True
-        elif not ply and tapes < 2:
+        elif False and not ply and tapes < 2:   # 17 Nov: tape labels = double text, off
             word = next((w for rx, w in TAPE if re.search(rx, vo)), None)
             if word:
                 plan.append({"fx": "tape-label", "start": st, "end": en, "text": word}); tapes += 1

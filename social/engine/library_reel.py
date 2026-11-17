@@ -81,9 +81,11 @@ def fill(recipe, pools):
 
 
 def main():
-    if pending_reels() >= 4 and "--force" not in sys.argv:
-        print("enough reels pending; nothing to do"); return
     names, lib = library()
+    # 17 Nov owner: never sit on clips the owners sent. Build while unused owner clips exist, whatever the queue says.
+    fresh_owner = [n for n in (usage.fresh(names) or []) if lib.get(n, {}).get("who") not in (None, "library")]
+    if pending_reels() >= 4 and not fresh_owner and "--force" not in sys.argv:
+        print("enough reels pending and no unused owner clips; nothing to do"); return
     added = lambda n: lib.get(n, {}).get("added", "2026-10-28")
     clips = sorted(names, key=added, reverse=True)
     pp = photo_pools()
@@ -91,7 +93,8 @@ def main():
              ("photo", "ai"): pp["ai"], ("photo", "real"): pp["real"]}
     st = json.load(open(STATE, encoding="utf-8")) if os.path.exists(STATE) else {}
     want = next((r for r in RECIPES if r[0] == os.environ.get("RECIPE")), None)
-    order = [want] if want else sorted(RECIPES, key=lambda r: st.get(r[0], ""))   # least recently used recipe first
+    # real footage first (brand rule), then least recently used recipe
+    order = [want] if want else sorted(RECIPES, key=lambda r: (not any(k == "clip" and s == "real" for k, s, _ in r[1]), st.get(r[0], "")))   # least recently used recipe first
     for r in order:
         files = fill(r, pools)
         if files:

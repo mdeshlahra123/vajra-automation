@@ -108,6 +108,10 @@ The items above are attached in order (item 0 first). Some items may be VIDEO cl
 Story order: {order}
 - 2 to 5 segments, each 2-7 seconds. A segment's "clip" is the item index. For a VIDEO item give start/end seconds inside it; for a PHOTO item use start 0 and end 4 (it becomes a ~4s slow Ken-Burns shot). You may use the same photo once. Skip shaky, dark or useless parts.
 - Segment 1 is the hook: the most striking moment, with a voiceover line that makes a contractor stop scrolling.
+  The hook names the real site pain or the proof that is ON SCREEN (ply peeling, one man lifting, cutter going through, concrete coming off smooth).
+  BANNED openers: chai, jokes, greetings, 'site ka sabse pyara moment', festival/skyline poetry, anything not about shuttering.
+- Every voiceover line is about the shuttering shown. No filler lines. Speak like a thekedar, short and concrete.
+- Only segment 1 gets on-screen text1/text2 (the hook headline, max 4 words each). For every other segment return empty text1 and text2: the spoken words already appear as captions, never show the same idea twice.
 - Each segment: one Hinglish voiceover line (max 12 words) describing what is really shown; on-screen text in 2 short lines
   (each max 20 characters, plain ASCII letters/numbers/basic punctuation, no emoji, no Devanagari).
 - Each voiceover line must describe ONLY what is visible in that segment (e.g. do not say "smooth finish" unless finished concrete is shown). General allowed claims (light, "sahi handling ke saath ply se 2-3 guna zyada chalti hai", waterproof; NEVER an exact number of uses/pours, never per-pour or yearly rupee maths) may go in at most one line. Never mention the sheet price.
@@ -149,7 +153,9 @@ Return JSON only:
         segs = [{"clip": i, "start": 0.0, "end": min(5.0, c[1]), "vo": "", "text1": "VAJRA PP", "text2": "Asli site"} for i, c in enumerate(clips[:3])]
     p["segments"] = segs
     import claims  # never promise a use count
-    for s in segs:
+    for j, s in enumerate(segs):
+        if j:   # studio lesson: no double text, headline only on the hook
+            s["text1"] = s["text2"] = ""
         s["vo"] = claims.fix_line(s.get("vo", ""))
         for k in ("text1", "text2"):
             s[k] = claims.fix_line(s.get(k, ""), short=True)
@@ -162,13 +168,15 @@ Return JSON only:
 def render_segment(src, s, seconds, out, work, i, audio):
     t1, t2 = os.path.join(work, f"t1_{i}.txt"), os.path.join(work, f"t2_{i}.txt")
     open(t1, "w").write(s["text1"]); open(t2, "w").write(s["text2"])
+    head = bool(s["text1"].strip() or s["text2"].strip())
     font = FONT.replace("\\", "/").replace(":", "\\:")
     v = (f"[0:v]trim=start={s['start']}:duration={seconds:.2f},setpts=PTS-STARTPTS,fps={FPS},split[pa][pb];"
          f"[pa]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=40:4,eq=brightness=-0.08[bg];"
          f"[pb]scale={W}:{H}:force_original_aspect_ratio=decrease:flags=lanczos[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,setsar=1,"
-         f"tpad=stop_mode=clone:stop_duration=10,"
-         f"drawtext=fontfile='{font}':textfile='{t1}':fontsize=84:fontcolor=0x221D18:box=1:boxcolor=0xE7E2D8@0.95:boxborderw=20:x=70:y=250,"
-         f"drawtext=fontfile='{font}':textfile='{t2}':fontsize=84:fontcolor=0x221D18:box=1:boxcolor=0xE2B877@0.97:boxborderw=20:x=70:y=380[m];"
+         f"tpad=stop_mode=clone:stop_duration=10"
+         + (f",drawtext=fontfile='{font}':textfile='{t1}':fontsize=84:fontcolor=0x221D18:box=1:boxcolor=0xE7E2D8@0.95:boxborderw=20:x=70:y=250,"
+            f"drawtext=fontfile='{font}':textfile='{t2}':fontsize=84:fontcolor=0x221D18:box=1:boxcolor=0xE2B877@0.97:boxborderw=20:x=70:y=380" if head else "")
+         + "[m];"
          f"[1]scale=260:-1[lg];[m][lg]overlay=W-w-50:70,format=yuv420p[v]")
     if audio:
         a = f";[0:a]atrim=start={s['start']}:duration={seconds:.2f},asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,apad[a]"
@@ -236,7 +244,7 @@ def main():
     for k, (photo, t1, t2, vo) in enumerate(reveal):
         n = len(p["segments"]); seconds = max(2.6, vo_lens[n] + 0.5)
         silent = os.path.join(work, f"rv{k}_v.mp4"); out = os.path.join(work, f"rv{k}.mp4")
-        make_reel.scene_video({"type": "photo", "text1": t1, "text2": t2}, A("assets", "photos", photo + ".jpg"), seconds, silent, work, 10 + k)
+        make_reel.scene_video({"type": "photo", "text1": "", "text2": ""}, A("assets", "photos", photo + ".jpg"), seconds, silent, work, 10 + k)
         sh("ffmpeg", "-v", "error", "-y", "-i", silent, "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo", "-map", "0:v", "-map", "1:a",
            "-t", f"{seconds:.2f}", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2", out)
         p["segments"].append({"clip": "real-photo", "start": 0, "end": seconds, "_len": seconds, "vo": vo, "text1": t1, "text2": t2,

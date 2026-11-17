@@ -1,4 +1,4 @@
-"""Tools for the VAJRA brain (Gemini CLI agent). See GEMINI.md.
+﻿"""Tools for the VAJRA brain (Gemini CLI agent). See GEMINI.md.
 Env: META_ADS_TOKEN, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, GH_TOKEN (GitHub token for workflow dispatch)."""
 import json, os, subprocess, sys, urllib.parse, urllib.request
 
@@ -109,7 +109,7 @@ def reel(brief):
     n = sum(1 for p in q["posts"] if not p.get("posted") and p.get("video"))
     if n >= 6:
         sys.exit(f"queue already has {n} pending reels; not making another (limit 6)")
-    dispatch("make-reel.yml", {"brief": brief[:400], "res": "720p"})
+    dispatch("library-reel.yml", {"force": "true"})  # 17 Nov owner: AI photo reels off, build from owner clips
 
 
 EVENING_REEL_DAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")  # 1 Nov: one main reel at 19:30 every day; 09:30 = Trial Reel
