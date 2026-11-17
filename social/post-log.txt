@@ -306,3 +306,8 @@
 2026-11-16 14:06    IG OK https://www.instagram.com/reel/Dfzh4kLk42q/
 2026-11-16 14:06    FB OK video 990112066979315
 2026-11-16 14:06    DONE. 7 posts left in queue.
+2026-11-17 04:03  POSTING reel-ai-1113-1001
+2026-11-17 04:03    TRIAL reel (non-followers first, auto-share if it performs)
+2026-11-17 04:03    IG OK https://www.instagram.com/reel/Df1ByG5ARDm/
+2026-11-17 04:04    FB OK video 1726498349047450
+2026-11-17 04:04    DONE. 7 posts left in queue.
