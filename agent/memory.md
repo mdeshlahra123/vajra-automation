@@ -280,6 +280,11 @@
   - Queue healthy with 6 pending reels (no new AI reel needed).
   - Daily report and shoot request sent to Shobhit via Telegram.
 
+- 17 Nov 2026 (evening review):
+  - Checked today's posts (reach ~111 & 106, normal day).
+  - Retagged `reel-ep-1116-0230` to morning slot (`evening off`) to maintain an untagged pending reel for the 09:30 morning slot per autonomy rules.
+  - Active WhatsApp ads (L16, L15, L14, L9) running; ad balance ₹0.00 (top-up reminder noted).
+
 
 
 
