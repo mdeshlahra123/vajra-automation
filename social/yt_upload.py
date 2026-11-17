@@ -51,9 +51,19 @@ def playlist_id(at):
                "description": "VAJRA PP shuttering sheet: site videos, column, slab, beam."}, "status": {"privacyStatus": "public"}})["id"]
 
 
+def fetch(url):
+    """Website copy first; if the daily site cleanup already removed it (posted items are not kept), use social/media in the repo."""
+    try:
+        return urllib.request.urlopen(url, timeout=300).read()
+    except Exception as e:
+        loc = os.path.join(SOC, "media", os.path.basename(url))
+        if os.path.exists(loc):
+            print("  site copy gone (%s), using repo file %s" % (str(e)[:40], os.path.basename(url)))
+            return open(loc, "rb").read()
+        raise
 def upload(item, private=False):
     src = item["video"]
-    data = urllib.request.urlopen(src if src.startswith("http") else SITE + src, timeout=300).read()
+    data = fetch(src if src.startswith("http") else SITE + src)
     title, desc, tags = meta(item)
     body = {"snippet": {"title": title, "description": desc, "tags": tags, "categoryId": "22", "defaultLanguage": "hi"},
             "status": {"privacyStatus": "private" if private else "public", "selfDeclaredMadeForKids": False,
@@ -69,7 +79,7 @@ def upload(item, private=False):
     print("YT OK", vid, v["status"]["privacyStatus"], "https://youtube.com/shorts/" + vid)
     if item.get("cover"):
         try:
-            img = urllib.request.urlopen(item["cover"], timeout=60).read()
+            img = fetch(item["cover"])
             req = urllib.request.Request(YT.replace("/youtube/v3/", "/upload/youtube/v3/") + f"thumbnails/set?videoId={vid}", data=img,
                                          method="POST", headers={"Authorization": f"Bearer {at}", "Content-Type": "image/jpeg"})
             urllib.request.urlopen(req, timeout=60); print("  cover set")
@@ -87,9 +97,10 @@ if __name__ == "__main__":
     p = os.path.join(SOC, "queue.json")
     q = json.load(open(p, encoding="utf-8"))
     today = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30)).strftime("%Y-%m-%d")
+    recent = {(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5, minutes=30, days=-d)).strftime("%Y-%m-%d") for d in range(3)}  # retry misses from the last 3 days
     args = [x for x in sys.argv[1:] if not x.startswith("--")]
     items = [x for x in q["posts"] if x["id"] in args] if args else \
-            [x for x in q["posts"] if x.get("video") and x.get("posted") == today and not x.get("yt")]
+            [x for x in q["posts"] if x.get("video") and x.get("posted") in recent and not x.get("yt")]
     for it in items:
         try:
             it["yt"] = upload(it, private="--private" in sys.argv)
