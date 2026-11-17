@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Ply Pain to VAJRA PP Solution",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Ply har baar naya lene ka rate dekha hai?",
+      "text1": "Ply har baar naya?",
+      "text2": "Kharcha band kijiye",
+      "_len": 3.5,
+      "_promised": "AI clip tg-1115-1708-1.mp4 0.0-3.5s: Ply har baar naya lene ka rate dekha hai?"
+    },
+    {
+      "clip": 0,
+      "start": 21.0,
+      "end": 25.0,
+      "vo": "Sahi handling ke saath ply se do teen guna zyada chalti hai.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.98,
+      "_promised": "AI clip tg-1115-1708-1.mp4 21.0-25.0s: Sahi handling ke saath ply se do teen guna zyada chalti hai."
+    },
+    {
+      "clip": 3,
+      "start": 1.0,
+      "end": 5.5,
+      "vo": "Har dhalai ka kharcha kam kijiye. Apne thekedar aur mistri ko bhejo.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.82,
+      "_promised": "real site clip tg-1114-0839-3.mp4 1.0-5.5s: Har dhalai ka kharcha kam kijiye. Apne thekedar aur mistri ko bhejo."
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Har project mein ply badalne ka jhanjhat chhoriye aur VAJRA PP shuttering sheet apnaiye.\n\nSahi handling ke saath yeh sheet ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha kam karti hai. Pan-India dispatch Raipur se available hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\n83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Worker in safety gear inspecting worn brown wooden plywood stack with expected on-screen text.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Two workers examining plain light-grey hollow PP formwork sheets.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Site ground shot displaying stacked grey hollow PP panels, bamboo poles, and masonry equipment.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "polish: fx ok: comment-box, captions ok",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 16.9,
+  "note": "recipe: AI clips then real clips. items: AI: contractors discussing grey VAJRA sheets and brown ply at a construction site; AI: contractor and labour resting on site; REAL: grey VAJRA sheet with water drops on a construction site; REAL: grey VAJRA sheet with bamboo bundles and construction tools on dirt ground",
+  "who": "library"
+}
