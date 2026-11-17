@@ -269,6 +269,11 @@
 - Queue healthy with 6 pending reels, 2 pending images.
 - Next week 3 reel concepts: Contractor profit margin, Single-man carrying ease, Q&A / myth vs fact. Requested column de-shuttering real video from Shobhit.
 
+- 17 Nov 2026 (evening review):
+  - Checked queue slots: untagged `reel-ai-1113-1001` (`evening off`) to populate the 09:30 morning slot, maintaining 4 pending evening reels.
+  - Started 1 new AI money-angle reel ("Ply baar-baar khareedna band") to keep pipeline full.
+  - Active WhatsApp ads (L14, L15, L16) running stably; ad balance ₹0.00 (top-up reminder noted).
+
 
 
 
