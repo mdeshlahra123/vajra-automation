@@ -312,3 +312,9 @@
 2026-11-17 04:04    FB OK video 1726498349047450
 2026-11-17 04:04    DONE. 7 posts left in queue.
 2026-11-17 04:35  SKIP: reel already posted today (2026-11-17 IST): reel-ai-1113-1001
+2026-11-17 10:07  FORCE-POST: reel-real-1117-0948 (ignoring queue order)
+2026-11-17 10:07  POSTING reel-real-1117-0948
+2026-11-17 10:07    TRIAL reel (non-followers first, auto-share if it performs)
+2026-11-17 10:08    IG OK https://www.instagram.com/reel/Df1Ft3_n5Zv/
+2026-11-17 10:08    FB OK video 1028218683634418
+2026-11-17 10:08    DONE. 5 posts left in queue.
