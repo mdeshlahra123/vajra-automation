@@ -1,5 +1,5 @@
 [Unit]
-Description=VAJRA Muse reel worker (A2: plan + generate clips, push to MehulDeshlahra/vajra-gen)
+Description=VAJRA Muse reel worker (A2: plan + generate clips, push to offhours-lab/vajra-gen)
 After=network-online.target jb-musebridge.service jb-omniroute.service
 Wants=network-online.target
 
