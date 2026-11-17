@@ -870,7 +870,7 @@
       "ai": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     },
     {
       "id": "reel-real-1117-0957",
@@ -881,7 +881,7 @@
       "real": true,
       "status": "approved",
       "by": "auto",
-      "publish": "todo"
+      "publish": "done"
     }
   ]
 }

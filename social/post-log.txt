@@ -311,3 +311,4 @@
 2026-11-17 04:03    IG OK https://www.instagram.com/reel/Df1ByG5ARDm/
 2026-11-17 04:04    FB OK video 1726498349047450
 2026-11-17 04:04    DONE. 7 posts left in queue.
+2026-11-17 04:35  SKIP: reel already posted today (2026-11-17 IST): reel-ai-1113-1001
