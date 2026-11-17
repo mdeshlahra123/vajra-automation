@@ -252,13 +252,11 @@ def build(p, rid, res):
     lst = os.path.join(work, "list.txt"); open(lst, "w").write("".join(f"file '{x}'\n" for x in parts))
     video = os.path.join(work, "video.mp4"); sh("ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", video)
     # music
-    music = os.path.join(work, "music.mp3")
-    try:
-        r = gem.interact(MUSIC_MODEL, f"{int(total)+5} second upbeat modern Indian instrumental background track for a short construction product ad, "
-                         "light dhol and percussion, positive and confident, steady beat, no vocals, no lyrics", response_format={"type": "audio"})
-        gem.save_first(r, "audio", music); has_music = True
-    except Exception as e:
-        log.append(f"music failed: {str(e)[:200]}"); has_music = False
+    # music: free tier has no Lyria (owner 17 Nov: Rs 0) -> a royalty-free bed from assets/music, never silence
+    import glob, random
+    beds = sorted(glob.glob(A("assets", "music", "*.mp3")))
+    music, has_music = (random.choice(beds), True) if beds else (None, False)
+    log.append(f"music bed: {os.path.basename(music) if music else 'none'}")
     final = A("social", "media", f"{rid}.mp4"); os.makedirs(os.path.dirname(final), exist_ok=True)
     mix(video, vo_files, starts, total, music if has_music else None, final)
     try:   # 12 Nov: free polish (comment-box, PLY stamp on brown-ply scenes, voice-timed captions)
@@ -281,7 +279,7 @@ def mix(video, vo_files, starts, total, music, final, bed=False):
     fc.append(f"{''.join(labels)}amix=inputs={len(labels)}:normalize=0,apad,atrim=0:{total:.2f}[vo]")
     under = None
     if music:
-        n = len(vo_files) + 1; ins += ["-i", music]
+        n = len(vo_files) + 1; ins += ["-stream_loop", "-1", "-i", music]
         fc.append(f"[{n}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{total:.2f},volume=0.32,afade=t=in:d=0.5,afade=t=out:st={total-1.5:.2f}:d=1.5[mu]")
         under = "[mu]"
     if bed:

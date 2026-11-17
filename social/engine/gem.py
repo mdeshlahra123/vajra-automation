@@ -5,14 +5,19 @@ import base64, json, os, re, time, urllib.request, urllib.error
 URL = "https://generativelanguage.googleapis.com/v1beta/"
 
 
-MEDIA = ("tts", "omni", "lyria", "veo", "image", "imagen")  # media models need the billed key
+MEDIA = ("tts", "omni", "lyria", "veo", "image", "imagen")  # media models (free tier: only tts works)
 
 
 def _keys(body):
-    """Text models: free-tier key first (no billing, no spend cap), then the billed key. Media models: billed key only."""
-    model = str((body or {}).get("model", ""))
-    keys = [os.environ.get("GEMINI_API_KEY")] if any(m in model for m in MEDIA) else [os.environ.get("GEMINI_FREE_KEY"), os.environ.get("GEMINI_API_KEY")]
-    return [k for k in keys if k]
+    """All keys are FREE tier now (owner 17 Nov: VAJRA at Rs 0). GEMINI_FREE_KEY and GEMINI_API_KEY may each hold several
+    keys separated by commas; every key is tried in a shuffled order, so the free daily quotas add up.
+    Free tier has NO Omni video / Lyria music / image models (limit 0): callers must have a free fallback for those."""
+    import random
+    ks = []
+    for v in (os.environ.get("GEMINI_FREE_KEY"), os.environ.get("GEMINI_API_KEY")):
+        ks += [k.strip() for k in (v or "").split(",") if k.strip()]
+    ks = list(dict.fromkeys(ks)); random.shuffle(ks)
+    return ks
 
 
 def _req(path, body=None, method=None, timeout=900):
