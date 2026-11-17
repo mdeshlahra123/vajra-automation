@@ -1,0 +1,37 @@
+{
+  "hook": "Ply har baar naya khareed kar apna profit mat gavao.",
+  "title": "Ply khareedna band contractor profit",
+  "scenes": [
+    {
+      "type": "photo",
+      "photo": "ply-pile",
+      "shows_vajra": false,
+      "vo": "Ply har baar naya khareed kar apna profit mat gavao.",
+      "text1": "Ply baar baar naya?",
+      "text2": "Profit bachao aaj"
+    },
+    {
+      "type": "photo",
+      "photo": "v1-lean",
+      "shows_vajra": true,
+      "vo": "VAJRA sheet ply se do teen guna zyada chalti hai sahi handling par.",
+      "text1": "Lambi life sheet ki",
+      "text2": "Sahi handling par"
+    },
+    {
+      "type": "photo",
+      "photo": "v5-cage",
+      "shows_vajra": true,
+      "vo": "Apne thekedar ko bhejo aur har dhalai mein profit badhao.",
+      "text1": "Har dhalai bachat",
+      "text2": "Bhejo thekedar ko"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Ply har baar naya lene ka kharcha band kijiye aur site par profit bachaiye.\n\nVAJRA PP shuttering sheet ply se 2-3 guna zyada chalti hai, sahi handling ke saath. Har dhalai ka kharcha ply se kam aur concrete finish bilkul smooth. Raipur, Durg, Bhilai se pan-India dispatch available hai.\n\nApne thekedar aur mistri bhai ko bhejo.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "brief": "Ply baar-baar khareedna band - contractor ka profit bachao",
+  "build_log": [
+    "polish: fx ok: huge-strike,comment-box, captions ok"
+  ],
+  "seconds": 16.6
+}
