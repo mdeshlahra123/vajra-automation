@@ -882,6 +882,17 @@
       "status": "approved",
       "by": "auto",
       "publish": "done"
+    },
+    {
+      "id": "reel-real-1118-0704",
+      "title": "Real reel from library: Contractor Bill Pain to Column Formwork (16s)\n⚠️ Reviewer nahi chala: all text/vision providers failed: gemini: HTTP 503: {\"error\":{\"message\":\"gemini-3.8-flash is currently experiencing high",
+      "file": "social/media/reel-real-1118-0704.mp4",
+      "caption": "captions/reel-real-1118-0704.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "todo"
     }
   ]
 }
