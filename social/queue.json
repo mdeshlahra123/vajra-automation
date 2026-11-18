@@ -592,15 +592,17 @@
       "posted": "",
       "video": "https://vajraformwork.vercel.app/social/reel-real-1118-0704.mp4",
       "real": true,
-      "evening": true
+      "evening": true,
+      "cover": "https://vajraformwork.vercel.app/social/reel-real-1118-0704-cover.jpg"
     },
     {
       "id": "reel-ep-1116-0230",
       "caption": "captions/reel-ep-1116-0230.txt",
-      "posted": "",
+      "posted": "2026-11-18",
       "video": "https://vajraformwork.vercel.app/social/reel-ep-1116-0230.mp4",
       "ai": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-ep-1116-0230-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-ep-1116-0230-cover.jpg",
+      "yt": "-Ites4XAMAc"
     }
   ],
   "hold": [
