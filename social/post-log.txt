@@ -337,3 +337,8 @@
 2026-11-19 04:01    FB OK video 4569077746698763
 2026-11-19 04:01    DONE. 2 posts left in queue.
 2026-11-19 04:01    LOW QUEUE WARNING: add more posts soon.
+2026-11-19 14:01  POSTING v-p-workers
+2026-11-19 14:01    IG OK https://www.instagram.com/p/Df7P1vwF_-U/
+2026-11-19 14:01    FB OK post 1296793536861294_122118753057509427
+2026-11-19 14:01    DONE. 1 posts left in queue.
+2026-11-19 14:01    LOW QUEUE WARNING: add more posts soon.

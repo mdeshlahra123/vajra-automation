@@ -1,7 +1,6 @@
 {
- "n": 43,
+ "n": 44,
  "photos": [
-  "finish-column",
   "godown",
   "r-workers",
   "warehouse",
@@ -20,7 +19,8 @@
   "in-20261027-201151",
   "beam-box",
   "warehouse",
-  "godown"
+  "godown",
+  "sheet-cut"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
@@ -66,11 +66,12 @@
    "1": "2026-11-19"
   },
   "faq": {
-   "0": "2026-11-16"
+   "0": "2026-11-16",
+   "1": "2026-11-19"
   },
   "myth": {
    "0": "2026-11-16"
   }
  },
- "last": "poll"
+ "last": "faq"
 }
