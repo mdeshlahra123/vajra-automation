@@ -924,8 +924,10 @@
       "caption": "captions/reel-studio-1120-t5.txt",
       "position": "alternate",
       "ai": true,
-      "status": "draft",
-      "by": "studio"
+      "status": "sent",
+      "by": "studio",
+      "msg_id": 1211,
+      "sent_at": "2026-11-20 11:34"
     }
   ]
 }
