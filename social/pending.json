@@ -916,6 +916,16 @@
       "status": "approved",
       "by": "auto",
       "publish": "todo"
+    },
+    {
+      "id": "reel-studio-1120-t5",
+      "title": "🎬 Studio reel (new engine): VAJRA One-Man Lift and Finish (test 1 of new engine) | sound max -3.9 dB\nStudio QC passed (format, loudness, voice, rules, frames).",
+      "file": "social/media/reel-studio-1120-t5.mp4",
+      "caption": "captions/reel-studio-1120-t5.txt",
+      "position": "alternate",
+      "ai": true,
+      "status": "draft",
+      "by": "studio"
     }
   ]
 }
