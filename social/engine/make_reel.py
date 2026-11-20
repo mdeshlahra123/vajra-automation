@@ -161,10 +161,27 @@ Return JSON only:
 
 
 def tts(line, path):
-    r = gem.interact(TTS_MODEL, [{"type": "user_input", "content": [{"type": "text", "text": line,
-                     "annotations": [{"type": "speech_metadata", "style": VOICE_STYLE}]}]}],
-                     response_format={"type": "audio"}, generation_config={"speech_config": [{"voice": VOICE}]})
-    gem.save_first(r, "audio", path)
+    """Gemini voice (Charon) first. 20 Nov: the free tier allows only 10 TTS requests/day per key, so reels died at the voice
+    step (library-reel failed 18-19 Nov with HTTP 429) -> fallback = Microsoft Edge neural voice (free, no key, edge-tts),
+    hi-IN-MadhurNeural, so a reel is never lost for lack of a voice."""
+    try:
+        r = gem.interact(TTS_MODEL, [{"type": "user_input", "content": [{"type": "text", "text": line,
+                         "annotations": [{"type": "speech_metadata", "style": VOICE_STYLE}]}]}],
+                         response_format={"type": "audio"}, generation_config={"speech_config": [{"voice": VOICE}]})
+        gem.save_first(r, "audio", path)
+        return dur(path)
+    except Exception as e:
+        print("tts: Gemini voice failed, using Edge voice:", str(e)[:120])
+    import subprocess
+    try:
+        import edge_tts  # noqa: F401
+    except ImportError:
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "edge-tts"], check=True)
+    mp3 = path + ".mp3"
+    subprocess.run([sys.executable, "-m", "edge_tts", "--voice", os.environ.get("EDGE_VOICE", "hi-IN-MadhurNeural"),
+                    "--rate", "+8%", "--text", line, "--write-media", mp3], check=True, timeout=120)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", mp3, "-ar", "24000", "-ac", "1", path], check=True)
+    os.remove(mp3)
     return dur(path)
 
 
