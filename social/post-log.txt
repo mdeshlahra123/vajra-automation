@@ -342,3 +342,4 @@
 2026-11-19 14:01    FB OK post 1296793536861294_122118753057509427
 2026-11-19 14:01    DONE. 1 posts left in queue.
 2026-11-19 14:01    LOW QUEUE WARNING: add more posts soon.
+2026-11-20 04:03  QUEUE EMPTY (reel) - nothing to post. Add more items to queue.json.
