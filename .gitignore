@@ -12,3 +12,6 @@ yt-client.json
 yt-token.json
 
 sheets-token.json
+
+# low-res copies make_real.py builds for Gemini on every run (Studio library showed 47 duplicates, 20 Nov)
+assets/clips/*-proxy.mp4
