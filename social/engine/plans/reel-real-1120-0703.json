@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Dhalai tension to real site solution",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Dhalai ke waqt aisi tension har site par hoti hai?",
+      "text1": "Dhalai ki tension?",
+      "text2": "Aap kya use karte?",
+      "_len": 3.5,
+      "_promised": "AI clip tg-1115-0911-4.mp4 0.0-3.5s: Dhalai ke waqt aisi tension har site par hoti hai?"
+    },
+    {
+      "clip": 1,
+      "start": 0.5,
+      "end": 4.5,
+      "vo": "VAJRA sheet itni halki hai, ek banda aaram se uthaye.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.38,
+      "_promised": "AI clip tg-1114-0839-1.mp4 0.5-4.5s: VAJRA sheet itni halki hai, ek banda aaram se uthaye."
+    },
+    {
+      "clip": 2,
+      "start": 1.0,
+      "end": 4.5,
+      "vo": "Smooth surface se concrete bilkul nahi chipakti, safai aasan.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.5,
+      "_promised": "real site clip tg-1110-0847-1.mp4 1.0-4.5s: Smooth surface se concrete bilkul nahi chipakti, safai aasan."
+    },
+    {
+      "clip": 3,
+      "start": 0.5,
+      "end": 4.5,
+      "vo": "Apne thekedar ko bhejo, cutting aasan aur dhalai mein tension khatam.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.82,
+      "_promised": "real site clip tg-1107-0838-2.mp4 0.5-4.5s: Apne thekedar ko bhejo, cutting aasan aur dhalai mein tension khatam."
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Dhalai ke time shuttering ki tension khatam kijiye hamari light-weight PP shuttering sheet ke saath!\n\nEk aadmi aaram se sheet utha sakta hai, cutting aasan aur concrete finish ekdum smooth milti hai.\nSahi handling ke saath ply se 2-3 guna zyada chalti hai aur har dhalai ka kharcha kam karti hai.\nRaipur se Pan-India dispatch uplabdh hai. Apne thekedar doston ke saath share karein!\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Animated wooden and PP sheet characters with matching text overlays.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Worker easily carrying a light-grey PP sheet across a site.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Concrete poured onto smooth light-grey PP sheet surface.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Worker cutting a light-grey sheet using a circular saw.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "music failed: HTTP 429: {\"error\":{\"message\":\"Rate limit exceeded for model lyria-3-pro (limit: 0 input tokens per minute on Free Tier). Please upgrade your tier at https://ai.dev/rate-limit.\",\"code\":\"too_many_reque",
+    "polish: fx ok: comment-box, captions ok",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 21.2,
+  "note": "recipe: AI clips then real clips. items: AI: animated cartoon characters depicting grey VAJRA sheets and bamboo props on a construction site; AI: contractor and labour carrying grey VAJRA sheet on construction site; REAL: grey VAJRA sheet being tested with concrete flowability; REAL: worker cutting grey VAJRA sheet with circular saw",
+  "who": "library"
+}
