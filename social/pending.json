@@ -928,6 +928,17 @@
       "by": "studio",
       "msg_id": 1211,
       "sent_at": "2026-11-20 11:34"
+    },
+    {
+      "id": "reel-studio-s1",
+      "title": "🎬 Studio reel (new engine): LightWeightFormwork | sound max -4.0 dB\nStudio QC passed (format, loudness, voice, rules, frames).",
+      "file": "social/media/reel-studio-s1.mp4",
+      "caption": "captions/reel-studio-s1.txt",
+      "position": "alternate",
+      "ai": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "todo"
     }
   ]
 }

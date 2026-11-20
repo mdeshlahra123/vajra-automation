@@ -676,6 +676,14 @@
       "image": "https://vajraformwork.vercel.app/social/v-n4-cage.jpg",
       "caption": "captions/n4-cage.txt",
       "posted": ""
+    },
+    {
+      "id": "reel-studio-s1",
+      "caption": "captions/reel-studio-s1.txt",
+      "posted": "",
+      "video": "https://vajraformwork.vercel.app/social/reel-studio-s1.mp4",
+      "ai": true,
+      "evening": true
     }
   ],
   "hold": [
