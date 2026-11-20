@@ -10,7 +10,7 @@ permissions: { contents: write, issues: write }
 jobs:
   post:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       META_TOKEN: ${{ secrets.META_TOKEN }}
     steps:
@@ -20,7 +20,11 @@ jobs:
         env: { SHEETS_TOKEN: "${{ secrets.SHEETS_TOKEN }}" }
         run: python3 -u social/queue_sync.py
       - name: Website update (approved reels in, old reels out) - every run, so evening reels are live too
+        # 20 Nov: this step hung on Gemini 503s making covers and used the job's whole 20 min, so the 19:30 post never
+        # ran. It may never block the post again: its own 6 min limit, and a failure here does not stop the job.
         if: github.event.inputs.dryrun != 'true'
+        timeout-minutes: 6
+        continue-on-error: true
         env:
           WEBSITE_TOKEN: ${{ secrets.WEBSITE_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
