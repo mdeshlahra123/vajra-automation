@@ -140,13 +140,25 @@ for i in todo[-1:]:
 # Guard (owners, 27 Oct): never post a reel without sound. Any silent pending reel is moved to queue "hold".
 if _sh.which("ffmpeg"):
     q = json.load(open(queue_path, encoding="utf-8")); moved = []
+    # 20 Nov fix: the old check read the website URL and treated ANY failed measurement (no "max_volume" line: fetch/HTTPS
+    # error, Vercel not ready) as silence -> 8 reels with normal sound (-3 to -4 dB) were held and 20 Nov 09:30 had nothing.
+    # Now: measure the repo file (social/media) first, URL only as fallback; hold ONLY when ffmpeg really read the file and it
+    # has no audio stream or max_volume < -60 dB. A failed measurement keeps the reel in the queue (daily-post checks Live()).
     for p in [p for p in q["posts"] if not p.get("posted") and p.get("video")][:3]:
+        loc = os.path.join(BASE, "media", os.path.basename(p["video"]))
+        src = loc if os.path.exists(loc) else p["video"]
         try:
-            r = subprocess.run(["ffmpeg", "-hide_banner", "-i", p["video"], "-vn", "-af", "volumedetect", "-f", "null", "-"],
+            r = subprocess.run(["ffmpeg", "-hide_banner", "-i", src, "-vn", "-af", "volumedetect", "-f", "null", "-"],
                                capture_output=True, text=True, timeout=180).stderr
-            mx = float(r.split("max_volume:")[1].split("dB")[0]) if "max_volume:" in r else -99
         except Exception:
             continue
+        if "max_volume:" in r:
+            mx = float(r.split("max_volume:")[1].split("dB")[0])
+        elif "Duration:" in r and "Audio:" not in r:
+            mx = -99                                   # file opened fine, no audio stream at all
+        else:
+            print("audio check skipped (could not read)", p["id"], src[-60:]); continue
+        print("audio", p["id"], mx, "dB")
         if mx < -60:
             q["posts"].remove(p); q.setdefault("hold", []).append(p); moved.append(p["id"])
     if moved:
