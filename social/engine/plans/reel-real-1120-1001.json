@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Ek Aadmi Akele De-shuttering",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 5.0,
+      "end": 9.0,
+      "vo": "Ek thekedar akele sheet nikal le, aisi de-shuttering dekhi hai kabhi?",
+      "text1": "Ek aadmi akele",
+      "text2": "Asaan de-shuttering",
+      "_len": 4.58,
+      "_promised": "real site clip slab-soffit-smooth-proxy.mp4 5.0-9.0s: Ek thekedar akele sheet nikal le, aisi de-shuttering dekhi hai kabhi?"
+    },
+    {
+      "clip": 1,
+      "start": 0.5,
+      "end": 4.0,
+      "vo": "Beam aur slab mould mein fitting ekdum tight baithti hai.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.1,
+      "_promised": "real site clip beambox-pp-ground-1.mp4 0.5-4.0s: Beam aur slab mould mein fitting ekdum tight baithti hai."
+    },
+    {
+      "clip": 2,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Halki sheet hone se column shuttering mein time aadha lagta hai.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.220000000000001,
+      "_promised": "REAL VAJRA photo: tall column shuttered with VAJRA panels on a rooftop site"
+    },
+    {
+      "clip": 3,
+      "start": 0.0,
+      "end": 4.0,
+      "vo": "Concrete finish ekdum smooth aayega, apne thekedar bhai ko zaroor bhejo.",
+      "text1": "",
+      "text2": "",
+      "_len": 5.1,
+      "_promised": "REAL VAJRA photo: REAL owner photo: finished concrete column on site with props"
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Ek thekedar akele sheet sambhal le, to site pe kaam kitna aasan ho jayega?\n\nVAJRA PP shuttering sheet se slab, beam aur column ka kaam tez aur smooth banta hai. Sahi handling ke saath ply se 2-3 guna zyada chalti hai.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\nFollow kijiye @vajraformwork\nCall / WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": true,
+    "scenes": [
+      {
+        "n": 1,
+        "match": true,
+        "seen": "Worker de-shuttering a light-grey sheet from a ceiling slab using a pole with on-screen text 'Ek aadmi akele / Asaan de-shuttering'.",
+        "problem": ""
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Beam mould formwork with light-grey PP sheet lying on the construction ground.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Tall column shuttered with light-grey VAJRA panels and wooden battens on a rooftop site with workers.",
+        "problem": ""
+      },
+      {
+        "n": 4,
+        "match": true,
+        "seen": "Finished smooth concrete column standing on site supported by wooden props.",
+        "problem": ""
+      }
+    ],
+    "issues": []
+  },
+  "review_line": "✅ Reviewer: script aur video match karte hain.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "music failed: HTTP 429: {\"error\":{\"message\":\"Rate limit exceeded for model lyria-3-pro (limit: 0 requests per day on Free Tier). Please upgrade your tier at https://ai.dev/rate-limit.\",\"code\":\"too_many_requests\"}}",
+    "polish: fx ok: comment-box, captions ok",
+    "review: ✅ Reviewer: script aur video match karte hain."
+  ],
+  "seconds": 22.5,
+  "note": "recipe: real clips + real photos. items: slab-soffit-smooth-proxy.mp4; REAL: white PP sheets in red beam-box mould on ground; p2-column.jpg; in-20261026-082817.jpg",
+  "who": "library"
+}
