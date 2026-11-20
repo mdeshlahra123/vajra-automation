@@ -1,0 +1,69 @@
+name: studio-intake
+# Reels made by the Studio business engine on the Oracle server (studio/engine/biz.py, 20 Nov) arrive in the drop repo
+# offhours-lab/vajra-gen under studio/vajra-<job>/ (reel.mp4, caption.txt, meta.json). This imports each new one once:
+# social/media + caption (claims + caption_fix) + pending, then the same path as library reels: Studio QC passed ->
+# straight into the queue + FYI on Telegram ("hatao <id>" removes it). State: social/studio-built.json.
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch: {}
+permissions: { contents: write }
+concurrency: { group: state, cancel-in-progress: false }
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GEMINI_FREE_KEY: ${{ secrets.GEMINI_FREE_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: new
+        run: |
+          git clone -q --depth 1 https://github.com/offhours-lab/vajra-gen.git /tmp/drop
+          python3 - <<'PY'
+          import json, os
+          base = "/tmp/drop/studio"
+          built = json.load(open("social/studio-built.json")) if os.path.exists("social/studio-built.json") else {}
+          new = []
+          for d in sorted(os.listdir(base)) if os.path.isdir(base) else []:
+              m = os.path.join(base, d, "meta.json")
+              if not os.path.exists(m):
+                  continue
+              meta = json.load(open(m))
+              if meta.get("business") == "vajra" and d not in built and os.path.exists(os.path.join(base, d, "reel.mp4")):
+                  new.append(d)
+          print("new drops:", new)
+          open("/tmp/new.txt", "w").write("\n".join(new))
+          open(os.environ["GITHUB_OUTPUT"], "a").write("go=1\n" if new else "go=\n")
+          PY
+      - if: steps.new.outputs.go == '1'
+        run: timeout 240 sudo apt-get install -y -qq ffmpeg >/dev/null
+      - if: steps.new.outputs.go == '1'
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess, sys
+          sys.path.insert(0, "social/engine"); sys.path.insert(0, "social")
+          built = json.load(open("social/studio-built.json")) if os.path.exists("social/studio-built.json") else {}
+          for d in open("/tmp/new.txt").read().split():
+              src = os.path.join("/tmp/drop/studio", d); meta = json.load(open(os.path.join(src, "meta.json")))
+              job = meta["job"]; rid = "reel-studio-" + job
+              r = subprocess.run([sys.executable, "social/engine/intake.py", "--file", os.path.join(src, "reel.mp4"),
+                                  "--caption", os.path.join(src, "caption.txt"), "--id", job, "--title", meta.get("title", ""),
+                                  "--ai", "1" if meta.get("ai") else "0", "--no-push"], capture_output=True, text=True)
+              print(r.stdout[-400:], r.stderr[-400:])
+              if r.returncode != 0:
+                  built[d] = {"status": "refused", "why": (r.stdout + r.stderr)[-200:]}; continue
+              import library_reel
+              library_reel.queue_or_send(rid)
+              built[d] = {"status": "queued", "id": rid}
+          json.dump(built, open("social/studio-built.json", "w"), indent=1)
+          PY
+      - if: steps.new.outputs.go == '1'
+        run: |
+          git config user.name vajra-bot; git config user.email vajra-bot@users.noreply.github.com
+          git add social; git diff --cached --quiet && exit 0
+          git commit -qm "studio intake: reel from the business engine"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done; exit 1
