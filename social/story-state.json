@@ -1,7 +1,6 @@
 {
- "n": 46,
+ "n": 47,
  "photos": [
-  "godown",
   "r-workers",
   "warehouse",
   "v4-point",
@@ -20,7 +19,8 @@
   "beam-box",
   "warehouse",
   "godown",
-  "sheet-cut"
+  "sheet-cut",
+  "in-20261026-082952"
  ],
  "lines": [
   "Aapki site pe har dhalai mein kitni ply kharab hoti hai?",
@@ -59,7 +59,8 @@
   },
   "tip": {
    "0": "2026-11-13",
-   "1": "2026-11-17"
+   "1": "2026-11-17",
+   "2": "2026-11-20"
   },
   "poll": {
    "0": "2026-11-15",
@@ -74,5 +75,5 @@
    "1": "2026-11-20"
   }
  },
- "last": "teaser"
+ "last": "tip"
 }
