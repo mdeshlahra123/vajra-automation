@@ -343,3 +343,8 @@
 2026-11-19 14:01    DONE. 1 posts left in queue.
 2026-11-19 14:01    LOW QUEUE WARNING: add more posts soon.
 2026-11-20 04:03  QUEUE EMPTY (reel) - nothing to post. Add more items to queue.json.
+2026-11-20 04:21  POSTING reel-real-1120-0703
+2026-11-20 04:21    TRIAL reel (non-followers first, auto-share if it performs)
+2026-11-20 04:21    IG OK https://www.instagram.com/reel/Df8yOq6jzLl/
+2026-11-20 04:22    FB OK video 1122933287258591
+2026-11-20 04:22    DONE. 7 posts left in queue.

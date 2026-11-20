@@ -403,7 +403,8 @@
       "status": "approved",
       "msg_id": 534,
       "sent_at": "2026-11-02 16:47",
-      "by": "owner (chat)"
+      "by": "owner (chat)",
+      "publish": "done"
     },
     {
       "id": "reel-real-1102-1647",
