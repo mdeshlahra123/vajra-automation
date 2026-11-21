@@ -634,11 +634,13 @@
     {
       "id": "reel-ai-1116-1001",
       "caption": "captions/reel-ai-1116-1001.txt",
-      "posted": "",
+      "posted": "2026-11-21",
       "video": "https://vajraformwork.vercel.app/social/reel-ai-1116-1001.mp4",
       "ai": true,
       "evening": true,
-      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1116-1001-cover.jpg"
+      "cover": "https://vajraformwork.vercel.app/social/reel-ai-1116-1001-cover.jpg",
+      "slot": "evening",
+      "yt": "uQRwAeNN3Q0"
     },
     {
       "id": "reel-gen-1116-0146",
