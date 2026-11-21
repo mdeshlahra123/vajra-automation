@@ -295,11 +295,12 @@
   - Checked today's posts (reach 353 & 116, normal day).
   - Active WhatsApp ads (L16, L15, L14, L9) running (balance ₹0.00). No ad/queue changes needed; stayed silent on Telegram per autonomy rules.
 
-- 20 Nov 2026 (evening review):
-  - Today's posts hit outlier success: wash and reuse reel reached 1,224 reach (~7x median) and light-weight reel reached 1,043 reach (~6x median).
-  - Promoted today's top winner reel (1,224 reach) to WhatsApp ad (L17 WA).
-  - Retagged morning reel (`reel-ai-1117-0536`) to morning slot (`evening off`) to maintain an untagged morning reel per autonomy rules.
-  - Sent Telegram report on evening review actions.
+- 21 Nov 2026 (daily run):
+  - Followers reached 1,081 (+32). Yesterday's wash & reuse and light-weight reels both reached ~1.2k views/reach.
+  - Ad balance is ₹0.00 INR (top-up reminder sent to owners). Active WhatsApp ads (L17, L16, L15, L14, L9) running.
+  - Queue healthy with 7 pending reels (>= 6, no new AI reel needed).
+  - Sent daily report and shoot request for column deshuttering/water wash video to Shobhit via Telegram.
+
 
 
 
