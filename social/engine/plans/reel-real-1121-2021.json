@@ -1,0 +1,75 @@
+{
+  "ok": true,
+  "issues": [],
+  "title": "Beam mould PP sheet cutting",
+  "segments": [
+    {
+      "clip": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "vo": "Beam shuttering mein har baar ply kharab hoti hai?",
+      "text1": "Beam shuttering",
+      "text2": "Ply kharab?",
+      "_len": 3.5,
+      "_promised": "real site clip beambox-pp-ground-3.mp4 0.0-3.5s: Beam shuttering mein har baar ply kharab hoti hai?"
+    },
+    {
+      "clip": 1,
+      "start": 0.0,
+      "end": 2.3,
+      "vo": "Cutter se kisi bhi size mein aasaani se cut jaati hai.",
+      "text1": "",
+      "text2": "",
+      "_len": 3.9,
+      "_promised": "real site clip pp-cutting-1.mp4 0.0-2.3s: Cutter se kisi bhi size mein aasaani se cut jaati hai."
+    },
+    {
+      "clip": 2,
+      "start": 0.5,
+      "end": 5.2,
+      "vo": "Apne thekedar ko bhejo, beam ka kharcha kam karo.",
+      "text1": "",
+      "text2": "",
+      "_len": 4.7,
+      "_promised": "real site clip pp-cutting-2.mp4 0.5-5.2s: Apne thekedar ko bhejo, beam ka kharcha kam karo."
+    }
+  ],
+  "end_vo": "Comment mein PP likhiye, follow kijiye, rate aapke DM mein.",
+  "caption": "Beam shuttering ke liye baar baar nayi ply lene ki tension khatam kijiye.\n\nVAJRA PP shuttering sheet circular cutter se aasaani se cut jaati hai aur sahi handling ke saath ply se 2-3 guna zyada chalti hai. Har dhalai ka kharcha ply se kam!\n\nPan-India dispatch available from Raipur, Chhattisgarh.\n\nComment mein PP likhiye, follow kijiye, rate aapke DM mein.\n\nFollow kijiye @vajraformwork\nCall ya WhatsApp: 83050 70160\n\n#PPFormwork #PlasticShuttering #Shuttering #Formwork #Construction #Contractors #Builders #Chhattisgarh #Raipur #Durg #Bhilai",
+  "review": {
+    "ok": false,
+    "scenes": [
+      {
+        "n": 1,
+        "match": false,
+        "seen": "Clip beambox-pp-ground-3 showing a beam box with grey VAJRA PP sheet being handled/flipped over on site.",
+        "problem": "Scene 1 is a problem/ply scene ('Ply kharab?') but shows the grey VAJRA PP sheet instead of brown wooden plywood, violating the brand rule."
+      },
+      {
+        "n": 2,
+        "match": true,
+        "seen": "Top-down view of worker using a circular saw to cut a plain grey PP sheet.",
+        "problem": ""
+      },
+      {
+        "n": 3,
+        "match": true,
+        "seen": "Wider shot of a worker cutting a plain grey PP sheet with a circular saw.",
+        "problem": ""
+      }
+    ],
+    "issues": [
+      "Scene 1 violates brand rules: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet."
+    ]
+  },
+  "review_line": "⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 1: Scene 1 is a problem/ply scene ('Ply kharab?') but shows the grey VAJRA PP sheet instead of brown wooden plywood, violating the brand rule.\nScene 1 violates brand rules: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet.",
+  "build_log": [
+    "plan ok=True issues=[]",
+    "music failed: HTTP 429: {\"error\":{\"message\":\"Rate limit exceeded for model lyria-3-pro (limit: 0 requests per day on Free Tier). Please upgrade your tier at https://ai.dev/rate-limit.\",\"code\":\"too_many_requests\"}}",
+    "polish: fx ok: comment-box, captions ok",
+    "review: ⚠️ Reviewer: script se alag hai, dhyan se dekho. | Scene 1: Scene 1 is a problem/ply scene ('Ply kharab?') but shows the grey VAJRA PP sheet instead of brown wooden plywood, violating the brand rule. | Scene 1 violates brand rules: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet."
+  ],
+  "seconds": 16.2,
+  "note": "recipe: full real clips. items: REAL: PP beam-box mould, close; REAL: worker cutting grey PP sheet with circular cutter; REAL: cutting PP sheet to size, cutter",
+  "who": "library"
+}

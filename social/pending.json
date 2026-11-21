@@ -939,6 +939,17 @@
       "status": "approved",
       "by": "auto",
       "publish": "todo"
+    },
+    {
+      "id": "reel-real-1121-2021",
+      "title": "Real reel from library: Beam mould PP sheet cutting (16s)\n⚠️ Reviewer: script se alag hai, dhyan se dekho.\nScene 1: Scene 1 is a problem/ply scene ('Ply kharab?') but shows the grey VAJRA PP sheet instead of brown wooden plywood, violating the brand rule.\nScene 1 violates brand rules: problem/ply scenes must show brown wooden plywood, never the grey VAJRA sheet.",
+      "file": "social/media/reel-real-1121-2021.mp4",
+      "caption": "captions/reel-real-1121-2021.txt",
+      "position": "alternate",
+      "real": true,
+      "status": "approved",
+      "by": "auto",
+      "publish": "todo"
     }
   ]
 }
